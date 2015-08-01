@@ -31,7 +31,7 @@
 				<section>
 					<h4 class='text-primary'>THUMBNAIL</h4>
 					@if ($ArticleComposer['widget_data']['data']['article_db']->thumbnail)
-						{!! HTML::image($ArticleComposer['widget_data']['data']['article_db']->thumbnail, $ArticleComposer['widget_data']['data']['article_db']->title, ['class' => 'img-responsive mb-sm']) !!}
+						{!! Html::image($ArticleComposer['widget_data']['data']['article_db']->thumbnail, $ArticleComposer['widget_data']['data']['article_db']->title, ['class' => 'img-responsive mb-sm']) !!}
 					@else
 						<i>No thumbnail</i>
 					@endif

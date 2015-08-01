@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Directory extends BaseModel
+class Place extends BaseModel
 {
 	use HasNameTrait, HasSlugTrait, HasPublishedAtTrait;
 
     //
-	protected $table = 'directories';
+	protected $table = 'places';
 	protected $fillable = [
 							'name', 
 							'slug', 

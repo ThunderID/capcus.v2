@@ -13,6 +13,10 @@
 
 error_reporting(E_ERROR);
 
+View::composer('*', function($view){
+    View::share('widget_name', $view->getName());
+});
+
 require_once('route_admin.php');
 require_once('route_api.php');
 require_once('route_web.php');

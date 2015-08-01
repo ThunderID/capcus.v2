@@ -1,4 +1,4 @@
-	{!! HTML::script(asset('plugins/slugify/jquery.slugify.js')) !!}
+	{!! Html::script(asset('plugins/slugify/jquery.slugify.js')) !!}
 
 <script>
 	$('.slugify').each( function() {

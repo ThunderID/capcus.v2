@@ -3,12 +3,11 @@
 	// PREDEFINED VARIABLE
 	// ------------------------------------------------------------------------------------------------------------------------
 	$widget_errors 	= new \Illuminate\Support\MessageBag;
-	$widget_name	= 'ArticleCategory:DataTable';
 
 	// ------------------------------------------------------------------------------------------------------------------------
 	// REQUIRED VARIABLES
 	// ------------------------------------------------------------------------------------------------------------------------
-	$required_variables = ['articles'];
+	$required_variables = ['destinations'];
 	foreach ($required_variables as $x)
 	{
 		if (!array_key_exists($x, get_defined_vars()))
@@ -22,22 +21,19 @@
 
 @if (!$widget_error_count)
 	@section('widget_title')
-		@if (method_exists($categories, 'total'))
-			{{number_format($categories->total())}} results :
+		@if (method_exists($destinations, 'total'))
+			{{number_format($destinations->total())}} results :
 		@else
-			{{number_format($categories->count())}} results :
+			{{number_format($destinations->count())}} results :
 		@endif
 
 		@if (count(array_filter($filters)))
-
-			@if ($CategoryComposer['widget_data']['data']['filter_category_name'])
-				<a href='{{route("admin." . $route_name . ".index", array_except($filters, "filter_category_name"))}}' class="label label-primary ml-xs">
+			@foreach ($filters as $k => $v)
+				<a href='{{route("admin." . $route_name . ".index", array_except($filters, $k))}}' class="label label-primary ml-xs">
 					<i class='glyphicon glyphicon-remove'></i> 
-					Title: 
-					{{$CategoryComposer['widget_data']['data']['filter_category_name'] . '*'}}
+					{{$k}}: {{$v}}
 				</a>
-			@endif
-
+			@endforeach
 		@else
 			all {{str_plural(str_replace('_', ' ', $view_name))}}
 		@endif
@@ -48,24 +44,33 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>Name</th>
-					<th><span class="fa fa-sort-asc" aria-hidden="true">Path</th>
+					<th><span class="fa fa-sort-asc" aria-hidden="true"> Destination</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php $i = 0; ?>
-				@forelse ($categories as $x)
+				@forelse ($destinations as $x)
 					<tr class="text-regular">
 						<td>
-							@if (method_exists($categories, 'firstItem'))
-								{{$categories->firstItem() + $i++}}
+							@if (method_exists($destinations, 'firstItem'))
+								{{$destinations->firstItem() + $i++}}
 							@else
 								{{++$i}}
 							@endif
 						</td>
-						<td>{{$x->name}}</td>
-						<td>{{$x->path_name}}</td>
+						<td>
+							<?php
+								$tmp = explode($x->getDelimiter() , $x->ori_path);
+							?>
+							@foreach ($tmp as $k => $region)
+								@if ($k != count($tmp) - 1)
+									{{$region}} &gt;
+								@else
+									<span class='text-primary text-bold'>{{$x->name}}</span>
+								@endif
+							@endforeach
+						</td>
 						<td class='text-right'>
 							<div class="btn-group">
 								<a href='{{route("admin." . $route_name . ".edit", ["id" => $x->id])}}' type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></a>
@@ -84,11 +89,11 @@
 		</table>
 		<hr>
 		<div class="text-center">
-			@if ($categories)
-				@if (method_exists($categories, 'firstItem'))
-					@if ($categories->total())
-						Displaying {{ $categories->total() > 0 ? $categories->firstItem() . ' - ' . $categories->lastItem() : 0 }} of {!! $categories->total() !!} 
-						<div>{!! $categories->appends($filters)->render() !!}</div>
+			@if ($destinations)
+				@if (method_exists($destinations, 'firstItem'))
+					@if ($destinations->total())
+						Displaying {{ $destinations->total() > 0 ? $destinations->firstItem() . ' - ' . $destinations->lastItem() : 0 }} of {!! $destinations->total() !!} 
+						<div>{!! $destinations->appends($filters)->render() !!}</div>
 					@else
 						0 Results
 					@endif

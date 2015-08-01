@@ -43,7 +43,7 @@
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<div class="row">
 							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-								{!! HTML::image($tour->thumbnail_lg, $tour->name, ['class' => 'fullwidth tour_thumbnail', 'data-src' => $tour->thumbnail_lg]) !!}
+								{!! Html::image($tour->thumbnail_lg, $tour->name, ['class' => 'fullwidth tour_thumbnail', 'data-src' => $tour->thumbnail_lg]) !!}
 							</div>
 							<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 								<h4 class='text-bold'>{{$tour->name}}</h4>

@@ -1,3 +1,22 @@
+<?php
+	// ------------------------------------------------------------------------------------------------------------------------
+	// PREDEFINED VARIABLE
+	// ------------------------------------------------------------------------------------------------------------------------
+	$widget_errors 	= new \Illuminate\Support\MessageBag;
+
+	// ------------------------------------------------------------------------------------------------------------------------
+	// REQUIRED VARIABLES
+	// ------------------------------------------------------------------------------------------------------------------------
+	$required_variables = [];
+	foreach ($required_variables as $x)
+	{
+		if (!array_key_exists($x, get_defined_vars()))
+		{
+			throw new Exception($widget_name . ": $" .$x.': has not been set', 10);
+		}
+	}
+?>
+
 @extends('admin.widget_templates.' . ($widget_template ? $widget_template : 'plain_no_title'))
 
 @if (!$widget_error_count)

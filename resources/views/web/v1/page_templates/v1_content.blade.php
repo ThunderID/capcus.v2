@@ -10,7 +10,7 @@
 {{----------------------------------------------------------------------------------------------------------------------}}
 @section('sidebar_1')
 	<a href='{{route("web.home")}}'>
-		{!! HTML::image(asset('images/logo-black-sm.png'), '', ['class' => 'fullwidth']) !!}
+		{!! Html::image(asset('images/logo-black-sm.png'), '', ['class' => 'fullwidth']) !!}
 	</a>
 @stop
 

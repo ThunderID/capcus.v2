@@ -2,7 +2,7 @@
 
 use Validator, \Illuminate\Support\MessageBag;
 
-class DirectoryObserver {
+class PlaceObserver {
 
 	// ----------------------------------------------------------------
 	// SAVE

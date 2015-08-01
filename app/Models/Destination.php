@@ -6,14 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destination extends BaseModel
 {
-	use HasNameTrait, HasSlugTrait;
+	use HasNameTrait, HasSlugTrait, TreeTrait;
 
     //
 	protected $table = 'destinations';
 	protected $fillable = [
 							'name', 
-							'slug', 
+							'parent_id'
 						];
+	static $name_field = 'name';
+	static $slug_field = 'slug';
+	static $path_field = 'path';
 
 	// ----------------------------------------------------------------------
 	// BOOT
@@ -22,8 +25,8 @@ class Destination extends BaseModel
 	{
 		parent::boot();
 		Static::observe(new DestinationObserver);
-		Static::observe(new HasNameFieldObserver);
-		Static::observe(new HasSlugFieldObserver);
+		Static::observe(new HasNameObserver);
+		Static::observe(new TreeObserver);
 	}
 
 	// ----------------------------------------------------------------------

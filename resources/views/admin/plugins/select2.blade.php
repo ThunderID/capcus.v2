@@ -1,5 +1,5 @@
-{!! HTML::style('plugins/select2/css/select2.min.css') !!}
-{!! HTML::script('plugins/select2/js/select2.min.js') !!}
+{!! Html::style('plugins/select2/css/select2.min.css') !!}
+{!! Html::script('plugins/select2/js/select2.min.js') !!}
 
 <script>
 	// ---------------------------- BASIC SELECT2 ----------------------------

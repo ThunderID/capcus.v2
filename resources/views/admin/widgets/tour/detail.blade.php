@@ -11,14 +11,14 @@
 				<section>
 					<h4 class='text-primary'>SMALL THUMBNAIL</h4>
 					@if ($TourComposer['widget_data']['data']['tour_db']->thumbnail_sm)
-						{!! HTML::image($TourComposer['widget_data']['data']['tour_db']->thumbnail_sm, $TourComposer['widget_data']['data']['tour_db']->title, ['class' => 'img-responsive mb-sm']) !!}
+						{!! Html::image($TourComposer['widget_data']['data']['tour_db']->thumbnail_sm, $TourComposer['widget_data']['data']['tour_db']->title, ['class' => 'img-responsive mb-sm']) !!}
 					@else
 						<i>No thumbnail</i>
 					@endif
 
 					<h4 class='text-primary'>LARGE THUMBNAIL</h4>
 					@if ($TourComposer['widget_data']['data']['tour_db']->thumbnail_lg)
-						{!! HTML::image($TourComposer['widget_data']['data']['tour_db']->thumbnail_lg, $TourComposer['widget_data']['data']['tour_db']->title, ['class' => 'img-responsive mb-sm']) !!}
+						{!! Html::image($TourComposer['widget_data']['data']['tour_db']->thumbnail_lg, $TourComposer['widget_data']['data']['tour_db']->title, ['class' => 'img-responsive mb-sm']) !!}
 					@else
 						<i>No thumbnail</i>
 					@endif

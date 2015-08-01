@@ -43,7 +43,7 @@
 
 	@section('js')
 		@parent
-		{!! HTML::script('plugins/owl.carousel-2/owl-carousel/owl.carousel.min.js') !!}
+		{!! Html::script('plugins/owl.carousel-2/owl-carousel/owl.carousel.min.js') !!}
 
 		<script>
 			$('.owl-carousel').owlCarousel({
@@ -71,8 +71,8 @@
 
 	@section('css')
 		@parent
-		{!! HTML::style('plugins/owl.carousel-2/owl-carousel/owl.carousel.css') !!}
-		{!! HTML::style('plugins/owl.carousel-2/owl-carousel/owl.theme.css') !!}
+		{!! Html::style('plugins/owl.carousel-2/owl-carousel/owl.carousel.css') !!}
+		{!! Html::style('plugins/owl.carousel-2/owl-carousel/owl.theme.css') !!}
 	@stop
 @else
 	@section('widget_title')

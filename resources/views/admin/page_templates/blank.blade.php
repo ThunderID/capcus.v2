@@ -8,7 +8,7 @@
 
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800' rel='stylesheet' type='text/css'>
 		<!-- Bootstrap CSS -->
-		{!! HTML::style(elixir('css/admin.css'))!!}
+		{!! Html::style(elixir('css/admin.css'))!!}
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

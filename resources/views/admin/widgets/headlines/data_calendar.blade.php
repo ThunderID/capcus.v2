@@ -47,8 +47,8 @@
 	@section('js')
 		@parent
 
-		{!! HTML::script('plugins/fullcalendar/lib/moment.min.js') !!}
-		{!! HTML::script('plugins/fullcalendar/fullcalendar.min.js') !!}
+		{!! Html::script('plugins/fullcalendar/lib/moment.min.js') !!}
+		{!! Html::script('plugins/fullcalendar/fullcalendar.min.js') !!}
 
 		<script type="text/javascript">
 			$('#calendar').fullCalendar({
@@ -75,7 +75,7 @@
 
 	@section('css')
 		@parent
-		{!! HTML::style('plugins/fullcalendar/fullcalendar.min.css') !!}
+		{!! Html::style('plugins/fullcalendar/fullcalendar.min.css') !!}
 	@overwrite
 @else
 	@section('widget_title')

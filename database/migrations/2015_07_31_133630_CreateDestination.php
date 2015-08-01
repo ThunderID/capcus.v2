@@ -15,13 +15,11 @@ class CreateDestination extends Migration
         Schema::create('destinations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('slug');
             $table->string('path');
             $table->string('parent_id')->nullable();
 
             $table->timestamps();
 
-            $table->index('slug');
             $table->index('path');
             $table->index('parent_id');
         });

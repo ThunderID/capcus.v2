@@ -17,6 +17,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 			]);
 
 		$routes = [	
+						'destinations'			=> "DestinationController",
 						'blog' 					=> "BlogController",
 						'article_category' 		=> "ArticleCategoryController",
 						'vendor' 				=> "VendorController",
@@ -29,7 +30,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 					];
 
 		$additional_routes = [
-						'blog'				=> [],
+						'destinations'			=> [],
+						'blog'					=> [],
 						'article_category'		=> [],
 						'vendor'				=> [
 													'getSubscription'	=> 'admin.vendor.subscription',

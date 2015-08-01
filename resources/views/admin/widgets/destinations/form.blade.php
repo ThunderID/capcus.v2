@@ -1,16 +1,36 @@
+<?php
+	// ------------------------------------------------------------------------------------------------------------------------
+	// PREDEFINED VARIABLE
+	// ------------------------------------------------------------------------------------------------------------------------
+	$widget_errors 	= new \Illuminate\Support\MessageBag;
+
+	// ------------------------------------------------------------------------------------------------------------------------
+	// REQUIRED VARIABLES
+	// ------------------------------------------------------------------------------------------------------------------------
+	$required_variables = ['destination', 'parent_destinations'];
+	foreach ($required_variables as $x)
+	{
+		if (!array_key_exists($x, get_defined_vars()))
+		{
+			throw new Exception($widget_name . ": $" .$x.': has not been set', 10);
+		}
+	}
+?>
+
+
 @extends('admin.widget_templates.' . ($widget_template ? $widget_template : 'plain_no_title'))
 
 @if (!$widget_error_count)
 	@section('widget_title')
-		@if ($CategoryComposer['widget_data']['data']['category_db']->id)
-			Edit Article Category: {{$CategoryComposer['widget_data']['data']['category_db']->path_name}}
+		@if ($destination->id)
+			Edit Article Category: {{$destination->path_name}}
 		@else
 			Create new Article Category:
 		@endif
 	@overwrite
 
 	@section('widget_body')
-		{!! Form::open(['method' => 'post', 'url' => route('admin.'.$route_name.'.store', ['id' => $CategoryComposer['widget_data']['data']['category_db']->id]), 'class' => 'no_enter' ]) !!}
+		{!! Form::open(['method' => 'post', 'url' => route('admin.'.$route_name.'.store', ['id' => $destination->id]), 'class' => 'no_enter' ]) !!}
 		<div class="row mb-lg">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
 				<div class="well">
@@ -20,7 +40,7 @@
 						@if ($errors->has('name'))
 							<span class='text-danger pull-right'>{{implode(', ', $errors->get('name'))}}</span>
 						@endif
-						{!! Form::text('name', $CategoryComposer['widget_data']['data']['category_db']->name, [
+						{!! Form::text('name', $destination->name, [
 																'class' 			=> 'form-control', 
 																'placeholder' 		=> 'enter name here', 
 																'required' 			=> 'required',
@@ -31,17 +51,17 @@
 						!!}
 					</div>
 					<div class='mb-sm'>	
-						<strong class='text-uppercase'>Category</strong>
-						@if ($errors->has('category'))
-							<span class='text-danger pull-right'>{{implode(', ', $errors->get('category'))}}</span>
+						<strong class='text-uppercase'>Subregion Of</strong>
+						@if ($errors->has('parent_id'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('parent_id'))}}</span>
 						@endif
-						{!! Form::select('parent_id', ['' => '-'] + $CategoryComposer['widget_data']['parent_category_list']['category_db']->lists('path_name', 'id'), $CategoryComposer['widget_data']['data']['category_db']->parent_id, [
+						{!! Form::select('parent_id', $parent_destinations->lists('path', 'id'), $destination->parent_id, [
 																'class' 			=> 'form-control select2', 
 																'required' 			=> 'required',
-																'placeholder' 		=> 'enter category url here',
-																'data-toggle'		=> ($errors->has('category') ? 'tooltip' : ''), 
+																'placeholder' 		=> 'Please select the region this destination located in',
+																'data-toggle'		=> ($errors->has('parent_id') ? 'tooltip' : ''), 
 																'data-placement'	=> 'left', 
-																'title' 			=> ($errors->has('category') ? $errors->first('category') : ''), 
+																'title' 			=> ($errors->has('parent_id') ? $errors->first('parent_id') : ''), 
 															]) 
 						!!}
 					</div>

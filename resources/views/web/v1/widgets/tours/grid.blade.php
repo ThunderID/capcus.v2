@@ -48,7 +48,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading pr-0 pb-0 pt-0 pl-0 overflowhidden">
 								<div class='relative'>
-									{!! HTML::image($tour->thumbnail_lg, $tour->name, ['class' => 'fullwidth tour_thumbnail', 'data-src' => $tour->thumbnail_lg]) !!}
+									{!! Html::image($tour->thumbnail_lg, $tour->name, ['class' => 'fullwidth tour_thumbnail', 'data-src' => $tour->thumbnail_lg]) !!}
 									<div class=' discount_label absolute topleft ml-xs pt-xs '>
 										<div class='text-primary text-lg'>{{number_format($most_discount_schedule->discount / 1000)}}</div>
 										@if ($most_discount_schedule->discount % 1000 == 0)

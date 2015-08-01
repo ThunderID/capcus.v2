@@ -25,7 +25,7 @@
 						<div class="panel panel-default ">
 							<div class="panel-heading pr-0 pb-0 pt-0 pl-0 overflowhidden">
 								<div class='relative'>
-									{!! HTML::image($tour->thumbnail_lg, $tour->name, ['class' => 'fullwidth tour_thumbnail', 'data-src' => $tour->thumbnail_lg]) !!}
+									{!! Html::image($tour->thumbnail_lg, $tour->name, ['class' => 'fullwidth tour_thumbnail', 'data-src' => $tour->thumbnail_lg]) !!}
 								</div>
 							</div>
 							<div class="panel-body relative">
@@ -43,7 +43,7 @@
 						{{-- VENDOR SUMMARY --}}
 						<div class="well well-sm text-center pb-md">
 							<a href='{{route("web.tour", ["vendor" => $tour->vendor->slug])}}' title='Klik untuk melihat semua tour dari {{$tour->vendor->name}}'>
-								{!! HTML::image($tour->vendor->logo_sm, $tour->vendor->name, ['class' => '', 'style' => "height:100px"]) !!}
+								{!! Html::image($tour->vendor->logo_sm, $tour->vendor->name, ['class' => '', 'style' => "height:100px"]) !!}
 							</a>
 							<br><strong class='text-uppercase'>{{$tour->vendor->name}}</strong>
 							<br>{{$tour->vendor->address}}
@@ -137,7 +137,7 @@
 
 	@section('js')
 		@parent
-		{!! HTML::script('plugins/owl.carousel-2/owl-carousel/owl.carousel.min.js') !!}
+		{!! Html::script('plugins/owl.carousel-2/owl-carousel/owl.carousel.min.js') !!}
 
 		<script>
 			$('.owl-carousel').owlCarousel({
@@ -165,7 +165,7 @@
 
 	@section('css')
 		@parent
-		{!! HTML::style('plugins/owl.carousel-2/owl-carousel/owl.carousel.css') !!}
-		{!! HTML::style('plugins/owl.carousel-2/owl-carousel/owl.theme.css') !!}
+		{!! Html::style('plugins/owl.carousel-2/owl-carousel/owl.carousel.css') !!}
+		{!! Html::style('plugins/owl.carousel-2/owl-carousel/owl.theme.css') !!}
 	@stop
 @stop

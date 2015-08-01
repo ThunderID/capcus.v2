@@ -12,14 +12,14 @@
 					<h4 class='text-primary'>LOGO</h4>
 					<p><strong>Small Logo</strong></p>
 					@if ($VendorComposer['widget_data']['data']['vendor_db']->logo_sm)
-						{!! HTML::image($VendorComposer['widget_data']['data']['vendor_db']->logo_sm, $VendorComposer['widget_data']['data']['vendor_db']->title, ['class' => 'img-responsive mb-sm']) !!}
+						{!! Html::image($VendorComposer['widget_data']['data']['vendor_db']->logo_sm, $VendorComposer['widget_data']['data']['vendor_db']->title, ['class' => 'img-responsive mb-sm']) !!}
 					@else
 						<i>No Small Logo</i>
 					@endif
 
 					<p><strong>Large Logo</strong></p>
 					@if ($VendorComposer['widget_data']['data']['vendor_db']->logo_lg)
-						{!! HTML::image($VendorComposer['widget_data']['data']['vendor_db']->logo_lg, $VendorComposer['widget_data']['data']['vendor_db']->title, ['class' => 'img-responsive mb-sm']) !!}
+						{!! Html::image($VendorComposer['widget_data']['data']['vendor_db']->logo_lg, $VendorComposer['widget_data']['data']['vendor_db']->title, ['class' => 'img-responsive mb-sm']) !!}
 					@else
 						<i>No Large Logo</i>
 					@endif

@@ -2,21 +2,42 @@
 
 use Validator, \Illuminate\Support\MessageBag;
 
-class DestinationObserver {
+class TreeObserver {
 
 	// ----------------------------------------------------------------
 	// SAVE
 	// ----------------------------------------------------------------
 	public function saving($model)
 	{
+		$new_instance = $model->newInstance();
+
 		// RULES
-		$rules = [];
+		$rules['parent_id']				= ['integer', 'min:0'];
+		if ($model->parent_id)
+		{
+			$rules['parent_id'][] = 'exists:' . $model->getTable() . ',id';
+		}
+
 
 		$validator = Validator::make($model->toArray(), $rules);
 		if ($validator->fails())
 		{
 			$model->setErrors($validator->messages());
 			return false;
+		}
+		else 
+		{
+			if ($model->parent_id)
+			{
+				$parent = $new_instance->findorfail($model->parent_id);
+
+				$model->{$model->getPathField()}  = $parent->ori_path;
+				$model->{$model->getPathField()} = ($model->ori_path ? $model->ori_path . $model->getDelimiter() : '') . str_slug($model->{$model->getNameField()});
+			}
+			else
+			{
+				$model->{$model->getPathField()} = str_slug($model->{$model->getNameField()});
+			}
 		}
 	}
 
@@ -47,7 +68,13 @@ class DestinationObserver {
 
 	public function updated($model)
 	{
-
+		if (!str_is($model->{$model->getPathField()}, $model->getOriginal($model->getPathField())))
+		{
+			foreach ($model->children as $x)
+			{
+				$x->save();
+			}
+		}
 	}
 
 	// ----------------------------------------------------------------
@@ -55,11 +82,11 @@ class DestinationObserver {
 	// ----------------------------------------------------------------
 	public function deleting($model)
 	{
-		// if ($model->children->count())
-		// {
-		// 	$model->setErrors(new MessageBag(['hasChildren' => 'unable to delete this content as it has children content']));
-		// 	return false;
-		// }	
+		if ($model->children->count())
+		{
+			$model->setErrors('Fail to delete ' . $model->{$model->getNameField()} . ' as it has subtrees');
+			return false;
+		}
 	}
 
 	public function deleted($model)

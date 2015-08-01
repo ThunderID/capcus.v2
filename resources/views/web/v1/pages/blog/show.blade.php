@@ -22,11 +22,11 @@
 					<div class="clearfix mb-xs"></div>
 
 					<div class='text-center hidden-xs'>
-						{!! HTML::image($article->thumbnail, $article->title, ['class' => 'width50']) !!}
+						{!! Html::image($article->thumbnail, $article->title, ['class' => 'width50']) !!}
 					</div>
 
 					<div class='text-center hidden-lg hidden-md hidden-sm'>
-						{!! HTML::image($article->thumbnail, $article->title, ['class' => 'fullwidth']) !!}
+						{!! Html::image($article->thumbnail, $article->title, ['class' => 'fullwidth']) !!}
 					</div>
 
 					<div class="clearfix mb-md"></div>

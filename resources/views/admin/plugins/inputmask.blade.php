@@ -1,4 +1,4 @@
-{!! HTML::script(asset('plugins/jquery.inputmask/jquery.inputmask.bundle.min.js')) !!}
+{!! Html::script(asset('plugins/jquery.inputmask/jquery.inputmask.bundle.min.js')) !!}
 
 <script>
 	$(document).ready(function(){

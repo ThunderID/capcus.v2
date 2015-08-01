@@ -25,12 +25,12 @@
 
 				<p>
 					<strong>Small Image</strong>
-					<br>{!! HTML::image($HeadlineComposer['widget_data']['data']['headline_db']->image_sm, 'small image', ['class' => 'img-thumbnail']) !!}
+					<br>{!! Html::image($HeadlineComposer['widget_data']['data']['headline_db']->image_sm, 'small image', ['class' => 'img-thumbnail']) !!}
 				</p>
 
 				<p>
 					<strong>Large Image</strong>
-					<br>{!! HTML::image($HeadlineComposer['widget_data']['data']['headline_db']->image_lg, 'large image', ['class' => 'img-thumbnail']) !!}
+					<br>{!! Html::image($HeadlineComposer['widget_data']['data']['headline_db']->image_lg, 'large image', ['class' => 'img-thumbnail']) !!}
 				</p>
 
 			</div>

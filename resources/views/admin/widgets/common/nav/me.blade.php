@@ -7,7 +7,7 @@
 
 	@section('widget_body')
 		<ul>
-			<li><a href='{{route("admin.me.update_password")}}' class=''>My Account</a></li>
+			<li><a href='{{route("admin.dashboard")}}' class=''>My Account</a></li>
 			<li><a href='{{route("admin.me.update_password")}}' class=''>Update Password</a></li>
 			<li><a href='{{route("admin.logout")}}' class=''>Logout</a></li>
 		</ul>

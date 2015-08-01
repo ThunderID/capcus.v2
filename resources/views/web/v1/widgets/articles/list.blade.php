@@ -30,7 +30,7 @@
 			<div class='row mb-sm'>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 					<a href='{{ route("web.blog.show", ["year" => $x->published_at->year, "month" => $x->published_at->month, "slug" => $x->slug]) }}' class='text-black text-md text-uppercase'>
-						{!! HTML::image($x->thumbnail, $x->title, ['class' => 'img-responsive pull-left border-black border-1', 'data-src' => $x->thumbnail]) !!}
+						{!! Html::image($x->thumbnail, $x->title, ['class' => 'img-responsive pull-left border-black border-1', 'data-src' => $x->thumbnail]) !!}
 					</a>
 				</div>
 				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">

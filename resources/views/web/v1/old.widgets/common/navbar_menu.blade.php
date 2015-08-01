@@ -30,7 +30,7 @@
 						<span class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="{{route('web.home')}}">
-						{!! HTML::image('images/logo-white-sm.png', 'Capcus', ['class' => '', 'style' => 'max-height:100%']) !!}
+						{!! Html::image('images/logo-white-sm.png', 'Capcus', ['class' => '', 'style' => 'max-height:100%']) !!}
 					</a>
 				</div>
 			

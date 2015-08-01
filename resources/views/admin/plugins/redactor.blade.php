@@ -1,5 +1,5 @@
-{!! HTML::script(asset('plugins/redactor/redactor.min.js')) !!}
-{!! HTML::style(asset('plugins/redactor/redactor.css')) !!}
+{!! Html::script(asset('plugins/redactor/redactor.min.js')) !!}
+{!! Html::style(asset('plugins/redactor/redactor.css')) !!}
 
 <script>
 	$('.wysiwyg').redactor({

@@ -29,14 +29,14 @@
 						<div class="panel panel-default ">
 							<div class="panel-heading pr-0 pl-0 overflowhidden bg-primary pt-0 pb-0">
 								<div class='relative text-center'>
-									{!! HTML::image($x->logo_sm, $x->name, ['class' => 'img-circle width50 mt-sm mb-sm', 'data-src' => $x->logo_sm]) !!}
+									{!! Html::image($x->logo_sm, $x->name, ['class' => 'img-circle width50 mt-sm mb-sm', 'data-src' => $x->logo_sm]) !!}
 								</div>
 							</div>
 							<div class="panel-body text-center relative">
 								<h4 class='text-bold text-uppercase'>{{$x->name}}</h4>
 								{{$x->address}}
 								<br>{{$x->phone}}
-								<br>{!! HTML::link($x->website, $x->website, ['target' => '_blank']) !!}
+								<br>{!! Html::link($x->website, $x->website, ['target' => '_blank']) !!}
 
 								<div class='absolute bottomleft text-center col-xs-12 pl-0 pr-0 border-0 border-top-1 border-light border-solid'>
 									<div class="row">

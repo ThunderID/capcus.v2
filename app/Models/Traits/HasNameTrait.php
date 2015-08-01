@@ -5,7 +5,7 @@ use Illuminate\Support\MessageBag;
 trait HasNameTrait {
 
 	//
-	protected function scopeNameLike($q, $v = null)
+	public function scopeNameLike($q, $v = null)
 	{
 		if (!$v)
 		{

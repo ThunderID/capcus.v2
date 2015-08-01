@@ -6,7 +6,7 @@
 	@overwrite
 
 	@section('widget_body')
-		{!! HTML::image('http://placehold.it/728x90', 'advertisement 728x90', ['width' => '728' , 'height' => '90']) !!}
+		{!! Html::image('http://placehold.it/728x90', 'advertisement 728x90', ['width' => '728' , 'height' => '90']) !!}
 	@overwrite
 @else
 	@section('widget_title')

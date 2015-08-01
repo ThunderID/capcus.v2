@@ -128,7 +128,7 @@
 	</div>
 
 	<!-- Bootstrap CSS -->
-	{!! HTML::style(elixir('css/style1.css'))!!}
+	{!! Html::style(elixir('css/style1.css'))!!}
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

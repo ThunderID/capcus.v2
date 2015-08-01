@@ -9,12 +9,12 @@ trait TreeTrait {
 	// ----------------------------------------------------------------------
 	public function children()
 	{
-		return $this->hasMany(Static::getTable(), 'parent_id');
+		return $this->hasMany(get_class($this), 'parent_id');
 	}
 
 	public function parent()
 	{
-		return $this->belongsTo(Static::getTable(), 'parent_id');
+		return $this->belongsTo(get_class($this), 'parent_id');
 	}
 
 	// ----------------------------------------------------------------------
@@ -28,11 +28,11 @@ trait TreeTrait {
 		}
 		else
 		{
-			$subtree = Category::find($v);
+			$subtree = Static::find($v);
 
 			if ($subtree->id)
 			{
-				return $q->where($this->path_field, 'not like', $subtree->ori_path_name . '%');
+				return $q->where($this->getPathField(), 'not like', $subtree->ori_path . '%');
 			}
 			else
 			{
@@ -58,7 +58,7 @@ trait TreeTrait {
 		}	
 	}
 
-	public function scopeFindPathName($q, $v = null)
+	public function scopeFindPath($q, $v = null)
 	{
 		if (!$v)
 		{
@@ -68,7 +68,7 @@ trait TreeTrait {
 		{
 			$v = str_replace("*", "%", $v);
 			$v = str_replace(" ", "-", $v);
-			return $q->where($this->path_field, 'like', $v);
+			return $q->where($this->getPathField(), 'like', $v);
 		}
 	}
 
@@ -77,22 +77,27 @@ trait TreeTrait {
 	// ----------------------------------------------------------------------
 	function getDescendantAttribute()
 	{
-		return Static::where($this->path_field, 'not like', $this->attributes[$this->path_field] . Static::getDelimiter() . '%');
+		return Static::where($this->getPathField(), 'not like', $this->attributes[$this->getPathField()] . Static::getDelimiter() . '%');
 	}
 
-	function getPathNameAttribute()
+	function getPathAttribute()
 	{
-		return str_replace('-', ' ', str_replace(Static::getDelimiter(), ' > ', $this->attributes[$this->path_field]));
+		return str_replace('-', ' ', str_replace(Static::getDelimiter(), ' > ', $this->attributes[$this->getPathField()]));
 	}
 
-	function getOriPathNameAttribute()
+	function getOriPathAttribute()
 	{
-		return $this->attributes[$this->path_field];
+		return $this->attributes[$this->getPathField()];
 	}
 
-	function getPathNameSlug()
+	function getPathSlug()
 	{
-		return str_replace('-', ' ', str_replace(Static::getDelimiter(), ',', $this->attributes[$this->path_field]));
+		return str_replace('-', ' ', str_replace(Static::getDelimiter(), ',', $this->attributes[$this->getPathField()]));
+	}
+
+	function getLevelAttribute()
+	{
+		return count(explode($this->getDelimiter(), $this->ori_path));
 	}
 
 	// ----------------------------------------------------------------------
@@ -103,8 +108,8 @@ trait TreeTrait {
 		return Static::$path_field ? Static::$path_field : 'path';
 	}
 
-	static function getgetDelimiter()
+	static function getDelimiter()
 	{
-		return Static::$delimiter ? Static::$delimiter : ';;;';
+		return isset(Static::$delimiter) ? Static::$delimiter : ';;;';
 	}
 }
