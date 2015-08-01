@@ -1,0 +1,172 @@
+@import "bootstrap/bootstrap";
+
+@import "components/variables";
+@import "components/spacing";
+@import "components/typo";
+@import "components/background";
+@import "components/well";
+@import "components/layout";
+@import "components/input";
+@import "components/button";
+@import "components/border";
+@import "components/bootstrap_hack";
+@import "components/image";
+
+// ------------------------------------------------------------
+// 
+// ------------------------------------------------------------
+* { -webkit-font-smoothing: subpixel-antialiased; image-rendering: -moz-crisp-edges; }
+
+body{ 
+	background:@color-white;
+	&:extend(.text-light);
+	height: 100%;
+	background:#f5f5f5;
+	font-family: @font-family-sans-serif;
+	overflow-x:hidden;
+}
+
+@media(max-width:@screen-lg) {
+	body { padding-top: 0px; }
+}
+
+hr { border-color:@color-dark; border-width: 1px 0 0 0; width:100%; height:1px; margin-top:@space-0; margin-bottom: @space-0;}
+
+.font-decorative { font-family: @font-family-decorative;}
+
+.overflowhidden { overflow: hidden;}
+
+// ------------------------------------------------------------
+// LOGO
+// ------------------------------------------------------------
+.logo_nav { width:200px; margin-top:5px; margin-bottom:5px;}
+.logo_sidebar { width:100%;}
+
+// ------------------------------------------------------------
+// SIDEBAR
+// ------------------------------------------------------------
+#sidebar-wrapper  { 
+	ul { 
+		list-style: none; 
+		padding:@space-0;
+		margin:@space-0 @space-0 @space-0 @space-sm;
+		
+		li {
+			a { 
+				text-decoration: none; 
+				padding-top: @space-xs;
+				padding-bottom: @space-xs;
+				display: block; 
+				text-indent: @space-xs;
+			}
+		}
+
+		li:hover { 
+			a {
+				background:@color-primary;
+				color:@color-white;
+			}
+		}
+
+		li a.active { 
+			background:@color-primary;
+			color:@color-white !important;
+		}
+	}
+}
+// ------------------------------------------------------------
+// SEARCH
+// ------------------------------------------------------------
+#search { height:0px; }
+#search.toggled { height:100px !important;}
+.searchbar { 
+	padding:5px 0px;
+}
+@media (min-width:@screen-md) { 
+	.pt-searchbar { padding-top:32px; }
+}
+@media (max-width:@screen-md) { 
+	.pt-searchbar { padding-top:24px; }
+	.mt-searchbar { margin-top:60px;}
+}
+
+@media (min-width:@screen-lg) {
+	.searchbar { 
+		select { max-width:225px; width: 20%; }
+	}
+}
+@media (min-width:@screen-md) and (max-width:@screen-lg) {
+	.searchbar { 
+		select { max-width: 170px; width: 20%; }
+	}
+}
+@media (min-width:@screen-sm) and(max-width:@screen-md) {
+	.searchbar { 
+		margin-top:7px;
+		select { max-width: 100px; width: 10%; }
+	}
+}
+@media (max-width:@screen-sm) { 
+	.searchbar { 
+		margin-top:7px;
+		padding-top:15px;
+		padding-bottom: 15px;
+		select { clear:both; width:60% !important; margin-bottom: 20px; }
+	}
+}
+
+// ------------------------------------------------------------
+// IMAGE COVER
+// ------------------------------------------------------------
+.carousel { 
+	position: relative;
+	.btn-prev { position:absolute; top: 40%; left: 30px; }
+	.btn-next { position:absolute; top: 40%; right: 30px; }
+	.owl-carousel {
+		.item {
+			position: relative;
+			img {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+
+			.overlay{
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				height: 100%;
+				width: 100%;
+			}
+
+			.overlay:hover { 
+				background-color: #000;
+				opacity: 0.5;
+			}
+		}
+
+		.item:hover { 
+
+		}
+	} 
+}
+
+// ------------------------------------------------------------
+// IMAGE COVER
+// ------------------------------------------------------------
+.fullwidth { width:100%; }
+.width50 { width: 50%; }
+.width25 { width: 25%; }
+.width15 { width: 15%; }
+.heightauto { height:auto;}
+
+// ------------------------------------------------------------
+// TOUR
+// ------------------------------------------------------------
+div.tour_grid {
+	div.discount_label { background: rgba(0,0,0,0.7); color:@color-primary; height:100px; width:75px; text-align: center; text-transform: uppercase;}
+	img.tour_thumbnail { height:250px;}
+	.panel-body { height:200px;}
+}
+
+.sticky { z-index: 1025;}

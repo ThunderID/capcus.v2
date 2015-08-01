@@ -1,0 +1,31 @@
+@import "bootstrap/bootstrap";
+
+@import "admin/variables";
+@import "admin/spacing";
+@import "admin/typo";
+@import "admin/background";
+@import "admin/well";
+@import "admin/sidebar_layout";
+@import "admin/sidebar2";
+@import "admin/button";
+@import "admin/nav";
+@import "admin/input";
+
+// ------------------------------------------------------------
+// 
+// ------------------------------------------------------------
+
+* { -webkit-font-smoothing: subpixel-antialiased; }
+
+body{ 
+	background:@color-white;
+	&:extend(.text-light);
+}
+
+body.login { 
+	background: #f0f0f0 no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
