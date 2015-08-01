@@ -35,7 +35,7 @@ class DestinationController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY
 		// ------------------------------------------------------------------------------------------------------------
-		$destinations = $this->model->PathLike('*' . str_replace(' ', '*', $filters['path']) . '*')->orderBy('path')->get();
+		$destinations = $this->model->PathLike('*' . str_replace(' ', '*', $filters['path']) . '*')->orderBy('path')->paginate(30);
 
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
