@@ -7,7 +7,7 @@
 	// ------------------------------------------------------------------------------------------------------------------------
 	// REQUIRED VARIABLES
 	// ------------------------------------------------------------------------------------------------------------------------
-	$required_variables = ['filter_destination_name'];
+	$required_variables = ['filter_destination_path'];
 	foreach ($required_variables as $x)
 	{
 		if (!array_key_exists($x, get_defined_vars()))
@@ -21,15 +21,15 @@
 
 @if (!$widget_error_count)
 	@section('widget_title')
-		{{$widget_title or 'Filter Category'}}
+		{{$widget_title or 'Filter'}}
 	@overwrite
 
 	@section('widget_body')
-		{!! Form::open(['url' => $CategoryComposer['widget_data']['data']['form_url'], 'method' => 'get', 'class' => 'form']) !!}
+		{!! Form::open(['url' => route('admin.' . $route_name . '.index'), 'method' => 'get', 'class' => 'form']) !!}
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-xs">
 				<small>Search</small>
-				{!! Form::text('filter_destination_name', $filter_destination_name, ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
+				{!! Form::text('filter_destination_path', $filter_destination_path, ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
 			</div>
 			{{-- SEARCH BUTTON --}}
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-sm text-center">

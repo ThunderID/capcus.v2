@@ -5,7 +5,7 @@
 
 	@include('admin.widgets.'.$view_name.'.filter', [
 		'widget_template' 				=> "plain",
-		'filter_destination_name'		=> $filters['name']
+		'filter_destination_path'		=> $filters['path']
 	])
 @stop
 

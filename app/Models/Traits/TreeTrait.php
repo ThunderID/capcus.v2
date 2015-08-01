@@ -20,6 +20,18 @@ trait TreeTrait {
 	// ----------------------------------------------------------------------
 	// SCOPE
 	// ----------------------------------------------------------------------
+	public function scopePathLike($q, $v = null)
+	{
+		if (!$v)
+		{
+			return $q;
+		}
+		else
+		{
+			return $q->where($this->getPathField(), 'like', str_replace('*', '%', $v));
+		}	
+	}
+
 	public function scopeExceptSubtreeById($q, $v = null)
 	{
 		if (!$v)
