@@ -7,7 +7,7 @@
 	// ------------------------------------------------------------------------------------------------------------------------
 	// REQUIRED VARIABLES
 	// ------------------------------------------------------------------------------------------------------------------------
-	$required_variables = ['destinations'];
+	$required_variables = ['places'];
 	foreach ($required_variables as $x)
 	{
 		if (!array_key_exists($x, get_defined_vars()))
@@ -21,10 +21,10 @@
 
 @if (!$widget_error_count)
 	@section('widget_title')
-		@if (method_exists($destinations, 'total'))
-			{{number_format($destinations->total())}} results :
+		@if (method_exists($places, 'total'))
+			{{number_format($places->total())}} results :
 		@else
-			{{number_format($destinations->count())}} results :
+			{{number_format($places->count())}} results :
 		@endif
 
 		@if (count(array_filter($filters)))
@@ -46,33 +46,26 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th><span class="fa fa-sort-asc" aria-hidden="true"> Destination Path</th>
+					<th>Name</th>
+					<th>Location</th>
+					<th><span class="fa fa-sort-desc" aria-hidden="true"></span> Created At</th>
+					<th>Published At</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php $i = 0; ?>
-				@forelse ($destinations as $x)
+				@forelse ($places as $x)
 					<tr class="text-regular">
 						<td>
-							@if (method_exists($destinations, 'firstItem'))
-								{{$destinations->firstItem() + $i++}}
+							@if (method_exists($places, 'firstItem'))
+								{{$places->firstItem() + $i++}}
 							@else
 								{{++$i}}
 							@endif
 						</td>
-						<td>
-							<?php
-								$tmp = explode($x->getDelimiter() , $x->ori_path);
-							?>
-							@foreach ($tmp as $k => $region)
-								@if ($k != count($tmp) - 1)
-									{{$region}} &gt;
-								@else
-									<span class='text-primary text-bold'>{{$x->name}}</span>
-								@endif
-							@endforeach
-						</td>
+						<td>{{$x->long_name}}</td>
+						<td>{{$x->destination->path}}</td>
 						<td class='text-right'>
 							<div class="btn-group">
 								<a href='{{route("admin." . $route_name . ".edit", ["id" => $x->id])}}' type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></a>

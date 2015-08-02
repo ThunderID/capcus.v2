@@ -32,6 +32,27 @@ trait TreeTrait {
 		}	
 	}
 
+	public function scopeWithSubtreeById($q, $v = null)
+	{
+		if (!$v)
+		{
+			return $q;
+		}
+		else
+		{
+			$root = Static::find($v);
+			if ($root->id)
+			{
+				return $q->pathLike($root->{Static::getPathField()} . $root->{Static::getPathField()} . '*');
+			}
+			else
+			{
+				return $q;
+			}
+		}	
+	}
+
+
 	public function scopeExceptSubtreeById($q, $v = null)
 	{
 		if (!$v)

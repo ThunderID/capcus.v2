@@ -7,7 +7,7 @@
 	// ------------------------------------------------------------------------------------------------------------------------
 	// REQUIRED VARIABLES
 	// ------------------------------------------------------------------------------------------------------------------------
-	$required_variables = ['filter_destination_path'];
+	$required_variables = ['filter_place_name', 'filter_destination_id', 'destinations'];
 	foreach ($required_variables as $x)
 	{
 		if (!array_key_exists($x, get_defined_vars()))
@@ -29,10 +29,13 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-xs">
 				<small>Search</small>
-				{!! Form::text('filter_destination_path', $filter_destination_path, ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
+				{!! Form::text('filter_place_name', $filter_place_name, ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-xs">
+				<small>In</small>
+				{!! Form::select('filter_destination_id', $destinations->lists('path', 'id')->toArray(), $filter_destination_id, ['class' => 'form-control select2', 'placeholder' => 'Semua']) !!}
 			</div>
 
-			
 			{{-- SEARCH BUTTON --}}
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-sm text-center">
 				<button type='submit' class='btn btn-info btn-block'><span class="glyphicon glyphicon-search"></span></button>

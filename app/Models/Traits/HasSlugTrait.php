@@ -5,7 +5,7 @@ use Illuminate\Support\MessageBag;
 trait HasSlugTrait {
 
 	//
-	protected function scopeSlugIs($q, $v)
+	function scopeSlugIs($q, $v)
 	{
 		if (!$v)
 		{

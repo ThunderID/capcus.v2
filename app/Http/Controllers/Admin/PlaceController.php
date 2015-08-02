@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth, Input, \Illuminate\Support\MessageBag, Validator, Exception, App;
-use \App\Destination;
+use \App\Place;
 
-class DestinationController extends Controller {
+class PlaceController extends Controller {
 
 	protected $model;
-	protected $view_name = 'destinations';
-	protected $route_name = 'destinations';
+	protected $view_name = 'places';
+	protected $route_name = 'places';
 
-	public function __construct(\App\Destination $model)
+	public function __construct(\App\Place $model)
 	{
 		parent::__construct();
 
@@ -30,19 +30,31 @@ class DestinationController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// FILTERS
 		// ------------------------------------------------------------------------------------------------------------
-		$filters['path'] = Input::get('filter_destination_path');
+		$filters['name'] = Input::get('filter_place_name');
+		$filters['destination'] = Input::get('filter_destination_id');
 
 		// ------------------------------------------------------------------------------------------------------------
-		// QUERY
+		// QUERY PLACE
 		// ------------------------------------------------------------------------------------------------------------
-		$destinations = $this->model->PathLike('*' . str_replace(' ', '*', $filters['path']) . '*')->orderBy('path')->paginate(30);
+		$places = $this->model->NameLike('*' . str_replace(' ', '*', $filters['name']) . '*')->InDestinationById(\App\Destination::withSubtreeById($filters['destination'])->get()->lists('id')->toArray())->latest()->paginate(30);
+
+		// ------------------------------------------------------------------------------------------------------------
+		// QUERY DESTINATION
+		// ------------------------------------------------------------------------------------------------------------
+		$destinations = \App\Destination::orderBy(\App\Destination::getPathField());
+		if ($filters['destination'])
+		{
+			$filtered_destination = \App\Destination::find($filters['destination']);
+		}
 
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
 		$this->layout->page 				= view($this->page_base_dir . 'index')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
 		$this->layout->page->filters 		= $filters;
+		$this->layout->page->places 		= $places;
 		$this->layout->page->destinations 	= $destinations;
+		$this->layout->page->filtered_destination 	= $filtered_destination;
 
 		return $this->layout;
 	}
@@ -50,23 +62,16 @@ class DestinationController extends Controller {
 	public function getCreate($data = null)
 	{
 		// ------------------------------------------------------------------------------------------------------------
-		// PARENT DESTINATION
+		// DESTINATION
 		// ------------------------------------------------------------------------------------------------------------
-		if ($data->id)
-		{
-			$parent_destinations = $this->model->exceptSubtreeById($data->id)->orderBy($this->model->getPathField())->get();
-		}
-		else
-		{
-			$parent_destinations = $this->model->orderBy($this->model->getPathField())->get();
-		}
+		$destinations = \App\Destination::orderBy(\App\Destination::getPathField());
 
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
 		$this->layout->page 				= view($this->page_base_dir . 'create')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
 		$this->layout->page->data 			= $data;
-		$this->layout->page->parent_destinations 			= $parent_destinations;
+		$this->layout->page->destinations 	= $destinations;
 
 		return $this->layout;
 	}
@@ -86,6 +91,16 @@ class DestinationController extends Controller {
 
 		// ---------------------------------------- HANDLE SAVE ----------------------------------------
 		$input = Input::all();
+		if (!empty($input['published_at']))
+		{
+			$input['published_at'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i', $input['published_at'])->format('Y-m-d H:i:s');
+		}
+		else
+		{
+			$input['published_at'] = null;
+		}
+
+		unset($input['longlat']);
 		$data->fill($input);
 
 		if ($data->save())

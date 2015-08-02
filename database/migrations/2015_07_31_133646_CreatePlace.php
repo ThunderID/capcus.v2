@@ -19,7 +19,7 @@ class CreatePlace extends Migration
             $table->string('long_name');
             $table->string('slug');
             $table->text('summary');
-            $table->text('description');
+            $table->text('content');
             $table->double('longitude');
             $table->double('latitude');
             $table->datetime('published_at');

@@ -11,7 +11,7 @@
 				<a class="active" href='javascript:;' ><i class='glyphicon glyphicon-dashboard'></i> Destinations</a>
 				<ul>
 					<li><a class="{{str_is(route('admin.destinations.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.destinations.index")}}' ><i class='glyphicon glyphicon-dashboard'></i> Destinations</a></li>
-					<li><a class="{{str_is(route('admin.dashboard'), $active_url) ? 'active' : "" }}" href='{{route("admin.dashboard")}}' ><i class='glyphicon glyphicon-dashboard'></i> Places</a></li>
+					<li><a class="{{str_is(route('admin.places.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.places.index")}}' ><i class='glyphicon glyphicon-dashboard'></i> Places</a></li>
 				</ul>
 			</li>
 			<li><a class="{{str_is(route('admin.blog.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.blog.index")}}' ><i class='glyphicon glyphicon-dashboard'></i> Articles</a></li>

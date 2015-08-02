@@ -9,9 +9,27 @@ class PlaceObserver {
 	// ----------------------------------------------------------------
 	public function saving($model)
 	{
+		// Create Slug
+		if (!$model->slug)
+		{
+			$i = 0;
+			do {
+				$model->slug = str_slug($model->name . ($i ? '-' . $i : '')) ;
+				$i++;
+			} while (\App\Place::SlugIs($model->slug)->where('id', '!=', $model->id ? $model->id : 0)->count());
+		}
+
+		// Create Long Name
+		$model->long_name = $model->name;
+		$destination = $model->destination;
+		do {
+			$model->long_name .= ', ' . $destination->name;
+			$destination = $destination->parent;
+		} while ($destination->name);
+
 		// RULES
-		$rules['summary']				= ['required'];
-		$rules['description']			= ['required'];
+		$rules['summary']				= ['required', 'min:40'];
+		$rules['content']				= ['required', 'min:100'];
 		$rules['longitude']				= ['numeric'];
 		$rules['latitude']				= ['numeric'];
 

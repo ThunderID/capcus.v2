@@ -47,9 +47,9 @@ class Destination extends BaseModel
 		return $this->morphMany(__NAMESPACE__ . '\Image', 'imageable');
 	}
 
-	function directories()
+	function places()
 	{
-		return $this->morphMany(__NAMESPACE__ . '\Directory');
+		return $this->hasMany(__NAMESPACE__ . '\Place');
 	}
 
 	// ----------------------------------------------------------------------
