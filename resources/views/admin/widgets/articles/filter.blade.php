@@ -2,8 +2,6 @@
 	// ------------------------------------------------------------------------------------------------------------------------
 	// PREDEFINED VARIABLE
 	// ------------------------------------------------------------------------------------------------------------------------
-	$widget_errors 	= new \Illuminate\Support\MessageBag;
-	$widget_name	= 'Blog:Filter';
 
 	// ------------------------------------------------------------------------------------------------------------------------
 	// REQUIRED VARIABLES
@@ -29,18 +27,18 @@
 		{!! Form::open(['url' => $widget_data['form_url'], 'method' => 'get', 'class' => 'form']) !!}
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-xs">
-				<small>Search</small>
+				<small>Title</small>
 				{!! Form::text($title_field, $default_title, ['class' => 'form-control', 'placeholder' => 'Search...']) !!}
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-xs">
 				<small>By</small>
-				<br/>{!! Form::select($writer_field, ['' => 'All'] + (is_array($writer_list) ? $writer_list : []), Input::get($writer_field), ['class' => 'form-control select2', 'placeholder' => 'Search...']) !!}
+				<br/>{!! Form::select($writer_field, ['' => 'All'] + $writer_list->toArray(), Input::get($writer_field), ['class' => 'form-control select2']) !!}
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-xs">
 				<small>Status</small>
 				<br/>{!! Form::select($status_field, 	
 									['' => 'All'] + (is_array($status_list) ? $status_list : []), 
-									$default_status, ['class' => 'form-control select2', 'placeholder' => 'Search...']) !!}
+									$default_status, ['class' => 'form-control select2']) !!}
 			</div>
 			{{-- SEARCH BUTTON --}}
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-sm text-center">

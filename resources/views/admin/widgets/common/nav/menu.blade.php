@@ -14,8 +14,7 @@
 					<li><a class="{{str_is(route('admin.places.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.places.index")}}' ><i class='glyphicon glyphicon-dashboard'></i> Places</a></li>
 				</ul>
 			</li>
-			<li><a class="{{str_is(route('admin.blog.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.blog.index")}}' ><i class='glyphicon glyphicon-dashboard'></i> Articles</a></li>
-			<li><a class="{{str_is(route('admin.blog.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.blog.index")}}'><i class='fa fa-file-o'></i> Tours</a></li>
+			<li><a class="{{str_is(route('admin.articles.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.articles.index")}}' ><i class='glyphicon glyphicon-dashboard'></i> Articles</a></li>
 			<li>
 				<a class="{{str_is(route('admin.member.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.member.index")}}'>
 					<i class='fa fa-users'></i> Tour Packages

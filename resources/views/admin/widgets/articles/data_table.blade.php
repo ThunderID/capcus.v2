@@ -2,13 +2,11 @@
 	// ------------------------------------------------------------------------------------------------------------------------
 	// PREDEFINED VARIABLE
 	// ------------------------------------------------------------------------------------------------------------------------
-	$widget_errors 	= new \Illuminate\Support\MessageBag;
-	$widget_name	= 'Blog:DataTable';
 
 	// ------------------------------------------------------------------------------------------------------------------------
 	// REQUIRED VARIABLES
 	// ------------------------------------------------------------------------------------------------------------------------
-	$required_variables = ['articles', 'filter_title', 'filter_writer', 'filter_status'];
+	$required_variables = ['articles', 'filters'];
 	foreach ($required_variables as $x)
 	{
 		if (!array_key_exists($x, get_defined_vars()))
@@ -29,31 +27,14 @@
 		@endif
 
 		@if (count(array_filter($filters)))
-
-			@if ($filter_title)
-				<a href='{{route("admin.".$route_name.".index", array_except($filters, "filter_article_title"))}}' class="label label-primary ml-xs">
-					<i class='glyphicon glyphicon-remove'></i> 
-					Title: 
-					{{'*'. $filter_title . '*'}}
-				</a>
-			@endif
-
-			@if ($filter_writer)
-				<a href='{{route("admin.".$route_name.".index", array_except($filters, "filter_article_user"))}}' class="label label-primary ml-xs">
-					<i class='glyphicon glyphicon-remove'></i> 
-					Writer: 
-					{{$filter_writer}}
-				</a>
-			@endif
-
-			@if ($filter_status)
-				<a href='{{route("admin.".$route_name.".index", array_except($filters, "filter_article_status"))}}' class="label label-primary ml-xs">
-					<i class='glyphicon glyphicon-remove'></i> 
-					Status: 
-					{{$filter_status}}
-				</a>
-			@endif
-
+			@foreach ($filters as $k => $v)
+				@if ($v)
+					<a href='{{route("admin.".$route_name.".index", array_except($filters, $k))}}' class="label label-primary ml-xs">
+						<i class='glyphicon glyphicon-remove'></i> 
+						{{$k}}: {{$v}}
+					</a>
+				@endif
+			@endforeach 
 		@else
 			all {{str_plural(str_replace('_', ' ', $view_name))}}
 		@endif
@@ -65,7 +46,7 @@
 				<tr>
 					<th>#</th>
 					<th>Title</th>
-					<th>Category</th>
+					<th>Related Destinations</th>
 					<th>By</th>
 					<th><span class="fa fa-sort-desc" aria-hidden="true"> </span> Published &amp; Created</th>
 					<th></th>
@@ -84,15 +65,15 @@
 						</td>
 						<td>{{$x->title}}</td>
 						<td>
-							@if ($x->categories->count())
-								@foreach ($x->categories as $cat)
-									<span class="label label-info mr-xs">{{$cat->path_name}}</span><br>
+							@if ($x->destinations->count())
+								@foreach ($x->destinations as $destination)
+									<span class="label label-info mr-xs">{{$destination->path}}</span><br>
 								@endforeach
 							@endif
 						</td>
-						<td>{{$x->user->name}}</td>
+						<td>{{$x->writer->name}}</td>
 						<td>
-							P: {!! $x->published_at ? $x->published_at->diffForHumans() : '<span class="text-warning">draft</span>' !!}<br/>
+							P: {!! $x->published_at->year > 0 ? $x->published_at->diffForHumans() : '<span class="text-warning">draft</span>' !!}<br/>
 							C: {!! $x->created_at->diffForHumans() !!}
 						</td>
 						<td class='text-right'>

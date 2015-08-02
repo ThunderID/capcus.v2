@@ -4,11 +4,11 @@ use Auth, Input, \Illuminate\Support\MessageBag, Validator, Exception, App;
 use \App\Article;
 use \App\User;
 
-class BlogController extends Controller {
+class ArticleController extends Controller {
 
 	protected $model;
-	protected $view_name = 'blog';
-	protected $route_name = 'blog';
+	protected $view_name = 'articles';
+	protected $route_name = 'articles';
 
 	public function __construct(\App\Article $model,\App\User $user_model)
 	{
@@ -46,11 +46,13 @@ class BlogController extends Controller {
 		$filters = Input::only('title', 'writer', 'status');
 		$q = Article::latest();
 		
+		// Filter title
 		if ($filters['title'])
 		{
-			$q = $q->findTitle('*'.$filters['title'] . '*');
+			$q = $q->NameLike('*'.$filters['title'] . '*');
 		}
 
+		// Filter Status
 		if ($filters['status'])
 		{
 			switch (strtolower($filters['status']))
@@ -61,13 +63,14 @@ class BlogController extends Controller {
 			}
 		}
 
+		// Filter Writer
 		if ($filters['writer'])
 		{
-			$q = $q->byUser($filters['writer']);
+			$q = $q->WriterById($filters['writer']);
 			$filters['writer_name'] = $writers->find($filters['writer'])->name;
 		}
 
-		$data = $q->paginate();
+		$data = $q->paginate(30);
 
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
@@ -84,10 +87,16 @@ class BlogController extends Controller {
 	public function getCreate($data = null)
 	{
 		// ------------------------------------------------------------------------------------------------------------
+		// DESTINATIONS
+		// ------------------------------------------------------------------------------------------------------------
+		$destinations = \App\Destination::orderBy('path')->get();
+
+		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
 		$this->layout->page 				= view($this->page_base_dir . 'create')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
-		$this->layout->data					= $data;
+		$this->layout->page->data			= $data;
+		$this->layout->page->destinations	= $destinations;
 
 		return $this->layout;
 	}
@@ -103,13 +112,13 @@ class BlogController extends Controller {
 		else
 		{
 			$data 				= $this->model->newInstance();
-			$data->user_id 		= Auth::id();
+			$data->writer_id 	= auth()->id();
 		}
 
 		// ---------------------------------------- HANDLE SAVE ----------------------------------------
 		$input = Input::all();
-		$input['category_ids'] = $input['category'];
-		$input['subarticle_ids'] = $input['subarticle'];
+		// $input['category_ids'] = $input['category'];
+		// $input['subarticle_ids'] = $input['subarticle'];
 
 		if (!empty($input['published_at']))
 		{
@@ -117,7 +126,7 @@ class BlogController extends Controller {
 		}
 		else
 		{
-			unset($input['published_at']);
+			$input['published_at'] = null;
 		}
 		$data->fill($input);
 

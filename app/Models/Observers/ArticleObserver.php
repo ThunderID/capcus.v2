@@ -12,6 +12,10 @@ class ArticleObserver {
 		// RULES
 		$rules['summary']			= ['required', 'min:10'];
 		$rules['content']			= ['required', 'min:30'];
+		
+		$model->tmp_destinations 	= $model->destinations;
+		unset($model->destinations);
+
 
 		$validator = Validator::make($model->toArray(), $rules);
 		if ($validator->fails())
@@ -23,6 +27,10 @@ class ArticleObserver {
 
 	public function saved($model)
 	{
+		if ($model->tmp_destinations)
+		{
+			$model->destinations()->sync($model->tmp_destinations);
+		}
 	}
 
 	// ----------------------------------------------------------------

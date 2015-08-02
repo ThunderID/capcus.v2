@@ -1,23 +1,12 @@
 <?php
-	$subarticle_list = [];
-	if ($ArticleComposer['widget_data']['data']['article_db'])
-	{
-		foreach ($ArticleComposer['widget_data']['data']['article_db']->children as $child)
-		{
-			$subarticle_list[] = ['id' => $child->id, 'title' => $child->title, 'order' => $child->pivot->order];
-		}
-	}
-
 	// ------------------------------------------------------------------------------------------------------------------------
 	// PREDEFINED VARIABLE
 	// ------------------------------------------------------------------------------------------------------------------------
-	$widget_errors 	= new \Illuminate\Support\MessageBag;
-	$widget_name	= 'Blog:DataTable';
 
 	// ------------------------------------------------------------------------------------------------------------------------
 	// REQUIRED VARIABLES
 	// ------------------------------------------------------------------------------------------------------------------------
-	$required_variables = ['articles', 'filter_title', 'filter_writer', 'filter_status'];
+	$required_variables = ['article', 'destinations'];
 	foreach ($required_variables as $x)
 	{
 		if (!array_key_exists($x, get_defined_vars()))
@@ -25,21 +14,22 @@
 			throw new Exception($widget_name . ": $" .$x.': has not been set', 10);
 		}
 	}
+
 ?>
 
 @extends('admin.widget_templates.' . ($widget_template ? $widget_template : 'plain_no_title'))
 
 @if (!$widget_error_count)
 	@section('widget_title')
-		@if ($ArticleComposer['widget_data']['data']['article_db']->id)
-			Edit Article: {{$ArticleComposer['widget_data']['data']['article_db']->title}}
+		@if ($article->id)
+			Edit Article: {{$article->title}}
 		@else
 			Create new article: {{$article_type}}
 		@endif
 	@overwrite
 
 	@section('widget_body')
-		{!! Form::open(['method' => 'post', 'url' => route('admin.'.$route_name.'.store', ['id' => $ArticleComposer['widget_data']['data']['article_db']->id]), 'class' => 'no_enter']) !!}
+		{!! Form::open(['method' => 'post', 'url' => route('admin.'.$route_name.'.store', ['id' => $article->id]), 'class' => 'no_enter']) !!}
 		<div class="row mb-lg">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
 				<div class="well">
@@ -49,7 +39,7 @@
 						@if ($errors->has('title'))
 							<span class='text-danger pull-right'>{{implode(', ', $errors->get('title'))}}</span>
 						@endif
-						{!! Form::text('title', $ArticleComposer['widget_data']['data']['article_db']->title, [
+						{!! Form::text('title', $article->title, [
 																'class' 			=> 'form-control', 
 																'placeholder' 		=> 'enter title here', 
 																'required' 			=> 'required',
@@ -65,10 +55,10 @@
 						@if ($errors->has('slug'))
 							<span class='text-danger pull-right'>{{implode(', ', $errors->get('slug'))}}</span>
 						@endif
-						@if ($ArticleComposer['widget_data']['data']['article_db']->slug)
-							<p>{{$ArticleComposer['widget_data']['data']['article_db']->slug}}
+						@if ($article->slug)
+							<p>{{$article->slug}}
 						@else
-							{!! Form::text('slug', $ArticleComposer['widget_data']['data']['article_db']->slug, [
+							{!! Form::text('slug', $article->slug, [
 																	'class' 			=> 'form-control slugify', 
 																	'placeholder' 		=> 'enter slug here', 
 																	'required' 			=> 'required',
@@ -86,7 +76,7 @@
 						@if ($errors->has('summary'))
 							<span class='text-danger pull-right'>{{implode(', ', $errors->get('summary'))}}</span>
 						@endif
-						{!! Form::textarea('summary', $ArticleComposer['widget_data']['data']['article_db']->summary, [
+						{!! Form::textarea('summary', $article->summary, [
 																'class' 			=> 'form-control', 
 																'required' 			=> 'required',
 																'placeholder' 		=> 'enter summary here',
@@ -103,7 +93,7 @@
 							<span class='text-danger pull-right'>{{implode(', ', $errors->get('content'))}}</span>
 						@endif
 						<p><small class='text-primary'>To add an image/youtube video just copy & paste inside the content below and press enter</small>
-						{!! Form::textarea('content', $ArticleComposer['widget_data']['data']['article_db']->content, [
+						{!! Form::textarea('content', $article->content, [
 																'class' 			=> 'form-control wysiwyg', 
 																'required' 			=> 'required',
 																'placeholder' 		=> 'enter content here',
@@ -115,13 +105,13 @@
 						!!}
 					</div>
 
-					<div class='mb-sm'>
+{{-- 					<div class='mb-sm'>
 						<strong class='text-uppercase'>Subarticle</strong>
 						@if ($errors->has('subarticle'))
 							<span class='text-danger pull-right'>{{implode(', ', $errors->get('subarticle'))}}</span>
 						@endif
 
- 						{!! Form::select('subarticle[]', ($ArticleComposer['widget_data']['data']['article_db']->children ? $ArticleComposer['widget_data']['data']['article_db']->children->lists('title', 'id') : []), ($ArticleComposer['widget_data']['data']['article_db'] ? $ArticleComposer['widget_data']['data']['article_db']->children->lists('id') : null), [
+ 						{!! Form::select('subarticle[]', ($article->children ? $article->children->lists('title', 'id') : []), ($article ? $article->children->lists('id') : null), [
 																'class' 			=> 'form-control select2-article subarticle-dropdown', 
 																'required' 			=> 'required',
 																'data-toggle'		=> ($errors->has('subarticle') ? 'tooltip' : ''), 
@@ -130,24 +120,23 @@
 																'multiple'			=> 'multiple'
 															]) 
 						!!}
- 					</div>
+ 					</div> --}}
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
 				<div class="well">
-					<div class='title'>CATEGORIES</div>
+					<div class='title'>RELATED DESTINATION</div>
 					<p>	
-						<strong class='text-uppercase'>Category</strong>
-						@if ($errors->has('category'))
-							<span class='text-danger pull-right'>{{implode(', ', $errors->get('category'))}}</span>
+						<strong class='text-uppercase'>Related Destination</strong>
+						@if ($errors->has('destinations'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('destinations'))}}</span>
 						@endif
-						{!! Form::select('category[]', $CategoryComposer['widget_data']['data']['category_db']->lists('path_name', 'id'), ($ArticleComposer['widget_data']['data']['article_db'] ? $ArticleComposer['widget_data']['data']['article_db']->categories->lists('id') : null), [
+						{!! Form::select('destinations[]', $destinations->lists('path', 'id'), ($article->destinations ? $article->destinations->lists('id')->toArray() : null), [
 																'class' 			=> 'form-control select2', 
 																'required' 			=> 'required',
-																'placeholder' 		=> 'enter category url here',
-																'data-toggle'		=> ($errors->has('category') ? 'tooltip' : ''), 
+																'data-toggle'		=> ($errors->has('destinations') ? 'tooltip' : ''), 
 																'data-placement'	=> 'left', 
-																'title' 			=> ($errors->has('category') ? $errors->first('category') : ''), 
+																'title' 			=> ($errors->has('destinations') ? $errors->first('destinations') : ''), 
 																'multiple'			=> 'multiple'
 															]) 
 						!!}
@@ -161,7 +150,7 @@
 						@if ($errors->has('thumbnail'))
 							<span class='text-danger pull-right'>{{implode(', ', $errors->get('thumbnail'))}}</span>
 						@endif
-						{!! Form::text('thumbnail', $ArticleComposer['widget_data']['data']['article_db']->thumbnail, [
+						{!! Form::text('thumbnail', $article->thumbnail, [
 																'class' 			=> 'form-control', 
 																'required' 			=> 'required',
 																'placeholder' 		=> 'enter thumbnail url here',
@@ -182,7 +171,7 @@
 					@if ($errors->has('published_at'))
 						<span class='text-danger pull-right'>{{implode(', ', $errors->get('published_at'))}}</span>
 					@endif
-					{!! Form::input('datetime-local', 'published_at', ($ArticleComposer['widget_data']['data']['article_db']->published_at ? $ArticleComposer['widget_data']['data']['article_db']->published_at->format('d/m/Y H:i') : ''), [
+					{!! Form::input('datetime-local', 'published_at', ($article->published_at->year > 0 ? $article->published_at->format('d/m/Y H:i') : ''), [
 																						'class' 			=> 'form-control',
 																						'placeholder'		=> 'leave blank to save it as draft',
 																						'data-toggle'		=> ($errors->has('published_at') ? 'tooltip' : ''), 
