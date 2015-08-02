@@ -20,9 +20,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 						'destinations'			=> "DestinationController",
 						'places'				=> "PlaceController",
 						'articles' 				=> "ArticleController",
+						'travel_agents'		=> "TravelAgentController",
 
 						'article_category' 		=> "ArticleCategoryController",
-						'vendor' 				=> "VendorController",
 						'vendor_category'		=> "VendorCategoryController",
 						'tour_destination'		=> "TourCategoryController",
 						'tour'	 				=> "TourController",
@@ -35,6 +35,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 						'destinations'			=> [],
 						'places'				=> [],
 						'articles'				=> [],
+						'travel_agents'		=> [],
 						
 						'blog'					=> [],
 						'article_category'		=> [],

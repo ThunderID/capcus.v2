@@ -16,6 +16,9 @@ class TravelAgent extends BaseModel
 							'slug', 
 						];
 
+	static $name_field	= 'name';
+	static $slug_field	= 'slug';
+
 	// ----------------------------------------------------------------------
 	// BOOT
 	// ----------------------------------------------------------------------

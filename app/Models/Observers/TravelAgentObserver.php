@@ -9,6 +9,16 @@ class TravelAgentObserver {
 	// ----------------------------------------------------------------
 	public function saving($model)
 	{
+		// Create Slug
+		if (!$model->slug)
+		{
+			$i = 0;
+			do {
+				$model->slug = str_slug($model->name . ($i ? '-' . $i : '')) ;
+				$i++;
+			} while (\App\Place::SlugIs($model->slug)->where('id', '!=', $model->id ? $model->id : 0)->count());
+		}
+		
 		// RULES
 		$rules['email']				= ['email'];
 

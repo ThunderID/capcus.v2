@@ -16,11 +16,9 @@
 			</li>
 			<li><a class="{{str_is(route('admin.articles.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.articles.index")}}' ><i class='glyphicon glyphicon-dashboard'></i> Articles</a></li>
 			<li>
-				<a class="{{str_is(route('admin.member.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.member.index")}}'>
-					<i class='fa fa-users'></i> Tour Packages
-				</a>
+				<a class="active" href='javascript:;' ><i class='glyphicon glyphicon-dashboard'></i> Tours</a>
 				<ul>
-					<li><a class="{{str_is(route('admin.member.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.member.index")}}'><i class='fa fa-user'></i> Travel Agent</a></li>
+					<li><a class="{{str_is(route('admin.travel_agents.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.travel_agents.index")}}'><i class='fa fa-user'></i> Travel Agent</a></li>
 					<li><a class="{{str_is(route('admin.member.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.member.index")}}'><i class='fa fa-user'></i> Tour</a></li>
 				</ul>
 			<li>
