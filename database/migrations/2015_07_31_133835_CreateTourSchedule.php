@@ -15,8 +15,8 @@ class CreateTourSchedule extends Migration
         Schema::create('tour_schedule', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tour_id')->unsigned();
-            $table->date('depart');
-            $table->date('return');
+            $table->date('departure');
+            $table->date('arrival');
             $table->string('currency');
             $table->double('original_price');
             $table->double('discounted_price');

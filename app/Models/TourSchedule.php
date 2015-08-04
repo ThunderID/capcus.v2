@@ -9,13 +9,14 @@ class TourSchedule extends BaseModel
     //
 	protected $table = 'tour_schedule';
 	protected $fillable = [
-							'depart', 
-							'return', 
+							'departure', 
+							'arrival', 
 							'currency', 
 							'original_price', 
 							'discounted_price', 
+							'tour_id'
 						];
-	protected $dates = ['depart', 'return'];
+	protected $dates = ['departure', 'arrival'];
 
 	// ----------------------------------------------------------------------
 	// BOOT
@@ -24,6 +25,7 @@ class TourSchedule extends BaseModel
 	{
 		parent::boot();
 		Static::observe(new TourScheduleObserver);
+		Static::observe(new BelongsToTourObserver);
 	}
 
 	// ----------------------------------------------------------------------

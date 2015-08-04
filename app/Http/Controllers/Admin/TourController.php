@@ -6,10 +6,10 @@ class TourController extends Controller {
 
 	protected $model;
 	protected $schedule_model;
-	protected $view_name = 'tour';
-	protected $route_name = 'tour';
+	protected $view_name = 'tours';
+	protected $route_name = 'tours';
 
-	public function __construct(\App\Tour $model, \App\Schedule $schedule_model)
+	public function __construct(\App\Tour $model, \App\TourSchedule $schedule_model)
 	{
 		parent::__construct();
 
@@ -18,22 +18,73 @@ class TourController extends Controller {
 
 		$this->layout->view_name = $this->view_name;
 		$this->layout->route_name = $this->route_name;
+		$this->page_base_dir .= $this->view_name . '.';
 		
 		$this->layout->content_title = strtoupper($this->view_name);
 	}
 
 	public function getIndex()
 	{
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.index')->with('route_name', $this->route_name);
+		// ------------------------------------------------------------------------------------------------------------
+		// FILTERS
+		// ------------------------------------------------------------------------------------------------------------
+		$filters['name'] 			= Input::get('filter_tour_name');
+		$filters['travel_agent'] 	= Input::get('filter_tour_travel_agent');
+
+		// ------------------------------------------------------------------------------------------------------------
+		// QUERY DATA
+		// ------------------------------------------------------------------------------------------------------------
+		$tours = $this->model->NameLike('*' . str_replace(' ', '*', $filters['name']) . '*')->TravelAgentById($filters['travel_agent'])->latest()->paginate(30);
+
+		// ------------------------------------------------------------------------------------------------------------
+		// QUERY TRAVEL AGENTS
+		// ------------------------------------------------------------------------------------------------------------
+		$travel_agents = \App\TravelAgent::orderBy('name')->get();
+		$filters['travel_agent_name']	= $travel_agents->find($filters['travel_agent'])->name;
+
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'index')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->filters 		= $filters;
+		$this->layout->page->tours 			= $tours;
+		$this->layout->page->travel_agents 	= $travel_agents;
 
 		return $this->layout;
 	}
 
 	public function getCreate($data = null)
 	{
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.create')->with('route_name', $this->route_name)->with('data', $data);
+		// ------------------------------------------------------------------------------------------------------------
+		// GET TRAVEL AGENTS
+		// ------------------------------------------------------------------------------------------------------------
+		$travel_agents = \App\TravelAgent::orderBy('name')->get();
+
+		// ------------------------------------------------------------------------------------------------------------
+		// GET DESTINATIONS
+		// ------------------------------------------------------------------------------------------------------------
+		$destinations = \App\Destination::orderBy('path')->get();
+
+		// ------------------------------------------------------------------------------------------------------------
+		// GET PLACES
+		// ------------------------------------------------------------------------------------------------------------
+		$places = \App\Place::orderBy('long_name')->get();
+
+		// ------------------------------------------------------------------------------------------------------------
+		// GET TOUR OPTIONS
+		// ------------------------------------------------------------------------------------------------------------
+		$tour_options = \App\TourOption::orderBy('name')->get();
+
+
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'create')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data 			= $data;
+		$this->layout->page->travel_agents 	= $travel_agents;
+		$this->layout->page->destinations 	= $destinations;
+		$this->layout->page->places 		= $places;	
+		$this->layout->page->tour_options 	= $tour_options;
 
 		return $this->layout;
 	}
@@ -53,28 +104,40 @@ class TourController extends Controller {
 
 		// ---------------------------------------- HANDLE SAVE ----------------------------------------
 		$input = Input::all();
-		$input['category_ids'] = $input['category'];
-		$input['thumbnail_sm'] = $input['small_thumbnail'];
-		$input['thumbnail_lg'] = $input['large_thumbnail'];
-		$input['vendor_id'] = $input['vendor'];
-		if (!empty($input['published_at']))
+
+		// tour travel agent
+		$input['travel_agent_id'] 	= $input['travel_agent'];
+
+		// tour destinations
+		$input['destination_ids'] 	= $input['destinations'];
+
+		// tour places
+		$input['place_ids'] 		= $input['places'];
+
+		// tour options
+		foreach ($input['tour_options'] as $x)
+		{
+			$input['option_ids'][$x] = ['description' => $input['tour_options_description_' . $x]];
+		}
+
+		// published_at
+		if ($input['published_at'])
 		{
 			$input['published_at'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i', $input['published_at'])->format('Y-m-d H:i:s');
 		}
 		else
 		{
-			unset($input['published_at']);
+			$input['published_at'] = null;
 		}
-		
 		$data->fill($input);
 
 		if ($data->save())
 		{
-			return redirect()->route('admin.'.$this->view_name.'.show', ['id' => $data->id])->with('alert_success', '"' . $data->name . '" has been saved successfully');
+			return redirect()->route('admin.'.$this->view_name.'.show', ['id' => $data->id])->with('alert_success', '"' . $data->{$data->getNameField()} . '" has been saved successfully');
 		}
 		else
 		{
-			return redirect()->back()->withInput()->withErrors($data->errors);
+			return redirect()->back()->withInput()->withErrors($data->getErrors());
 		}
 	}
 
@@ -82,12 +145,13 @@ class TourController extends Controller {
 	{
 		$data = $this->model->findorfail($id);
 
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.show')
-											->with('route_name', $this->route_name)
-											->with('data', $data);
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'show')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data 			= $data;
 
-		return $this->layout;		
+		return $this->layout;
 	}
 
 	public function getEdit($id)
@@ -103,12 +167,13 @@ class TourController extends Controller {
 		// ---------------------------------------- HANDLE REQUEST ----------------------------------------
 		$data = $this->model->findorfail($id);
 
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.delete')
-											->with('route_name', $this->route_name)
-											->with('data', $data);
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'delete')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data 			= $data;
 
-		return $this->layout;		
+		return $this->layout;
 	}
 
 
@@ -125,7 +190,7 @@ class TourController extends Controller {
 		}
 		else
 		{
-			return redirect()->route('admin.' . $this->view_name . '.index')->with('alert_success', '"' .$data->name. '" has been deleted successfully' );
+			return redirect()->route('admin.' . $this->view_name . '.index')->with('alert_success', '"' .$data->{$data->getNameField()}. '" has been deleted successfully' );
 		}
 	}
 
@@ -138,19 +203,19 @@ class TourController extends Controller {
 
 		if ($schedule_id)
 		{
-			$schedule = $this->schedule_model->findorfail($schedule_id);
-
+			$schedule = $data->schedules->find($schedule_id);
 			if ($schedule->tour_id != $tour_id)
 			{
 				App::abort(404);
 			}
 		}
 
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.schedules')
-											->with('route_name', $this->route_name)
-											->with('data', $data)
-											->with('schedule', $schedule);
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'schedules')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data 			= $data;
+		$this->layout->page->schedule 		= $schedule;
 
 		return $this->layout;		
 	}
@@ -173,8 +238,15 @@ class TourController extends Controller {
 		}
 
 		$input = Input::all();
-		$input['depart_at'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i', $input['depart_at']);
-		$input['return_at'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i', $input['return_at']);
+		if ($input['departure'])
+		{
+			$input['departure'] = \Carbon\Carbon::createFromFormat('d/m/Y', $input['departure']);
+		}
+
+		if ($input['arrival'])
+		{
+			$input['arrival'] = \Carbon\Carbon::createFromFormat('d/m/Y', $input['arrival']);
+		}
 		$input['tour_id'] = $tour_id;
 
 		// schedule
@@ -184,13 +256,13 @@ class TourController extends Controller {
 		{
 			if ($schedule_id)
 			{
-				$success_message = 'Schedule has been updated: ' . $schedule->depart_at->format('d/m/Y H:i') . ' - ' . $schedule->return_at->format('d/m/Y H:i');
+				$success_message = 'Schedule has been updated: ' . $schedule->departure->format('d/m/Y') . ' - ' . $schedule->arrival->format('d/m/Y');
 			}
 			else
 			{
-				$success_message = 'Schedule has been added: ' . $schedule->depart_at->format('d/m/Y H:i') . ' - ' . $schedule->return_at->format('d/m/Y H:i');
+				$success_message = 'Schedule has been added: ' . $schedule->departure->format('d/m/Y') . ' - ' . $schedule->arrival->format('d/m/Y');
 			}
-			return redirect()->route('admin.tour.schedules', ['tour_id' => $tour_id])->with('alert_success', $success_message) ;
+			return redirect()->route('admin.'.$this->route_name.'.schedules', ['tour_id' => $tour_id])->with('alert_success', $success_message) ;
 		}
 		else
 		{
@@ -198,5 +270,28 @@ class TourController extends Controller {
 		}
 
 		return $this->layout;		
+	}
+
+	public function getDeleteSchedule($tour_id, $schedule_id)
+	{
+		$tour = $this->model->findorfail($tour_id);
+		if ($schedule_id)
+		{
+			$schedule = $this->schedule_model->findorfail($schedule_id);
+
+			if ($schedule->tour_id != $tour_id)
+			{
+				App::abort(404);
+			}
+		}
+
+		if (!$schedule->delete())
+		{
+			return redirect()->back()->withErrors($schedule->getErrors());
+		}
+		else
+		{
+			return redirect()->route('admin.'.$this->route_name.'.schedules', ['tour_id' => $tour_id])->with('alert_success', '"Schedule ' .$schedule->departure->format('d-m-Y') . '-'. $schedule->arrival->format('d-m-Y') . '" has been deleted successfully') ;
+		}
 	}
 }

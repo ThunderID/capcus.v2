@@ -8,7 +8,7 @@
 	@section('widget_body')
 		<ul>
 			<li>
-				<a class="active" href='javascript:;' ><i class='glyphicon glyphicon-dashboard'></i> Destinations</a>
+				<a class="" href='javascript:;' ><i class='glyphicon glyphicon-dashboard'></i> Destinations</a>
 				<ul>
 					<li><a class="{{str_is(route('admin.destinations.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.destinations.index")}}' ><i class='glyphicon glyphicon-dashboard'></i> Destinations</a></li>
 					<li><a class="{{str_is(route('admin.places.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.places.index")}}' ><i class='glyphicon glyphicon-dashboard'></i> Places</a></li>
@@ -16,10 +16,11 @@
 			</li>
 			<li><a class="{{str_is(route('admin.articles.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.articles.index")}}' ><i class='glyphicon glyphicon-dashboard'></i> Articles</a></li>
 			<li>
-				<a class="active" href='javascript:;' ><i class='glyphicon glyphicon-dashboard'></i> Tours</a>
+				<a class="" href='javascript:;' ><i class='glyphicon glyphicon-dashboard'></i> Tours</a>
 				<ul>
 					<li><a class="{{str_is(route('admin.travel_agents.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.travel_agents.index")}}'><i class='fa fa-user'></i> Travel Agent</a></li>
-					<li><a class="{{str_is(route('admin.member.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.member.index")}}'><i class='fa fa-user'></i> Tour</a></li>
+					<li><a class="{{str_is(route('admin.tours.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.tours.index")}}'><i class='fa fa-user'></i> Tour</a></li>
+					<li><a class="{{str_is(route('admin.tour_options.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.tour_options.index")}}'><i class='fa fa-user'></i> Tour Options</a></li>
 				</ul>
 			<li>
 				<a class="{{str_is(route('admin.member.index'), $active_url) ? 'active' : "" }}" href='{{route("admin.member.index")}}'>

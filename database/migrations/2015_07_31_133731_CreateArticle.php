@@ -19,7 +19,7 @@ class CreateArticle extends Migration
             $table->string('slug');
             $table->text('summary');
             $table->text('content');
-            $table->datetime('published_at');
+            $table->datetime('published_at')->nullable();
             $table->timestamps();
 
             $table->index('published_at');

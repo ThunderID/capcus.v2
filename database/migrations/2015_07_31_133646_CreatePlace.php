@@ -22,7 +22,7 @@ class CreatePlace extends Migration
             $table->text('content');
             $table->double('longitude');
             $table->double('latitude');
-            $table->datetime('published_at');
+            $table->datetime('published_at')->nullable();
 
             $table->timestamps();
 

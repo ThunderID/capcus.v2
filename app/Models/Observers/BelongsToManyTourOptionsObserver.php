@@ -2,42 +2,27 @@
 
 use Validator, \Illuminate\Support\MessageBag;
 
-class PlaceObserver {
+class BelongsToManyTourOptionsObserver {
 
 	// ----------------------------------------------------------------
 	// SAVE
 	// ----------------------------------------------------------------
 	public function saving($model)
 	{
-		// ------------------------------------------------------------
-		// GENERATE Slug
-		// ------------------------------------------------------------
-		if (!$model->slug)
+		$tmp_model = new \App\TourOption;
+
+		// RULES
+		if (is_array($model->option_ids))
 		{
-			$i = 0;
-			do {
-				$model->slug = str_slug($model->name . ($i ? '-' . $i : '')) ;
-				$i++;
-			} while (\App\Place::SlugIs($model->slug)->where('id', '!=', $model->id ? $model->id : 0)->count());
+			foreach ($model->option_ids as $k => $v)
+			{
+				$rules['option_ids' . $k ]				= ['exists:' . $tmp_model->getTable()];
+			}
 		}
-
-		// ------------------------------------------------------------
-		// GENERATE LONG NAME
-		// ------------------------------------------------------------
-		$model->long_name = $model->name;
-		$destination = $model->destination;
-		do {
-			$model->long_name .= ', ' . $destination->name;
-			$destination = $destination->parent;
-		} while ($destination->name);
-
-		// ------------------------------------------------------------
-		// GENERATE RULES
-		// ------------------------------------------------------------
-		$rules['summary']				= ['required', 'min:40'];
-		$rules['content']				= ['required', 'min:100'];
-		$rules['longitude']				= ['numeric'];
-		$rules['latitude']				= ['numeric'];
+		else
+		{
+			$rules['option_ids'] = ['exists:' . $tmp_model->getTable()];
+		}
 
 		$validator = Validator::make($model->toArray(), $rules);
 		if ($validator->fails())
@@ -49,6 +34,7 @@ class PlaceObserver {
 
 	public function saved($model)
 	{
+		$model->options()->sync(is_array($model->option_ids) ? $model->option_ids : [$model->option_ids]);
 	}
 
 	// ----------------------------------------------------------------
@@ -82,6 +68,7 @@ class PlaceObserver {
 	// ----------------------------------------------------------------
 	public function deleting($model)
 	{
+		
 	}
 
 	public function deleted($model)

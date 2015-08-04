@@ -2,42 +2,17 @@
 
 use Validator, \Illuminate\Support\MessageBag;
 
-class PlaceObserver {
+class BelongsToTourObserver {
 
 	// ----------------------------------------------------------------
 	// SAVE
 	// ----------------------------------------------------------------
 	public function saving($model)
 	{
-		// ------------------------------------------------------------
-		// GENERATE Slug
-		// ------------------------------------------------------------
-		if (!$model->slug)
-		{
-			$i = 0;
-			do {
-				$model->slug = str_slug($model->name . ($i ? '-' . $i : '')) ;
-				$i++;
-			} while (\App\Place::SlugIs($model->slug)->where('id', '!=', $model->id ? $model->id : 0)->count());
-		}
+		$tmp_model = new \App\Tour;
 
-		// ------------------------------------------------------------
-		// GENERATE LONG NAME
-		// ------------------------------------------------------------
-		$model->long_name = $model->name;
-		$destination = $model->destination;
-		do {
-			$model->long_name .= ', ' . $destination->name;
-			$destination = $destination->parent;
-		} while ($destination->name);
-
-		// ------------------------------------------------------------
-		// GENERATE RULES
-		// ------------------------------------------------------------
-		$rules['summary']				= ['required', 'min:40'];
-		$rules['content']				= ['required', 'min:100'];
-		$rules['longitude']				= ['numeric'];
-		$rules['latitude']				= ['numeric'];
+		// RULES
+		$rules['tour_id']				= ['integer', 'min:1', 'exists:' . $tmp_model->getTable() . ',id'];
 
 		$validator = Validator::make($model->toArray(), $rules);
 		if ($validator->fails())
@@ -82,6 +57,7 @@ class PlaceObserver {
 	// ----------------------------------------------------------------
 	public function deleting($model)
 	{
+		
 	}
 
 	public function deleted($model)

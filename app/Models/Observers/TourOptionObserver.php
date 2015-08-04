@@ -2,42 +2,15 @@
 
 use Validator, \Illuminate\Support\MessageBag;
 
-class PlaceObserver {
+class TourOptionObserver {
 
 	// ----------------------------------------------------------------
 	// SAVE
 	// ----------------------------------------------------------------
 	public function saving($model)
 	{
-		// ------------------------------------------------------------
-		// GENERATE Slug
-		// ------------------------------------------------------------
-		if (!$model->slug)
-		{
-			$i = 0;
-			do {
-				$model->slug = str_slug($model->name . ($i ? '-' . $i : '')) ;
-				$i++;
-			} while (\App\Place::SlugIs($model->slug)->where('id', '!=', $model->id ? $model->id : 0)->count());
-		}
-
-		// ------------------------------------------------------------
-		// GENERATE LONG NAME
-		// ------------------------------------------------------------
-		$model->long_name = $model->name;
-		$destination = $model->destination;
-		do {
-			$model->long_name .= ', ' . $destination->name;
-			$destination = $destination->parent;
-		} while ($destination->name);
-
-		// ------------------------------------------------------------
-		// GENERATE RULES
-		// ------------------------------------------------------------
-		$rules['summary']				= ['required', 'min:40'];
-		$rules['content']				= ['required', 'min:100'];
-		$rules['longitude']				= ['numeric'];
-		$rules['latitude']				= ['numeric'];
+		// RULES
+		$rules = [];
 
 		$validator = Validator::make($model->toArray(), $rules);
 		if ($validator->fails())
@@ -82,6 +55,11 @@ class PlaceObserver {
 	// ----------------------------------------------------------------
 	public function deleting($model)
 	{
+		if ($model->tours->count())
+		{
+			$model->setErrors(new MessageBag(['error' => 'Unable delete this options as there are some tours with this option']));
+			return false;
+		}
 	}
 
 	public function deleted($model)

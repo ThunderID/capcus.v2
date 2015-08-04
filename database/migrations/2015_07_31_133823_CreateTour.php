@@ -14,18 +14,18 @@ class CreateTour extends Migration
     {
         Schema::create('tours', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('travel_agency_id')->unsigned();
+            $table->integer('travel_agent_id')->unsigned();
             $table->string('name');
             $table->string('slug');
             $table->text('ittinary');
-            $table->text('description');
+            $table->text('summary');
             $table->integer('duration_day');
             $table->integer('duration_night');
-            $table->datetime('published_at');
+            $table->datetime('published_at')->nullable();
             $table->timestamps();
 
-            $table->index('travel_agency_id');
-            $table->index(['published_at', 'travel_agency_id']);
+            $table->index('travel_agent_id');
+            $table->index(['published_at', 'travel_agent_id']);
         });
     }
 

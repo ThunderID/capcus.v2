@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserTableSeeder::class);
         $this->call(DestinationTableSeeder::class);
+        $this->call(TravelAgentTableSeeder::class);
+        $this->call(ArticleTableSeeder::class);
+        $this->call(TourOptionSeeder::class);
 
         Model::reguard();
     }

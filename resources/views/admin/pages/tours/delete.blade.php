@@ -3,9 +3,9 @@
 @stop
 
 @section('content_sidebar')
-	@include('admin.widgets.tour.nav')
+	@include('admin.widgets.'.$view_name.'.nav')
 	<hr/>
-	@include('admin.widgets.tour.nav_detail', [
+	@include('admin.widgets.'.$view_name.'.nav_detail', [
 		'widget_template' 	=> "plain",
 		'widget_options'	=> [
 									'data' => ['filter_tour_id'			=> $data->id],
@@ -14,7 +14,7 @@
 @stop
 
 @section('content_body')
-	@include('admin.widgets.tour.delete', [
+	@include('admin.widgets.'.$view_name.'.delete', [
 			'widget_template' 	=> 'plain',
 			'widget_options'	=> [
 										'data' => ['filter_tour_id'			=> $data->id],

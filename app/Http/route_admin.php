@@ -20,7 +20,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 						'destinations'			=> "DestinationController",
 						'places'				=> "PlaceController",
 						'articles' 				=> "ArticleController",
-						'travel_agents'		=> "TravelAgentController",
+						'travel_agents'			=> "TravelAgentController",
+						'tours'					=> "TourController",
+						'tour_options'			=> "TourOptionController",
+
+
 
 						'article_category' 		=> "ArticleCategoryController",
 						'vendor_category'		=> "VendorCategoryController",
@@ -35,18 +39,28 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 						'destinations'			=> [],
 						'places'				=> [],
 						'articles'				=> [],
-						'travel_agents'		=> [],
+						'travel_agents'			=> [],
+						'tours'					=> [
+													'getSchedules'	=> 'admin.tours.schedules',
+													'postSchedules'	=> 'admin.tours.schedules.store',
+													'getDeleteSchedule'	=> 'admin.tours.schedules.delete'
+													],
+						'tour_options'			=> [],
+						
+
+
+
+
 						
 						'blog'					=> [],
 						'article_category'		=> [],
 						'vendor'				=> [
 													'getSubscription'	=> 'admin.vendor.subscription',
-													'postSubscription'	=> 'admin.vendor.subscription.store'],
+													'postSubscription'	=> 'admin.vendor.subscription.store'
+													],
 						'vendor_category'		=> [],
 						'tour_destination'		=> [],
 						'tour'					=> [
-													'getSchedules'	=> 'admin.tour.schedules',
-													'postSchedules'	=> 'admin.tour.schedules.store'
 												 	],
 						'member'				=> [],
 						'admin'					=> [],

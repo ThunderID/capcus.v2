@@ -10,8 +10,8 @@ class TourScheduleObserver {
 	public function saving($model)
 	{
 		// RULES
-		$rules['depart']				= ['required', 'date'];
-		$rules['return']				= ['required', 'date'];
+		$rules['departure']				= ['required', 'date'];
+		$rules['arrival']				= ['required', 'date'];
 		$rules['currency']				= ['required', 'in:IDR'];
 		$rules['original_price']		= ['required', 'numeric', 'min:0'];
 		$rules['discounted_price']		= ['required', 'numeric', 'min:0'];
