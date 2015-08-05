@@ -23,6 +23,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 						'travel_agents'			=> "TravelAgentController",
 						'tours'					=> "TourController",
 						'tour_options'			=> "TourOptionController",
+						'admin'	 				=> "AdminController",
+						'members'	 			=> "MemberController",
 
 
 
@@ -31,7 +33,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 						'tour_destination'		=> "TourCategoryController",
 						'tour'	 				=> "TourController",
 						'member'	 			=> "MemberController",
-						'admin'	 				=> "AdminController",
 						'headlines'	 			=> "HeadlineController",
 					];
 
@@ -46,6 +47,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 													'getDeleteSchedule'	=> 'admin.tours.schedules.delete'
 													],
 						'tour_options'			=> [],
+						'admin'					=> [],
+						'members'				=> [],
 						
 
 
@@ -63,7 +66,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 						'tour'					=> [
 												 	],
 						'member'				=> [],
-						'admin'					=> [],
 						'headlines'				=> [],
 		];
 

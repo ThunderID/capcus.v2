@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract
 {
-	use Authenticatable, CanResetPassword;
+	use Authenticatable, CanResetPassword, HasNameTrait, SoftDeletes;
+
 
 	protected $table = 'users';
 	protected $fillable = [
@@ -30,7 +32,9 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 							'gender'
 						];
 	protected $hidden = ['password', 'remember_token',];
-	protected $dates = ['sso_twitter_updated_at', 'sso_facebook_updated_at', 'dob'];
+	protected $dates = ['sso_twitter_updated_at', 'sso_facebook_updated_at', 'dob', 'deleted_at'];
+
+	static $name_field = 'name';
 
 	// ----------------------------------------------------------------------
 	// BOOT

@@ -12,7 +12,10 @@ class UserObserver {
 		// RULES
 		$rules['name']									= ['required', 'min:3'];
 		$rules['email']									= ['email', 'unique:' . $model->getTable() . ',email,' . ($model->id ? $model->id : "NULL") . ',id'];
-		$rules['password']								= ['required', 'min:8'];
+		if (!$model->id)
+		{
+			$rules['password']								= ['required', 'min:8'];
+		}
 		$rules['is_admin']								= ['boolean'];
 		$rules['telp']									= ['numeric'];
 		if ($model->dob->year != -1)
@@ -87,7 +90,6 @@ class UserObserver {
 	// ----------------------------------------------------------------
 	public function deleting($model)
 	{
-		
 	}
 
 	public function deleted($model)

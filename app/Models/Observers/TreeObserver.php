@@ -38,6 +38,15 @@ class TreeObserver {
 			{
 				$model->{$model->getPathField()} = str_slug($model->{$model->getNameField()});
 			}
+
+			// Check Duplicated path
+			$rules['ori_path'] = ['unique:' . $new_instance->getTable() . ',path,' . ($model->id ? $model->id : 'NULL') . ',id'];
+			$validator = Validator::make(['ori_path' => $model->ori_path], $rules, ['unique' => 'Data ' . $model->{$model->getNameField()} . ' already exists']);
+			if ($validator->fails())
+			{
+				$model->setErrors($validator->messages());
+				return false;
+			}
 		}
 	}
 

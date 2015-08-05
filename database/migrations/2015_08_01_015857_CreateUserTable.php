@@ -33,10 +33,12 @@ class CreateUserTable extends Migration
 
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->index('email');
-            $table->index('sso_twitter_id');
-            $table->index('sso_facebook_id');
+            $table->index(['deleted_at', 'email']);
+            $table->index(['deleted_at', 'sso_twitter_id']);
+            $table->index(['deleted_at', 'sso_facebook_id']);
+
         });
     }
 

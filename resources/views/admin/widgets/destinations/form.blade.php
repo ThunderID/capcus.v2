@@ -23,9 +23,9 @@
 @if (!$widget_error_count)
 	@section('widget_title')
 		@if ($destination->id)
-			Edit Article Category: {{$destination->path_name}}
+			Edit Destination: {{$destination->path_name}}
 		@else
-			Create new Article Category:
+			Create new Destination:
 		@endif
 	@overwrite
 

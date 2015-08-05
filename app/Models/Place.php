@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Place extends BaseModel
 {
-	use HasNameTrait, HasSlugTrait, HasPublishedAtTrait;
+	use HasNameTrait, HasSlugTrait, HasPublishedAtTrait
+		BelongsToDestinationTrait, HasManyImagesTrait;
 
     //
 	protected $table = 'places';
@@ -39,32 +40,11 @@ class Place extends BaseModel
 	// ----------------------------------------------------------------------
 	// RELATIONS
 	// ----------------------------------------------------------------------
-	function images()
-	{
-		return $this->morphMany(__NAMESPACE__ . '\Image', 'imageable');
-	}
 
-	function destination()
-	{
-		return $this->belongsTo(__NAMESPACE__ . '\Destination');
-	}
 
 	// ----------------------------------------------------------------------
 	// SCOPES
 	// ----------------------------------------------------------------------
-	function scopeInDestinationById($q, $v = null)
-	{
-		if (!$v || (is_array($v) && empty($v)))
-		{
-			return $q;
-		}
-		else
-		{
-			return $q->whereHas('destination', function($q) use ($v) {
-				$q->whereIn('id', is_array($v) ? $v : [$v]);
-			});
-		}
-	}
 
 	// ----------------------------------------------------------------------
 	// MUTATORS

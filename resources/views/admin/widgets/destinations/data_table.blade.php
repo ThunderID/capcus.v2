@@ -46,7 +46,7 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th><span class="fa fa-sort-asc" aria-hidden="true"> Destination Path</th>
+					<th><span class="fa fa-sort-asc" aria-hidden="true"></span> Destination Path</th>
 					<th></th>
 				</tr>
 			</thead>

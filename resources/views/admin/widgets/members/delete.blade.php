@@ -2,10 +2,11 @@
 	// ------------------------------------------------------------------------------------------------------------------------
 	// PREDEFINED VARIABLE
 	// ------------------------------------------------------------------------------------------------------------------------
+
 	// ------------------------------------------------------------------------------------------------------------------------
 	// REQUIRED VARIABLES
 	// ------------------------------------------------------------------------------------------------------------------------
-	$required_variables = [];
+	$required_variables = ['user'];
 	foreach ($required_variables as $x)
 	{
 		if (!array_key_exists($x, get_defined_vars()))
@@ -18,25 +19,20 @@
 
 @extends('admin.widget_templates.' . ($widget_template ? $widget_template : 'plain_no_title'))
 
-@if (!$widget_error_count)
-	@section('widget_title')
-		{{$widget_title}}
-	@overwrite
+@section('widget_title')
+	{{$widget_title or $user->name . ": Delete Confirmation "}}
+@overwrite
 
-	@section('widget_body')
-		<ul class="nav nav-pills nav-stacked">
-			<li role="presentation">
-				<a href="{{route('admin.' . $route_name . '.index')}}" class='text-black'>Data <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
-			</li>
-			<li role="presentation" class='{{ str_is("overview", $current_mode) ? "bg-light-blue" : "" }}'>
-				<a href="{{route('admin.' . $route_name . '.create')}}" class='text-black'>Create <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
-			</li>
-		</ul>
-	@overwrite
-@else
-	@section('widget_title')
-	@overwrite
-
-	@section('widget_body')
-	@overwrite
-@endif
+@section('widget_body')
+	{!! Form::open(['url' => route('admin.'.$route_name.'.delete', ['id' => $user->id]), 'method' => 'post', 'class' => 'form']) !!}
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+			<p>Are you sure to delete this {{$route_name}} <strong>"{{$user->name}}"</strong>?</p>
+			<p>
+				<a href="{{route('admin.'. $route_name . '.show', ['id' => $user->id])}}" class='btn btn-default'> Cancel </a>
+				<button class='btn btn-danger' type='submit'> Confirm </button>
+			</p>
+		</div>
+	</div>
+	{!! Form::close() !!}
+@overwrite

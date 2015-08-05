@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends BaseModel
 {
+	use BelongsToTravelAgentTrait, HasManyPhonesTrait;
 	//
 	protected $table = 'addresses';
 	protected $fillable = [

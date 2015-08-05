@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TravelAgent extends BaseModel
 {
-	use HasNameTrait, HasSlugTrait; 
+	use HasNameTrait, HasSlugTrait,
+		HasManyImagesTrait, HasManyAddressesTrait, HasManyToursTrait; 
 
     //
 	protected $table = 'travel_agencies';

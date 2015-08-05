@@ -1,14 +1,15 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use Auth, Input, \Illuminate\Support\MessageBag, Validator, Exception, App;
+use \App\Member as User;
 
 class MemberController extends Controller {
 
 	protected $model;
-	protected $view_name = 'member';
-	protected $route_name = 'member';
+	protected $view_name = 'members';
+	protected $route_name = 'members';
 
-	public function __construct(\App\User $model)
+	public function __construct(User $model)
 	{
 		parent::__construct();
 
@@ -16,15 +17,29 @@ class MemberController extends Controller {
 
 		$this->layout->view_name = $this->view_name;
 		$this->layout->route_name = $this->route_name;
+		$this->page_base_dir .= $this->view_name . '.';
 		
-		$this->layout->content_title = strtoupper($this->view_name);
-
+		$this->layout->content_title = 'MEMBERS';
 	}
 
 	public function getIndex()
 	{
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.index')->with('route_name', $this->route_name);
+		// ------------------------------------------------------------------------------------------------------------
+		// FILTERS
+		// ------------------------------------------------------------------------------------------------------------
+		$filters['name'] = Input::get('filter_admin_name');
+
+		// ------------------------------------------------------------------------------------------------------------
+		// QUERY
+		// ------------------------------------------------------------------------------------------------------------
+		$data = $this->model->NameLike('*'.$filters['name'].'*')->orderBy('name')->paginate(30);
+
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'index')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data 			= $data;
+		$this->layout->page->filters 		= $filters;
 
 		return $this->layout;
 	}
@@ -32,68 +47,64 @@ class MemberController extends Controller {
 	public function getCreate($data = null)
 	{
 		return App::abort(404);
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'create')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data			= $data;
+		$this->layout->page->destinations	= $destinations;
 
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.create')->with('route_name', $this->route_name)->with('data', $data);
-
-			return $this->layout;
+		return $this->layout;
 	}
 
 	public function postStore($id = null)
 	{
 		return App::abort(404);
-
 		// ---------------------------------------- HANDLE REQUEST ----------------------------------------
 		// handle id
 		if (!is_null($id))
 		{
-			$data = $this->model->isAdmin(false)->find($id);
+			$data = $this->model->find($id);
 		}
 		else
 		{
-			$data 				= $this->model->isAdmin(false)->newInstance();
-			$data->user_id 		= Auth::id();
+			$data 				= $this->model->newInstance();
 		}
 
 		// ---------------------------------------- HANDLE SAVE ----------------------------------------
 		$input = Input::all();
-		$input['category_ids'] = $input['category'];
-		$input['subarticle_ids'] = $input['subarticle'];
 
-		if (!empty($input['published_at']))
+		// validate password confirmation
+		$rules['password'] = ['min:8', 'confirmed'];
+		$validator = Validator::make($input, $rules);
+		if ($validator->fails())
 		{
-			$input['published_at'] = \Carbon\Carbon::createFromFormat('d/m/Y H:i', $input['published_at'])->format('Y-m-d H:i:s');
+			dd($validator->messages());
+			return redirect()->back()->withInput()->withErrors($validator->messages());
 		}
-		else
-		{
-			unset($input['published_at']);
-		}
+
 		$data->fill($input);
 
 		if ($data->save())
 		{
-			return redirect()->route('admin.'.$this->view_name.'.show', ['id' => $data->id])->with('alert_success', '"' . $data->title . '" has been saved successfully');
+			return redirect()->route('admin.'.$this->view_name.'.show', ['id' => $data->id])->with('alert_success', '"' . $data->{$data->getNameField()} . '" has been saved successfully');
 		}
 		else
 		{
-			return redirect()->back()->withInput()->withErrors($data->errors);
+			return redirect()->back()->withInput()->withErrors($data->getErrors());
 		}
 	}
 
-	public function getShow($id, $mode = '')
+	public function getShow($id)
 	{
-		$data = $this->model->isAdmin(false)->where('id', '=', $id)->first();
+		$data = $this->model->findorfail($id);
 
-		if (!$data)
-		{
-			App::abort(404);
-		}
-
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.show')
-											->with('route_name', $this->route_name)
-											->with('data', $data);
-
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'show')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data			= $data;
+		
 		return $this->layout;		
 	}
 
@@ -101,8 +112,7 @@ class MemberController extends Controller {
 	{
 		return App::abort(404);
 		// ---------------------------------------- HANDLE REQUEST ----------------------------------------
-		$data = $this->model->isAdmin(false)->findorfail($id);
-
+		$data = $this->model->findorfail($id);
 		return $this->getCreate($data);
 	}
 
@@ -111,12 +121,13 @@ class MemberController extends Controller {
 		return App::abort(404);
 		
 		// ---------------------------------------- HANDLE REQUEST ----------------------------------------
-		$data = $this->model->isAdmin(false)->findorfail($id);
+		$data = $this->model->findorfail($id);
 
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.delete')
-											->with('route_name', $this->route_name)
-											->with('data', $data);
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'delete')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data			= $data;
 
 		return $this->layout;		
 	}
@@ -125,10 +136,9 @@ class MemberController extends Controller {
 	public function postDelete($id)
 	{
 		return App::abort(404);
-
 		// ---------------------------------------- HANDLE REQUEST ----------------------------------------
 		// handle id
-		$data = $this->model->isAdmin(false)->findorfail($id);
+		$data = $this->model->findorfail($id);
 
 		// ---------------------------------------- PREPARE VIEW ----------------------------------------
 		if (!$data->delete())
@@ -137,7 +147,7 @@ class MemberController extends Controller {
 		}
 		else
 		{
-			return redirect()->route('admin.' . $this->view_name . '.index')->with('alert_success', '"' .$data->title. '" has been deleted successfully' );
+			return redirect()->route('admin.' . $this->view_name . '.index')->with('alert_success', '"' .$data->{$data->getNameField()}. '" has been deleted successfully' );
 		}
 	}
 }

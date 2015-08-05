@@ -2,7 +2,6 @@
 	$filters = array_only($UserComposer['widget_data']['data'], ['filter_user_name']);
 ?>
 
-
 @extends('admin.widget_templates.' . ($widget_template ? $widget_template : 'plain_no_title'))
 
 @if (!$widget_error_count)
@@ -14,16 +13,17 @@
 		@endif
 
 		@if (count(array_filter($filters)))
+
 			@if ($UserComposer['widget_data']['data']['filter_user_name'])
-				<a href='{{route("admin.member.index", array_except($filters, "filter_user_name"))}}' class="label label-primary ml-xs">
+				<a href='{{route("admin.admin.index", array_except($filters, "filter_user_title"))}}' class="label label-primary ml-xs">
 					<i class='glyphicon glyphicon-remove'></i> 
 					Name: 
-					{{$UserComposer['widget_data']['data']['filter_user_name']}}
+					*{{$UserComposer['widget_data']['data']['filter_user_name'] . '*'}}
 				</a>
 			@endif
 
 		@else
-			all {{(str_replace('_', ' ', $view_name))}}
+			all {{str_replace('_', ' ', $view_name)}}
 		@endif
 	@overwrite
 
@@ -34,7 +34,7 @@
 					<th>#</th>
 					<th>Name</th>
 					<th>Email</th>
-					<th>Member Since</th>
+					<th>Since</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -54,7 +54,10 @@
 						<td>{{$x->created_at->diffForHumans()}}</td>
 						<td class='text-right'>
 							<div class="btn-group">
-								<a href='{{route("admin.member.show", ["id" => $x->id])}}' type="button" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></a>
+								<a href='{{route("admin.admin.edit", ["id" => $x->id])}}' type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></a>
+							</div>
+							<div class="btn-group">
+								<a href='{{route("admin.admin.show", ["id" => $x->id])}}' type="button" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></a>
 							</div>
 						</td>
 					</tr>

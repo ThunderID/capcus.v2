@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destination extends BaseModel
 {
-	use HasNameTrait, HasSlugTrait, TreeTrait;
+	use HasNameTrait, HasSlugTrait, TreeTrait,
+		BelongsToManyArticlesTrait, HasManyImagesTrait, HasManyPlacesTrait,  BelongsToManyToursTrait;
 
     //
 	protected $table = 'destinations';
@@ -32,25 +33,6 @@ class Destination extends BaseModel
 	// ----------------------------------------------------------------------
 	// RELATIONS
 	// ----------------------------------------------------------------------
-	function tours()
-	{
-		return $this->belongsToMany(__NAMESPACE__ . '\Tour', 'visits', 'destination_id', 'tour_id');
-	}
-
-	function articles()
-	{
-		return $this->belongsToMany(__NAMESPACE__ . '\Article', 'article_destination', 'destination_id', 'article_id');
-	}
-
-	function images()
-	{
-		return $this->morphMany(__NAMESPACE__ . '\Image', 'imageable');
-	}
-
-	function places()
-	{
-		return $this->hasMany(__NAMESPACE__ . '\Place');
-	}
 
 	// ----------------------------------------------------------------------
 	// SCOPES
@@ -67,5 +49,4 @@ class Destination extends BaseModel
 	// ----------------------------------------------------------------------
 	// FUNCTIONS
 	// ----------------------------------------------------------------------
-
 }

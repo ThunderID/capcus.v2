@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends BaseModel
 {
-	use HasNameTrait, HasSlugTrait, HasPublishedAtTrait;
+	use HasNameTrait, HasSlugTrait, HasPublishedAtTrait,
+		BelongsToManyDestinationsTrait, HasManyImagesTrait;
 
     //
 	protected $table 		= 'articles';

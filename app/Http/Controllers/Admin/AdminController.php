@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use Auth, Input, \Illuminate\Support\MessageBag, Validator, Exception, App;
+use \App\Admin as User;
 
 class AdminController extends Controller {
 
@@ -8,7 +9,7 @@ class AdminController extends Controller {
 	protected $view_name = 'admin';
 	protected $route_name = 'admin';
 
-	public function __construct(\App\User $model)
+	public function __construct(User $model)
 	{
 		parent::__construct();
 
@@ -16,25 +17,43 @@ class AdminController extends Controller {
 
 		$this->layout->view_name = $this->view_name;
 		$this->layout->route_name = $this->route_name;
+		$this->page_base_dir .= $this->view_name . '.';
 		
-		$this->layout->content_title = strtoupper($this->view_name);
-
+		$this->layout->content_title = 'ADMIN';
 	}
 
 	public function getIndex()
 	{
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.index')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		// ------------------------------------------------------------------------------------------------------------
+		// FILTERS
+		// ------------------------------------------------------------------------------------------------------------
+		$filters['name'] = Input::get('filter_admin_name');
+
+		// ------------------------------------------------------------------------------------------------------------
+		// QUERY
+		// ------------------------------------------------------------------------------------------------------------
+		$data = $this->model->NameLike('*'.$filters['name'].'*')->orderBy('name')->paginate(30);
+
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'index')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data 			= $data;
+		$this->layout->page->filters 		= $filters;
 
 		return $this->layout;
 	}
 
 	public function getCreate($data = null)
 	{
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.create')->with('route_name', $this->route_name)->with('view_name', $this->view_name)->with('data', $data);
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'create')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data			= $data;
+		$this->layout->page->destinations	= $destinations;
 
-			return $this->layout;
+		return $this->layout;
 	}
 
 	public function postStore($id = null)
@@ -43,7 +62,7 @@ class AdminController extends Controller {
 		// handle id
 		if (!is_null($id))
 		{
-			$data = $this->model->isAdmin(true)->find($id);
+			$data = $this->model->find($id);
 		}
 		else
 		{
@@ -52,68 +71,58 @@ class AdminController extends Controller {
 
 		// ---------------------------------------- HANDLE SAVE ----------------------------------------
 		$input = Input::all();
-		if (!$input['password'])
+
+		// validate password confirmation
+		$rules['password'] = ['min:8', 'confirmed'];
+		$validator = Validator::make($input, $rules);
+		if ($validator->fails())
 		{
-			unset($input['password']);
-			unset($input['password_confirmation']);
+			dd($validator->messages());
+			return redirect()->back()->withInput()->withErrors($validator->messages());
 		}
-		else
-		{
-			$rules['password'] = ['confirmed'];
-			$validator = Validator::make($input, $rules, ['password.confirmed' => "Please ensure the confirmation password is the same with the password"]);
-			if ($validator->fails())
-			{
-				return redirect()->back()->withInput()->withErrors($validator);
-			}
-		}
-		$input['is_admin'] = true;
 
 		$data->fill($input);
 
 		if ($data->save())
 		{
-			return redirect()->route('admin.'.$this->view_name.'.show', ['id' => $data->id])->with('alert_success', '"' . $data->name . '" has been saved successfully');
+			return redirect()->route('admin.'.$this->view_name.'.show', ['id' => $data->id])->with('alert_success', '"' . $data->{$data->getNameField()} . '" has been saved successfully');
 		}
 		else
 		{
-			return redirect()->back()->withInput()->withErrors($data->errors);
+			return redirect()->back()->withInput()->withErrors($data->getErrors());
 		}
 	}
 
-	public function getShow($id, $mode = '')
+	public function getShow($id)
 	{
-		$data = $this->model->isAdmin(true)->where('id', '=', $id)->first();
+		$data = $this->model->findorfail($id);
 
-		if (!$data)
-		{
-			App::abort(404);
-		}
-
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.show')
-											->with('route_name', $this->route_name)->with('view_name', $this->view_name)
-											->with('data', $data);
-
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'show')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data			= $data;
+		
 		return $this->layout;		
 	}
 
 	public function getEdit($id)
 	{
 		// ---------------------------------------- HANDLE REQUEST ----------------------------------------
-		$data = $this->model->isAdmin(true)->findorfail($id);
-
+		$data = $this->model->findorfail($id);
 		return $this->getCreate($data);
 	}
 
 	public function getDelete($id)
 	{
 		// ---------------------------------------- HANDLE REQUEST ----------------------------------------
-		$data = $this->model->isAdmin(true)->findorfail($id);
+		$data = $this->model->findorfail($id);
 
-		// ---------------------------------------- GENERATE PAGE ----------------------------------------
-		$this->layout->content = view('admin.pages.'.$this->view_name.'.delete')
-											->with('route_name', $this->route_name)->with('view_name', $this->view_name)
-											->with('data', $data);
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'delete')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data			= $data;
 
 		return $this->layout;		
 	}
@@ -123,7 +132,7 @@ class AdminController extends Controller {
 	{
 		// ---------------------------------------- HANDLE REQUEST ----------------------------------------
 		// handle id
-		$data = $this->model->isAdmin(true)->findorfail($id);
+		$data = $this->model->findorfail($id);
 
 		// ---------------------------------------- PREPARE VIEW ----------------------------------------
 		if (!$data->delete())
@@ -132,7 +141,7 @@ class AdminController extends Controller {
 		}
 		else
 		{
-			return redirect()->route('admin.' . $this->route_name . '.index')->with('alert_success', '"' .$data->name. '" has been deleted successfully' );
+			return redirect()->route('admin.' . $this->view_name . '.index')->with('alert_success', '"' .$data->{$data->getNameField()}. '" has been deleted successfully' );
 		}
 	}
 }

@@ -28,9 +28,6 @@
 			<li role="presentation">
 				<a href="{{route('admin.' . $route_name . '.index')}}" class='text-black'>Data <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
 			</li>
-			<li role="presentation" class='{{ str_is("overview", $current_mode) ? "bg-light-blue" : "" }}'>
-				<a href="{{route('admin.' . $route_name . '.create')}}" class='text-black'>Create <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
-			</li>
 		</ul>
 	@overwrite
 @else
