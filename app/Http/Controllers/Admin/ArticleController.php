@@ -6,6 +6,8 @@ use \App\User;
 
 class ArticleController extends Controller {
 
+	use Traits\RequireImagesTrait;
+
 	protected $model;
 	protected $view_name = 'articles';
 	protected $route_name = 'articles';
@@ -20,6 +22,13 @@ class ArticleController extends Controller {
 		$this->layout->view_name = $this->view_name;
 		$this->layout->route_name = $this->route_name;
 		$this->page_base_dir .= $this->view_name . '.';
+
+		$this->required_images = [
+									'SmallThumbnail' 	=> 'Small Thumbnail',
+									'MediumThumbnail'	=> 'Medium Thumbnail',
+									'LargeThumbnail'	=> 'Large Thumbnail',
+
+								];
 		
 		$this->layout->content_title = strtoupper($this->view_name);
 
@@ -96,6 +105,7 @@ class ArticleController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		$this->layout->page 				= view($this->page_base_dir . 'create')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
 		$this->layout->page->data			= $data;
+		$this->layout->page->required_images= $this->required_images;
 		$this->layout->page->destinations	= $destinations;
 
 		return $this->layout;
@@ -132,6 +142,11 @@ class ArticleController extends Controller {
 
 		if ($data->save())
 		{
+			if (!$this->save_required_images($data, $input))
+			{
+				return redirect()->back()->withInput()->withErrors($data->getErrors());
+			}
+
 			return redirect()->route('admin.'.$this->view_name.'.show', ['id' => $data->id])->with('alert_success', '"' . $data->title . '" has been saved successfully');
 		}
 		else

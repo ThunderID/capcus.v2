@@ -115,6 +115,13 @@
 						!!}
 					</div>
 				</div>
+
+				@if (!empty($required_images))
+					<div class="well">
+						<div class='title'>Images</div>
+						@include('admin.components.required_image_form', ['required_images' => $required_images, 'data' => $destination])
+					</div>
+				@endif
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
 				<div class="well">
@@ -194,49 +201,11 @@
 							<label class='text-light'>
 								{!! Form::checkbox('tour_options[]', $tour_option->id, (!is_null($tour->options) && ($tour->options->find($tour_option->id)) ? true : false), [])!!} {{ $tour_option->name }}
 							</label>
-							{!! Form::textarea('tour_options_description_' . $tour_option->id, $tour->options->where('id', $tour_option->id)->shift()->pivot->description, ['class' => 'form-control', 'rows' => 2]) !!}
+							{!! Form::textarea('tour_options_description_' . $tour_option->id, ($tour->options ? $tour->options->where('id', $tour_option->id)->shift()->pivot->description : '')	, ['class' => 'form-control', 'rows' => 2]) !!}
 							<hr>
 						@empty
 						@endforelse
 					</p>
-				</div>
-
-				<div class="well">
-					<div class='title'>SMALL THUMBNAIL</div>
-					<p>	
-						<strong class='text-uppercase'>Small Thumbnail URL</strong>
-						@if ($errors->has('small_thumbnail'))
-							<span class='text-danger pull-right'>{{implode(', ', $errors->get('small_thumbnail'))}}</span>
-						@endif
-						{!! Form::text('small_thumbnail', $tour->thumbnail_sm, [
-																'class' 			=> 'form-control', 
-																'required' 			=> 'required',
-																'data-toggle'		=> ($errors->has('small_thumbnail') ? 'tooltip' : ''), 
-																'data-placement'	=> 'left', 
-																'title' 			=> ($errors->has('small_thumbnail') ? $errors->first('small_thumbnail') : ''), 
-															]) 
-						!!}
-					</p>
-
-					<p><img id='thumbnail_container' src="" class="img-responsive"></p>
-
-					<p>	
-						<strong class='text-uppercase'>Large Thumbnail URL</strong>
-						@if ($errors->has('large_thumbnail'))
-							<span class='text-danger pull-right'>{{implode(', ', $errors->get('large_thumbnail'))}}</span>
-						@endif
-						{!! Form::text('large_thumbnail', $tour->thumbnail_lg, [
-																'class' 			=> 'form-control', 
-																'required' 			=> 'required',
-																'data-toggle'		=> ($errors->has('large_thumbnail') ? 'tooltip' : ''), 
-																'data-placement'	=> 'left', 
-																'title' 			=> ($errors->has('large_thumbnail') ? $errors->first('large_thumbnail') : ''), 
-															]) 
-						!!}
-					</p>
-
-					<p><img id='thumbnail_container' src="" class="img-responsive"></p>
-
 				</div>
 
 				<div class="well hidden-xs hidden-sm hidden-md">

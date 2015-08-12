@@ -1,12 +1,27 @@
 <?php
-	foreach (range(1,12) as $range)
+	// ------------------------------------------------------------------------------------------------------------------------
+	// PREDEFINED VARIABLE
+	// ------------------------------------------------------------------------------------------------------------------------
+	foreach (range(1,12) as $x)
 	{
-		$months[$range] = $range;
+		$month_list[$x] = $x;
 	}
 
-	foreach (range(date('Y', strtotime('+1 year')), date('Y', strtotime('20 year ago'))) as $range)
+	foreach (range(date('Y'), date('Y')+5) as $x)
 	{
-		$years[$range] = $range;
+		$year_list[$x] = $x;
+	}
+
+	// ------------------------------------------------------------------------------------------------------------------------
+	// REQUIRED VARIABLES
+	// ------------------------------------------------------------------------------------------------------------------------
+	$required_variables = [];
+	foreach ($required_variables as $x)
+	{
+		if (!array_key_exists($x, get_defined_vars()))
+		{
+			throw new Exception($widget_name . ": $" .$x.': has not been set', 10);
+		}
 	}
 ?>
 
@@ -22,12 +37,12 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-xs">
 				<small>Month</small>
-				{!! Form::select('filter_headline_month', $months, Input::get('filter_headline_month') ? Input::get('filter_headline_month') : date('m') , ['class' => 'form-control select2']) !!}
+				{!! Form::select('filter_headline_month', $month_list, Input::get('filter_headline_month') ? Input::get('filter_headline_month') : date('m') , ['class' => 'form-control select2']) !!}
 			</div>
 
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-xs">
 				<small>Year</small>
-				{!! Form::select('filter_headline_year', $years, (Input::get('filter_headline_year') ? Input::get('filter_headline_year') : date('Y')), ['class' => 'form-control select2']) !!}
+				{!! Form::select('filter_headline_year', $year_list, (Input::get('filter_headline_year') ? Input::get('filter_headline_year') : date('Y')), ['class' => 'form-control select2']) !!}
 			</div>
 			{{-- SEARCH BUTTON --}}
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-sm text-center">

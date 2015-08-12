@@ -23,7 +23,7 @@ trait BelongsToDestinationTrait {
 	//------------------------------------------------------------------------
 	// SCOPE
 	//------------------------------------------------------------------------
-	function scopeDestinationByIds($q, $v = null)
+	function scopeInDestinationByIds($q, $v = null)
 	{
 		if (!$v || (is_array($v) && empty($v)))
 		{

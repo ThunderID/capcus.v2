@@ -6,6 +6,8 @@ use Auth, Input, \Illuminate\Support\MessageBag, Validator, Exception, App;
 
 class TravelAgentController extends Controller {
 
+	use Traits\RequireImagesTrait;
+
 	protected $model;
 	protected $view_name = 'travel_agents';
 	protected $route_name = 'travel_agents';
@@ -19,6 +21,11 @@ class TravelAgentController extends Controller {
 		$this->layout->view_name = $this->view_name;
 		$this->layout->route_name = $this->route_name;
 		$this->page_base_dir .= $this->view_name . '.';
+
+		$this->required_images = [
+									'SmallLogo'	=> 'Small Logo',
+									'LargeLogo'	=> 'Large Logo',
+		];
 		
 		$this->layout->content_title = "Travel Agents";
 
@@ -53,6 +60,7 @@ class TravelAgentController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		$this->layout->page 				= view($this->page_base_dir . 'create')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
 		$this->layout->page->data 			= $data;
+		$this->layout->page->required_images= $this->required_images;
 
 		return $this->layout;
 	}
@@ -76,6 +84,10 @@ class TravelAgentController extends Controller {
 
 		if ($data->save())
 		{
+			if (!$this->save_required_images($data, $input))
+			{
+				return redirect()->back()->withInput()->withErrors($data->getErrors());
+			}
 			return redirect()->route('admin.'.$this->view_name.'.show', ['id' => $data->id])->with('alert_success', '"' . $data->{$data->getNameField()} . '" has been saved successfully');
 		}
 		else

@@ -11,8 +11,9 @@ class ImageObserver {
 	{
 		// RULES
 		$rules['path']				= ['required', 'url'];
+		$rules['name']				= ['required'];
 		$rules['title']				= [];
-		$rules['size']				= ['required', 'in:xs,sm,md,lg'];
+		$rules['description']		= [];
 
 		$validator = Validator::make($model->toArray(), $rules);
 		if ($validator->fails())

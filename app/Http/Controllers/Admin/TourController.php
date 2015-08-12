@@ -4,6 +4,8 @@ use Auth, Input, \Illuminate\Support\MessageBag, Validator, Exception, App;
 
 class TourController extends Controller {
 
+	use Traits\RequireImagesTrait;
+
 	protected $model;
 	protected $schedule_model;
 	protected $view_name = 'tours';
@@ -19,6 +21,11 @@ class TourController extends Controller {
 		$this->layout->view_name = $this->view_name;
 		$this->layout->route_name = $this->route_name;
 		$this->page_base_dir .= $this->view_name . '.';
+
+		$this->required_images = [ 
+			'SmallThumbnail'		=> 'Small Thumbnail',
+			'LargeThumbnail'		=> 'Large Thumbnail',
+		];
 		
 		$this->layout->content_title = strtoupper($this->view_name);
 	}
@@ -34,7 +41,7 @@ class TourController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY DATA
 		// ------------------------------------------------------------------------------------------------------------
-		$tours = $this->model->NameLike('*' . str_replace(' ', '*', $filters['name']) . '*')->TravelAgentById($filters['travel_agent'])->latest()->paginate(30);
+		$tours = $this->model->NameLike('*' . str_replace(' ', '*', $filters['name']) . '*')->TravelAgentByIds($filters['travel_agent'])->latest()->paginate(30);
 
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY TRAVEL AGENTS
@@ -85,6 +92,7 @@ class TourController extends Controller {
 		$this->layout->page->destinations 	= $destinations;
 		$this->layout->page->places 		= $places;	
 		$this->layout->page->tour_options 	= $tour_options;
+		$this->layout->page->required_images= $this->required_images;
 
 		return $this->layout;
 	}
@@ -133,6 +141,11 @@ class TourController extends Controller {
 
 		if ($data->save())
 		{
+			if (!$this->save_required_images($data, $input))
+			{
+				return redirect()->back()->withInput()->withErrors($data->getErrors());
+			}
+
 			return redirect()->route('admin.'.$this->view_name.'.show', ['id' => $data->id])->with('alert_success', '"' . $data->{$data->getNameField()} . '" has been saved successfully');
 		}
 		else

@@ -17,8 +17,9 @@ class CreateImage extends Migration
             $table->integer('imageable_id')->unsigned();
             $table->string('imageable_type');
             $table->string('path');
+            $table->string('name');
             $table->string('title');
-            $table->enum('size', ['xs', 'sm', 'md', 'lg']);
+            $table->string('description');
             $table->timestamps();
 
             $table->index(['imageable_type', 'imageable_id']);

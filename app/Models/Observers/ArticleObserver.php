@@ -73,6 +73,9 @@ class ArticleObserver {
 
 	public function deleted($model)
 	{
-
+		foreach ($model->images as $x)
+		{
+			$x->delete();
+		}
 	}
 }

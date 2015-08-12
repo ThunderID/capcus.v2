@@ -7,17 +7,13 @@
 	<hr/>
 	@include('admin.widgets.headlines.nav_detail', [
 		'widget_template' 	=> "plain",
-		'widget_options'	=> [
-									'data' => ['filter_headline_id'			=> $data->id],
-								]
+		'headline'			=> $data
 	])
 @stop
 
 @section('content_body')
 	@include('admin.widgets.headlines.delete', [
 			'widget_template' 	=> 'plain',
-			'widget_options'	=> [
-										'data' => ['filter_headline_id'			=> $data->id],
-								]
+			'headline'			=> $data
 			])
 @stop

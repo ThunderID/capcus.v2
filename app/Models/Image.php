@@ -10,8 +10,9 @@ class Image extends BaseModel
 	protected $table = 'images';
 	protected $fillable = [
 							'path', 
-							'title', 
-							'size', 
+							'name',
+							'title',
+							'description', 
 						];
 
 	// ----------------------------------------------------------------------

@@ -66,8 +66,13 @@
 																]) 
 						!!}
 					</div>
-					
 				</div>
+				@if (!empty($required_images))
+					<div class="well">
+						<div class='title'>Images</div>
+						@include('admin.components.required_image_form', ['required_images' => $required_images, 'data' => $destination])
+					</div>
+				@endif
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
 				<div class="well hidden-xs hidden-sm hidden-md">

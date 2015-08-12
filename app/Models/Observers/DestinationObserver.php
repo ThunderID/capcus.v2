@@ -55,15 +55,13 @@ class DestinationObserver {
 	// ----------------------------------------------------------------
 	public function deleting($model)
 	{
-		// if ($model->children->count())
-		// {
-		// 	$model->setErrors(new MessageBag(['hasChildren' => 'unable to delete this content as it has children content']));
-		// 	return false;
-		// }	
 	}
 
 	public function deleted($model)
 	{
-
-	}
+		foreach ($model->images as $x)
+		{
+			$x->delete();
+		}
+	}	
 }

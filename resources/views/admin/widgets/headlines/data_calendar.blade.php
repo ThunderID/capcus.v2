@@ -1,25 +1,43 @@
-<?php 
-	$filters = array_only($HeadlineComposer['widget_data']['data'], ['filter_headline_since', 'filter_headline_until']);
+<?php
 
+	// ------------------------------------------------------------------------------------------------------------------------
+	// REQUIRED VARIABLES
+	// ------------------------------------------------------------------------------------------------------------------------
+	$required_variables = ['headlines', 'filters'];
+	foreach ($required_variables as $x)
+	{
+		if (!array_key_exists($x, get_defined_vars()))
+		{
+			throw new Exception($widget_name . ": $" .$x.': has not been set', 10);
+		}
+	}
+
+	// ------------------------------------------------------------------------------------------------------------------------
+	// PREDEFINED VARIABLE
+	// ------------------------------------------------------------------------------------------------------------------------
 	// prepare UI for calendar
 	$events = [];
 	try {
 
-		foreach ($HeadlineComposer['widget_data']['data']['headline_db'] as $v)
+		if ($headlines)
 		{
-			$events[] = ['id' 	=> $v->id, 
-			             'title'=> $v->name, 
-			             'url'	=> route('admin.headlines.show', ['id' => $v->id]),
-			             'class'=> 'event_info',
-			             'start'=> $v->active_since->format('Y-m-d H:i:s'),
-			             'end'	=> $v->active_until->format('Y-m-d H:i:s'),
-			             'backgroundColor' => "#fff",
-			             ];
+			foreach ($headlines as $v)
+			{
+				$events[] = ['id' 	=> $v->id, 
+							 'title'=> $v->title . ' (Priority: '.$v->priority.')', 
+							 'url'	=> route('admin.headlines.show', ['id' => $v->id]),
+							 'class'=> 'event_info',
+							 'start'=> $v->active_since->format('Y-m-d H:i:s'),
+							 'end'	=> $v->active_until->format('Y-m-d H:i:s'),
+							 'backgroundColor' => "#fff",
+							 ];
+			}
 		}
 	} catch (Exception $e) {
 		
 	}
 ?>
+
 @extends('admin.widget_templates.' . ($widget_template ? $widget_template : 'plain_no_title'))
 
 @if (!$widget_error_count)
@@ -27,15 +45,15 @@
 		Headlines
 	@overwrite
 
-	@section('widget_body')
+ 	@section('widget_body')
 		<div id='calendar'></div>
 		<hr>
 		<div id="text-center">
-			@if ($HeadlineComposer['widget_data']['data']['headline_db'])
-				@if (method_exists($HeadlineComposer['widget_data']['data']['headline_db'], 'firstItem'))
-					@if ($HeadlineComposer['widget_data']['data']['headline_db']->total())
-						Displaying {{ $HeadlineComposer['widget_data']['data']['headline_db']->total() > 0 ? $HeadlineComposer['widget_data']['data']['headline_db']->firstItem() . ' - ' . $HeadlineComposer['widget_data']['data']['headline_db']->lastItem() : 0 }} of {!! $HeadlineComposer['widget_data']['data']['headline_db']->total() !!} 
-						<div>{!! $HeadlineComposer['widget_data']['data']['headline_db']->appends($filters)->render() !!}</div>
+			@if ($headlines)
+				@if (method_exists($headlines, 'firstItem'))
+					@if ($headlines->total())
+						Displaying {{ $headlines->total() > 0 ? $headlines->firstItem() . ' - ' . $headlines->lastItem() : 0 }} of {!! $headlines->total() !!} 
+						<div>{!! $headlines->appends($filters)->render() !!}</div>
 					@else
 						0 Results
 					@endif
@@ -45,6 +63,7 @@
 	@overwrite
 
 	@section('js')
+		
 		@parent
 
 		{!! Html::script('plugins/fullcalendar/lib/moment.min.js') !!}
@@ -59,16 +78,19 @@
 					right: ''
 				},
 				eventLimit: true, // allow "more" link when too many events
-			    eventColor: '#0090c0',
-			    eventTextColor: '#0090c0',
+				eventColor: '#0090c0',
+				eventTextColor: '#0090c0',
 				events: {!! json_encode($events) !!}
 			});
-
-			$('#calendar .fc-right').append(
-											'<a href="{{ route('admin.headlines.index', ['filter_headline_month' => \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $filters['filter_headline_since'])->subMonth()->format('m'), 'filter_headline_year' => \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $filters['filter_headline_since'])->subMonth()->format('Y') ]) }}" class="btn btn-default btn-sm" style="width:40px;font-weight:bold;"><i class="fa fa-chevron-left"></i></a>' + 
-											'<a href="{{ route('admin.headlines.index', ['filter_headline_month' => \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $filters['filter_headline_since'])->addMonth()->format('m'), 'filter_headline_year' => \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $filters['filter_headline_since'])->addMonth()->format('Y')])}}" class="btn btn-default btn-sm" style="width:40px;font-weight:bold;"><i class="fa fa-chevron-right"></i></a>'
+			
+			$('#calendar .fc-right').append('<a href="{{ 
+															route('admin.headlines.index', [
+																							'filter_headline_month' => $filters['filter_headline_since']->subMonth()->month, 
+																							'filter_headline_year' 	=> $filters['filter_headline_since']->year
+																							]) 
+														}}" class="btn btn-default btn-sm" style="width:40px;font-weight:bold;"><i class="fa fa-chevron-left"></i></a>' + 
+														'<a href="{{ route('admin.headlines.index', ['filter_headline_month' => $filters['filter_headline_since']->addMonth(2)->month, 'filter_headline_year' => $filters['filter_headline_since']->year]) }}" class="btn btn-default btn-sm" style="width:40px;font-weight:bold;"><i class="fa fa-chevron-right"></i></a>' 
 											);
-
 			
 		</script>
 	@overwrite

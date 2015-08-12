@@ -7,22 +7,13 @@
 	<hr/>
 	@include('admin.widgets.headlines.nav_detail', [
 		'widget_template' 	=> "plain", 
-		'widget_options' 	=> [
-									'data' => [
-												'filter_headline_id' => $data->id
-											]
-		]
+		'headline'			=> $data
 	])
 @overwrite
 
 @section('content_body')
 	@include('admin.widgets.headlines.detail', [
 		'widget_template' 	=> 'plain',
-		'widget_title' 		=> $data->name,
-		'widget_options' 	=> [
-									'data' => [
-												'filter_headline_id' => $data->id
-											]
-		]
+		'headline'			=> $data
 	])
 @overwrite

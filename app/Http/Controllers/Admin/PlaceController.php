@@ -7,6 +7,8 @@ use \App\Place;
 
 class PlaceController extends Controller {
 
+	use Traits\RequireImagesTrait;
+
 	protected $model;
 	protected $view_name = 'places';
 	protected $route_name = 'places';
@@ -20,6 +22,15 @@ class PlaceController extends Controller {
 		$this->layout->view_name = $this->view_name;
 		$this->layout->route_name = $this->route_name;
 		$this->page_base_dir .= $this->view_name . '.';
+		$this->required_images = [
+									'Gallery1'	=> 'Gallery 1', 
+									'Gallery2' 	=> 'Gallery 2', 
+									'Gallery3' 	=> 'Gallery 3', 
+									'Gallery4' 	=> 'Gallery 4', 
+									'Gallery5' 	=> 'Gallery 5', 
+									'SmallThumbnail' 	=> 'Small Thumbnail', 
+									'MediumThumbnail' 	=> 'Medium Thumbnail'
+								];
 		
 		$this->layout->content_title = strtoupper($this->view_name);
 
@@ -36,7 +47,7 @@ class PlaceController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY PLACE
 		// ------------------------------------------------------------------------------------------------------------
-		$places = $this->model->NameLike('*' . str_replace(' ', '*', $filters['name']) . '*')->InDestinationById(\App\Destination::withSubtreeById($filters['destination'])->get()->lists('id')->toArray())->latest()->paginate(30);
+		$places = $this->model->NameLike('*' . str_replace(' ', '*', $filters['name']) . '*')->InDestinationByIds(\App\Destination::withSubtreeById($filters['destination'])->get()->lists('id')->toArray())->latest()->paginate(30);
 
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY DESTINATION
@@ -53,6 +64,7 @@ class PlaceController extends Controller {
 		$this->layout->page 				= view($this->page_base_dir . 'index')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
 		$this->layout->page->filters 		= $filters;
 		$this->layout->page->places 		= $places;
+		$this->layout->page->required_images= $this->required_images;
 		$this->layout->page->destinations 	= $destinations;
 		$this->layout->page->filtered_destination 	= $filtered_destination;
 
@@ -71,6 +83,7 @@ class PlaceController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		$this->layout->page 				= view($this->page_base_dir . 'create')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
 		$this->layout->page->data 			= $data;
+		$this->layout->page->required_images= $this->required_images;
 		$this->layout->page->destinations 	= $destinations;
 
 		return $this->layout;
@@ -105,6 +118,11 @@ class PlaceController extends Controller {
 
 		if ($data->save())
 		{
+			if (!$this->save_required_images($data, $input))
+			{
+				return redirect()->back()->withInput()->withErrors($data->getErrors());
+			}
+
 			return redirect()->route('admin.'.$this->view_name.'.show', ['id' => $data->id])->with('alert_success', '"' . $data->{$data->getNameField()} . '" has been saved successfully');
 		}
 		else
