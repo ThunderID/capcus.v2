@@ -12,7 +12,7 @@ class CreateContainOption extends Migration
      */
     public function up()
     {
-        Schema::create('contain_options', function (Blueprint $table) {
+        Schema::create('tour_tour_option', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tour_id')->unsigned();
             $table->integer('tour_option_id')->unsigned();
@@ -30,6 +30,6 @@ class CreateContainOption extends Migration
      */
     public function down()
     {
-        Schema::drop('contain_options');
+        Schema::drop('tour_tour_option');
     }
 }

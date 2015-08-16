@@ -18,6 +18,7 @@ class Destination extends BaseModel
 	static $name_field = 'name';
 	static $slug_field = 'slug';
 	static $path_field = 'path';
+	protected $appends = ['long_name'];
 
 	// ----------------------------------------------------------------------
 	// BOOT
@@ -45,6 +46,23 @@ class Destination extends BaseModel
 	// ----------------------------------------------------------------------
 	// ACCESSORS
 	// ----------------------------------------------------------------------
+	public function getLongNameAttribute()
+	{
+		$tmp = explode($this->getDelimiter(), $this->ori_path);
+		krsort($tmp);
+
+		$name = '';
+		foreach ($tmp as $k => $x)
+		{
+			if ($name)
+			{
+				$name.=', ';
+			}
+			$name .= $x;
+		}
+
+		return ucwords(str_replace('-', ' ', $name));
+	}
 
 	// ----------------------------------------------------------------------
 	// FUNCTIONS

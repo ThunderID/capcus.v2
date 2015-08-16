@@ -28,13 +28,13 @@
 	@section('widget_body')
 		<ul class="nav nav-pills nav-stacked">
 			<li role="presentation" class='{{ str_is("overview", $current_mode) ? "bg-light-blue" : "" }}'>
-				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Overview <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
-				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Articles <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
-				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Directories <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
-				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Members <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
-				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Tours <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
-				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Travel Agencies <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
-				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Writers <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
+				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Overview <i class='fa fa-chevron-right pull-right text-xs pt-5'></i></a>
+				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Articles <i class='fa fa-chevron-right pull-right text-xs pt-5'></i></a>
+				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Directories <i class='fa fa-chevron-right pull-right text-xs pt-5'></i></a>
+				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Members <i class='fa fa-chevron-right pull-right text-xs pt-5'></i></a>
+				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Tours <i class='fa fa-chevron-right pull-right text-xs pt-5'></i></a>
+				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Travel Agencies <i class='fa fa-chevron-right pull-right text-xs pt-5'></i></a>
+				<a href="{{route('admin.' .$route_name)}}" class='text-black'>Writers <i class='fa fa-chevron-right pull-right text-xs pt-5'></i></a>
 			</li>
 		</ul>
 	@overwrite

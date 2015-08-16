@@ -1,0 +1,44 @@
+@import "bootstrap3.3.5/bootstrap";
+
+@import "components/variables";
+@import "components/spacing";
+@import "components/typo";
+@import "components/background";
+@import "components/well";
+@import "components/input";
+@import "components/button";
+@import "components/border";
+@import "components/bootstrap_hack";
+@import "components/image";
+
+// ------------------------------------------------------------
+// 
+// ------------------------------------------------------------
+* { -webkit-font-smoothing: subpixel-antialiased; image-rendering: -moz-crisp-edges; }
+html,body { min-height:100%}
+
+body{ 
+	background:transparent url(../../images/bg.jpg) bottom left no-repeat;
+	&:extend(.text-light);
+	&:extend(.text-black);
+	min-height: 100%;
+	font-family: @font-family-sans-serif;
+	overflow-x:hidden;
+}
+
+footer { 
+	background:@color-black;
+	color:@color-primary;
+}
+
+.navbar-default { 
+	li a:link, li a:visited { &:extend(.text-light) ; }
+	.navbar-brand { &:extend(.pt-5); }
+}
+
+// ---------------------------------------------------------------------------------------
+// HEADLINE
+// ---------------------------------------------------------------------------------------
+.headline { 
+	img { max-height: 400px; } 
+}

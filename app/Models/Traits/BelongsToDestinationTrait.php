@@ -32,7 +32,7 @@ trait BelongsToDestinationTrait {
 		else
 		{
 			return $q->whereHas('destination', function($q) use ($v) {
-				$q->whereIn('id', is_array($v) ? $v : [$v]);
+				$q->whereIn('destinations.id', is_array($v) ? $v : ( $v instanceOf Collection ? $v->toArray() : [$v]));
 			});
 		}
 	}

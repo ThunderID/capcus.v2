@@ -10,8 +10,8 @@ class HeadlineController extends Controller {
 	use Traits\RequireImagesTrait;
 
 	protected $model;
-	protected $view_name = 'headlines';
-	protected $route_name = 'headlines';
+	protected $view_name = 'settings.headlines';
+	protected $route_name = 'settings.headlines';
 
 	public function __construct(\App\Headline $model)
 	{
@@ -30,7 +30,7 @@ class HeadlineController extends Controller {
 									'LargeImage'	=> 'Large Image',
 								];
 		
-		$this->layout->content_title = strtoupper($this->view_name);
+		$this->layout->content_title = 'Homepage Headlines';
 	}
 
 	public function getIndex()

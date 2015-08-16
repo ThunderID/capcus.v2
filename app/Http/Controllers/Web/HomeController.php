@@ -3,37 +3,34 @@
 use Auth, Input, Exception, \Illuminate\Support\MessageBag;
 
 use \App\Headline;
-use \App\PublishedTour as Tour;
-use \App\PublishedArticle as Article;
+use \App\Tour;
+use \App\Article;
 
 class HomeController extends Controller {
 
-	public function index($id = '')
+	public function index()
 	{
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY HEADLINE
 		// ------------------------------------------------------------------------------------------------------------
-		$headlines = \App\Headline::activeOn($this->now)->get();
+		$headlines = \App\Headline::activeOn(\Carbon\Carbon::now())->orderBy('priority')->get();
 
 		// ------------------------------------------------------------------------------------------------------------
-		// QUERY TOUR
+		// QUERY HOME GRID
 		// ------------------------------------------------------------------------------------------------------------
-		$tours = Tour::with('schedules','vendor','loved')->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1))->get();
 
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
-		$this->layout->page = view($this->page_base_dir . 'home');
+		$this->layout->page 			= view($this->page_base_dir . 'home');
 		$this->layout->page->headlines 	= $headlines;
-		$this->layout->page->tours 		= $tours;
-		$this->init_right_sidebar();
 
-		return $this->layout;
-	}
+		// search tour
+		$this->layout->page->all_travel_agents 	= $this->all_travel_agents;
+		$this->layout->page->all_destinations 	= $this->all_destinations;
+		$this->layout->page->departure_list 	= $this->departure_list;
+		$this->layout->page->budget_list 		= $this->budget_list;
 
-	public function index2()
-	{
-		$this->layout = view('web.page_templates.default3');
 		return $this->layout;
 	}
 }

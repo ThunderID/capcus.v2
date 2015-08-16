@@ -12,14 +12,13 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('admin.less')
-    	.less('web/default/style1.less')
-    	// .less('web/default2/style2.less')
-    	.version(['public/css/admin.css',
-    				'public/css/style1.css',
-    				// 'public/css/style2.css',
+    mix.less('web/v2/web.less')
+    	.less('admin.less')
+    	.version([
+                    'public/css/admin.css',
+                    'public/css/web.css',
     			])
-    	.copy('public/fonts', 'public/fonts/')
+    	// .copy('public/fonts', 'public/fonts/')
     	.copy('resources/assets/plugins/', 'public/plugins/')
     	.copy('resources/assets/images/', 'public/images/');
 });

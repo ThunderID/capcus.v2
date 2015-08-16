@@ -47,6 +47,7 @@
 						!!}
 					</div>
 
+
 					<div class='mb-sm'>
 						<strong class='text-uppercase'>Description</strong>
 						@if ($errors->has('description'))

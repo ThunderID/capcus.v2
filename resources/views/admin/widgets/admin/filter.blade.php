@@ -33,7 +33,7 @@
 
 			{{-- SEARCH BUTTON --}}
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-sm text-center">
-				<button type='submit' class='btn btn-info btn-block'><span class="glyphicon glyphicon-search"></span></button>
+				<button type='submit' class='btn btn-info btn-block'><span class="fa fa-filter"></span> Filter</button>
 			</div>
 		</div>
 		{!! Form::close() !!}

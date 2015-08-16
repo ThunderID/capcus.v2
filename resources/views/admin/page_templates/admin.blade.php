@@ -84,9 +84,9 @@
 
 
 	<!-- jQuery -->
-	<script src="//code.jquery.com/jquery.js"></script>
+	{!! Html::script('plugins/jquery/jquery.min.js') !!}
 	<!-- Bootstrap JavaScript -->
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	{!! Html::script('plugins/bootstrap.min.js') !!}
 	
 	@include('admin.plugins.redactor')
 	@include('admin.plugins.inputmask')

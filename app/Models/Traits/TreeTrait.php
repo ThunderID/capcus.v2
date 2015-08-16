@@ -123,9 +123,9 @@ trait TreeTrait {
 		return $this->attributes[$this->getPathField()];
 	}
 
-	function getPathSlug()
+	function getPathSlugAttribute()
 	{
-		return str_replace('-', ' ', str_replace(Static::getDelimiter(), ',', $this->attributes[$this->getPathField()]));
+		return str_replace('-', ' ', str_replace(Static::getDelimiter(), ',', $this->ori_path));
 	}
 
 	function getLevelAttribute()

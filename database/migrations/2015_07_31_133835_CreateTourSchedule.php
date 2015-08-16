@@ -23,6 +23,7 @@ class CreateTourSchedule extends Migration
             $table->timestamps();
 
             $table->index(['tour_id', 'departure', 'discounted_price', 'original_price'], 'tour_sched');
+            $table->index(['departure', 'discounted_price', 'original_price']);
         });
     }
 

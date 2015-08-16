@@ -34,7 +34,7 @@ trait BelongsToManyDestinationsTrait {
 		else
 		{
 			return $q->whereHas('destinations', function($q) use ($v) {
-				$q->whereIn('id', is_array($v) ? $v : [$v]);
+				$q->whereIn('destinations.id', is_array($v) ? $v : (str_is('*Collection', get_class($v)) ? $v->toArray() : [$v]));
 			});
 		}
 	}

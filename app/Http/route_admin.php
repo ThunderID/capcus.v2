@@ -25,15 +25,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 						'tour_options'			=> "TourOptionController",
 						'admin'	 				=> "AdminController",
 						'members'	 			=> "MemberController",
-
-
-
-						'article_category' 		=> "ArticleCategoryController",
-						'vendor_category'		=> "VendorCategoryController",
-						'tour_destination'		=> "TourCategoryController",
-						'tour'	 				=> "TourController",
-						'member'	 			=> "MemberController",
-						'headlines'	 			=> "HeadlineController",
 					];
 
 		$additional_routes = [
@@ -49,39 +40,51 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 						'tour_options'			=> [],
 						'admin'					=> [],
 						'members'				=> [],
-						
-
-
-
-
-						
-						'blog'					=> [],
-						'article_category'		=> [],
-						'vendor'				=> [
-													'getSubscription'	=> 'admin.vendor.subscription',
-													'postSubscription'	=> 'admin.vendor.subscription.store'
-													],
-						'vendor_category'		=> [],
-						'tour_destination'		=> [],
-						'tour'					=> [
-												 	],
-						'member'				=> [],
-						'headlines'				=> [],
 		];
 
 		foreach ($routes as $k => $v)
 		{
 			Route::controller($k, $v, $additional_routes[$k] + [
-					'getIndex'		=> 'admin.'.$k.'.index',
-					'getCreate'		=> 'admin.'.$k.'.create',
-					'postStore'		=> 'admin.'.$k.'.store',
-					'getEdit'		=> 'admin.'.$k.'.edit',
-					'getUpdate'		=> 'admin.'.$k.'.update',
-					'getShow'		=> 'admin.'.$k.'.show',
-					'getDelete'		=> 'admin.'.$k.'.delete_confirmation',
-					'postDelete'	=> 'admin.'.$k.'.delete',
+					'getIndex'		=> 'admin.'. str_replace('/', '.', $k) .'.index',
+					'getCreate'		=> 'admin.'. str_replace('/', '.', $k) .'.create',
+					'postStore'		=> 'admin.'. str_replace('/', '.', $k) .'.store',
+					'getEdit'		=> 'admin.'. str_replace('/', '.', $k) .'.edit',
+					'getUpdate'		=> 'admin.'. str_replace('/', '.', $k) .'.update',
+					'getShow'		=> 'admin.'. str_replace('/', '.', $k) .'.show',
+					'getDelete'		=> 'admin.'. str_replace('/', '.', $k) .'.delete_confirmation',
+					'postDelete'	=> 'admin.'. str_replace('/', '.', $k) .'.delete',
 				]);
 		}
+
+		// CONFIGURE HOMEPAGE
+
+		Route::group(['prefix' => 'settings'], function() { 
+			
+			Route::group(['prefix' => 'homepage'], function() { 
+			
+				Route::get('/'		, ['uses' => 'SettingHomeController@index', 'as' => 'admin.settings.home.index']);
+
+				// Headline
+				Route::group(['prefix' => 'headlines'], function(){
+					Route::get('/index',	 	['uses' => 'SettingHomeController@HeadlineIndex', 	'as' => 'admin.settings.home.headlines.index']);
+					Route::get('/create',	 	['uses' => 'SettingHomeController@HeadlineCreate', 	'as' => 'admin.settings.home.headlines.create']);
+					Route::get('/edit/{id}', 	['uses' => 'SettingHomeController@HeadlineEdit', 	'as' => 'admin.settings.home.headlines.edit']);
+					Route::get('/show/{id}', 	['uses' => 'SettingHomeController@HeadlineShow', 	'as' => 'admin.settings.home.headlines.show']);
+					Route::get('/delete/{id}', 	['uses' => 'SettingHomeController@HeadlineDelete', 	'as' => 'admin.settings.home.headlines.delete_confirmation']);
+					Route::post('/store/{id?}', 	['uses' => 'SettingHomeController@HeadlineStore', 	'as' => 'admin.settings.home.headlines.store']);
+					Route::post('/delete/{id?}', 	['uses' => 'SettingHomeController@HeadlinePostDelete', 	'as' => 'admin.settings.home.headlines.delete']);
+				});
+
+			
+				// Homegrid
+				Route::group(['prefix' => 'homegrids'], function(){
+					Route::get('/index',	 	['uses' => 'SettingHomeController@HomegridsIndex', 				'as' => 'admin.settings.home.homegrids.index']);
+					Route::get('/edit/{id}', 	['uses' => 'SettingHomeController@HomegridsEdit', 				'as' => 'admin.settings.home.homegrids.edit']);
+					Route::post('/store/{homegrid_no}', ['uses' => 'SettingHomeController@HomegridsStore', 			'as' => 'admin.settings.home.homegrids.store']);
+				});
+			
+			});
+		});
 	});
 
 });

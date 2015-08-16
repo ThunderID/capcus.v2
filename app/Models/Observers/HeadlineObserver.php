@@ -66,6 +66,9 @@ class HeadlineObserver {
 
 	public function deleted($model)
 	{
-
+		foreach ($model->images as $image)
+		{
+			$image->delete();
+		}
 	}
 }

@@ -6,8 +6,8 @@ Route::group(['namespace' => 'Web\\'], function(){
 	// Route::get('/',																			['uses' => 'HomeController@index2',					'as' => 'web.home']);
 
 	Route::group(['prefix' => 'tour'], function(){
-		Route::get('/detail/{vendor_slug}/{tour_slug}',										['uses' => 'TourController@show',					'as' => 'web.tour.show']);
-		Route::get('/{vendor?}/{tujuan?}/{keberangkatan?}/{budget?}',						['uses' => 'TourController@lists',					'as' => 'web.tour']);
+		Route::get('/detail/{travel_agent}/{tour_slug}/{schedule}',							['uses' => 'TourController@show',					'as' => 'web.tour.show']);
+		Route::get('/{travel_agent?}/{tujuan?}/{keberangkatan?}/{budget?}',					['uses' => 'TourController@lists',					'as' => 'web.tour']);
 	});
 
 	Route::group(['prefix' => 'blog'], function(){

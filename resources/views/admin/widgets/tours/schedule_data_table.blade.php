@@ -52,7 +52,7 @@
 						<td class='text-right'>{{number_format($x->discounted_price)}}</td>
 						<td class='text-right'>
 							<div class="btn-group">
-								<a href='{{route("admin.".$view_name.".schedules", ["tour_id" => $tour->id,"id" => $x->id])}}' type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></a>
+								<a href='{{route("admin.".$view_name.".schedules", ["tour_id" => $tour->id,"id" => $x->id])}}' type="button" class="btn btn-default"><span class="fa fa-pencil-square-o"></a>
 								<a href='{{route("admin.".$view_name.".schedules.delete", ["tour_id" => $tour->id,"id" => $x->id])}}' type="button" class="btn btn-default btn_delete_schedule" ><span class="glyphicon glyphicon-remove"></a>
 							</div>
 						</td>

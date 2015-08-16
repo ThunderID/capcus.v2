@@ -32,7 +32,7 @@ class TourOption extends BaseModel
 	// ----------------------------------------------------------------------
 	function tours()
 	{
-		return $this->belongsToMany(__NAMESPACE__ . '\Tour', 'contain_options', 'tour_option_id', 'tour_id')->withPivot('description');
+		return $this->belongsToMany(__NAMESPACE__ . '\Tour')->withPivot('description');
 	}
 
 

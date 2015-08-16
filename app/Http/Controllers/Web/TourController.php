@@ -1,38 +1,40 @@
 <?php namespace App\Http\Controllers\Web;
 
-use Auth, Input, \Illuminate\Support\MessageBag, App, \Illuminate\Support\Collection;
-use App\PublishedTour as Tour;
-use App\Vendor;
-use App\Category;
+use Auth, Input, \Illuminate\Support\MessageBag, App, \Illuminate\Support\Collection, Config;
+use App\Tour;
+use App\TravelAgent;
+use App\Destination;
+
+use App\Jobs\FindPublishedTourSchedules;
 
 class TourController extends Controller {
 
-	public function lists($vendor = null, $tujuan = null, $keberangkatan = null, $budget = null)
+	public function lists($travel_agent = null, $tujuan = null, $keberangkatan = null, $budget = null)
 	{
 		// ------------------------------------------------------------------------
 		// REDIRECT IF REQUEST URL
 		// ------------------------------------------------------------------------
-		if (Input::has('vendor') || Input::has('tujuan') || Input::has('keberangkatan') || Input::has('budget'))
+		if (Input::has('travel_agent') || Input::has('tujuan') || Input::has('keberangkatan') || Input::has('budget'))
 		{
-			$vendor 		= Input::get('vendor') ? Input::get('vendor') : "semua-vendor";
-			$tujuan 		= Input::get('tujuan') ? Input::get('tujuan') : "semua-tujuan";
-			$keberangkatan 	= Input::get('keberangkatan') ? Input::get('keberangkatan') : "semua-keberangkatan";
-			$budget 		= Input::get('budget') ? Input::get('budget') : "semua-budget";
+			$travel_agent 	= Input::get('travel_agent') 	? Input::get('travel_agent') 	: "semua-travel-agent";
+			$tujuan 		= Input::get('tujuan') 			? Input::get('tujuan') 			: "semua-tujuan";
+			$keberangkatan 	= Input::get('keberangkatan') 	? Input::get('keberangkatan') 	: "semua-keberangkatan";
+			$budget 		= Input::get('budget') 			? Input::get('budget') 			: "semua-budget";
 
-			return redirect()->route('web.tour', ['vendor' => $vendor, 'tujuan' => $tujuan, 'keberangkatan' => $keberangkatan, 'budget' => $budget]);
+			return redirect()->route('web.tour', ['travel_agent' => $travel_agent, 'tujuan' => $tujuan, 'keberangkatan' => $keberangkatan, 'budget' => $budget]);
 		}
 		// ------------------------------------------------------------------------
 		// PARSE SEARCH
 		// ------------------------------------------------------------------------
 		else
 		{
-			if (str_is(strtolower($vendor), 'semua-vendor'))
+			if (str_is(strtolower($travel_agent), 'semua-travel-agent'))
 			{
-				unset($vendor);
+				unset($travel_agent);
 			}
 			else
 			{
-				$this->layout->basic->filters['vendor'] = $vendor;
+				$this->layout->basic->filters['travel_agent'] = $travel_agent;
 			}
 
 			if (str_is(strtolower($tujuan), 'semua-tujuan'))
@@ -64,12 +66,12 @@ class TourController extends Controller {
 		}
 
 		// ------------------------------------------------------------------------
-		// CHECK VENDOR
+		// CHECK travel_agent
 		// ------------------------------------------------------------------------
-		if ($vendor)
+		if ($travel_agent)
 		{
-			$vendor = Vendor::SlugIs($vendor)->first();
-			if (!$vendor)
+			$travel_agent = TravelAgent::SlugIs($travel_agent)->first();
+			if (!$travel_agent)
 			{
 				return App::abort(404);
 			}
@@ -77,7 +79,8 @@ class TourController extends Controller {
 
 		if ($tujuan)
 		{
-			$tujuan_tree = Category::findPathName($tujuan.'*')->get();
+			$tujuan_tree = Destination::findPath(str_replace(',', Destination::getDelimiter(), $tujuan.'*'))->get();
+
 			if (!$tujuan_tree)
 			{
 				return App::abort(404);
@@ -86,7 +89,7 @@ class TourController extends Controller {
 			// get tujuan object
 			foreach ($tujuan_tree as $x)
 			{
-				if (str_is($tujuan, $x->path_name))
+				if (str_is($tujuan, $x->path_slug))
 				{
 					$tujuan = $x;
 					break;
@@ -131,142 +134,133 @@ class TourController extends Controller {
 		// ------------------------------------------------------------------------
 		// QUERY
 		// ------------------------------------------------------------------------
-		$q = Tour::findVendor($vendor->id)
-						->inCategories($tujuan_tree ? $tujuan_tree->lists('id') : null)
-						->budgetBetween($budget['min'] * 1, ($budget['max'] ? $budget['max'] * 1 : 999999999999))
-						->latest('published_at');
-		if ($keberangkatan)
+		if ($keberangkatan_year && $keberangkatan_month)
 		{
-			if (\Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1)))
-			{
-				$q = $q->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1)->endOfMonth());
-			}
-			else
-			{
-				$q = $q->scheduledBetween(\Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1), \Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1)->endOfMonth());
-			}
+			$departure_from = \Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1);
+			$departure_to = \Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1)->endofmonth();
 		}
 		else
 		{
-			$q = $q->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1));
+			$departure_from = \Carbon\Carbon::now();
+			$departure_to = \Carbon\Carbon::now()->endofmonth();
 		}
-		$tours = $q->paginate(12);
+
+		$tour_schedules = $this->dispatch(new FindPublishedTourSchedules(
+												$departure_from,
+												$departure_to,
+												$tujuan_tree ? $tujuan_tree->lists('id') : null, 
+												$budget['min'] * 1,
+												$budget['max'] ? $budget['max'] * 1 : 99999999999,
+												$travel_agent->id
+											)
+								);
+		$tour_schedules->load('tour', 'tour.travel_agent', 'tour.places', 'tour.destinations', 'tour.travel_agent.images', 'tour.options');
 
 		// ------------------------------------------------------------------------
 		// IF NO TOUR, QUERY FOR ALL TOUR
 		// ------------------------------------------------------------------------
-		if (!$tours->count())
-		{
-			// Cari tour dengan tujuan yang sama
-			if ($tujuan_tree)
-			{
-				if ($tujuan_tree->count())
-				{
-					$q = Tour::scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1))
-											->inCategories($tujuan_tree ? $tujuan_tree->lists('id') : null)
-											->latest('published_at');
-					$other_tours['same_destination'] = $q->skip(0)->take(8)->get();
-				}
-			}
-			else
-			{
-				$other_tours['same_destination'] = new Collection;
-			}
-
-			// Cari tour dengan keberangkatan yang sama
-			if ($keberangkatan_year && $keberangkatan_month)
-			{
-				$q = Tour::latest('published_at');
-				if ($keberangkatan)
-				{
-					if (\Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1)))
-					{
-						$q = $q->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1)->endOfMonth());
-					}
-					else
-					{
-						$q = $q->scheduledBetween(\Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1), \Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1)->endOfMonth());
-					}
-				}
-				else
-				{
-					$q = $q->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1));
-				}
-				$other_tours['same_schedule'] = $q->skip(0)->take(8)->get();
-			}
-			else
-			{
-				$other_tours['same_schedule'] = new Collection;
-			}
-
-			// Cari tour dengan budget yang sama
-			if ($budget['max'] != 999999999 &&  $budget['min'] != 0)
-			{
-				$q = Tour::scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1))
-							->budgetBetween($budget['min'] * 1, ($budget['max'] ? $budget['max'] * 1 : 999999999999));
-				$other_tours['same_budget'] = $q->skip(0)->take(8)->get();
-			}
-			else
-			{
-				$other_tours['same_budget'] = new Collection;
-			}
-
-			if (!$other_tours['same_destination']->count() && !$other_tours['same_budget']->count() && !$other_tours['same_schedule']->count())
-			{
-				$other_tours['others'] = Tour::scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1))->skip(0)->take(12)->get();
-			}
-		}
-
 		
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
-		$this->layout->page = view($this->page_base_dir . 'tour.index');
-		$this->layout->page->vendor 			= $vendor;
+		$this->layout->page = view($this->page_base_dir . 'tours');
+		$this->layout->page->travel_agent 		= $travel_agent;
 		$this->layout->page->tujuan_tree 		= $tujuan_tree;
 		$this->layout->page->tujuan 			= $tujuan;
 		$this->layout->page->keberangkatan 		= $keberangkatan;
 		$this->layout->page->budget 			= $budget;
-		$this->layout->page->tours 				= $tours;
+		$this->layout->page->tour_schedules 	= $tour_schedules;
 		$this->layout->page->other_tours 		= $other_tours;
 
-		$this->init_right_sidebar();
-
+		// search tour
+		$this->layout->page->all_travel_agents 	= $this->all_travel_agents;
+		$this->layout->page->all_destinations 	= $this->all_destinations;
+		$this->layout->page->departure_list 	= $this->departure_list;
+		$this->layout->page->budget_list 		= $this->budget_list;
 
 		return $this->layout;
 	}
 
-	public function show($vendor_slug, $tour_slug)
+	public function show($travel_agent_slug, $tour_slug, $schedule)
 	{
 		// ------------------------------------------------------------------------------------------------------------
 		// DETAIL TOUR
 		// ------------------------------------------------------------------------------------------------------------		
-		$data = Tour::slugIs($tour_slug)->first();
+		$tour = Tour::slugIs($tour_slug)->first();
+		if (!$tour)
+		{
+			\App::abort(404);
+		}
 
-		if (!$data)
+		// check travel agent
+		if (!str_is(strtolower($travel_agent_slug),$tour->travel_agent->slug))
 		{
 			\App::abort(404);
 		}
-		elseif (!str_is(strtolower($vendor_slug),$data->vendor->slug))
-		{
-			\App::abort(404);
-		}
+
+		
+		// get schedule
+		$tour_schedule = $tour->schedules()->where('departure', \Carbon\Carbon::createFromDate(substr($schedule, 0, 4), substr($schedule, 4, 2), substr($schedule, 6, 2))->format('Y-m-d'))->first();
 
 		// ------------------------------------------------------------------------------------------------------------
 		// OTHER TOUR WITH SIMILAR DESTINATION
 		// ------------------------------------------------------------------------------------------------------------		
-		$other_tours = Tour::scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1))
-							->inCategories($data->categories->lists('id'))
-							->exceptId($data->id)
-							->take(12)
-							->get();
+		$other_tours['by_destination'] = $this->dispatch(new FindPublishedTourSchedules(
+												\Carbon\Carbon::parse($tour_schedule->departure)->SubDay(30),
+												\Carbon\Carbon::parse($tour_schedule->departure)->addDay(30),
+												$tour->destinations->lists('id')->toArray(),
+												0,
+												999999999,
+												null,
+												null,
+												0,
+												5
+											)
+								);
 
+		$other_tours['by_destination']->load('tour', 'tour.travel_agent', 'tour.places', 'tour.destinations', 'tour.travel_agent.images', 'tour.options');
+
+		// ------------------------------------------------------------------------------------------------------------
+		// OTHER TOUR BY DEPARTURE
+		// ------------------------------------------------------------------------------------------------------------		
+		$other_tours['by_departure'] = $this->dispatch(new FindPublishedTourSchedules(
+												\Carbon\Carbon::parse($tour_schedule->departure)->SubDay(3),
+												\Carbon\Carbon::parse($tour_schedule->departure)->addDay(3),
+												null, 
+												0, 
+												999999999,
+												null, 
+												null, 
+												0, 
+												5)
+								);
+
+		$other_tours['by_departure']->load('tour', 'tour.travel_agent', 'tour.places', 'tour.destinations', 'tour.travel_agent.images', 'tour.options');
+
+		// ------------------------------------------------------------------------------------------------------------
+		// OTHER TOUR BY BUDGET 
+		// ------------------------------------------------------------------------------------------------------------		
+		$other_tours['by_budget'] = $this->dispatch(new FindPublishedTourSchedules(
+												\Carbon\Carbon::parse($tour_schedule->departure)->SubDay(30),
+												\Carbon\Carbon::parse($tour_schedule->departure)->addDay(30),
+												null,
+												($tour_schedule->discounted_price * 80/100),
+												($tour_schedule->discounted_price * 120/100),
+												null,
+												null,
+												0,
+												5
+											)
+								);
+
+		$other_tours['by_budget']->load('tour', 'tour.travel_agent', 'tour.places', 'tour.destinations', 'tour.travel_agent.images', 'tour.options');
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
-		$this->layout->page = view($this->page_base_dir . 'tour.show');
-		$this->layout->page->tour = $data;
-		$this->layout->page->other_tours = $other_tours;
+		$this->layout->page = view($this->page_base_dir . 'tour_detail');
+		$this->layout->page->tour 			= $tour;
+		$this->layout->page->tour_schedule	= $tour_schedule;
+		$this->layout->page->other_tours 	= $other_tours;
 		$this->init_right_sidebar();
 
 		return $this->layout;

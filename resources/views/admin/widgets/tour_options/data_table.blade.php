@@ -65,8 +65,8 @@
 						<td>{{$x->tours->count()}}
 						<td class='text-right'>
 							<div class="btn-group">
-								<a href='{{route("admin.".$route_name.".edit", ["id" => $x->id])}}' type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></a>
-								<a href='{{route("admin.".$route_name.".show", ["id" => $x->id])}}' type="button" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></a>
+								<a href='{{route("admin.".$route_name.".edit", ["id" => $x->id])}}' type="button" class="btn btn-default"><span class="fa fa-pencil-square-o"></a>
+								<a href='{{route("admin.".$route_name.".show", ["id" => $x->id])}}' type="button" class="btn btn-default"><span class="fa fa-info-circle"></a>
 							</div>
 						</td>
 					</tr>

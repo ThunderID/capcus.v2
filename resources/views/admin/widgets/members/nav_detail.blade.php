@@ -26,7 +26,7 @@
 	@section('widget_body')
 		<ul class="nav nav-pills nav-stacked">
 			<li role="presentation" class='{{ str_is("overview", $current_mode) ? "bg-light-blue" : "" }}'>
-				<a href="{{route('admin.' . $route_name . '.show', ['id' => $user->id])}}" class='text-black'>Detail <i class='glyphicon glyphicon-menu-right pull-right text-xs pt-5'></i></a>
+				<a href="{{route('admin.' . $route_name . '.show', ['id' => $user->id])}}" class='text-black'>Detail <i class='fa fa-chevron-right pull-right text-xs pt-5'></i></a>
 			</li>
 		</ul>
 	@overwrite
