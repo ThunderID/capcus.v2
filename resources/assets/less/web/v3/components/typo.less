@@ -1,0 +1,64 @@
+// -------------------------------------------------------- 
+// SIZE
+// -------------------------------------------------------- 
+.text-xxxl { font-size:@text-xxxl;}
+.text-xxl { font-size:@text-xxl;}
+.text-xl { font-size:@text-xl;}
+.text-lg { font-size:@text-lg;}
+.text-md { font-size:@text-md;}
+.text-regular { font-size:@text-regular;}
+.text-sm { font-size:@text-sm;}
+.text-xs { font-size:@text-xs;}
+
+// -------------------------------------------------------- 
+// WEIGHT
+// -------------------------------------------------------- 
+.text-xbold 	{ font-weight: @text-xbold	;}
+.text-bold 		{ font-weight: @text-bold	;}
+.text-normal 	{ font-weight: @text-normal;}
+.text-light 	{ font-weight: @text-light	;}
+
+// -------------------------------------------------------- 
+// COLOR
+// -------------------------------------------------------- 
+.text-white			{ color: @color-white !important; }
+.text-black			{ color: @color-black !important; }
+.text-dark			{ color: @color-dark !important; }
+.text-primary		{ color: @color-primary !important; }
+.text-gray			{ color: @color-light !important; }
+
+// -------------------------------------------------------- 
+// MODIFICATION
+// -------------------------------------------------------- 
+.text-uppercase { text-transform: uppercase;}
+.text-strikethrough {
+  position: relative;
+}
+.text-strikethrough:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 50%;
+  right: 0;
+  border-top: 1px solid;
+  border-color: #f00;
+
+  -webkit-transform:rotate(-5deg);
+  -moz-transform:rotate(-5deg);
+  -ms-transform:rotate(-5deg);
+  -o-transform:rotate(-5deg);
+  transform:rotate(-5deg);
+}
+
+.text-shadow { text-shadow: 1px 0px 14px rgba(255, 255, 255, 1); }
+.text-embossed { text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);
+               }
+.text-inset {
+ /* Shadows are visible under slightly transparent text color */
+    color: rgba(10,60,150, 0.8);
+    text-shadow: 1px 4px 6px #000, 0 0 0 #000, 1px 4px 6px #000;
+}
+
+
+a:hover { text-decoration: none !important;}

@@ -31,14 +31,150 @@ footer {
 	color:@color-primary;
 }
 
-.navbar-default { 
-	li a:link, li a:visited { &:extend(.text-light) ; }
-	.navbar-brand { &:extend(.pt-5); }
+
+// ---------------------------------------------------------------------------------------
+// DISPLAY
+// ---------------------------------------------------------------------------------------
+.inline { display:inline-block; }
+
+// ---------------------------------------------------------------------------------------
+// SIZING
+// ---------------------------------------------------------------------------------------
+.fullwidth { width:100%; }
+
+// ---------------------------------------------------------------------------------------
+// HEADER
+// ---------------------------------------------------------------------------------------
+@media screen and (max-width:@screen-sm) { 
+	.navbar-default { 
+	
+	}
 }
+
+@media (min-width:@screen-sm) { 
+
+	.navbar-default { 
+
+		// BRAND
+		.navbar-brand { padding-top:7px !important; }
+
+		.navbar-collapse { 
+			.navbar-nav { 
+				a:link, a:visited { &:extend(.text-light .text-uppercase); }
+			}
+		}
+	}
+
+}
+
+
+// .navbar-default { 
+// 	// BRAND
+// 	.navbar-brand { &:extend(.pt-5); }
+
+// 	// HEADER
+// 	.navbar-header { 
+// 		.navbar-toggle { &:extend(.mt-0); &:extend(.mb-0); &:extend(.mr-0); &:extend(.border-0); &:extend(.bg-primary); &:extend(.text-primary); padding: 23px 25px 23px 30px; }
+// 		.icon-bar { &:extend(.bg-black); }
+// 	}
+
+// 	// COLLAPSE (MENU CONTENT)
+// 	@media screen and (max-width:@screen-sm) { 
+// 		.navbar-collapse { 
+// 			&:extend(.border-0);
+// 			&:extend(.border-top-1);
+// 			&:extend(.border-bottom-1);
+// 			&:extend(.border-solid);
+// 			&:extend(.border-primary);
+// 			&:extend(.bg-white-glass);
+// 		}
+// 	}
+
+// 	.navbar-collapse { 
+// 		.navbar-nav { 
+// 			&:extend(.mt-0);
+
+// 			// border - separator of each menu
+// 			li { 
+// 				a:link, a:visited { &:extend(.text-light); }
+// 				@media screen and (max-width:@screen-sm) { &:extend(.border-0);&:extend(.border-bottom-1);&:extend(.border-dotted);&:extend(.border-primary);}
+// 				@media screen and (min-width:@screen-sm) { &:extend(.border-0);}
+// 			}
+
+// 			// menu font size
+// 			@media screen and (min-width:@screen-md) { li a:link, li a:visited { font-size:@text-md}}
+// 			@media screen and (max-width:@screen-md) { li a:link, li a:visited { font-size:@text-15}}
+// 		}
+// 	}
+// 	.navbar-collapse.in { &:extend(.bg-white-primary); }
+// }
 
 // ---------------------------------------------------------------------------------------
 // HEADLINE
 // ---------------------------------------------------------------------------------------
 .headline { 
 	img { max-height: 400px; } 
+}
+
+// ---------------------------------------------------------------------------------------
+// HOMEGRID
+// ---------------------------------------------------------------------------------------
+.homegrid_div { 
+	position:relative; 
+	overflow:hidden;
+	&:extend(.mb-md);
+	&:extend(.pb-5);
+	&:extend(.border-1);
+	&:extend(.border-solid);
+	&:extend(.border-light);
+
+	@media screen and (max-height:@screen-sm) 								{ height:auto;}
+	@media screen and (min-height:@screen-sm) and (max-height:@screen-md) 	{ height: 343px}
+	@media screen and (min-height:@screen-md) and (max-height:@screen-lg) 	{ height: 293px}
+	@media screen and (min-height:@screen-lg) 								{ height: 358px}
+
+	a:hover {
+		img { opacity: 0.5; }
+	}
+	img.destination { 
+		position:absolute;
+		top:0px;
+		bottom:0px;
+		top:0px;
+		left:0px;
+		width:100%;
+		box-shadow:inset 1px 1px 40px 0 rgba(0,0,0,.45);
+
+		@media screen and (max-height:@screen-sm) 								{ height:auto;}
+		@media screen and (min-height:@screen-sm) and (max-height:@screen-md) 	{ height: 343px}
+		@media screen and (min-height:@screen-md) and (max-height:@screen-lg) 	{ height: 293px}
+		@media screen and (min-height:@screen-lg) 								{ height: 358px}
+
+	}
+	.caption { position:absolute; 
+				bottom:0px;
+				left:0;
+				width:100%;
+
+				@media (max-height:@screen-sm) { &:extend(.text-regular); }
+				@media (min-height:@screen-sm) and (max-height:@screen-md) { &:extend(.text-md); }
+				@media (min-height:@screen-md) { &:extend(.text-xl); }
+				
+
+				&:extend(.text-black); 
+				&:extend(.text-uppercase); 
+				&:extend(.bg-primary); 
+				&:extend(.pt-5); 
+				&:extend(.pb-5); 
+				&:extend(.pl-md); 
+				&:extend(.pr-md); 
+				font-family: @font-family-decorative;
+			}
+
+	.featured_destination_badge { 
+		position:absolute;
+		top:0px;
+		right:30px;
+		z-index:10000;
+	}
 }

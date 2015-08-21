@@ -16,7 +16,7 @@
 
 @if (!$widget_error_count)
 	@section('widget_title')
-		Headlines
+		Homepage Grid
 	@overwrite
 
 	@section('widget_body')

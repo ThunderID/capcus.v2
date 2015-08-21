@@ -15,6 +15,12 @@ Route::group(['namespace' => 'Web\\'], function(){
 		Route::get('/{year}/{month}/{slug}',												['uses' => 'BlogController@show',					'as' => 'web.blog.show']);
 	});
 
+	Route::group(['prefix' => 'places'], function(){
+		Route::get('/{destination?}',														['uses' => 'PlaceController@index',					'as' => 'web.places']);
+		Route::get('/{destination}/{slug}',													['uses' => 'PlaceController@show',					'as' => 'web.places.show']);
+	});
+
+
 	Route::get('/login/{provider?}',														['uses' => 'AuthController@login',					'as' => 'web.login']);
 	Route::get('/login_callback/{provider}',												['uses' => 'AuthController@login_callback',			'as' => 'web.login_callback']);
 	Route::post('/login',																	['uses' => 'AuthController@login_post',				'as' => 'web.login.post']);

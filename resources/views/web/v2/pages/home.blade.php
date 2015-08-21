@@ -18,7 +18,7 @@
 		</div>
 	</div>
 
-	<div class="row mt-md">
+	<div class="row mt-md homegrid">
 		@include('web.v2.components.home.destination_grid')
 	</div>
 @stop

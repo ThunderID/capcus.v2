@@ -13,7 +13,7 @@ class TourSeeder extends Seeder
     public function run()
     {
         //
-         for ($i = 1; $i<= 50; $i++)
+         for ($i = 1; $i<= 200; $i++)
 	    {
 	    	$destination_id = rand(1,251);
 	    	$destination = \App\Destination::find($destination_id);
@@ -40,7 +40,7 @@ class TourSeeder extends Seeder
 			$tour->destinations()->sync([$destination_id]);
 
 			// SCHEDULE
-			for ($j = 1; $j <= rand(3,8); $j++)
+			for ($j = 1; $j <= rand(3,5); $j++)
 			{
 				$departure = \Carbon\Carbon::now()->startOfMonth()->addDay(rand(0,240));
 				$arrival = \Carbon\Carbon::parse($departure->addDay($duration)->format('Y-m-d H:i:s'))->addDay($duration);

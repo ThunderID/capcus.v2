@@ -37,4 +37,46 @@ trait BelongsToDestinationTrait {
 		}
 	}
 
+	function scopeInDestinationBySlug($q, $v = null)
+	{
+		if (!$v || (is_array($v) && empty($v)))
+		{
+			return $q;
+		}
+		else
+		{
+			return $q->whereHas('destination', function($q) use ($v) {
+				$q->SlugIs($v);
+			});
+		}
+	}
+
+	function scopeInDestinationByPathAndChildren($q, $v = null)
+	{
+		if (!$v || (is_array($v) && empty($v)))
+		{
+			return $q;
+		}
+		else
+		{
+			return $q->whereHas('destination', function($q) use ($v) {
+				$q->PathLike($v.'*');
+			});
+		}
+	}
+
+	function scopeInDestinationByPath($q, $v = null)
+	{
+		if (!$v || (is_array($v) && empty($v)))
+		{
+			return $q;
+		}
+		else
+		{
+			return $q->whereHas('destination', function($q) use ($v) {
+				$q->PathLike($v);
+			});
+		}
+	}
+
 }

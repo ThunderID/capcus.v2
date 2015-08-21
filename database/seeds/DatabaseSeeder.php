@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ArticleTableSeeder::class);
         $this->call(TourOptionSeeder::class);
         $this->call(TourSeeder::class);
+        $this->call(HeadlineSeeder::class);
+        $this->call(HomegridSeeder::class);
 
         Model::reguard();
     }

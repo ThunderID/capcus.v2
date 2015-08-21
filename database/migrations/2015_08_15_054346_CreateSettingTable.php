@@ -18,6 +18,8 @@ class CreateSettingTable extends Migration
             $table->text('value');
             $table->datetime('since');
             $table->timestamps();
+
+            $table->index(['destination_id']);
         });
     }
 

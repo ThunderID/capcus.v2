@@ -19,7 +19,9 @@
 		<div class="carousel-inner">
 			@foreach ($carousel_items as $k => $item)
 				<div class="item {{$k == 0 ? 'active' : ''}}">
-					<img data-src="{{ $item->images->where('name', 'LargeImage')->first()->path }}" alt="{{ $item->title }}" src="{{ $item->images->where('name', 'LargeImage')->first()->path }}">
+					<a href='{{ $item->link_to }}'>
+						<img data-src="{{ $item->images->where('name', 'LargeImage')->first()->path }}" alt="{{ $item->title }}" src="{{ $item->images->where('name', 'LargeImage')->first()->path }}" width='100%'>
+					</a>
 				</div>
 			@endforeach
 		</div>

@@ -157,8 +157,27 @@ class TourController extends Controller {
 		$tour_schedules->load('tour', 'tour.travel_agent', 'tour.places', 'tour.destinations', 'tour.travel_agent.images', 'tour.options');
 
 		// ------------------------------------------------------------------------
-		// IF NO TOUR, QUERY FOR ALL TOUR
+		// PREPARE FILTERS FOR RESULTS
 		// ------------------------------------------------------------------------
+		$filter_schedules = [];
+
+		// durations
+		foreach ($tour_schedules as $schedule)
+		{
+			$filter_schedules['durations'][$schedule->tour->duration_day * 1] = $schedule->tour->duration_day . 'D/' . $schedule->tour->duration_night . 'N';
+			$filter_schedules['travel_agents'][$schedule->tour->travel_agent->id] = $schedule->tour->travel_agent->name;
+			if ((!$filter_schedules['price']['min']) || ($filter_schedules['price']['min'] > $schedule->discounted_price))
+			{
+				$filter_schedules['price']['min'] = $schedule->discounted_price;
+			}
+			if ($filter_schedules['price']['max'] < $schedule->discounted_price)
+			{
+				$filter_schedules['price']['max'] = $schedule->discounted_price;
+			}
+		}
+
+		ksort($filter_schedules['durations']);
+		asort($filter_schedules['travel_agents']);
 		
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
@@ -170,6 +189,7 @@ class TourController extends Controller {
 		$this->layout->page->keberangkatan 		= $keberangkatan;
 		$this->layout->page->budget 			= $budget;
 		$this->layout->page->tour_schedules 	= $tour_schedules;
+		$this->layout->page->filter_schedules 	= $filter_schedules;
 		$this->layout->page->other_tours 		= $other_tours;
 
 		// search tour
@@ -201,6 +221,7 @@ class TourController extends Controller {
 		
 		// get schedule
 		$tour_schedule = $tour->schedules()->where('departure', \Carbon\Carbon::createFromDate(substr($schedule, 0, 4), substr($schedule, 4, 2), substr($schedule, 6, 2))->format('Y-m-d'))->first();
+		$tour_schedule->load('tour','tour.schedules','tour.travel_agent','tour.schedules.tour', 'tour.schedules.tour.travel_agent');
 
 		// ------------------------------------------------------------------------------------------------------------
 		// OTHER TOUR WITH SIMILAR DESTINATION
@@ -214,7 +235,7 @@ class TourController extends Controller {
 												null,
 												null,
 												0,
-												5
+												15
 											)
 								);
 
@@ -232,7 +253,7 @@ class TourController extends Controller {
 												null, 
 												null, 
 												0, 
-												5)
+												15)
 								);
 
 		$other_tours['by_departure']->load('tour', 'tour.travel_agent', 'tour.places', 'tour.destinations', 'tour.travel_agent.images', 'tour.options');
@@ -249,7 +270,7 @@ class TourController extends Controller {
 												null,
 												null,
 												0,
-												5
+												15
 											)
 								);
 
@@ -261,7 +282,7 @@ class TourController extends Controller {
 		$this->layout->page->tour 			= $tour;
 		$this->layout->page->tour_schedule	= $tour_schedule;
 		$this->layout->page->other_tours 	= $other_tours;
-		$this->init_right_sidebar();
+		// $this->init_right_sidebar();
 
 		return $this->layout;
 	}

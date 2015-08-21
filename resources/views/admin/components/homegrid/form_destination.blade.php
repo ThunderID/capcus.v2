@@ -43,6 +43,15 @@
 	@parent
 
 	<script>
+		$('.grid_type_destination input[name=image_url]').keyup(function(e) {
+			var obj = $(this);
+			var code = e.keyCode || e.which;
+			if(code == 13) 
+			{ 
+				$('.grid_type_destination #destination_img_preview').html('<img src="'+obj.val()+'">');
+			}
+		});
+
 		$('.grid_type_destination input[name=image_url]').blur(function(event) {
 			var obj = $(this);
 			$('.grid_type_destination #destination_img_preview').html('<img src="'+obj.val()+'">');

@@ -15,14 +15,14 @@ abstract class Controller extends BaseController {
 
 	function __construct()
 	{
-		$this->layout_base_dir 	= 'web.v2.';
+		$this->layout_base_dir 	= 'web.v3.';
 		$this->page_base_dir 	= $this->layout_base_dir . 'pages.';
 
 		// ------------------------------------------------------------------------------------------------------------
 		// BASIC LAYOUT
 		// ------------------------------------------------------------------------------------------------------------
-		$this->layout 			= view($this->layout_base_dir.'page_templates.v2');
-		$this->layout->basic 	= view($this->layout_base_dir.'page_templates.v2_content');
+		$this->layout 			= view($this->layout_base_dir.'page_templates.v3');
+		$this->layout->basic 	= view($this->layout_base_dir.'page_templates.v3_content');
 		$this->init_search_tour();
 	}
 

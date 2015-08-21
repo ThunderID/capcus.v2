@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Web;
 
 use Auth, Input, \Illuminate\Support\MessageBag, App;
-use \App\PublishedArticle as Article;
 use \App\PublishedTour as Tour;
+use \App\Article;
 
 class BlogController extends Controller {
 
@@ -11,14 +11,13 @@ class BlogController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY ARTICLE
 		// ------------------------------------------------------------------------------------------------------------
-		$articles = Article::latest('published_at')->paginate(10);
+		$articles = Article::published()->latest('published_at')->paginate(10);
 
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
-		$this->layout->page = view($this->page_base_dir . 'blog.index');
+		$this->layout->page = view($this->page_base_dir . 'blogs');
 		$this->layout->page->articles 	= $articles;
-		$this->init_right_sidebar();
 
 		return $this->layout;
 	}
@@ -49,7 +48,6 @@ class BlogController extends Controller {
 		$this->layout->page = view($this->page_base_dir . 'blog.show');
 		$this->layout->page->article 	= $article;
 		$this->layout->page->tours 	= $tours;
-		$this->init_right_sidebar();
 
 
 		return $this->layout;

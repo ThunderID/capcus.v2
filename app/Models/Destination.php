@@ -64,7 +64,19 @@ class Destination extends BaseModel
 		return ucwords(str_replace('-', ' ', $name));
 	}
 
+	function getTotalUpcomingSchedulesAttribute()
+	{
+		$total_schedule = 0;
+		foreach ($this->tours as $tour)
+		{
+			$total_schedule += $tour->schedules->count();
+		}
+
+		return $total_schedule;
+	}
+
 	// ----------------------------------------------------------------------
 	// FUNCTIONS
 	// ----------------------------------------------------------------------
+	
 }

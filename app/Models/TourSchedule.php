@@ -9,7 +9,7 @@ class TourSchedule extends BaseModel
 	use BelongsToTourTrait;
 
     //
-	protected $table = 'tour_schedule';
+	protected $table = 'tour_schedules';
 	protected $fillable = [
 							'departure', 
 							'arrival', 
@@ -93,6 +93,17 @@ class TourSchedule extends BaseModel
 		}
 	}
 
+	public function scopePromo($q)
+	{
+		return $q->whereRaw('`discounted_price` < `original_price`');
+	}
+
+	public function scopePublished($q)
+	{
+		return $q->with(['tour' => function($q) {
+			$q->published();
+		}]);
+	}
 
 	// ----------------------------------------------------------------------
 	// MUTATORS

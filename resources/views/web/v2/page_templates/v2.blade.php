@@ -7,6 +7,7 @@
 		<title>{{$html_title or 'CAPCUS.id'}}</title>
 
 		<!-- Bootstrap CSS -->
+		<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Happy+Monkey' rel='stylesheet' type='text/css'>
 		<link href="{{elixir('css/web.css')}}" rel="stylesheet">
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -16,7 +17,6 @@
 			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 		@yield('css')
 	</head>

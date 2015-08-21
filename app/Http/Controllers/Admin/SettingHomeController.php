@@ -29,7 +29,6 @@ class SettingHomeController extends Controller {
 		foreach (HomegridSetting::getType() as $x)
 		{
 			$this->homegrid_types[$x] = ucwords(str_replace('_', ' ', $x));
-			
 		}
 		
 		$this->layout->content_title = "HOMEPAGE";

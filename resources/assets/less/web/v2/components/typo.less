@@ -50,6 +50,15 @@
   transform:rotate(-5deg);
 }
 
+.text-shadow { text-shadow: 1px 0px 14px rgba(255, 255, 255, 1); }
+.text-embossed { text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);
+               }
+.text-inset {
+ /* Shadows are visible under slightly transparent text color */
+    color: rgba(10,60,150, 0.8);
+    text-shadow: 1px 4px 6px #000, 0 0 0 #000, 1px 4px 6px #000;
+}
 
 
 a:hover { text-decoration: none !important;}

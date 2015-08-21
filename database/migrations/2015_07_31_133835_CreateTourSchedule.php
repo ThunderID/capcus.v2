@@ -12,7 +12,7 @@ class CreateTourSchedule extends Migration
      */
     public function up()
     {
-        Schema::create('tour_schedule', function (Blueprint $table) {
+        Schema::create('tour_schedules', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tour_id')->unsigned();
             $table->date('departure');
@@ -34,6 +34,6 @@ class CreateTourSchedule extends Migration
      */
     public function down()
     {
-        Schema::drop('tour_schedule');
+        Schema::drop('tour_schedules');
     }
 }

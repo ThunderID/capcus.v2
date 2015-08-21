@@ -95,9 +95,13 @@ trait HomegridSettingTrait {
 
 	function getDestinationDetailAttribute()
 	{
-		$destination_id = $this->destination;
-		$tmp 	= \App\Destination::find($destination_id);
-		return $tmp;
+		if (!$this->attributes['destination_detail'])
+		{
+			$destination_id = $this->destination;
+			$tmp 	= \App\Destination::find($destination_id);
+			$this->attributes['destination_detail'] = $tmp;
+		}
+		return $this->attributes['destination_detail'];
 	}
 
 	function getImageUrlAttribute()

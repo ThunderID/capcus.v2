@@ -1,0 +1,27 @@
+.tour_schedule_table { 
+	
+	border-color:#FFD34E !important; 
+
+	thead { 
+		tr { 
+			th { 
+				border-bottom:5px solid #FFD34E;
+				color: black !important; 
+			}
+		}
+	}
+
+	tbody {
+		tr:hover { 
+			background:#FFD34E !important;
+		}
+
+		tr { 
+			cursor:pointer !important;
+
+			td { 
+				color:black !important;
+			}
+		} 
+	}
+}
