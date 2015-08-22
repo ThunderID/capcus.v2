@@ -9,14 +9,14 @@
 	}
 ?>
 
-<table class="table table-hover tour_schedule_table">
+<table class="table table-hover tour_schedule_table table-sorter">
 	<thead>
 		<tr>
-			<th class='text-uppercase'>Tgl</th>
-			<th class='text-uppercase text-center'>Travel Agent</th>
-			<th class='text-uppercase'>Tujuan</th>
-			<th class='text-uppercase'>Durasi</th>
-			<th class='text-uppercase text-right'>Harga</th>
+			<th title="klik untuk mengurutkan" class='text-uppercase'>Tgl <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" class='text-uppercase text-center'>Travel Agent <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" class='text-uppercase'>Tujuan <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" class='text-uppercase'>Durasi <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" class='text-uppercase text-right'>Harga <div class='icon'></div></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -28,11 +28,11 @@
 						data-travel-agent="{{ $schedule->tour->travel_agent->id }}"
 						data-link="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}"
 				>
-				<td class='text-left' height=60>{{ $schedule->departure->format('d-M-Y')}}</td>
-				<td class='text-center'>
+				<td class='text-left' height=60 data-sort-value="{{$schedule->departure->format('Ymd')}}">{{ $schedule->departure->format('d-m-Y')}}</td>
+				<td class='text-center' data-sort-value="{{$schedule->tour->travel_agent->name}}">
 					<img src="{{ $schedule->tour->travel_agent->images->where('name', "SmallLogo")->first()->path}}" alt='{{ $schedule->tour->travel_agent->name}}' width="50" class='mr-xs'>
 				</td>
-				<td class='text-left'>
+				<td class='text-left' data-sort-value="{{$schedule->tour->name}}">
 					<strong class='text-uppercase'>{{ implode(', ', $schedule->tour->destinations->lists('long_name')->toArray()) }}</strong>
 					{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}
 					<p>
@@ -44,8 +44,8 @@
 					@endforeach
 					</p>
 				</td>
-				<td class='text-left'>{{ $schedule->tour->duration_day . 'D/' . $schedule->tour->duration_night . 'N'}}</td>
-				<td class='text-right'>
+				<td class='text-left' data-sort-value="{{$schedule->tour->duration_day}}">{{ $schedule->tour->duration_day . 'D/' . $schedule->tour->duration_night . 'N'}}</td>
+				<td class='text-right' data-sort-value="{{$schedule->discounted_price}}">
 					{{ $schedule->currency . ' ' . number_format($schedule->discounted_price, 0, ',','.')}}
 					@if ($schedule->discounted_price < $schedule->original_price)
 						<br>
@@ -68,12 +68,55 @@
 
 @section('js')
 	@parent
-	<script>
-		$('.tour_schedule_table').on('click', 'tr', function(event) {
-			window.location = $(this).data('link');
-		});
 
-		$('')
+	{!! Html::script('plugins/jquery-tablesorter/jquery.tablesorter.min.js') !!}
+	<script>
+
+		$(document).ready(function(){
+			$('.tour_schedule_table > tbody').on('click', 'tr', function(event) {
+				window.location = $(this).data('link');
+			});
+
+			// add parser through the tablesorter addParser method 
+			$.tablesorter.addParser({ 
+				// set a unique id 
+				id: 'data_value_text', 
+				is: function(s) { 
+					// return false so this parser is not auto detected 
+					return false; 
+				}, 
+				format: function(s, table, cell, cellindex) { 
+					return (cell.getAttribute('data-sort-value'));
+				}, 
+				// set type, either numeric or text 
+				type: 'text' 
+			}); 
+
+			$.tablesorter.addParser({ 
+				// set a unique id 
+				id: 'data_value_numeric', 
+				is: function(s) { 
+					// return false so this parser is not auto detected 
+					return false; 
+				}, 
+				format: function(s, table, cell, cellindex) { 
+					return (cell.getAttribute('data-sort-value'));
+				}, 
+				// set type, either numeric or numeric 
+				type: 'numeric' 
+			}); 
+
+			$('.table-sorter').tablesorter({
+				headers: {
+					0: { sorter: 'data_value_numeric'},
+					1: { sorter: 'data_value_text'},
+					2: { sorter: 'data_value_text'},
+					3: { sorter: 'data_value_numeric'},
+					4: { sorter: 'data_value_numeric'}
+				},
+				sortList: [[0,0]]
+			});
+		})
 			
 	</script>
 @stop

@@ -1,4 +1,4 @@
-<div class="page-sidebar">
+<div class="page-sidebar filter_tour_schedule_results">
 	<div class="sidebar-title">
 		<h2>Tour</h2>
 		<div class="clear-filter">

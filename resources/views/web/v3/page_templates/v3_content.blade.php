@@ -3,7 +3,7 @@
 @stop
 
 @section('search')
-	@include('web.v3.components.common.search')
+	{{-- @include('web.v3.components.common.search') --}}
 @stop
 
 @section('toggle-menu-responsive')

@@ -52,9 +52,9 @@
 					@yield('nav', '[nav]')
 					<!-- END / NAVIGATION -->
 					
-					<!-- SEARCH BOX -->
+					{{-- SEARCH BOX --}}
 					@yield('search', '[search]')
-					<!-- END / SEARCH BOX -->
+					{{-- END / SEARCH BOX --}}
 
 					<!-- TOGGLE MENU RESPONSIVE -->
 					@yield('toggle-menu-responsive', '[toggle-menu-responsive]')

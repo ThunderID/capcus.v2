@@ -28,11 +28,9 @@
 		</div>
 	</section>
 
-	<section class="masonry-section-demo mb-md">
-		<div class="container">
-			<div class="destination-grid-content">
-				@include('web.v3.components.home.homegrids',[])
-			</div>
+	<section>
+		<div class="container" class="mb-md">
+			@include('web.v3.components.home.homegrids',[])
 		</div>
 	</section>
 

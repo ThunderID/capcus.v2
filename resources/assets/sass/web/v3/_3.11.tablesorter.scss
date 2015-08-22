@@ -1,0 +1,29 @@
+.table-sorter { 
+	thead { 
+		th { cursor:pointer }
+		th.header.headerSortUp { 
+			.icon { 
+				background-image: url(../../images/tablesorter/asc.gif);  
+				width:23px;
+				height:10px;
+			}
+		}
+		th.header.headerSortDown {
+			.icon {
+				background-image: url(../../images/tablesorter/desc.gif);  
+				width:23px;
+				height:10px;
+			} 
+		}
+
+		th.header {
+			.icon { 
+				background-image: url(../../images/tablesorter/bg.gif);  
+				background-repeat: no-repeat; 
+				background-position: center left; 
+				width:23px;
+				height:10px;
+			}
+		}
+	}
+}

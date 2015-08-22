@@ -126,7 +126,7 @@
 				@if (!empty($required_images))
 					<div class="well">
 						<div class='title'>Images</div>
-						@include('admin.components.required_image_form', ['required_images' => $required_images, 'data' => $destination])
+						@include('admin.components.required_image_form', ['required_images' => $required_images, 'data' => $article])
 					</div>
 				@endif
 			</div>
@@ -148,28 +148,6 @@
 															]) 
 						!!}
 					</p>
-				</div>
-
-				<div class="well">
-					<div class='title'>THUMBNAIL</div>
-					<p>	
-						<strong class='text-uppercase'>Thumbnail URL</strong>
-						@if ($errors->has('thumbnail'))
-							<span class='text-danger pull-right'>{{implode(', ', $errors->get('thumbnail'))}}</span>
-						@endif
-						{!! Form::text('thumbnail', $article->thumbnail, [
-																'class' 			=> 'form-control', 
-																'required' 			=> 'required',
-																'placeholder' 		=> 'enter thumbnail url here',
-																'data-toggle'		=> ($errors->has('thumbnail') ? 'tooltip' : ''), 
-																'data-placement'	=> 'left', 
-																'title' 			=> ($errors->has('thumbnail') ? $errors->first('thumbnail') : ''), 
-															]) 
-						!!}
-					</p>
-
-					<p><img id='thumbnail_container' src="" class="img-responsive"></p>
-
 				</div>
 
 				<div class="well hidden-xs hidden-sm hidden-md">

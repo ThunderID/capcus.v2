@@ -82,4 +82,9 @@
 			startWithSlide:0
 		});
 	}
+
+	$('#slider-revolution > ul > li').click(function(event) {
+
+		window.location = $(this).data('link');
+	});
 </script>

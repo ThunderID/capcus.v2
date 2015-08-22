@@ -25,7 +25,7 @@ elixir(function(mix) {
     	.sass('web/v3/web_v3_style.scss')
     	.scripts([
     			'web.v3/lib/jquery-1.11.2.min.js',
-    			'web.v3/lib/masonry.pkgd.min.js',
+    			// 'web.v3/lib/masonry.pkgd.min.js',
 				'web.v3/lib/jquery.parallax-1.1.3.js',
 				'web.v3/lib/jquery.owl.carousel.js',
 				'web.v3/lib/theia-sticky-sidebar.js',
