@@ -28,7 +28,7 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>Departure / Return</th>
+					<th>Departure / Valid Through</th>
 					<th>Currency</th>
 					<th class='text-right'>Price</th>
 					<th class='text-right'>Discount</th>
@@ -46,7 +46,7 @@
 								{{++$i}}
 							@endif
 						</td>
-						<td>{{$x->departure->format('d-m-Y')}} - {{$x->arrival->format('d-m-Y')}} </td>
+						<td>{{$x->departure->format('d-m-Y')}} {{$x->departure_until ? ' / ' . $x->departure_until->format('d-m-Y') : ''}} </td>
 						<td>{{$x->currency}}</td>
 						<td class='text-right'>{{number_format($x->original_price)}}</td>
 						<td class='text-right'>{{number_format($x->discounted_price)}}</td>

@@ -113,7 +113,7 @@
 					@if ($errors->has('active_since'))
 						<span class='text-danger pull-right'>{{implode(', ', $errors->get('active_since'))}}</span>
 					@endif
-					{!! Form::input('datetime-local', 'active_since', ($headline->active_since ? $headline->active_since->format('d/m/Y H:i') : ''), [
+					{!! Form::input('text', 'active_since', ($headline->active_since ? $headline->active_since->format('d/m/Y H:i') : ''), [
 																						'class' 			=> 'form-control',
 																						'placeholder'		=> 'dd/mm/yyyy hh:mm',
 																						'data-toggle'		=> ($errors->has('active_since') ? 'tooltip' : ''), 
@@ -129,7 +129,7 @@
 					@if ($errors->has('active_until'))
 						<span class='text-danger pull-right'>{{implode(', ', $errors->get('active_until'))}}</span>
 					@endif
-					{!! Form::input('datetime-local', 'active_until', ($headline->active_until ? $headline->active_until->format('d/m/Y H:i') : ''), [
+					{!! Form::input('text', 'active_until', ($headline->active_until ? $headline->active_until->format('d/m/Y H:i') : ''), [
 																						'class' 			=> 'form-control',
 																						'placeholder'		=> 'dd/mm/yyyy hh:mm',
 																						'data-toggle'		=> ($errors->has('active_until') ? 'tooltip' : ''), 

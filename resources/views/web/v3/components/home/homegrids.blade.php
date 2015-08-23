@@ -63,6 +63,11 @@
 						</ul>
 					</div>
 				</div>
+				@if (str_is('featured_destination', $x->type))
+					<div class='item-featured bg-yellow text-black text-uppercase'>
+						Featured
+					</div>
+				@endif
 				<div class="item-available">
 					@if (str_is('destination', $x->type) || str_is('featured_destination', $x->type))
 						<a href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $x->destination_detail->path_slug])}}" class='text-white'>

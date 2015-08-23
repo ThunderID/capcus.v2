@@ -12,11 +12,11 @@
 <table class="table table-hover tour_schedule_table table-sorter">
 	<thead>
 		<tr>
-			<th title="klik untuk mengurutkan" class='text-uppercase'>Tgl <div class='icon'></div></th>
-			<th title="klik untuk mengurutkan" class='text-uppercase text-center'>Travel Agent <div class='icon'></div></th>
-			<th title="klik untuk mengurutkan" class='text-uppercase'>Tujuan <div class='icon'></div></th>
-			<th title="klik untuk mengurutkan" class='text-uppercase'>Durasi <div class='icon'></div></th>
-			<th title="klik untuk mengurutkan" class='text-uppercase text-right'>Harga <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" width='5%' class='text-uppercase'>Tgl <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" width='5%' class='text-uppercase text-center'>Travel Agent <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" width='5%' class='text-uppercase'>Tujuan <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" width='5%' class='text-uppercase'>Durasi <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" width='5%' class='text-uppercase text-right'>Harga <div class='icon'></div></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -28,7 +28,16 @@
 						data-travel-agent="{{ $schedule->tour->travel_agent->id }}"
 						data-link="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}"
 				>
-				<td class='text-left' height=60 data-sort-value="{{$schedule->departure->format('Ymd')}}">{{ $schedule->departure->format('d-m-Y')}}</td>
+				<td class='text-left' height=60 data-sort-value="{{$schedule->departure->format('Ymd')}}">
+					@if (is_null($schedule->departure_until))
+						{{ $schedule->departure->format('d-m-Y')}}
+					@else
+						<span class='text-sm'>
+							Kapanpun antara
+							<br>{{ $schedule->departure->format('d-m-Y')}} s/d {{ $schedule->departure_until->format('d-m-Y')}}
+						</span>
+					@endif
+				</td>
 				<td class='text-center' data-sort-value="{{$schedule->tour->travel_agent->name}}">
 					<img src="{{ $schedule->tour->travel_agent->images->where('name', "SmallLogo")->first()->path}}" alt='{{ $schedule->tour->travel_agent->name}}' width="50" class='mr-xs'>
 				</td>

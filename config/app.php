@@ -146,6 +146,7 @@ return [
 
 		Barryvdh\Debugbar\ServiceProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
+	    Laravel\Socialite\SocialiteServiceProvider::class,
 
 	],
 
@@ -197,6 +198,7 @@ return [
 		'Form'      => Collective\Html\FormFacade::class,
 		'Html'      => Collective\Html\HtmlFacade::class,
 		'Debugbar' 	=> Barryvdh\Debugbar\Facade::class,
+		'Socialize' => Laravel\Socialite\Facades\Socialite::class,
 
 	],
 

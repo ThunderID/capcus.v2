@@ -44,9 +44,9 @@ Route::group(['namespace' => 'Web\\'], function(){
 
 	Route::group(['prefix' => 'subscription'], function(){
 
-		post('/register',															['uses' => 'SubscriptionController@add'		,'as' => 'web.subscription.add']);
-		get('/register/success/{email}',											['uses' => 'SubscriptionController@success'	,'as' => 'web.subscription.success']);
-		get('/register/fail/{email}',												['uses' => 'SubscriptionController@fail'	,'as' => 'web.subscription.fail']);
+		post('/',															['uses' => 'SubscriptionController@add'		,'as' => 'web.subscription.add']);
+		get('/success/{email}',											['uses' => 'SubscriptionController@success'	,'as' => 'web.subscription.success']);
+		get('/fail/{email}',												['uses' => 'SubscriptionController@fail'	,'as' => 'web.subscription.fail']);
 	});
 
 });

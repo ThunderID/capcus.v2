@@ -26,7 +26,7 @@ class HomegridSeeder extends Seeder
     		$destination = \App\Destination::find($x->id);
 
     		$headline = new \App\HomegridSetting(['name' => 'homegrid_' . ($k+1), 'since' => \Carbon\Carbon::now()]);
-    		$headline->type = 'destination';
+    		$headline->type = ($k < 3 ? 'featured_destination' : 'destination');
     		$headline->title = $destination->long_name;
     		$headline->destination = $destination->id;
     		$headline->image_url = 'http://localhost:8000/images/43/' . ($k+1) . '.jpg';

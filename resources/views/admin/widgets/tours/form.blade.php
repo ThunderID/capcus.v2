@@ -214,7 +214,7 @@
 					@if ($errors->has('published_at'))
 						<span class='text-danger pull-right'>{{implode(', ', $errors->get('published_at'))}}</span>
 					@endif
-					{!! Form::input('datetime-local', 'published_at', ($tour->published_at->year > 0 ? $tour->published_at->format('d/m/Y H:i') : ''), [
+					{!! Form::input('text', 'published_at', ($tour->published_at->year > 0 ? $tour->published_at->format('d/m/Y H:i') : ''), [
 																						'class' 			=> 'form-control',
 																						'data-toggle'		=> ($errors->has('published_at') ? 'tooltip' : ''), 
 																						'data-placement'	=> 'left', 

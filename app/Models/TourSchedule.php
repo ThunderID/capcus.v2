@@ -8,17 +8,17 @@ class TourSchedule extends BaseModel
 {
 	use BelongsToTourTrait;
 
-    //
+	//
 	protected $table = 'tour_schedules';
 	protected $fillable = [
 							'departure', 
-							'arrival', 
+							'departure_until', 
 							'currency', 
 							'original_price', 
 							'discounted_price', 
 							'tour_id'
 						];
-	protected $dates = ['departure', 'arrival', 'published_at'];
+	protected $dates = ['departure', 'departure_until', 'published_at'];
 
 	// ----------------------------------------------------------------------
 	// BOOT
@@ -56,7 +56,30 @@ class TourSchedule extends BaseModel
 				$date2 = $tmp;
 			}
 			
-			return $q->where('departure', '>=', $date1)->where('departure', '<=', $date2);
+			return $q->where(function($q) use ($date1, $date2) { 
+						$q->where(function($q) use ($date1, $date2) {
+									$q->whereNull('departure_until')
+										->where('departure', '>=', $date1)
+										->where('departure', '<=', $date2);
+								})
+						->orWhere(function($q) use ($date1, $date2) {
+									$q->whereNotNull('departure_until')
+										->where(function($q) use ($date1, $date2)  { 
+											$q->where(function($q) use ($date1, $date2) {
+												$q->where('departure', '<=', $date1)->where('departure_until', '>=', $date1);
+											})
+											->orWhere(function($q) use ($date1, $date2) {
+													$q->where('departure', '>=', $date1)->where('departure_until', '<=', $date2);
+												})
+											->orWhere(function($q) use ($date1, $date2) {
+													$q->where('departure', '>=', $date1)->where('departure', '<=', $date2)->where('departure_until', '>=', $date2);
+												})
+											->orWhere(function($q) use ($date1, $date2) {
+													$q->where('departure', '<=', $date1)->where('departure_until', '>=', $date2);
+												});
+										});
+								});
+					});
 		}
 	}
 

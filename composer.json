@@ -9,9 +9,10 @@
         "laravel/framework": "5.1.*",
         "thunderid/jsend": "dev-master",
         "barryvdh/laravel-debugbar": "~2.0",
-        "laravel/socialite": "~2.0",
-	"laravelcollective/html": "~5.0",
-        "jenssegers/date": "^3.0"
+        "laravel/socialite": "^2.0",
+    	"laravelcollective/html": "~5.0",
+        "jenssegers/date": "^3.0",
+        "thunderid/jsend": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

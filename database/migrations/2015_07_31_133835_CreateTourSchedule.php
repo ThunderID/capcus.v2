@@ -16,7 +16,7 @@ class CreateTourSchedule extends Migration
             $table->increments('id');
             $table->integer('tour_id')->unsigned();
             $table->date('departure');
-            $table->date('arrival');
+            $table->date('departure_until')->nullable();
             $table->string('currency');
             $table->double('original_price');
             $table->double('discounted_price');

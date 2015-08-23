@@ -3,7 +3,7 @@
 use Auth, Input, \Illuminate\Support\MessageBag, App;
 use Socialize;
 use \App\User;
-use \App\Commands\CreateMemberFromFacebook, \App\Commands\CreateMemberFromTwitter;
+use \App\Jobs\CreateMemberFromFacebook, \App\Jobs\CreateMemberFromTwitter;
 
 class AuthController extends Controller {
 
@@ -22,8 +22,7 @@ class AuthController extends Controller {
 				// ------------------------------------------------------------------------------------------------------------
 				// SHOW DISPLAY
 				// ------------------------------------------------------------------------------------------------------------
-				$this->layout->page = view('web.v1.pages.login');
-				$this->init_right_sidebar();
+				$this->layout->page = view($this->page_base_dir . 'login');
 				return $this->layout;
 				break;
 		}
@@ -52,7 +51,7 @@ class AuthController extends Controller {
 				if ($result['status'] == 'success')
 				{
 					Auth::login($result['data']['data']);
-					return redirect()->intended(route('web.home'));
+					return redirect()->route('web.home');
 				}
 				else
 				{

@@ -6,13 +6,15 @@
     .price-slider {
         height: 3px;
         .ui-slider-handle {
-            height: 10px;
+            height: 16px;
+            width: 22px;
+            cursor: pointer;
         }
     }
     .price_slider_amount {
         font-weight: 600;
         font-size: 16px;
-        color: #A5A5A5;
+        color: black;
         margin-top: 15px;
     }
 }

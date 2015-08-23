@@ -54,7 +54,15 @@
 									<div class="trips">
 										<div class="item">
 											<h6>Keberangkatan</h6>
-											<p><i class="awe-icon awe-icon-calendar"></i> {{ $tour_schedule->departure->format('d M Y')}}</p>
+											<p>
+												<i class="awe-icon awe-icon-calendar"></i> 
+												@if (is_null($tour_schedule->departure_until))
+													{{ $tour_schedule->departure->format('d-m-Y')}}
+												@else
+													Kapanpun antara
+													<br>{{ $tour_schedule->departure->format('d-m-Y')}} s/d {{ $tour_schedule->departure_until->format('d-m-Y')}}
+												@endif
+											</p>
 										</div>
 										<div class="item">
 											<h6>Hari</h6>
@@ -92,7 +100,13 @@
 															<td class="ticket-price">{{ $other_schedule->departure->format('d-M-Y')}}</td>
 															<td align='right'>
 																<span class="amount">
-																	{{ $other_schedule->currency }} {{ number_format($other_schedule->discounted_price ,0,',','.') }}
+																	@if (is_null($other_schedule->departure_until))
+																		{{ $other_schedule->departure->format('d-m-Y')}}
+																	@else
+																		Kapanpun antara
+																		<br>{{ $other_schedule->departure->format('d-m-Y')}} s/d {{ $other_schedule->departure_until->format('d-m-Y')}}
+																	@endif
+
 																</span>
 																		
 																@if ($other_schedule->original_price != $other_schedule->discounted_price)

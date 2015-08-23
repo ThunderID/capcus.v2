@@ -34,7 +34,7 @@
 						<span class='text-danger pull-right'>{{implode(', ', $errors->get('departure'))}}</span>
 					@endif
 
-					{!! Form::input('datetime-local', 'departure', ($schedule->departure ? $schedule->departure->format('d/m/Y H:i') : ''), [
+					{!! Form::input('text', 'departure', ($schedule->departure ? $schedule->departure->format('d/m/Y H:i') : ''), [
 																						'class' 			=> 'form-control',
 																						'placeholder'		=> 'dd/mm/yyyy',
 																						'data-toggle'		=> ($errors->has('departure') ? 'tooltip' : ''), 
@@ -46,16 +46,16 @@
 				</div>
 
 				<div class="mb-xs">
-					<strong class='text-uppercase'>Arrival</strong>
-					@if ($errors->has('arrival'))
-						<span class='text-danger pull-right'>{{implode(', ', $errors->get('arrival'))}}</span>
+					<strong class='text-uppercase'>Departure Until (For FIT Only)</strong>
+					@if ($errors->has('departure_until'))
+						<span class='text-danger pull-right'>{{implode(', ', $errors->get('departure_until'))}}</span>
 					@endif
-					{!! Form::input('datetime-local', 'arrival', ($schedule->arrival ? $schedule->arrival->format('d/m/Y H:i') : ''), [
+					{!! Form::input('text', 'departure_until', ($schedule->departure_until ? $schedule->departure_until->format('d/m/Y H:i') : ''), [
 																						'class' 			=> 'form-control',
 																						'placeholder'		=> 'dd/mm/yyyy',
-																						'data-toggle'		=> ($errors->has('arrival') ? 'tooltip' : ''), 
+																						'data-toggle'		=> ($errors->has('departure_until') ? 'tooltip' : ''), 
 																						'data-placement'	=> 'left', 
-																						'title' 			=> ($errors->has('arrival') ? $errors->first('arrival') : ''), 
+																						'title' 			=> ($errors->has('departure_until') ? $errors->first('departure_until') : ''), 
 																						'data-inputmask'	=> "'alias':'date'"
 																					 ])
 					!!}

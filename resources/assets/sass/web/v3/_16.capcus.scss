@@ -281,3 +281,22 @@ a:hover { text-decoration: none !important;}
 .bg-yellow-glass { background:rgba(247,205,30,0.9)};
 .bg-light-yellow { background:#ffffef};
 .bg-white { background: white;}
+.bg-yellow { background: $yellow;}
+.btn-twitter { 
+	background: #77CBEF !important;
+	&:hover { 
+		background: #87DBFF !important;
+		&:after { 
+			background: #87DBFF !important;
+		}
+	}	
+}
+.btn-facebook { background: #537ABC !important;
+	&:hover { 
+		background: #638ACC !important;
+		&:after { 
+			background: #638ACC !important;
+		}
+
+	}	
+}

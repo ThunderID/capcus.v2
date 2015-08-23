@@ -77,6 +77,7 @@ class HomeController extends Controller {
 		$this->layout->page->all_destinations 	= $this->all_destinations;
 		$this->layout->page->departure_list 	= $this->departure_list;
 		$this->layout->page->budget_list 		= $this->budget_list;
+		$this->layout->page->place_list 		= $this->place_list;
 
 		return $this->layout;
 	}

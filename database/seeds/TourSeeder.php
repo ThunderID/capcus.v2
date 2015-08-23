@@ -36,23 +36,41 @@ class TourSeeder extends Seeder
 				dd($tour->getErrors());
 			}
 
+			$is_fit = rand(0,100) < 20;
+
 			// TOUR DESTINATION
 			$tour->destinations()->sync([$destination_id]);
 
 			// SCHEDULE
-			for ($j = 1; $j <= rand(3,5); $j++)
+			if (!$is_fit)
 			{
 				$departure = \Carbon\Carbon::now()->startOfMonth()->addDay(rand(0,240));
-				$arrival = \Carbon\Carbon::parse($departure->addDay($duration)->format('Y-m-d H:i:s'))->addDay($duration);
 				$original_price = ($duration * rand(1,10) * 300000);
 				$tour->schedules()->saveMany([new \App\TourSchedule([
-						'departure'		=> $departure,
-						'arrival'		=> $arrival,
-						'currency'		=> 'IDR',
-						'original_price'=> $original_price,
-						'discounted_price'=> $original_price * (rand(0,100) <= 20 ? (rand(80,100) / 100) : 1)
+						'departure'			=> $departure,
+						'departure_until'	=> \Carbon\Carbon::parse($departure)->addDay(rand(30, 150)),
+						'currency'			=> 'IDR',
+						'original_price'	=> $original_price,
+						'discounted_price'	=> $original_price * (rand(0,100) <= 20 ? (rand(80,100) / 100) : 1)
 					])]);
 			}
+			else
+			{
+				for ($j = 1; $j <= rand(3,5); $j++)
+				{
+					$departure = \Carbon\Carbon::now()->startOfMonth()->addDay(rand(0,240));
+					$original_price = ($duration * rand(1,10) * 300000);
+					$tour->schedules()->saveMany([new \App\TourSchedule([
+							'departure'			=> $departure,
+							'departure_until'	=> null,
+							'currency'			=> 'IDR',
+							'original_price'	=> $original_price,
+							'discounted_price'	=> $original_price * (rand(0,100) <= 20 ? (rand(80,100) / 100) : 1)
+						])]);
+				}
+			}
+
+
 		}
     }
 }

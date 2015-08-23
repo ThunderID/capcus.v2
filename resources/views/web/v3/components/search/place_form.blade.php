@@ -4,7 +4,7 @@
 			<label>Tujuan Wisata</label>
 			<div class="form-item">
 				<i class="awe-icon awe-icon-marker-1"></i>
-				<input type="text" value="Country, city, airport...">
+				{!! Form::select('', $place_list, '', ['class' => 'selectize']) !!}
 			</div>
 		</div>
 	</div>

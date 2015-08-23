@@ -37,7 +37,7 @@
 			<!-- END / WIDGET -->
 
 			<!-- WIDGET -->
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<div class="widget widget_about_us">
 					<h3>Tentang Capcus</h3>
 					<div class="widget_content">
@@ -48,30 +48,12 @@
 			<!-- END / WIDGET -->
 
 			<!-- WIDGET -->
-			<div class="col-md-2">
-				<div class="widget widget_categories">
-					<h3>Paket Tour</h3>
-					<ul>
-						<li><a href="#">Countries</a></li>
-						<li><a href="#">Regions</a></li>
-						<li><a href="#">Cities</a></li>
-						<li><a href="#">Districts</a></li>
-						<li><a href="#">Countries</a></li>
-						<li><a href="#">Airports</a></li>
-						<li><a href="#">Hotels</a></li>
-						<li><a href="#">Places of interest</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- END / WIDGET -->
-
-			<!-- WIDGET -->
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<div class="widget widget_recent_entries">
-					<h3>Recent Blog</h3>
+					<h3>Sitemap</h3>
 					<ul>
-						<li><a href="#">Countries</a></li>
-						<li><a href="#">Regions</a></li>
+						<li><a href="#">Paket Tour</a></li>
+						<li><a href="#">Tujuan Wisata</a></li>
 						<li><a href="#">Cities</a></li>
 						<li><a href="#">Districts</a></li>
 						<li><a href="#">Countries</a></li>
@@ -87,8 +69,21 @@
 			<div class="col-md-3">
 				<div class="widget widget_follow_us">
 					<div class="widget_content">
-						<p></p>
-						<span class="phone">099-099-000</span>
+						<h3>Stay Updated!</h3>
+
+						<p>Untuk mendapatkan informasi penawaran paket tour dan informasi travelling terbaru dari kami, silahkan isikan email anda di bawah ini
+
+						{!! Form::open(['url' => route('web.subscription.add'), 'method' => 'post']) !!}
+							
+							<div class="input-group">
+								<input type="text" class="pt-0 pb-0" placeholder="me@email.com" style='height:37px !important'>
+								<span class="input-group-btn">
+									<button class="btn btn-yellow" type="button">Subscribe</button>
+								</span>
+							</div><!-- /input-group -->
+							
+						{!! Form::close() !!}
+
 						<div class="awe-social">
 							<a href="http://twitter.com/capcusid"><i class="fa fa-twitter"></i></a>
 							<a href="http://facebook.com/capcusid"><i class="fa fa-facebook"></i></a>

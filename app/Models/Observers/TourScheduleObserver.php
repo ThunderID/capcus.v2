@@ -11,7 +11,7 @@ class TourScheduleObserver {
 	{
 		// RULES
 		$rules['departure']				= ['required', 'date'];
-		$rules['arrival']				= ['required', 'date'];
+		$rules['departure_until']		= ['date', 'after:departure'];
 		$rules['currency']				= ['required', 'in:IDR'];
 		$rules['original_price']		= ['required', 'numeric', 'min:0'];
 		$rules['discounted_price']		= ['required', 'numeric', 'min:0'];

@@ -19,7 +19,7 @@ class CreateSettingTable extends Migration
             $table->datetime('since');
             $table->timestamps();
 
-            $table->index(['destination_id']);
+            $table->index(['name']);
         });
     }
 

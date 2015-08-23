@@ -99,20 +99,27 @@ class TourController extends Controller {
 
 		if ($keberangkatan)
 		{
-			$keberangkatan_year = substr($keberangkatan, 0, 4) * 1;
-			$keberangkatan_month = substr($keberangkatan, 4, 2);
+			list($keberangkatan_from, $keberangkatan_to) = explode(',', $keberangkatan);
 
-			if ($keberangkatan_year <= 2000 && $keberangkatan_year >= date('Y')+30)
+			$keberangkatan_from_ymd = substr($keberangkatan_from, 0, 4) . '-' . substr($keberangkatan_from, 4, 2) . '-' . substr($keberangkatan_from, 6, 4);
+			$keberangkatan_to_ymd = substr($keberangkatan_to, 0, 4) . '-' . substr($keberangkatan_to, 4, 2) . '-' . substr($keberangkatan_to, 6, 4);
+			if (!strtotime(substr($keberangkatan_dari, 0, 4) . '-' . substr($keberangkatan_dari, 4, 2) . '-' . substr($keberangkatan_dari, 6, 4)))
 			{
-				return App::abort(404);
+				App::abort(404);
 			}
 
-			if ($keberangkatan_month <= 0 && $keberangkatan_month >= 13)
+			if (!strtotime(substr($keberangkatan_to, 0, 4) . '-' . substr($keberangkatan_to, 4, 2) . '-' . substr($keberangkatan_to, 6, 4)))
 			{
-				return App::abort(404);
+				App::abort(404);
 			}
 
-			$keberangkatan = ['month' => $keberangkatan_month, 'year' => $keberangkatan_year];
+			$departure_from = \Carbon\Carbon::parse($keberangkatan_from);
+			$departure_from = \Carbon\Carbon::parse($keberangkatan_to);
+		}
+		else
+		{
+			$departure_from = \Carbon\Carbon::now()->startOfMonth();
+			$departure_to = \Carbon\Carbon::now()->startOfMonth()->addYear(1);
 		}
 
 		if ($budget)
@@ -134,17 +141,6 @@ class TourController extends Controller {
 		// ------------------------------------------------------------------------
 		// QUERY
 		// ------------------------------------------------------------------------
-		if ($keberangkatan_year && $keberangkatan_month)
-		{
-			$departure_from = \Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1);
-			$departure_to = \Carbon\Carbon::createFromDate($keberangkatan_year, $keberangkatan_month, 1)->endofmonth();
-		}
-		else
-		{
-			$departure_from = \Carbon\Carbon::now();
-			$departure_to = \Carbon\Carbon::now()->endofmonth();
-		}
-
 		$tour_schedules = $this->dispatch(new FindPublishedTourSchedules(
 												$departure_from,
 												$departure_to,

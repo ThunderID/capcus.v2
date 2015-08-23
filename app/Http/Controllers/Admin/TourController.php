@@ -256,9 +256,9 @@ class TourController extends Controller {
 			$input['departure'] = \Carbon\Carbon::createFromFormat('d/m/Y', $input['departure']);
 		}
 
-		if ($input['arrival'])
+		if ($input['departure_until'])
 		{
-			$input['arrival'] = \Carbon\Carbon::createFromFormat('d/m/Y', $input['arrival']);
+			$input['departure_until'] = \Carbon\Carbon::createFromFormat('d/m/Y', $input['departure_until']);
 		}
 		$input['tour_id'] = $tour_id;
 

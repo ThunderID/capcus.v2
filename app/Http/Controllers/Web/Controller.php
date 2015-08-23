@@ -8,6 +8,7 @@ use Auth, Route, Input;
 use \App\TravelAgent;
 use \App\Destination;
 use \App\Article;
+use \App\Place;
 
 abstract class Controller extends BaseController {
 
@@ -24,6 +25,7 @@ abstract class Controller extends BaseController {
 		$this->layout 			= view($this->layout_base_dir.'page_templates.v3');
 		$this->layout->basic 	= view($this->layout_base_dir.'page_templates.v3_content');
 		$this->init_search_tour();
+		$this->init_search_place();
 	}
 
 	function init_search_tour()
@@ -64,5 +66,13 @@ abstract class Controller extends BaseController {
 												'20000000' 			 => "Rp. 20.000.000 ke atas",
 									  		];
 
+	}
+
+	function init_search_place()
+	{
+		// ------------------------------------------------------------------------------------------------------------
+		// GET PLACE
+		// ------------------------------------------------------------------------------------------------------------
+		$this->place_list = Place::published()->orderBy('long_name')->get();
 	}
 }

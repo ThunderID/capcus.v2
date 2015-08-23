@@ -2,7 +2,7 @@
 
 use Auth, Input, \Illuminate\Support\MessageBag;
 use \App\EmailSubscription;
-use \App\Commands\SubscribeNewsletter;
+use \App\Jobs\SubscribeNewsletter;
 
 class SubscriptionController extends Controller {
 
@@ -10,7 +10,7 @@ class SubscriptionController extends Controller {
 	{
 		$email = Input::get('email');
 		$command_result = $this->dispatch( new SubscribeNewsletter($email));
-		if ($command_result->status == 'fail')
+		if ($command_result == 'fail')
 		{
 			return redirect()->route('web.subscription.fail', ['email' => $email])->withInput()->withErrors();
 		}

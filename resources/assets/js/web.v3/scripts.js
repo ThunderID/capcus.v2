@@ -48,22 +48,22 @@
         });
     }
 
-    function placeholder() {
-        var $ph = $('input[type="search"], input[type="text"], input[type="email"], textarea');
-        $ph.each(function() {
-            var value = $(this).val();
-            $(this).focus(function() {
-                if ($(this).val() === value) {
-                    $(this).val('');
-                }
-            });
-            $(this).blur(function() {
-                if ($(this).val() === '') {
-                    $(this).val(value);
-                }
-            });
-        });
-    }
+    // function placeholder() {
+    //     var $ph = $('input[type="search"], input[type="text"], input[type="email"], textarea');
+    //     $ph.each(function() {
+    //         var value = $(this).val();
+    //         $(this).focus(function() {
+    //             if ($(this).val() === value) {
+    //                 $(this).val('');
+    //             }
+    //         });
+    //         $(this).blur(function() {
+    //             if ($(this).val() === '') {
+    //                 $(this).val(value);
+    //             }
+    //         });
+    //     });
+    // }
 
     /*==============================
         Masonry
@@ -215,16 +215,15 @@
         }
     }
 
-    function aweCalendar() {
-        $('.awe-calendar').each(function() {
-            $(this).datepicker({
-                showOtherMonths: true,
-                selectOtherMonths: true,
-                dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat']
-            });
-        });
-    }
-
+    // function aweCalendar() {
+    //     $('.awe-calendar').each(function() {
+    //         $(this).datepicker({
+    //             showOtherMonths: true,
+    //             selectOtherMonths: true,
+    //             dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat']
+    //         });
+    //     });
+    // }
 
     function priceSlider() {
         $('.price-slider').each(function() {
@@ -249,13 +248,13 @@
         });
     }
 
-    function aweSelect() {
-        $('.awe-select').each(function() {
-            var aweselect = $(this);
-            aweselect.wrap('<div class="awe-select-wrapper"></div>');
-            aweselect.after('<i class="fa fa-caret-down"></i>');
-        });
-    }
+    // function aweSelect() {
+    //     $('.awe-select').each(function() {
+    //         var aweselect = $(this);
+    //         aweselect.wrap('<div class="awe-select-wrapper"></div>');
+    //         aweselect.after('<i class="fa fa-caret-down"></i>');
+    //     });
+    // }
 
     function tabs() {
         $(".tabs").tabs({
@@ -586,7 +585,7 @@
     $(window).load(function() {
         // $('.preloader').fadeOut(1200);
         // masonry();
-        placeholder();
+        // placeholder();
         parallax();
         slider();
         square_grid();
@@ -610,9 +609,9 @@
 
 
     $(document).ready(function() {
-        aweCalendar();
+        // aweCalendar();
         priceSlider();
-        aweSelect();
+        // aweSelect();
         seasonHover();
         tabs();
         accordion();
