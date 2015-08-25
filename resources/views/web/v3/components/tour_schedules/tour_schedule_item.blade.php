@@ -21,7 +21,7 @@
 	<div class="item-body">
 		<div class="item-title">
 			<h2>
-				<a href="#">{{ $tour_schedule->tour->name }}</a>
+				<a href="{{ route('web.tour.show', ['travel_agent' => $tour_schedule->tour->travel_agent->slug, 'tour_slug' => $tour_schedule->tour->slug, 'schedule' => $tour->departure->format('Ymd') ]) }}">{{ $tour_schedule->tour->name }}</a>
 			</h2>
 		</div>
 		<div class="item-list">
@@ -52,7 +52,7 @@
 			@endif
 	
 		</div>
-		<a href="#" class="awe-btn">DETAIL</a>
+		<a href="{{ route('web.tour.show', ['travel_agent' => $tour_schedule->tour->travel_agent->slug, 'tour_slug' => $tour_schedule->tour->slug, 'schedule' => $tour->departure->format('Ymd') ]) }}" class="awe-btn">DETAIL</a>
 	</div>
 </div>
 <!-- END / ITEM -->

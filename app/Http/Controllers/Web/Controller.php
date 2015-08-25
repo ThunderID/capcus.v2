@@ -3,7 +3,7 @@
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Http\Controllers\Controller as BaseController;
-use Auth, Route, Input;
+use Auth, Route, Input, Session;
 
 use \App\TravelAgent;
 use \App\Destination;
@@ -26,6 +26,14 @@ abstract class Controller extends BaseController {
 		$this->layout->basic 	= view($this->layout_base_dir.'page_templates.v3_content');
 		$this->init_search_tour();
 		$this->init_search_place();
+
+		// ------------------------------------------------------------------------------------------------------------
+		// HANDLE REDIRECT
+		// ------------------------------------------------------------------------------------------------------------
+		if (Input::has('redirect'))
+		{
+			Session::put('redirect', Input::get('redirect'));
+		}
 	}
 
 	function init_search_tour()

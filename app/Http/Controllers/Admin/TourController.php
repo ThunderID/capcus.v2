@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use Auth, Input, \Illuminate\Support\MessageBag, Validator, Exception, App;
+use Illuminate\Support\Collection;
 
 class TourController extends Controller {
 
@@ -23,8 +24,8 @@ class TourController extends Controller {
 		$this->page_base_dir .= $this->view_name . '.';
 
 		$this->required_images = [ 
-			'SmallThumbnail'		=> 'Small Thumbnail',
-			'LargeThumbnail'		=> 'Large Thumbnail',
+			'SmallImage'		=> 'Small Image',
+			'LargeImage'		=> 'Large Image',
 		];
 		
 		$this->layout->content_title = strtoupper($this->view_name);
@@ -41,7 +42,11 @@ class TourController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY DATA
 		// ------------------------------------------------------------------------------------------------------------
-		$tours = $this->model->NameLike('*' . str_replace(' ', '*', $filters['name']) . '*')->TravelAgentByIds($filters['travel_agent'])->latest()->paginate(30);
+		$tours = $this->model->with('travel_agent', 'schedules', 'options', 'destinations', 'places', 'tags')
+							->NameLike('*' . str_replace(' ', '*', $filters['name']) . '*')
+							->TravelAgentByIds($filters['travel_agent'])
+							->latest()
+							->paginate(30);
 
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY TRAVEL AGENTS
@@ -82,6 +87,11 @@ class TourController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		$tour_options = \App\TourOption::orderBy('name')->get();
 
+		// ------------------------------------------------------------------------------------------------------------
+		// GET TAGS
+		// ------------------------------------------------------------------------------------------------------------
+		$tag_list = \App\Tag::orderBy('tag')->get();
+
 
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
@@ -92,6 +102,7 @@ class TourController extends Controller {
 		$this->layout->page->destinations 	= $destinations;
 		$this->layout->page->places 		= $places;	
 		$this->layout->page->tour_options 	= $tour_options;
+		$this->layout->page->tag_list 		= $tag_list;
 		$this->layout->page->required_images= $this->required_images;
 
 		return $this->layout;
@@ -110,6 +121,26 @@ class TourController extends Controller {
 			$data = $this->model->newInstance();
 		}
 
+		// ---------------------------------------- CHECK TAG ----------------------------------------
+		$tags_in_db = \App\Tag::whereIn('tag', Input::get('tags'))->get();
+		if (!$tags_in_db)
+		{
+			$tags_in_db = new Collection;
+		}
+
+		foreach (Input::get('tags') as $x )
+		{
+			if (!$tags_in_db->where('tag', $x)->first()->id)
+			{
+				$new_tag = new \App\Tag(['tag' => $x]);
+				if (!$new_tag->save())
+				{
+					dd($new_tag->getErrors());
+				}
+				$tags_in_db->push($new_tag);
+			}
+		}
+
 		// ---------------------------------------- HANDLE SAVE ----------------------------------------
 		$input = Input::all();
 
@@ -121,6 +152,9 @@ class TourController extends Controller {
 
 		// tour places
 		$input['place_ids'] 		= $input['places'];
+
+		// tags
+		$input['tag_ids'] 			= $tags_in_db->pluck('id')->toArray();
 
 		// tour options
 		foreach ($input['tour_options'] as $x)

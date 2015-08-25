@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tour extends BaseModel
 {
 	use HasNameTrait, HasSlugTrait, HasPublishedAtTrait, 
-		BelongsToManyDestinationsTrait, BelongsToManyPlacesTrait, BelongsToManyTourOptionsTrait, HasManyTourSchedulesTrait, BelongsToTravelAgentTrait;
+		BelongsToManyDestinationsTrait, BelongsToManyPlacesTrait, BelongsToManyTourOptionsTrait, HasManyTourSchedulesTrait, BelongsToTravelAgentTrait, HasManyImagesTrait, BelongsToManyTagsTrait;
 
     //
 	protected $table = 'tours';
@@ -19,6 +19,8 @@ class Tour extends BaseModel
 							'duration_day', 
 							'duration_night',
 							'published_at', 
+							'destination_ids', 
+							'tag_ids', 
 						];
 	protected $dates = ['published_at'];
 	static $name_field = 'name';

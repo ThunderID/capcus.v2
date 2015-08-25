@@ -5,6 +5,7 @@ Route::group(['namespace' => 'Web\\'], function(){
 	get('/',																		['uses' => 'HomeController@index',					'as' => 'web.home']);
 
 	Route::group(['prefix' => 'tour'], function(){
+		get('/tag/{tag}',															['uses' => 'TourController@tag',					'as' => 'web.tour.tag']);
 		get('/detail/{travel_agent}/{tour_slug}/{schedule}',						['uses' => 'TourController@show',					'as' => 'web.tour.show']);
 		get('/{travel_agent?}/{tujuan?}/{keberangkatan?}/{budget?}',				['uses' => 'TourController@lists',					'as' => 'web.tour']);
 	});
@@ -37,16 +38,25 @@ Route::group(['namespace' => 'Web\\'], function(){
 			// get('/voucher/apply/{vendor}/{tour}/{schedule}',						['uses' => 'VoucherController@generate',	'as' => 'web.voucher.create']);
 		});
 
+		Route::group(['prefix' => 'profile'], function() { 
+			Route::group(['prefix' => 'complete_profile'], function() {
+				get('/',													['uses' => 'MeController@complete_profile',			'as' => 'web.me.profile.complete']);
+				post('/',													['uses' => 'MeController@complete_profile_post',	'as' => 'web.me.profile.complete.post']);
+				get('/completed',											['uses' => 'MeController@completed_profile',		'as' => 'web.me.profile.completed']);
+			});
+		});
+
+
+
 		get('/profile/edit',														['uses' => 'MeController@edit_profile',		'as' => 'web.me.profile.edit']);
 		post('/profile/edit',														['uses' => 'MeController@edit_profile_post','as' => 'web.me.profile.post']);
 		post('/update_password',													['uses' => 'MeController@edit_password_post','as' => 'web.me.update_password.post']);
 	});
 
 	Route::group(['prefix' => 'subscription'], function(){
-
 		post('/',															['uses' => 'SubscriptionController@add'		,'as' => 'web.subscription.add']);
-		get('/success/{email}',											['uses' => 'SubscriptionController@success'	,'as' => 'web.subscription.success']);
-		get('/fail/{email}',												['uses' => 'SubscriptionController@fail'	,'as' => 'web.subscription.fail']);
+		get('/success/{subscriber_id}',										['uses' => 'SubscriptionController@success'	,'as' => 'web.subscription.success']);
+		get('/unsubscribe/{id}/{token}',									['uses' => 'SubscriptionController@unsubscribe'	,'as' => 'web.subscription.unsubscribe']);
 	});
 
 });

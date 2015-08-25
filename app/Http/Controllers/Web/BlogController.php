@@ -5,11 +5,13 @@ use \App\Article;
 
 class BlogController extends Controller {
 
+
 	public function index($page = 1)
 	{
 		$page = max(1, $page*1);
 		$per_page = 10;
 		$skip = ($page - 1) * $per_page;
+
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY ARTICLE
 		// ------------------------------------------------------------------------------------------------------------
@@ -19,6 +21,8 @@ class BlogController extends Controller {
 		$start_pagination = max(1, $page - 3);
 		$last_pagination = min(ceil($article_count/$per_page), $page + 3);
 
+		
+
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
@@ -27,6 +31,8 @@ class BlogController extends Controller {
 		$this->layout->page->article_count 	= $article_count;
 		$this->layout->page->start_pagination 	= $start_pagination;
 		$this->layout->page->last_pagination 	= $last_pagination;
+		$this->layout->page->top_destinations 	= $this->get_top_destinations();
+		// $this->layout->page->latest_tours 		= $this->get_latest_tours();
 		$this->layout->page->current_page 		= $page;
 
 		return $this->layout;
@@ -70,7 +76,25 @@ class BlogController extends Controller {
 		$this->layout->page->article 	= $article;
 		$this->layout->page->related_articles 	= $related_articles;
 		$this->layout->page->tours 		= $tours;
-
+		$this->layout->page->top_destinations 	= $this->get_top_destinations();
+		// $this->layout->page->latest_tours 		= $this->get_latest_tours();
+		
 		return $this->layout;
 	}
+
+	protected function get_latest_tours() { 
+		// ------------------------------------------------------------------------------------------------------------
+		// TOUR TERBARU
+		// ------------------------------------------------------------------------------------------------------------
+		return \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places')->published()->latest()->limit(8)->get();
+	}
+
+	protected function get_top_destinations() { 
+		// ------------------------------------------------------------------------------------------------------------
+		// TOP DESTINATION
+		// ------------------------------------------------------------------------------------------------------------
+		return \App\Destination::with('images')->TopDestination(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addMonth(6))->limit(5)->get();
+
+	}
+
 }

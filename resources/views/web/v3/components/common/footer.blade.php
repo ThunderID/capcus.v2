@@ -78,7 +78,7 @@
 							<div class="input-group">
 								<input type="text" class="pt-0 pb-0" placeholder="me@email.com" style='height:37px !important'>
 								<span class="input-group-btn">
-									<button class="btn btn-yellow" type="button">Subscribe</button>
+									<button class="btn btn-yellow" type="submit">Subscribe</button>
 								</span>
 							</div><!-- /input-group -->
 							

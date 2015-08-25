@@ -28,7 +28,6 @@
 					{!! Form::textarea($field_name.'_description', Input::old($field_name, ($data->images ? $data->images->where('name', $field_name)->first()->description : '')), [
 															'class' 			=> 'form-control', 
 															'placeholder' 		=> 'description', 
-															'required' 			=> 'required',
 															'data-toggle' 		=> ($errors->has($field_name.'_description') ? 'tooltip' : ''), 
 															'data-placement' 	=> 'bottom', 
 															'title' 			=> ($errors->has($field_name.'_description') ? $errors->first($field_name.'_description') : ''), 

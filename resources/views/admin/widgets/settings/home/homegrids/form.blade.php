@@ -61,13 +61,29 @@
 						!!}
 					</div>
 
+					<div class='mb-sm'>
+						<strong class='text-uppercase'>Featured</strong>
+						@if ($errors->has('featured'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('featured'))}}</span>
+						@endif
+						{!! Form::select('featured', [0 => 'No', 1 => 'Yes'], $homegrid->is_featured, [
+																'class' 			=> 'form-control select2', 
+																'required' 			=> 'required',
+																'data-toggle' 		=> ($errors->has('featured') ? 'tooltip' : ''), 
+																'data-placement' 	=> 'bottom', 
+																'title' 			=> ($errors->has('featured') ? $errors->first('featured') : ''), 
+																]) 
+						!!}
+					</div>
+
 					{{-- DESTINATION & FEATURED DESTINATION --}}
 					@include('admin.components.homegrid.form_destination')
 
 					{{-- SCRIPT --}}
-					@include('admin.components.homegrid.form_script')
+					{{-- @include('admin.components.homegrid.form_script') --}}
 					
-					{{-- ARTICLE --}}
+					{{-- Tour tag --}}
+					@include('admin.components.homegrid.form_tour_tag')
 
 					{{-- PLACE --}}
 

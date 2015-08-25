@@ -252,6 +252,11 @@ class SettingHomeController extends Controller {
 		$destination_list = \App\Destination::orderBy('path')->get()->lists('path', 'id')->toArray();
 
 		// ------------------------------------------------------------------------------------------------------------
+		// TAG List
+		// ------------------------------------------------------------------------------------------------------------
+		$tag_list = \App\Tag::Has('tours')->orderBy('tag')->get()->lists('tag', 'id')->toArray();
+
+		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
 		$this->layout->page 				= view($this->page_base_dir . 'homegrids.create')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
@@ -259,6 +264,7 @@ class SettingHomeController extends Controller {
 		$this->layout->page->homegrid_no 	= $homegrid_no;
 		$this->layout->page->homegrid_types = $this->homegrid_types;
 		$this->layout->page->destination_list = $destination_list;
+		$this->layout->page->tag_list 		= $tag_list;
 
 		return $this->layout;
 
@@ -296,12 +302,22 @@ class SettingHomeController extends Controller {
 		{
 			$homegrid->type 			= Input::get('type');
 			$homegrid->title 			= Input::get('title');
+			$homegrid->destination 		= '';
+			$homegrid->image_url 		= '';
+			$homegrid->script 			= '';
+			$homegrid->tag 				= '';
+			$homegrid->is_featured 		= Input::get('featured');
+
 			switch (Input::get('type'))
 			{
+
 				case 'destination' : case 'featured_destination' : 
 					$homegrid->destination 		= Input::get('destination');
 					$homegrid->image_url 		= Input::get('image_url');
 					break;
+				case 'tour_tags':
+					$homegrid->tag 		= Input::get('tag');
+					$homegrid->image_url 		= Input::get('image_url');
 				case 'script' :
 					$homegrid->script 		= Input::get('script');
 					break;

@@ -1,9 +1,102 @@
 <?php namespace App\Http\Controllers\Web;
 
-use Auth, Input, \Illuminate\Support\MessageBag, Validator;
+use Auth, Input, \Illuminate\Support\MessageBag, Validator, Session;
 use \App\Vendor, \App\Book, \App, Hash;
 
 class MeController extends Controller {
+
+	public function __construct(\App\Tour $model, \App\TourSchedule $schedule_model)
+	{
+		parent::__construct();
+
+		$this->model = $model;
+		$this->schedule_model = $schedule_model;
+
+		$this->layout->view_name = $this->view_name;
+		$this->layout->route_name = $this->route_name;
+		$this->page_base_dir .= $this->view_name . '.';
+
+		$this->layout->content_title = strtoupper($this->view_name);
+	}
+
+	function complete_profile()
+	{
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page = view($this->page_base_dir . 'complete_profile');
+
+		return $this->layout;
+	}
+
+	function complete_profile_post()
+	{
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$user = Auth::user();
+		$user->email = Input::get('email');
+		$user->gender = Input::get('gender');
+		$user->dob = \Carbon\Carbon::createFromDate(Input::get('year'), Input::get('month'), Input::get('day'));
+
+		$rules['email'] = ['required', 'email'];
+		$rules['gender'] = ['required', 'in:pria,wanita'];
+		$rules['dob'] = ['required', 'date', 'before:-5 year'];
+
+		$validator = Validator::make(['email' => $user->email, 'gender' => $user->gender, 'dob' => $user->dob->format('Y-m-d')], 
+									$rules,
+									[
+										'required' 		=> ':attribute wajib diisi',
+										'in'			=> ':attribute harus salah satu dari :values',
+										'dob.date'		=> 'tanggal lahir bukan merupakan format tanggal yang benar ',
+										'before'		=> 'Anda wajib berusia minimal 5 tahun untuk menjadi member situs kami' ,
+									]
+									);
+
+		if ($validator->fails())
+		{
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+		elseif (!$user->save())
+		{
+			$errors = $user->getErrors();
+			return redirect()->back()->withInput()->withErrors($user->getErrors());
+		}
+		else
+		{
+			if (Session::has('redirect'))
+			{
+				$redirect = Session::get('redirect', route('web.home'));
+				Session::remove('redirect');
+				return redirect()->to($redirect);
+			}
+			else
+			{
+				return redirect()->route('web.home');
+			}
+		}
+	}
+
+	function completed_profile()
+	{
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page = view($this->page_base_dir . 'completed_profile');
+	}
+
+
+
+
+
+
+
+
+
+
+	// ------------------------------------------------------------------------------------------------------------
+	// FROM CAPCUS v1
+	// ------------------------------------------------------------------------------------------------------------
 
 	public function index()
 	{
@@ -120,4 +213,6 @@ class MeController extends Controller {
 			return redirect()->back()->with('alert_success', 'Password anda telah terupdate');
 		}
 	}
+
+	
 }

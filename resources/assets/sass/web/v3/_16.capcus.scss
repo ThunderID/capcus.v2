@@ -282,7 +282,7 @@ a:hover { text-decoration: none !important;}
 .bg-yellow-glass { background:rgba(247,205,30,0.9)};
 .bg-light-yellow { background:#ffffef};
 .bg-white { background: white;}
-.bg-yellow { background: $yellow;}
+.bg-yellow { background: $yellow !important;}
 .btn-twitter { 
 	background: #77CBEF !important;
 	&:hover { 

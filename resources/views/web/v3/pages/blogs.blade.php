@@ -97,51 +97,23 @@
 						<!-- END / WIDGET -->
 
 						<!-- WIDGET -->
-						<div class="widget widget_follow_us">
-							<h3>Follow us</h3>
-							<div class="awe-social">
-								<a href="#"><i class="fa fa-twitter"></i></a>
-								<a href="#"><i class="fa fa-pinterest"></i></a>
-								<a href="#"><i class="fa fa-facebook"></i></a>
-								<a href="#"><i class="fa fa-youtube-play"></i></a>
-							</div>
-						</div>
-						<!-- END / WIDGET -->
-						
-						<!-- WIDGET -->
 						<div class="widget widget_has_thumbnail">
-							<h3>Recent Posts</h3>
+							<h3>TOP DESTINATIONS</h3>
 							<ul>
-								<li>
-									<div class="image-wrap image-cover">
-										<a href="single-post.html">
-											<img src="images/img/1.jpg" alt="">
-										</a>
-									</div>
-									<div class="content">
-										<a href="#">How to Crteate Course in this theme? This is title of the blog</a>
-									</div>
-								</li>
-								<li>
-									<div class="image-wrap image-cover">
-										<a href="single-post.html">
-											<img src="images/img/2.jpg" alt="">
-										</a>
-									</div>
-									<div class="content">
-										<a href="#">Top 10 Design courses of October 2013</a>
-									</div>
-								</li>
-								<li>
-									<div class="image-wrap image-cover">
-										<a href="single-post.html">
-											<img src="images/img/3.jpg" alt="">
-										</a>
-									</div>
-									<div class="content">
-										<a href="#">How to Crteate Course in this theme? This is title of the blog</a>
-									</div>
-								</li>
+								@foreach ($top_destinations as $x)
+									<li>
+										<div class="image-wrap image-cover">
+											<a href="{{ route('web.tour', ['travel-agent' => 'semua-travel-agent', 'tujuan' => $x->path_slug ] ) }}">
+												<img src="{{ $x->images->where('name', 'SmallImage')->first()->path }}" alt="{{ $x->name }}">
+											</a>
+										</div>
+										<div class="content">
+											<a href="{{ route('web.tour', ['travel-agent' => 'semua-travel-agent', 'tujuan' => $x->path_slug]) }}">
+												{{$x->long_name}}
+											</a>
+										</div>
+									</li>
+								@endforeach
 							</ul>
 						</div>
 						<!-- END / WIDGET -->

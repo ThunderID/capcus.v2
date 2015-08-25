@@ -135,8 +135,15 @@
 					</h3>
 					<a href='{{route("web.login") . "?redirect=" .Request::url()}}' class='btn btn-yellow' style='width:20%; left:40%'>Login</a>
 				</div>
+			@elseif (!Auth::user()->is_complete)
+				<div class='cover-login text-center' style='position:absolute; top:0; bottom:0; left:0; right:0; background:rgba(255,255,255,0.0); z-index:100000'>
+					<h3 class='text-light pt-xxxl mt-xxxl mr-sm ml-sm'>
+						Silahkan lengkapi profil anda sebelum dapat mengakses informasi perbandingan tour berikut (hanya butuh 30 detik untuk melengkapinya)
+					</h3>
+					<a href='{{route("web.me.profile.complete") . "?redirect=" .Request::url()}}' class='btn btn-yellow' style='width:20%; left:40%'>Lengkapi Profil</a>
+				</div>
 			@endif
-			<div class="row {{ !Auth::user()->id ? 'blur-me' : ''}}" style="-webkit-transform: none;">
+			<div class="row {{ !Auth::user()->is_complete ? 'blur-me' : ''}}" style="-webkit-transform: none;">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<h3 class='text-light'>PAKET TOUR LAINNYA</h3>
 					<div role="tabpanel" class="bs-tab-yellow-border">

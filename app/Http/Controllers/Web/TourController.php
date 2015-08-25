@@ -9,6 +9,65 @@ use App\Jobs\FindPublishedTourSchedules;
 
 class TourController extends Controller {
 
+	public function tag($tag_str)
+	{
+		// Check tag
+		$tag = \App\Tag::where('tag', $tag_str)->first();
+		if (!$tag)
+		{
+			App::abort(404);
+		}
+
+		// ------------------------------------------------------------------------
+		// QUERY
+		// ------------------------------------------------------------------------
+		$tour_schedules = \App\TourSchedule::published()
+											->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1))
+											->InTagByIds($tag->id)
+											->orderBy('departure')
+											->get();
+		$tour_schedules->load('tour', 'tour.travel_agent', 'tour.places', 'tour.destinations', 'tour.travel_agent.images', 'tour.options');
+
+		// ------------------------------------------------------------------------
+		// PREPARE FILTERS FOR RESULTS
+		// ------------------------------------------------------------------------
+		$filter_schedules = [];
+
+		// durations
+		foreach ($tour_schedules as $schedule)
+		{
+			$filter_schedules['durations'][$schedule->tour->duration_day * 1] = $schedule->tour->duration_day . 'D/' . $schedule->tour->duration_night . 'N';
+			$filter_schedules['travel_agents'][$schedule->tour->travel_agent->id] = $schedule->tour->travel_agent->name;
+			if ((!$filter_schedules['price']['min']) || ($filter_schedules['price']['min'] > $schedule->discounted_price))
+			{
+				$filter_schedules['price']['min'] = $schedule->discounted_price;
+			}
+			if ($filter_schedules['price']['max'] < $schedule->discounted_price)
+			{
+				$filter_schedules['price']['max'] = $schedule->discounted_price;
+			}
+		}
+
+		ksort($filter_schedules['durations']);
+		asort($filter_schedules['travel_agents']);
+		
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page = view($this->page_base_dir . 'tours');
+		$this->layout->page->tour_schedules 	= $tour_schedules;
+		$this->layout->page->tag 				= $tag;
+		$this->layout->page->filter_schedules 	= $filter_schedules;
+
+		// search tour
+		$this->layout->page->all_travel_agents 	= $this->all_travel_agents;
+		$this->layout->page->all_destinations 	= $this->all_destinations;
+		$this->layout->page->departure_list 	= $this->departure_list;
+		$this->layout->page->budget_list 		= $this->budget_list;
+
+		return $this->layout;	
+	}
+
 	public function lists($travel_agent = null, $tujuan = null, $keberangkatan = null, $budget = null)
 	{
 		// ------------------------------------------------------------------------

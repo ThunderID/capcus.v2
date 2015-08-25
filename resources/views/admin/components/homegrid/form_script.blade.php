@@ -6,7 +6,6 @@
 		@endif
 		{!! Form::textarea('script', $homegrid->script, [
 												'class' 			=> 'form-control', 
-												'required' 			=> 'required',
 												'data-toggle' 		=> ($errors->has('script') ? 'tooltip' : ''), 
 												'data-placement' 	=> 'bottom', 
 												'title' 			=> ($errors->has('script') ? $errors->first('script') : ''), 

@@ -4,6 +4,9 @@
 <script>
 	// ---------------------------- BASIC SELECT2 ----------------------------
 	$('.select2').select2();
+	$('.select2-tags').select2({
+		tags: true
+	});
 
 	// ---------------------------- SELECT2 ARTICLE ----------------------------
 	$('.select2-article').select2({

@@ -49,7 +49,7 @@
 					<th>Destination</th>
 					<th>Options</th>
 					<th>Schedules</th>
-					<th><span class="fa fa-sort-desc" aria-hidden="true"> </span> Published &amp; Created</th>
+					<th><span class="fa fa-sort-desc" aria-hidden="true"> </span> P&amp;C</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -73,6 +73,10 @@
 							<strong>{{implode(', ', $x->destinations->lists('path')->toArray())}} </strong>
 							<br>
 							{{implode(', ', $x->places->lists('name')->toArray())}} 
+							<br>
+							@foreach ($x->tags as $v)
+								<span class="label label-success mr-ms">#{{$v->tag}}</span>
+							@endforeach
 						</td>
 						<td>
 							@forelse ($x->options as $k => $option)
@@ -85,7 +89,7 @@
 						</td>
 						<td>
 							@forelse ($x->schedules->sortby('departure') as $k => $schedule)
-								{{$schedule->departure->format('d-M-Y')}}<br>
+								{{$schedule->departure->format('d-m-Y')}}<br>
 							@empty
 							@endforelse
 						</td>

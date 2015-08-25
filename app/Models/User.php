@@ -31,8 +31,9 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 							'telp', 
 							'gender'
 						];
-	protected $hidden = ['password', 'remember_token',];
-	protected $dates = ['sso_twitter_updated_at', 'sso_facebook_updated_at', 'dob', 'deleted_at'];
+	protected $hidden 	= ['password', 'remember_token',];
+	protected $dates 	= ['sso_twitter_updated_at', 'sso_facebook_updated_at', 'dob', 'deleted_at'];
+	protected $appends	= ['is_complete'];
 
 	static $name_field = 'name';
 
@@ -48,19 +49,9 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 	// ----------------------------------------------------------------------
 	// RELATIONS
 	// ----------------------------------------------------------------------
-	public function books()
-	{
-		return $this->hasMany(__NAMESPACE__ . '\Book');
-	}
-
 	public function love()
 	{
 		return $this->belongsToMany(__NAMESPACE__ . '\Tour', 'love_tours');
-	}
-
-	public function email_subscription()
-	{
-		return $this->hasOne(__NAMESPACE__ . '\EmailSubscription');
 	}
 
 	// ----------------------------------------------------------------------
@@ -130,6 +121,17 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 	// ----------------------------------------------------------------------
 	// ACCESSOR
 	// ----------------------------------------------------------------------
+	public function getIsCompleteAttribute()
+	{
+		if ($this->attributes['email'] && $this->attributes['dob'] && $this->attributes['gender'])
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+	}
 
 	// ----------------------------------------------------------------------
 	// MUTATOR

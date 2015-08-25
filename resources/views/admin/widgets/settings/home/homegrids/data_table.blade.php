@@ -36,12 +36,21 @@
 					<tr class='text-regular'>
 						<td>{{$i}}</td>
 						@if ($homegrids instanceOf \Illuminate\Support\Collection)
-							<td>{{ $homegrids->where('name', 'homegrid_' . $i)->first()->type }}</td>
+							<td>
+								{{ $homegrids->where('name', 'homegrid_' . $i)->first()->type }}
+								@if ($homegrids->where('name', 'homegrid_' . $i)->first()->is_featured)
+									<br><span class="label label-info">Featured</span>
+								@endif
+							</td>
 							<td>{{ $homegrids->where('name', 'homegrid_' . $i)->first()->title }}</td>
 							<td>
 								@if (str_is('destination', $homegrids->where('name', 'homegrid_' . $i)->first()->type) || str_is('featured_destination', $homegrids->where('name', 'homegrid_' . $i)->first()->type))
 									<p><strong>Destination</strong><br>{{ $homegrids->where('name', 'homegrid_' . $i)->first()->destination_detail->long_name }}</p>
 									<p><strong>Image</strong><br><a href="{{ $homegrids->where('name', 'homegrid_' . $i)->first()->image_url }}" target="_blank">{{ $homegrids->where('name', 'homegrid_' . $i)->first()->image_url }}</a></p>
+
+								@elseif (str_is('tour_tags', $homegrids->where('name', 'homegrid_' . $i)->first()->type))
+									<p><strong>Tag</strong><br>{{ $homegrids->where('name', 'homegrid_' . $i)->first()->tag_detail->tag }}</p>
+
 								@elseif (str_is('script', $homegrids->where('name', 'homegrid_' . $i)->first()->type))
 									<p><strong>Script</strong><br>{{ $homegrids->where('name', 'homegrid_' . $i)->first()->script }}</p>
 								@endif

@@ -7,20 +7,21 @@
 			throw new Exception('web.v3.components.common.nav: ' . $x . ": Required", 1);
 		}
 	}
+
 ?>
 
 <nav class="navigation awe-navigation" data-responsive="1200">
 	<ul class="menu-list text-uppercase">
-		<li class=" {{ str_is('web.home', Route::getCurrentRoute()->getName()) ? 'current-menu-parent' : '' }} ">
+		<li class=" {{ in_array(Route::getCurrentRoute()->getName(), ['web.home']) ? 'current-menu-parent' : '' }} ">
 			<a href="{{ route('web.home')}}" class=''>Home</a>
 		</li>
-		<li class=" {{ str_is('web.tour', Route::getCurrentRoute()->getName()) || str_is('web.tour.show', Route::getCurrentRoute()->getName()) ? 'current-menu-parent' : '' }} ">
+		<li class=" {{ in_array(Route::getCurrentRoute()->getName(), ['web.tour', 'web.tour.show', 'web.tour.tag']) ? 'current-menu-parent' : '' }} ">
 			<a href="{{ route('web.tour')}}">Paket Tour</a>
 		</li>
-		<li class=" {{ str_is('web.places', Route::getCurrentRoute()->getName()) || str_is('web.places.show', Route::getCurrentRoute()->getName()) ? 'current-menu-parent' : '' }} ">
+		<li class=" {{ in_array(Route::getCurrentRoute()->getName(), ['web.places', 'web.places.show']) ? 'current-menu-parent' : '' }} ">
 			<a href="{{ route('web.places')}}">Tujuan Wisata</a>
 		</li>
-		<li class=" {{ str_is('web.blog', Route::getCurrentRoute()->getName()) || str_is('web.blog.show', Route::getCurrentRoute()->getName()) ? 'current-menu-parent' : '' }} ">
+		<li class=" {{ in_array(Route::getCurrentRoute()->getName(), ['web.blog', 'web.blog.show']) ? 'current-menu-parent' : '' }} ">
 			<a href="{{ route('web.blog')}}">Blog</a>
 		</li>
 

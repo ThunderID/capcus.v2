@@ -63,6 +63,22 @@ trait HomegridSettingTrait {
 		$this->attributes['value'] = json_encode($value);
 	}
 
+	function setIsFeaturedAttribute($v)
+	{
+		$value = json_decode($this->attributes['value']);
+		$value->is_featured = $v;
+		$this->attributes['value'] = json_encode($value);
+	}
+
+	// TAG
+	function setTagAttribute($v)
+	{
+		$value = json_decode($this->attributes['value']);
+		$value->tag = $v;
+		$this->attributes['value'] = json_encode($value);
+	}
+
+
 	//script
 	function setScriptAttribute($v)
 	{
@@ -110,6 +126,30 @@ trait HomegridSettingTrait {
 		return $value->image_url;
 	}
 
+	function getIsFeaturedAttribute()
+	{
+		$value = json_decode($this->attributes['value']);
+		return $value->is_featured;
+	}
+
+	// tag
+	function getTagAttribute()
+	{
+		$value = json_decode($this->attributes['value']);
+		return $value->tag;
+	}
+
+	function getTagDetailAttribute()
+	{
+		if (!$this->attributes['tag_detail'])
+		{
+			$tag_id = $this->tag;
+			$tmp 	= \App\Tag::find($tag_id);
+			$this->attributes['tag_detail'] = $tmp;
+		}
+		return $this->attributes['tag_detail'];
+	}
+
 	//script
 	function getScriptAttribute()
 	{
@@ -123,6 +163,6 @@ trait HomegridSettingTrait {
 	static function getType()
 	{
 		// return ['destination', 'featured_destination', 'script', 'place', 'article', 'blog'];
-		return ['destination', 'featured_destination', 'script'];
+		return ['destination', 'tour_tags'];
 	}
 }

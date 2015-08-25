@@ -10,11 +10,6 @@ class AuthController extends Controller {
 
 	public function login($provider)
 	{
-		if (Input::get('redirect'))
-		{
-			Session::put('redirect', Input::get('redirect'));
-		}
-
 		if (Auth::user())
 		{
 			Auth::logout();
@@ -58,17 +53,23 @@ class AuthController extends Controller {
 				if ($result['status'] == 'success')
 				{
 					Auth::login($result['data']['data']);
-					if (Session::has('redirect'))
+					if ($result['data']['data']->is_complete)
 					{
-						$redirect = Session::get('redirect', route('web.home'));
-						Session::remove('redirect');
-						return redirect()->to($redirect);
+						if (Session::has('redirect'))
+						{
+							$redirect = Session::get('redirect', route('web.home'));
+							Session::remove('redirect');
+							return redirect()->to($redirect);
+						}
+						else
+						{
+							return redirect()->route('web.home');
+						}
 					}
 					else
 					{
-						return redirect()->route('web.home');
+						return redirect()->route('web.me.profile.complete');
 					}
-					// return redirect()->route('web.home');
 				}
 				else
 				{

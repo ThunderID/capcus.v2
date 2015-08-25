@@ -129,6 +129,21 @@ class TourSchedule extends BaseModel
 		}]);
 	}
 
+	function ScopeInTagByIds($q, $id)
+	{
+		if (!$id)
+		{
+			return $q;
+		}
+		else
+		{
+			return $q->join('tours', 'tours.id', '=', 'tour_schedules.tour_id')
+					->join('tag_tour', 'tag_tour.tour_id', '=', 'tours.id')
+					->join('tags', 'tags.id', '=', 'tag_tour.tag_id')
+					->whereIn('tags.id', (is_array($id) ? $id : [$id]));
+		}
+	}
+
 	// ----------------------------------------------------------------------
 	// MUTATORS
 	// ----------------------------------------------------------------------

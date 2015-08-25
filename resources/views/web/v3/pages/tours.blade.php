@@ -22,12 +22,12 @@
 								'destination_list'				=> $all_destinations,
 								'departure_list'				=> $departure_list,
 								'budget_list'					=> $budget_list,
-								'default_filter_travel_agent'	=> $travel_agent->slug,
-								'default_filter_tujuan'			=> $tujuan->path_slug,
-								'default_filter_keberangkatan'	=> $keberangkatan,
-								'default_filter_budget'			=> $budget['min'] . '-' . $budget['max'],
-								'default_start_date_ymd'		=> $departure_from->format('Ymd'),
-								'default_end_date_ymd'			=> $departure_to->format('Ymd'),
+								'default_filter_travel_agent'	=> ($travel_agent ? $travel_agent->slug : null),
+								'default_filter_tujuan'			=> ($tujuan ? $tujuan->path_slug : null),
+								'default_filter_keberangkatan'	=> ($keberangkatan ? $keberangkatan : null),
+								'default_filter_budget'			=> ($budget ? $budget['min'] . '-' . $budget['max']: null),
+								'default_start_date_ymd'		=> ($departure_from ? $departure_from->format('Ymd') : \Carbon\Carbon::now()->format('Ymd')),
+								'default_end_date_ymd'			=> ($departure_to ? $departure_to->format('Ymd') : \Carbon\Carbon::now()->addMonth(3)->format('Ymd')),
 							])
 						</div>
 					</div>
@@ -47,22 +47,26 @@
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<div class='pull-right'>@include('web.v3.components.tour_schedules.display_options')</div>
 				<h4 class='text-md text-uppercase'>
-					Paket Tour 
-					@if ($travel_agent)
-						oleh <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>{{$travel_agent->name}}</span>
-					@endif
-					@if ($tujuan)
-						ke <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>{{$tujuan->name}}</span>
-					@endif
-					@if ($departure_from && $departure_to)
-						keberangkatan <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>{{ $departure_from->format('d M Y')}} - {{ $departure_to->format('d M Y')}}</span>
-					@endif
+					@if ($tag)
+						PAKET TOUR <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>#{{$tag->tag}}</span>
+					@else
+						Paket Tour 
+						@if ($travel_agent)
+							oleh <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>{{$travel_agent->name}}</span>
+						@endif
+						@if ($tujuan)
+							ke <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>{{$tujuan->name}}</span>
+						@endif
+						@if ($departure_from && $departure_to)
+							keberangkatan <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>{{ $departure_from->format('d M Y')}} - {{ $departure_to->format('d M Y')}}</span>
+						@endif
 
-					@if ((!is_null($budget['min']) && !is_null($budget['max'])) && ((($budget['min'] != 0) && ($budget['max'] != 999999999)) || ($budget['min'] == 0 && $budget['max'] != 999999999) || ($budget['min'] != 0 && $budget['max'] == 999999999)))
-						@if ($budget['max'] == 999999999) 
-							dengan harga mulai <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>IDR {{number_format($budget['min'],0,',','.')}} </span>
-						@else 
-							dengan harga <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>IDR {{number_format($budget['min'],0,',','.')}} - IDR {{number_format($budget['max'],0,',','.')}}</span>
+						@if ((!is_null($budget['min']) && !is_null($budget['max'])) && ((($budget['min'] != 0) && ($budget['max'] != 999999999)) || ($budget['min'] == 0 && $budget['max'] != 999999999) || ($budget['min'] != 0 && $budget['max'] == 999999999)))
+							@if ($budget['max'] == 999999999) 
+								dengan harga mulai <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>IDR {{number_format($budget['min'],0,',','.')}} </span>
+							@else 
+								dengan harga <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>IDR {{number_format($budget['min'],0,',','.')}} - IDR {{number_format($budget['max'],0,',','.')}}</span>
+							@endif
 						@endif
 					@endif
 				</h4>

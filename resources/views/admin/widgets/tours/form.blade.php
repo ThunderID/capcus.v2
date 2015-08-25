@@ -119,7 +119,7 @@
 				@if (!empty($required_images))
 					<div class="well">
 						<div class='title'>Images</div>
-						@include('admin.components.required_image_form', ['required_images' => $required_images, 'data' => $destination])
+						@include('admin.components.required_image_form', ['required_images' => $required_images, 'data' => $tour])
 					</div>
 				@endif
 			</div>
@@ -160,6 +160,24 @@
 				</div>
 
 				<div class="well">
+					<div class='title'>Tag</div>
+					<p>	
+						<strong class='text-uppercase'>Tag</strong>
+						@if ($errors->has('tags'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('tags'))}}</span>
+						@endif
+						{!! Form::select('tags[]', $tag_list->lists('tag', 'tag'), ($tour->tags ? $tour->tags->lists('tag')->toArray() : null), [
+																'class' 			=> 'form-control select2-tags', 
+																'data-toggle'		=> ($errors->has('tags') ? 'tooltip' : ''), 
+																'data-placement'	=> 'left', 
+																'title' 			=> ($errors->has('tags') ? $errors->first('tags') : ''), 
+																'multiple'			=> 'multiple'
+															]) 
+						!!}
+					</p>
+				</div>
+
+				<div class="well">
 					<div class='title'>Destinations</div>
 					<p>	
 						<strong class='text-uppercase'>Destinations</strong>
@@ -184,7 +202,6 @@
 						@endif
 						{!! Form::select('places[]', $places->lists('long_name', 'id'), ($tour->places ? $tour->places->lists('id')->toArray() : null), [
 																'class' 			=> 'form-control select2', 
-																'required' 			=> 'required',
 																'data-toggle'		=> ($errors->has('places') ? 'tooltip' : ''), 
 																'data-placement'	=> 'left', 
 																'title' 			=> ($errors->has('places') ? $errors->first('places') : ''), 
@@ -246,5 +263,5 @@
 				e.preventDefault();
 	        })
 		</script>
-	@overwrite
+	@stop
 @endif

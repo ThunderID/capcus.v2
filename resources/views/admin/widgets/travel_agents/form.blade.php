@@ -70,7 +70,7 @@
 				@if (!empty($required_images))
 					<div class="well">
 						<div class='title'>Images</div>
-						@include('admin.components.required_image_form', ['required_images' => $required_images, 'data' => $destination])
+						@include('admin.components.required_image_form', ['required_images' => $required_images, 'data' => $travel_agent])
 					</div>
 				@endif
 			</div>
@@ -99,5 +99,5 @@
 				e.preventDefault();
 	        })
 		</script>
-	@overwrite
+	@stop
 @endif
