@@ -165,7 +165,7 @@
   border-radius: 3px 3px 0 0;*/
 }
 .selectize-input > * {
-  vertical-align: baseline;
+  vertical-align: top;
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;

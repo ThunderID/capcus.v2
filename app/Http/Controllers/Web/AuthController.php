@@ -2,6 +2,7 @@
 
 use Auth, Input, \Illuminate\Support\MessageBag, App;
 use Socialize;
+use Session;
 use \App\User;
 use \App\Jobs\CreateMemberFromFacebook, \App\Jobs\CreateMemberFromTwitter;
 
@@ -9,10 +10,16 @@ class AuthController extends Controller {
 
 	public function login($provider)
 	{
+		if (Input::get('redirect'))
+		{
+			Session::put('redirect', Input::get('redirect'));
+		}
+
 		if (Auth::user())
 		{
 			Auth::logout();
 		}
+
 
 		switch (strtolower($provider)) {
 			case 'twitter': case 'facebook':
@@ -51,7 +58,17 @@ class AuthController extends Controller {
 				if ($result['status'] == 'success')
 				{
 					Auth::login($result['data']['data']);
-					return redirect()->route('web.home');
+					if (Session::has('redirect'))
+					{
+						$redirect = Session::get('redirect', route('web.home'));
+						Session::remove('redirect');
+						return redirect()->to($redirect);
+					}
+					else
+					{
+						return redirect()->route('web.home');
+					}
+					// return redirect()->route('web.home');
 				}
 				else
 				{
@@ -95,6 +112,16 @@ class AuthController extends Controller {
 			else
 			{
 				Auth::login($user);
+				if (Session::has('redirect'))
+				{
+					$redirect = Session::get('redirect', route('web.home'));
+					Session::remove('redirect');
+					return redirect()->to($redirect);
+				}
+				else
+				{
+					return redirect()->route('web.home');
+				}
 				return redirect()->route('web.me.profile.edit');
 			}
 		}

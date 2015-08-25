@@ -33,8 +33,8 @@
 				@if ($tujuan)
 					ke <span class='text-primary'>{{$tujuan->name}}</span>
 				@endif
-				@if ($keberangkatan['year'])
-					keberangkatan <span class='text-primary'>{{get_bulan($keberangkatan['month']*1) . ' ' . $keberangkatan['year']}}</span>
+				@if ($departure_from && $departure_to)
+					keberangkatan <span class='text-primary'>{{ $departure_from->format('d M Y')}} - {{ $departure_to->format('d M Y')}}</span>
 				@endif
 				@if ((!is_null($budget['min']) && !is_null($budget['max'])) && ((($budget['min'] != 0) && ($budget['max'] != 999999999)) || ($budget['min'] == 0 && $budget['max'] != 999999999) || ($budget['min'] != 0 && $budget['max'] == 999999999)))
 					@if ($budget['max'] == 999999999) 

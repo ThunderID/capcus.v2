@@ -22,3 +22,39 @@
 .filter_tour_schedule_results { 
 	label { cursor:pointer; }
 }
+
+
+// Daterange
+input.daterangepicker { 
+	border-radius:0px;
+	padding: 0px 8px 5px 8px !important;
+	margin-top:0px;
+	margin-bottom:0px;
+	height:34px !important;
+	width:100%;
+	color:black;
+	font-size: 13px;
+}
+
+div.daterangepicker {
+	&.dropdown-menu {
+		z-index: 100000 !important;
+
+		div.ranges { 
+			li { color:black; border:0; border-radius: 0px;}
+			li:hover, li.active { background:$color2; border:0; }
+		}
+
+		td { color:black; text-weight: 300;}
+		td.active { 
+			background:$color2; color:black; 
+			&:hover { background:$color2; color:black; }
+		}
+		td.in-range { background: lighten($color2,20%);}
+
+		td.off { 
+			color:#ccc;
+		}
+		input { border-radius:0; }
+	}
+}

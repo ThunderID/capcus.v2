@@ -18,10 +18,34 @@ class TourController extends Controller {
 		{
 			$travel_agent 	= Input::get('travel_agent') 	? Input::get('travel_agent') 	: "semua-travel-agent";
 			$tujuan 		= Input::get('tujuan') 			? Input::get('tujuan') 			: "semua-tujuan";
-			$keberangkatan 	= Input::get('keberangkatan') 	? Input::get('keberangkatan') 	: "semua-keberangkatan";
+			if (Input::get('keberangkatan'))
+			{
+				list($tmp1, $tmp2) = explode(" s/d ", Input::get('keberangkatan'));
+
+				list($tmp1_d, $tmp1_m, $tmp1_y) = explode('-', $tmp1);
+				list($tmp2_d, $tmp2_m, $tmp2_y) = explode('-', $tmp2);
+				if (strtotime("$tmp1_y-$tmp1_m-$tmp1_d") === false)
+				{
+					return App::abort(404);
+				}
+				$tmp1_carbon = \Carbon\Carbon::Parse("$tmp1_y-$tmp1_m-$tmp1_d");
+
+				if (strtotime("$tmp2_y-$tmp2_m-$tmp2_d") === false)
+				{
+					return App::abort(404);
+				}
+				$tmp2_carbon = \Carbon\Carbon::Parse("$tmp2_y-$tmp2_m-$tmp2_d");
+
+				$keberangkatan_str = $tmp1_carbon->format('Ymd') . '-' . $tmp2_carbon->format('Ymd');
+			}
+			else
+			{
+				$keberangkatan_str 	= "semua-keberangkatan";
+			}
+
 			$budget 		= Input::get('budget') 			? Input::get('budget') 			: "semua-budget";
 
-			return redirect()->route('web.tour', ['travel_agent' => $travel_agent, 'tujuan' => $tujuan, 'keberangkatan' => $keberangkatan, 'budget' => $budget]);
+			return redirect()->route('web.tour', ['travel_agent' => $travel_agent, 'tujuan' => $tujuan, 'keberangkatan' => $keberangkatan_str, 'budget' => $budget]);
 		}
 		// ------------------------------------------------------------------------
 		// PARSE SEARCH
@@ -99,22 +123,23 @@ class TourController extends Controller {
 
 		if ($keberangkatan)
 		{
-			list($keberangkatan_from, $keberangkatan_to) = explode(',', $keberangkatan);
+			list($keberangkatan_from, $keberangkatan_to) = explode('-', $keberangkatan);
 
 			$keberangkatan_from_ymd = substr($keberangkatan_from, 0, 4) . '-' . substr($keberangkatan_from, 4, 2) . '-' . substr($keberangkatan_from, 6, 4);
 			$keberangkatan_to_ymd = substr($keberangkatan_to, 0, 4) . '-' . substr($keberangkatan_to, 4, 2) . '-' . substr($keberangkatan_to, 6, 4);
-			if (!strtotime(substr($keberangkatan_dari, 0, 4) . '-' . substr($keberangkatan_dari, 4, 2) . '-' . substr($keberangkatan_dari, 6, 4)))
+			if (strtotime($keberangkatan_from) === false)
 			{
 				App::abort(404);
 			}
 
-			if (!strtotime(substr($keberangkatan_to, 0, 4) . '-' . substr($keberangkatan_to, 4, 2) . '-' . substr($keberangkatan_to, 6, 4)))
+			if (strtotime($keberangkatan_to)  === false)
 			{
 				App::abort(404);
 			}
 
 			$departure_from = \Carbon\Carbon::parse($keberangkatan_from);
-			$departure_from = \Carbon\Carbon::parse($keberangkatan_to);
+			$departure_to = \Carbon\Carbon::parse($keberangkatan_to);
+
 		}
 		else
 		{
@@ -183,6 +208,8 @@ class TourController extends Controller {
 		$this->layout->page->tujuan_tree 		= $tujuan_tree;
 		$this->layout->page->tujuan 			= $tujuan;
 		$this->layout->page->keberangkatan 		= $keberangkatan;
+		$this->layout->page->departure_from 	= $departure_from;
+		$this->layout->page->departure_to 		= $departure_to;
 		$this->layout->page->budget 			= $budget;
 		$this->layout->page->tour_schedules 	= $tour_schedules;
 		$this->layout->page->filter_schedules 	= $filter_schedules;
@@ -271,6 +298,18 @@ class TourController extends Controller {
 								);
 
 		$other_tours['by_budget']->load('tour', 'tour.travel_agent', 'tour.places', 'tour.destinations', 'tour.travel_agent.images', 'tour.options');
+
+		// ------------------------------------------------------------------------------------------------------------
+		// REMOVE CURRENT TOUR SCHEDULE IN OTHER TOUR
+		// ------------------------------------------------------------------------------------------------------------
+		$current_schedule_id = $tour_schedule->id;
+		foreach ($other_tours as $k => $v)
+		{
+
+			$other_tours[$k] = $v->reject(function($item) use ($k, $current_schedule_id) {
+				return $item->id == $current_schedule_id;
+			});
+		}
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------

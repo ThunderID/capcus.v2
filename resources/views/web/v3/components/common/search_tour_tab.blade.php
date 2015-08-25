@@ -11,26 +11,29 @@
 
 <section>
 	<div class="container">
-		<div class="awe-search-tabs tabs">
-			<ul>
-				<li>
-					<a href="#awe-search-tabs-1">
+		<div role="tabpanel" class='bs-tab bs-tab-search-tour'>
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active">
+					<a href="#home" aria-controls="home" role="tab" data-toggle="tab">
 						<i class="awe-icon awe-icon-briefcase"></i>
 					</a>
 				</li>
-				<li>
-					<a href="#awe-search-tabs-2">
+				<li role="presentation">
+					<a href="#tab" aria-controls="tab" role="tab" data-toggle="tab">
 						<i class="awe-icon awe-icon-marker-1"></i>
 					</a>
 				</li>
 			</ul>
-			<div class="awe-search-tabs__content tabs__content">
-				<div id="awe-search-tabs-1" class="">
-					<h2>Cari Paket Tour</h2>
+		
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="home">
+					<h4 class='text-lg text-uppercase'>Cari Paket Tour</h4>
 					@include('web.v3.components.search.tour_form')
 				</div>
-				<div id="awe-search-tabs-2" class="">
-					<h2>Cari Tujuan Wisata</h2>
+				<div role="tabpanel" class="tab-pane fade" id="tab">
+					<h4 class='text-lg text-uppercase'>Cari Tujuan Wisata</h4>
 					@include('web.v3.components.search.place_form')
 				</div>
 			</div>

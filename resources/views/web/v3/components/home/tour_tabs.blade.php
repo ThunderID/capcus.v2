@@ -8,21 +8,29 @@
 		}
 	}
 ?>
-<div class="tabs">
-	<ul>
-		<li><a href="#promo-tours">PROMO</a></li>
-		<li><a href="#latest_tours">TERBARU</a></li>
-	</ul>
-	<div class="tabs__content">
-		<div id="promo-tours">
-			@foreach ($promo_tours as $tour)
+
+<div role="tabpanel" class="bs-tab-yellow-border">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#tour_promo" aria-controls="home" role="tab" data-toggle="tab">Promo</a>
+        </li>
+        <li role="presentation">
+            <a href="#tour_terbaru" aria-controls="tab" role="tab" data-toggle="tab">Terbaru</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="tour_promo">
+        	@foreach ($promo_tours as $tour)
 				@include('web.v3.components.tour_schedules.tour_schedule_item', ['tour_schedule' => $tour])
 			@endforeach
-		</div>
-		<div id="latest_tours">
-			@foreach ($latest_tours as $tour)
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tour_terbaru">
+        	@foreach ($latest_tours as $tour)
 				@include('web.v3.components.tours.tour_item', ['tour' => $tour])
 			@endforeach
-		</div>
-	</div>
+        </div>
+    </div>
 </div>

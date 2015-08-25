@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Destination extends BaseModel
 {
@@ -38,6 +39,22 @@ class Destination extends BaseModel
 	// ----------------------------------------------------------------------
 	// SCOPES
 	// ----------------------------------------------------------------------
+	function scopeTopDestination($q, \Carbon\Carbon $date1, \Carbon\Carbon $date2)
+	{
+		if (!$date1 && !$date2)
+		{
+			return $q;
+		}
+		else
+		{
+			return $q->join('destination_tour', 'destination_id', '=', 'destinations.id')
+					->join('tours', 'tours.id', '=', 'tour_id')
+					->join('tour_schedules as ts', 'ts.tour_id', '=' ,'tours.id')
+					->addselect(DB::raw('destinations.*, count(ts.id) as tour_schedule_count'))
+					->groupBy('destinations.id')
+					->orderBy('tour_schedule_count', 'desc');
+		}
+	}
 
 	// ----------------------------------------------------------------------
 	// MUTATORS

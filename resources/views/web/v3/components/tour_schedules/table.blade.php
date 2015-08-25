@@ -15,7 +15,7 @@
 			<th title="klik untuk mengurutkan" width='5%' class='text-uppercase'>Tgl <div class='icon'></div></th>
 			<th title="klik untuk mengurutkan" width='5%' class='text-uppercase text-center'>Travel Agent <div class='icon'></div></th>
 			<th title="klik untuk mengurutkan" width='5%' class='text-uppercase'>Tujuan <div class='icon'></div></th>
-			<th title="klik untuk mengurutkan" width='5%' class='text-uppercase'>Durasi <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" width='5%' class='text-uppercase'>Hari <div class='icon'></div></th>
 			<th title="klik untuk mengurutkan" width='5%' class='text-uppercase text-right'>Harga <div class='icon'></div></th>
 		</tr>
 	</thead>

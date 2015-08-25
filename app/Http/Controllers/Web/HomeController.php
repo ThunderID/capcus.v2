@@ -58,6 +58,11 @@ class HomeController extends Controller {
 		$latest_tours = \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places')->published()->latest()->limit(8)->get();
 
 		// ------------------------------------------------------------------------------------------------------------
+		// TOP DESTINATION
+		// ------------------------------------------------------------------------------------------------------------
+		$top_destinations = \App\Destination::TopDestination(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addMonth(6))->limit(5)->get();
+
+		// ------------------------------------------------------------------------------------------------------------
 		// TOTAL UPCOMING TOUR
 		// ------------------------------------------------------------------------------------------------------------
 		$total_upcoming_tours = \App\TourSchedule::scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(5))->count();
@@ -71,6 +76,7 @@ class HomeController extends Controller {
 		$this->layout->page->latest_tours	= $latest_tours;
 		$this->layout->page->promo_tours	= $promo_tours;
 		$this->layout->page->total_upcoming_tours 	= $total_upcoming_tours;
+		$this->layout->page->top_destinations 	= $top_destinations;
 
 		// search tour
 		$this->layout->page->all_travel_agents 	= $this->all_travel_agents;

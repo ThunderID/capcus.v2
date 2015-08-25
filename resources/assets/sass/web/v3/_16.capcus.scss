@@ -145,6 +145,7 @@ a:hover { text-decoration: none !important;}
 
 
 
+
 // ------------------------------------------------------------------------------------------------------------------
 // 
 // 3. MARGIN
@@ -299,4 +300,13 @@ a:hover { text-decoration: none !important;}
 		}
 
 	}	
+}
+
+.blur-me { 
+	-webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+    opacity: 0.4;
 }

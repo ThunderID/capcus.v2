@@ -3,7 +3,7 @@
 	<section class="awe-parallax bg-capcus" style="background:transparent url({{asset('images/bg.jpg')}} bottom left repeat-x)">
 		<div class="awe-overlay"></div>
 		<div class="container">
-			<div class="category-heading-content category-heading-content__2 text-uppercase">
+			<div class="category-heading-content category-heading-content__2">
 				<!-- BREADCRUMB -->
 				<div class="breadcrumb">
 					<ul>
@@ -14,7 +14,7 @@
 				<!-- /BREADCRUMB -->
 
 				<div class="bg-white-glass pt-lg pb-xxxl pl-lg pr-xl">
-					<h2 class="text-center text-black">Temukan Paket Tour untuk Anda</h2>
+					<h2 class="text-center text-black mb-lg text-uppercase">Temukan Paket Tour untuk Anda</h2>
 					<div class='search_tour'>
 						<div class='ui-tabs-panel text-black'>
 							@include('web.v3.components.search.tour_form', [
@@ -25,7 +25,9 @@
 								'default_filter_travel_agent'	=> $travel_agent->slug,
 								'default_filter_tujuan'			=> $tujuan->path_slug,
 								'default_filter_keberangkatan'	=> $keberangkatan,
-								'default_filter_budget'			=> $budget,
+								'default_filter_budget'			=> $budget['min'] . '-' . $budget['max'],
+								'default_start_date_ymd'		=> $departure_from->format('Ymd'),
+								'default_end_date_ymd'			=> $departure_to->format('Ymd'),
 							])
 						</div>
 					</div>
@@ -47,19 +49,20 @@
 				<h4 class='text-md text-uppercase'>
 					Paket Tour 
 					@if ($travel_agent)
-						oleh <span class='text-primary'>{{$travel_agent->name}}</span>
+						oleh <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>{{$travel_agent->name}}</span>
 					@endif
 					@if ($tujuan)
-						ke <span class='text-primary'>{{$tujuan->name}}</span>
+						ke <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>{{$tujuan->name}}</span>
 					@endif
-					@if ($keberangkatan['year'])
-						keberangkatan <span class='text-primary'>{{get_bulan($keberangkatan['month']*1) . ' ' . $keberangkatan['year']}}</span>
+					@if ($departure_from && $departure_to)
+						keberangkatan <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>{{ $departure_from->format('d M Y')}} - {{ $departure_to->format('d M Y')}}</span>
 					@endif
+
 					@if ((!is_null($budget['min']) && !is_null($budget['max'])) && ((($budget['min'] != 0) && ($budget['max'] != 999999999)) || ($budget['min'] == 0 && $budget['max'] != 999999999) || ($budget['min'] != 0 && $budget['max'] == 999999999)))
 						@if ($budget['max'] == 999999999) 
-							dengan harga mulai <span class='text-primary'>IDR {{number_format($budget['min'],0,',','.')}} </span>
+							dengan harga mulai <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>IDR {{number_format($budget['min'],0,',','.')}} </span>
 						@else 
-							dengan harga <span class='text-primary'>IDR {{number_format($budget['min'],0,',','.')}} - IDR {{number_format($budget['max'],0,',','.')}}</span>
+							dengan harga <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>IDR {{number_format($budget['min'],0,',','.')}} - IDR {{number_format($budget['max'],0,',','.')}}</span>
 						@endif
 					@endif
 				</h4>

@@ -17,4 +17,17 @@
         color: black;
         margin-top: 15px;
     }
+
+    .slider-selection { 
+        background: $color2 !important;
+    }
+
+    .slider-handle { background:$color2 !important;}
+
+    .slider.slider-horizontal { width:95% !important;}
+
+    .slider-track-high { 
+        background: #d4d4d4 !important;
+    }
 }
+

@@ -13,6 +13,8 @@
 			'default_filter_tujuan'			=> null,
 			'default_filter_keberangkatan'	=> null,
 			'default_filter_budget'			=> null,
+			'default_start_date_ymd'		=> \Carbon\Carbon::now()->format('Ymd'),
+			'default_end_date_ymd'			=> \Carbon\Carbon::now()->addMonth(3)->endOfMonth()->format('Ymd'),
 		])
 	</div>
 @stop
@@ -34,13 +36,19 @@
 		</div>
 	</section>
 
-	<section class="sale-flights-section-demo mt-lg">
-		<div class="container">
-			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-				@include('web.v3.components.home.tour_tabs',[])
-			</div>
-			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-				@include('web.v3.components.home.sidebar',[])
+	<section>
+		<div class="container mt-lg">
+			<div class="row">
+				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+					@include('web.v3.components.home.tour_tabs',[])
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" >
+					@include('web.v3.components.home.sidebar',[])
+
+					<h4 class='text-yellow'>Destinasi Trending</h4>
+					@include('web.v3.components.destinations.sidebar',['destinations' => $top_destinations])
+
+				</div>
 			</div>
 		</div>
 	</section>

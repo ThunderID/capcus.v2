@@ -225,28 +225,28 @@
     //     });
     // }
 
-    function priceSlider() {
-        $('.price-slider').each(function() {
-            var priceslider = $(this);
-            priceslider.slider({
-                min: 0,
-                max: priceslider.data('max'),
-                step: 250000,
-                values: [ 0, priceslider.data('max') ],
-                range: true,
-                slide: function( event, ui ) {
-                    var $this=$(this),
-                        values=ui.values;
-                    priceslider.siblings('.price_slider_amount').find('.from').text('Rp.' + numberWithCommas(values[0]));
-                    priceslider.siblings('.price_slider_amount').find('.to').text('Rp.' + numberWithCommas(values[1]));
-                }
-            });
+    // function priceSlider() {
+    //     $('.price-slider').each(function() {
+    //         var priceslider = $(this);
+    //         priceslider.slider({
+    //             min: 0,
+    //             max: priceslider.data('max'),
+    //             step: 250000,
+    //             values: [ 0, priceslider.data('max') ],
+    //             range: true,
+    //             slide: function( event, ui ) {
+    //                 var $this=$(this),
+    //                     values=ui.values;
+    //                 priceslider.siblings('.price_slider_amount').find('.from').text('Rp.' + numberWithCommas(values[0]));
+    //                 priceslider.siblings('.price_slider_amount').find('.to').text('Rp.' + numberWithCommas(values[1]));
+    //             }
+    //         });
 
-            var values = priceslider.slider( "option", "values");
-            priceslider.siblings('.price_slider_amount').find('.from').text('Rp.' + numberWithCommas(values[0]));
-            priceslider.siblings('.price_slider_amount').find('.to').text('Rp.' + numberWithCommas(values[1]));
-        });
-    }
+    //         var values = priceslider.slider( "option", "values");
+    //         priceslider.siblings('.price_slider_amount').find('.from').text('Rp.' + numberWithCommas(values[0]));
+    //         priceslider.siblings('.price_slider_amount').find('.to').text('Rp.' + numberWithCommas(values[1]));
+    //     });
+    // }
 
     // function aweSelect() {
     //     $('.awe-select').each(function() {
@@ -270,13 +270,13 @@
         });
     }
 
-    function accordion() {
-        $(".accordion").accordion({
-            collapsible: true,
-            heightStyle: "content",
-            animate: 200
-        });
-    }
+    // function accordion() {
+    //     $(".accordion").accordion({
+    //         collapsible: true,
+    //         heightStyle: "content",
+    //         animate: 200
+    //     });
+    // }
 
     function seasonHover() {
         var season = $('.travelling-tabs__time').find('.season'),
@@ -316,21 +316,21 @@
             });
     }
 
-    function theiaStickySidebar() {
-        if ($('.awe-services').length > 0) {
-            $('.awe-services').parent().theiaStickySidebar({
-                updateSidebarHeight: true
-            });
-        }
+    // function theiaStickySidebar() {
+    //     if ($('.awe-services').length > 0) {
+    //         $('.awe-services').parent().theiaStickySidebar({
+    //             updateSidebarHeight: true
+    //         });
+    //     }
 
-        if ($('.detail-sidebar').length > 0) {
-            $('.detail-sidebar').parent().theiaStickySidebar({
-                updateSidebarHeight: true,
-                additionalMarginTop: -40
+    //     if ($('.detail-sidebar').length > 0) {
+    //         $('.detail-sidebar').parent().theiaStickySidebar({
+    //             updateSidebarHeight: true,
+    //             additionalMarginTop: -40
 
-            });
-        }
-    }
+    //         });
+    //     }
+    // }
     function magnificPopup() {
         if ($('.initiative-choose-other-open').length) {
             $('.initiative-choose-other-open').magnificPopup({
@@ -409,26 +409,26 @@
             });
         }
 
-        if ($('.full-price-open-popup').length) {
-            $('.full-price-open-popup').magnificPopup({
-                type: 'ajax',
-                closeMarkup: '<button title="%title%" class="mfp-close">Cancel <i class="awe-icon awe-icon-close-o"></i></button>',
-                callbacks: {
-                    ajaxContentAdded: function() {
-                        aweSelect();
-                        placeholder();
+        // if ($('.full-price-open-popup').length) {
+        //     $('.full-price-open-popup').magnificPopup({
+        //         type: 'ajax',
+        //         closeMarkup: '<button title="%title%" class="mfp-close">Cancel <i class="awe-icon awe-icon-close-o"></i></button>',
+        //         callbacks: {
+        //             ajaxContentAdded: function() {
+        //                 aweSelect();
+        //                 placeholder();
 
-                        $('.awe-calendar').each(function() {
-                            $(this).datepicker({
-                                showOtherMonths: true,
-                                selectOtherMonths: true,
-                                dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat']
-                            });
-                        });
-                    }
-                }
-            });
-        }
+        //                 $('.awe-calendar').each(function() {
+        //                     $(this).datepicker({
+        //                         showOtherMonths: true,
+        //                         selectOtherMonths: true,
+        //                         dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat']
+        //                     });
+        //                 });
+        //             }
+        //         }
+        //     });
+        // }
     }
     function stickyMenu() {
         var $fixed = $('.header-page__inner'),
@@ -589,6 +589,34 @@
         parallax();
         slider();
         square_grid();
+        $('.daterangepicker').each(function(index, el) {
+            var obj = $(this);
+            obj.daterangepicker({
+                dateLimit: {
+                    days: 180
+                },
+                startDate: moment(obj.data('start-date'), "YYYYMMDD"),
+                endDate: moment(obj.data('end-date'), "YYYYMMDD"),
+                ranges: { 
+                    'Bulan Ini': [moment().startOf('month'), moment().endOf('month')],
+                    'Bulan Depan': [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')],
+                    '3 Bulan Mendatang': [moment(), moment().add(3, 'month').endOf('month')],
+                    '6 Bulan Mendatang': [moment(), moment().add(6, 'month').endOf('month')],
+                    // '1 Tahun Mendatang': [moment(), moment().add(1, 'year').endOf('month')]
+                },
+                "autoApply": true,
+                locale: { 
+                    "format": 'DD-MM-YYYY',
+                    "separator":' s/d ',
+                    "daysOfWeek": [ "Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+                    "monthNames": [ "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", 'November', 'Desember'],
+                    "fromLabel": "dari",
+                    "toLabel": "s/d",
+                    "firstDay": 1
+                }
+            });
+        }); 
+        
         $('.image-cover').imageCover();
         if ($('body').hasClass('single-post') === false) {
             $('.post .image-wrap').addClass('image-style');
@@ -610,14 +638,16 @@
 
     $(document).ready(function() {
         // aweCalendar();
-        priceSlider();
+        // priceSlider();
         // aweSelect();
         seasonHover();
-        tabs();
-        accordion();
-        theiaStickySidebar();
+        // tabs();
+        // accordion();
+        // theiaStickySidebar();
         magnificPopup();
         stickyMenu();
+
+        $('.tab').tab();
 
         if ($('#header-page nav').hasClass('awe-navigation-hamburger')) {
             $('#header-page nav').attr('data-responsive', 100000);

@@ -9,13 +9,9 @@
 	{{-- WIDGET PRICE --}}
 	<div class="widget widget_price_filter">
 		<h3>Harga</h3>
-		<div class="price-slider-wrapper">
-			<div class="price-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false" data-min="{{ $filter_schedules['price']['min'] }}" data-max="{{ $filter_schedules['price']['max'] }}"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 0%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 100%;"></a></div>
-			<div class="price_slider_amount">
-				<div class="price_label">
-					<span class="from">IDR {{ $filter_schedules['price']['min'] }}</span> - <span class="to"> {{ $filter_schedules['price']['max']}} </span>
-				</div>
-			</div>
+		<input name="price" id='bootstrap-slider' data-min="0" data-max="{{ $filter_schedules['price']['max'] }}">
+		<div class="price_label mt-xs mb-md" id='price_slider_label'>
+			IDR <span class="from">{{ number_format(0,0,',','.') }}</span> - <span class="to">{{ number_format($filter_schedules['price']['max'],0,',','.') }}</span>
 		</div>
 	</div>
 	<!-- END / WIDGET -->
@@ -79,7 +75,8 @@
 				}
 
 				// check price
-				if ((obj.data('price') < $('.price-slider').data('value-min')) || (obj.data('price') > $('.price-slider').data('value-max')))
+				var price = $('#bootstrap-slider').val().split(',');
+				if ((obj.data('price') < price[0]*1) || (obj.data('price') > price[1]*1))
 				{
 					show = false;
 				}
@@ -111,6 +108,9 @@
 			});
 		}
 
+		var price_slider = $("#bootstrap-slider");
+
+
 		// FILTER BY DURATION
 		$('.filter_checkbox_duration').change(function(event) {
 			filter_tour_schedule_result();
@@ -121,18 +121,36 @@
 			filter_tour_schedule_result();
 		});
 
-		$('.price-slider').on("slidechange", function(event,ui){
-			$(this).data('value-min', ui.values[0]);
-			$(this).data('value-max', ui.values[1]);
+		$('#reset_filter_schedule').click(function(event) {
+			$('.filter_checkbox_duration').prop('checked', true);
+			$('.filter_checkbox_travel_agent').prop('checked', true);
+			price_slider.slider('setValue', [$('#bootstrap-slider').data('min'), $('#bootstrap-slider').data('max')]);
 			filter_tour_schedule_result();
 		});
 
-		$('#reset_filter_schedule').click(function(event) {
-			$('.filter_checkbox_duration').prop('checked', true).trigger('change');
-			$('.filter_checkbox_travel_agent').prop('checked', true).trigger('change');
-			$('.price-slider').slider('values', 0, 0);
-			$('.price-slider').slider('values', 1, $('.price-slider').data('max'));
-		});
 
+		$(document).ready(function(){
+			price_slider.slider({
+				min: price_slider.data('min'),
+				max: price_slider.data('max'),
+				value: price_slider.data('value'),
+				step: 250000,
+				range: true,
+				tooltip_split: true,
+				formatter: function(x) {
+					return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+				}
+			})
+
+			price_slider.on('slideStop', function(){
+				filter_tour_schedule_result();
+			})
+
+			price_slider.on('slide', function(){
+				x = price_slider.val().split(",");
+				$('#price_slider_label > .from').html(x[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+				$('#price_slider_label > .to').html(x[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+			})
+		});
 	</script>
 @stop

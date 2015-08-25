@@ -13,7 +13,9 @@
 
 	tbody {
 		tr:hover { 
-			background:#FFD34E !important;
+			background: #fafafa !important;
+			-webkit-transition: background 0.5s; /* Safari */
+		    transition: background 0.5s;
 		}
 
 		tr { 
