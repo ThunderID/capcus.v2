@@ -25,7 +25,6 @@ class SubscriptionController extends Controller {
 
 	public function success($id)
 	{
-		dd(Hash::make('erick.mo@vortege.com'));
 		$subscriber = \App\Subscriber::find($id);
 		if (!$subscriber)
 		{
