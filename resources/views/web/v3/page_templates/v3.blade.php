@@ -91,6 +91,9 @@
 
 	<!-- LOAD JQUERY -->
 	<script type="text/javascript" src="{{ asset('js/web_v3.js') }}"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55dca75101742d57" async="async"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55dca75101742d57" async="async"></script>
+
 
 	@yield('basic_js')
 	@yield('js')

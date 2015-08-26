@@ -148,4 +148,106 @@ class TravelAgentController extends Controller {
 			return redirect()->route('admin.' . $this->view_name . '.index')->with('alert_success', '"' .$data->{$data->getNameField()}. '" has been deleted successfully' );
 		}
 	}
+
+	// ------------------------------------------------------------------------------------------------------------------------ 
+	// SCHEDULES
+	// ------------------------------------------------------------------------------------------------------------------------ 
+	public function getPackage($travel_agent_id, $package_id = null)
+	{
+		$data = $this->model->findorfail($travel_agent_id);
+
+		// ------------------------------------------------------------------------------------------------------------
+		// Current Package
+		// ------------------------------------------------------------------------------------------------------------
+		if ($package_id)
+		{
+			$package = \App\PackageTravelAgent::find($package_id);
+			if (!$package || $package->travel_agent_id != $travel_agent_id)
+			{
+				App::abort(404);
+			}
+		}
+
+		// ------------------------------------------------------------------------------------------------------------
+		// Package list
+		// ------------------------------------------------------------------------------------------------------------
+		$package_list = \App\Package::orderBy('priority', 'desc')->get();
+
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page 				= view($this->page_base_dir . 'package')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
+		$this->layout->page->data 			= $data;
+		$this->layout->page->package_list 	= $package_list;
+		$this->layout->page->package 		= $package;	
+
+		return $this->layout;		
+	}
+
+	public function postPackage($travel_agent_id, $package_id = null)
+	{
+		$travel_agent = $this->model->findorfail($travel_agent_id);
+		if ($package_id)
+		{
+			$package = \App\PackageTravelAgent::find($package_id);
+			if (!$package || $package->travel_agent_id != $travel_agent_id)
+			{
+				return App::abort(404);
+			}
+		}
+		else
+		{
+			$package = new \App\PackageTravelAgent;
+		}
+
+		$input = Input::all();
+		if ($input['active_since'])
+		{
+			$input['active_since'] = \Carbon\Carbon::createFromFormat('d/m/Y', $input['active_since']);
+		}
+
+		if ($input['active_until'])
+		{
+			$input['active_until'] = \Carbon\Carbon::createFromFormat('d/m/Y', $input['active_until']);
+		}
+		$input['travel_agent_id'] = $travel_agent_id;
+		$input['package_id'] = $input['package'];
+		$package->fill($input);
+
+		// schedule
+		if ($package->save())
+		{
+			$success_message = 'Package: ' . $package->name . ' has been added succesfully to ' . $travel_agent->name;
+			return redirect()->route('admin.'.$this->route_name.'.package', ['tour_id' => $travel_agent_id])->with('alert_success', $success_message) ;
+		}
+		else
+		{
+			return redirect()->back()->withInput()->withErrors($package->getErrors());
+		}
+
+		return $this->layout;		
+	}
+
+	public function getDeleteSchedule($travel_agent_id, $schedule_id)
+	{
+		$tour = $this->model->findorfail($travel_agent_id);
+		if ($schedule_id)
+		{
+			$schedule = $this->schedule_model->findorfail($schedule_id);
+
+			if ($schedule->tour_id != $travel_agent_id)
+			{
+				App::abort(404);
+			}
+		}
+
+		if (!$schedule->delete())
+		{
+			return redirect()->back()->withErrors($schedule->getErrors());
+		}
+		else
+		{
+			return redirect()->route('admin.'.$this->route_name.'.schedules', ['tour_id' => $travel_agent_id])->with('alert_success', '"Schedule ' .$schedule->departure->format('d-m-Y') . '-'. $schedule->arrival->format('d-m-Y') . '" has been deleted successfully') ;
+		}
+	}
 }

@@ -35,6 +35,9 @@
 			<li role="presentation" class='{{ str_is("overview", $current_mode) ? "bg-light-blue" : "" }}'>
 				<a href="{{route('admin.' . $route_name . '.delete_confirmation', ['id' => $travel_agent->id])}}" class='text-black'>Delete <i class='fa fa-chevron-right pull-right text-xs pt-5'></i></a>
 			</li>
+			<li role="presentation" class='{{ str_is("overview", $current_mode) ? "bg-light-blue" : "" }}'>
+				<a href="{{route('admin.' . $route_name . '.package', ['id' => $travel_agent->id])}}" class='text-black'>Package <i class='fa fa-chevron-right pull-right text-xs pt-5'></i></a>
+			</li>
 		</ul>
 	@overwrite
 @else

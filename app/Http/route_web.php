@@ -21,7 +21,12 @@ Route::group(['namespace' => 'Web\\'], function(){
 	});
 
 
-	get('/i-am-vendor', 															['uses' => 'AboutController@imvendor', 'as' => 'web.about.imvendor']);
+	// get('/contact-us', 															['uses' => 'AboutController@contactus', 			'as' => 'web.about.contactus']);
+	// post('/contact-us',															['uses' => 'AboutController@contactus_post', 		'as' => 'web.about.contactus.post']);
+	// post('/contact-us-sent',														['uses' => 'AboutController@contactus_success', 	'as' => 'web.about.contactus.success']);
+
+	get('/i-am-vendor', 															['uses' => 'AboutController@imvendor', 				'as' => 'web.about.imvendor']);
+	get('/tnc',			 															['uses' => 'AboutController@tnc',	 				'as' => 'web.about.tnc']);
 	get('/login/{provider?}',														['uses' => 'AuthController@login',					'as' => 'web.login']);
 	get('/login_callback/{provider}',												['uses' => 'AuthController@login_callback',			'as' => 'web.login_callback']);
 	post('/login',																	['uses' => 'AuthController@login_post',				'as' => 'web.login.post']);
@@ -40,9 +45,9 @@ Route::group(['namespace' => 'Web\\'], function(){
 
 		Route::group(['prefix' => 'profile'], function() { 
 			Route::group(['prefix' => 'complete_profile'], function() {
-				get('/',													['uses' => 'MeController@complete_profile',			'as' => 'web.me.profile.complete']);
-				post('/',													['uses' => 'MeController@complete_profile_post',	'as' => 'web.me.profile.complete.post']);
-				get('/completed',											['uses' => 'MeController@completed_profile',		'as' => 'web.me.profile.completed']);
+				get('/',															['uses' => 'MeController@complete_profile',			'as' => 'web.me.profile.complete']);
+				post('/',															['uses' => 'MeController@complete_profile_post',	'as' => 'web.me.profile.complete.post']);
+				get('/completed',													['uses' => 'MeController@completed_profile',		'as' => 'web.me.profile.completed']);
 			});
 		});
 
@@ -54,9 +59,9 @@ Route::group(['namespace' => 'Web\\'], function(){
 	});
 
 	Route::group(['prefix' => 'subscription'], function(){
-		post('/',															['uses' => 'SubscriptionController@add'		,'as' => 'web.subscription.add']);
-		get('/success/{subscriber_id}',										['uses' => 'SubscriptionController@success'	,'as' => 'web.subscription.success']);
-		get('/unsubscribe/{id}/{token}',									['uses' => 'SubscriptionController@unsubscribe'	,'as' => 'web.subscription.unsubscribe']);
+		post('/',																	['uses' => 'SubscriptionController@add'		,'as' => 'web.subscription.add']);
+		get('/success/{subscriber_id}',												['uses' => 'SubscriptionController@success'	,'as' => 'web.subscription.success']);
+		get('/unsubscribe/{id}/{token}',											['uses' => 'SubscriptionController@unsubscribe'	,'as' => 'web.subscription.unsubscribe']);
 	});
 
 });

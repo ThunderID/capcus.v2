@@ -5,6 +5,7 @@ class SubscriptionValidator extends \Illuminate\Validation\Validator {
 
     public function validateNoOverlappingSubscription($attribute, $value, $parameters)
     {
+        dd($value);
     	$since = \Carbon\Carbon::parse($this->data['since']);
     	$until = \Carbon\Carbon::parse($value);
 

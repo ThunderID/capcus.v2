@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TourSeeder::class);
         $this->call(HeadlineSeeder::class);
         $this->call(HomegridSeeder::class);
+        $this->call(PackageSeeder::class);
 
         Model::reguard();
     }

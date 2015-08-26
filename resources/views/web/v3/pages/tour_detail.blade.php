@@ -33,6 +33,7 @@
 							Kapanpun antara {{ $tour_schedule->departure->format('d-m-Y')}} s/d {{ $tour_schedule->departure_until->format('d-m-Y')}}
 						@endif
 					</div>
+
 					<hr class='border-0 border-bottom-1 border-black border-solid'>
 				</div>
 

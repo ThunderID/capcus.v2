@@ -31,7 +31,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 						'destinations'			=> [],
 						'places'				=> [],
 						'articles'				=> [],
-						'travel_agents'			=> [],
+						'travel_agents'			=> [
+													'getPackage'	=> 'admin.travel_agents.package',
+													'postPackage'	=> 'admin.travel_agents.package.post',
+													],
 						'tours'					=> [
 													'getSchedules'	=> 'admin.tours.schedules',
 													'postSchedules'	=> 'admin.tours.schedules.store',

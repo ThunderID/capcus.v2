@@ -4,21 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TravelAgent extends BaseModel
+class Package extends BaseModel
 {
-	use HasNameTrait, HasSlugTrait,
-		HasManyImagesTrait, HasManyAddressesTrait, HasManyToursTrait, BelongsToManyPackagesTrait;
-
-    //
-	protected $table = 'travel_agencies';
+	use HasNameTrait, HasSlugTrait, BelongsToManyTravelAgentsTrait; 
+	//
+	protected $table = 'packages';
 	protected $fillable = [
 							'name', 
-							'email', 
-							'slug', 
+							'slug',
+							'priority', 
+							'quota_headlines', 
 						];
-
-	static $name_field	= 'name';
-	static $slug_field	= 'slug';
+	static $name_field = 'name';
+	static $slug_field = 'slug';
 
 	// ----------------------------------------------------------------------
 	// BOOT
@@ -26,7 +24,7 @@ class TravelAgent extends BaseModel
 	static function boot()
 	{
 		parent::boot();
-		Static::observe(new TravelAgentObserver);
+		Static::observe(new PackageObserver);
 		Static::observe(new HasNameObserver);
 		Static::observe(new HasSlugObserver);
 	}
@@ -34,28 +32,25 @@ class TravelAgent extends BaseModel
 	// ----------------------------------------------------------------------
 	// RELATIONS
 	// ----------------------------------------------------------------------
-	function addresses()
+	function travel_agents()
 	{
-		return $this->morphMany(__NAMESPACE__ . '\Address', 'location');
+		return $this->belongsToMany(__NAMESPACE__ . '\TravelAgent')->withPivot('active_since', 'active_until');
 	}
 
-	function phones()
+	function active_travel_agents()
 	{
-		return $this->morphMany(__NAMESPACE__ . '\Phone', 'phoneable');
+		return $this->belongsToMany(__NAMESPACE__ . '\TravelAgent')->withPivot('active_since', 'active_until')
+																	->wherePivot('active_since', '<', \Carbon\Carbon::now())
+																	->wherePivot('active_until', '>', \Carbon\Carbon::now())
+																	;
 	}
 
-
-	
 	// ----------------------------------------------------------------------
 	// SCOPES
 	// ----------------------------------------------------------------------
 
 	// ----------------------------------------------------------------------
 	// MUTATORS
-	// ----------------------------------------------------------------------
-
-	// ----------------------------------------------------------------------
-	// ACCESSORS
 	// ----------------------------------------------------------------------
 
 	// ----------------------------------------------------------------------

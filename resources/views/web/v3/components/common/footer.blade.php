@@ -37,33 +37,28 @@
 			<!-- END / WIDGET -->
 
 			<!-- WIDGET -->
-			<div class="col-md-3">
+			<div class="col-md-5">
 				<div class="widget widget_about_us">
 					<h3>Tentang Capcus</h3>
 					<div class="widget_content">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel dignissim dolor. Ut risus orci, aliquam sit amet semper eget, egestas aliquam felis.</p>
+						<p>
+							CAPCUS menyediakan kemudahan kepada travellers untuk mencari paket tour yang sesuai dengan kebutuhannya. 
+							Dengan adanya CAPCUS, travellers tidak lagi perlu menghubungi travel agent untuk mencari paket tour yang 
+							sesuai dengan kebutuhannya
+						</p>
+
+						<p>
+							Lets Go!
+						</p>
+						
+						<p>
+							<a href="{{ route('web.about.tnc') }}">Term &amp; Condition</a>
+						</p>
 					</div>
 				</div>
 			</div>
 			<!-- END / WIDGET -->
 
-			<!-- WIDGET -->
-			<div class="col-md-3">
-				<div class="widget widget_recent_entries">
-					<h3>Sitemap</h3>
-					<ul>
-						<li><a href="#">Paket Tour</a></li>
-						<li><a href="#">Tujuan Wisata</a></li>
-						<li><a href="#">Cities</a></li>
-						<li><a href="#">Districts</a></li>
-						<li><a href="#">Countries</a></li>
-						<li><a href="#">Airports</a></li>
-						<li><a href="#">Hotels</a></li>
-						<li><a href="#">Places of interest</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- END / WIDGET -->
 
 			<!-- WIDGET -->
 			<div class="col-md-3">

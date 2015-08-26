@@ -73,6 +73,7 @@ return [
 	"unique"                => "Isian :attribute sudah terdaftar sebelumnya.",
 	"url"                   => "Isian :attribute format tidak valid.",
 	"timezone"              => "Isian :attribute timezone tidak valid.",
+	"no_overlapping_date_range" => "Isian tanggal tersebut telah teroverlap dengan data yang lain",
 
 	/*
 	|--------------------------------------------------------------------------

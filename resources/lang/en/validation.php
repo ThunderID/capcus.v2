@@ -74,6 +74,7 @@ return [
     'timezone'             => 'The :attribute must be a valid zone.',
     'unique'               => 'The :attribute has already been taken.',
     'url'                  => 'The :attribute format is invalid.',
+    "no_overlapping_date_range" => "The date you entered is overlapping with the other.",
 
     /*
     |--------------------------------------------------------------------------
