@@ -158,6 +158,9 @@
 	content: "\e621";
 }
 
+.awe-icon-america:before {
+	content: "\e620 \e621";
+}
 .awe-icon-europe:before {
 	content: "\e607";
 }

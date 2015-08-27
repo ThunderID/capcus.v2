@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Place extends BaseModel
 {
 	use HasNameTrait, HasSlugTrait, HasPublishedAtTrait,
-		BelongsToDestinationTrait, HasManyImagesTrait;
+		BelongsToDestinationTrait, HasManyImagesTrait, BelongsToManyToursTrait;
 
     //
 	protected $table = 'places';

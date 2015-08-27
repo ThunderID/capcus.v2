@@ -22,7 +22,8 @@ class FindPublishedTourSchedules extends Job implements SelfHandling
 								$travel_agent_id = null, 
 								$place_id = null, 
 								$skip = 0, 
-								$take = null)
+								$take = null,
+								$with_count = false)
 	{
 		//
 		$this->model = new \App\TourSchedule;
@@ -36,6 +37,7 @@ class FindPublishedTourSchedules extends Job implements SelfHandling
 		$this->filters['place_id']                  = $place_id;
 		$this->filters['skip'] 	    	            = $skip;
 		$this->filters['take']  	                = $take;
+		$this->filters['with_count']                = $with_count;
 	}
 
 	/**
@@ -90,16 +92,35 @@ class FindPublishedTourSchedules extends Job implements SelfHandling
 		//------------------------------------------------------------------------------------------------
 		// RETURN RESULTS
 		//------------------------------------------------------------------------------------------------
-		if ($this->filters['skip'])
-		{
-			$q = $q->skip($this->filters['skip']);
-		}
 
-		if ($this->filters['take'])
+		if (!$this->filters['with_count'])
 		{
-			$q = $q->take($this->filters['take']);
-		}
+			if ($this->filters['skip'])
+			{
+				$q = $q->skip($this->filters['skip']);
+			}
 
-		return $q->oldest('departure')->get();
+			if ($this->filters['take'])
+			{
+				$q = $q->take($this->filters['take']);
+			}
+			return $q->oldest('departure')->get();
+		}
+		else
+		{
+			$count = $q->count();
+			if ($this->filters['skip'])
+			{
+				$q = $q->skip($this->filters['skip']);
+			}
+
+			if ($this->filters['take'])
+			{
+				$q = $q->take($this->filters['take']);
+			}
+			$result = $q->oldest('departure')->get();
+			
+			return ['count' => $q->count(), 'data' => $result];
+		}
 	}
 }

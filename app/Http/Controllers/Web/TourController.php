@@ -21,13 +21,26 @@ class TourController extends Controller {
 		// ------------------------------------------------------------------------
 		// QUERY
 		// ------------------------------------------------------------------------
+		$max_data = 100;
+		$tour_schedules_count = \App\TourSchedule::published()
+											->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1))
+											->InTagByIds($tag->id)
+											->count();
+
 		$tour_schedules = \App\TourSchedule::published()
 											->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1))
 											->InTagByIds($tag->id)
 											->orderBy('departure')
-											->get();
+											->limit($max_data);
 		$tour_schedules->load('tour', 'tour.travel_agent', 'tour.places', 'tour.destinations', 'tour.travel_agent.images', 'tour.options');
 
+		// SORT BY TRAVEL AGENT PRIORITY
+		// $tour_schedules = $tour_schedules->sortBy(function($data, $key){
+		// 	return $data->tour->travel_agent->active_package->priority * -1;
+		// });
+		$tour_schedules = $tour_schedules->sortBy(function($data, $key){
+			return str_pad($data->tour->travel_agent->active_packages[0]->priority ? $data->tour->travel_agent->active_packages[0]->priority * -1 : 0, 2, 0, STR_PAD_LEFT) . $data->departure;
+		});
 		// ------------------------------------------------------------------------
 		// PREPARE FILTERS FOR RESULTS
 		// ------------------------------------------------------------------------
@@ -56,6 +69,8 @@ class TourController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		$this->layout->page = view($this->page_base_dir . 'tours');
 		$this->layout->page->tour_schedules 	= $tour_schedules;
+		$this->layout->page->tour_schedules_count= $tour_schedules_count;
+		$this->layout->page->max_data 			= $max_data;
 		$this->layout->page->tag 				= $tag;
 		$this->layout->page->filter_schedules 	= $filter_schedules;
 
@@ -225,16 +240,28 @@ class TourController extends Controller {
 		// ------------------------------------------------------------------------
 		// QUERY
 		// ------------------------------------------------------------------------
-		$tour_schedules = $this->dispatch(new FindPublishedTourSchedules(
+		$max_data = 100;
+		$results = $this->dispatch(new FindPublishedTourSchedules(
 												$departure_from,
 												$departure_to,
 												$tujuan_tree ? $tujuan_tree->lists('id') : null, 
 												$budget['min'] * 1,
 												$budget['max'] ? $budget['max'] * 1 : 99999999999,
-												$travel_agent->id
+												$travel_agent->id,
+												null,
+												0,
+												$max_data,
+												true
 											)
 								);
+		$tour_schedules_count = $results['count'];
+		$tour_schedules = $results['data'];
 		$tour_schedules->load('tour', 'tour.travel_agent', 'tour.places', 'tour.destinations', 'tour.travel_agent.images', 'tour.options');
+
+		// SORT BY TRAVEL AGENT PRIORITY
+		// $tour_schedules = $tour_schedules->sortBy(function($data, $key){
+		// 	return str_pad($data->tour->travel_agent->active_packages[0]->priority ? $data->tour->travel_agent->active_packages[0]->priority * -1 : 0, 2, 0, STR_PAD_LEFT) . $data->departure;
+		// });
 
 		// ------------------------------------------------------------------------
 		// PREPARE FILTERS FOR RESULTS
@@ -271,6 +298,8 @@ class TourController extends Controller {
 		$this->layout->page->departure_to 		= $departure_to;
 		$this->layout->page->budget 			= $budget;
 		$this->layout->page->tour_schedules 	= $tour_schedules;
+		$this->layout->page->tour_schedules_count= $tour_schedules_count;
+		$this->layout->page->max_data 			= $max_data;
 		$this->layout->page->filter_schedules 	= $filter_schedules;
 		$this->layout->page->other_tours 		= $other_tours;
 

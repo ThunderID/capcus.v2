@@ -70,6 +70,14 @@
 						@endif
 					@endif
 				</h4>
+
+				<h5 class='text-muted text-md text-light'>
+					@if ($tour_schedules_count > $max_data)
+						Ditemukan Lebih dari {{$max_data}} paket tour, Silahkan melakukan pencarian lebih spesifik untuk mempermudah perbandingan
+					@else
+						Ditemukan {{$tour_schedules_count}} paket tour
+					@endif
+				</h5>
 			</div>
 		</div>
 

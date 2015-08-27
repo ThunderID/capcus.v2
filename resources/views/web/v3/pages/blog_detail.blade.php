@@ -51,40 +51,6 @@
 									{!! $article->content !!}
 								</div>
 							</div>
-							<div class="post-footer">
-								<div class="share-box">
-									<h4>Share</h4>
-									<div class="share">
-										<a href="#">
-											<i class="fa fa-twitter"></i>
-										</a>
-										<a href="#">
-											<i class="fa fa-pinterest"></i>
-										</a>
-										<a href="#">
-											<i class="fa fa-facebook"></i>
-										</a>
-										<a href="#">
-											<i class="fa fa-google-plus"></i>
-										</a>
-									</div>
-								</div>
-								<div class="tag-box">
-									<h4>Tag</h4>
-									<div class="tag">
-										<a href="#">Hotel</a>
-										<a href="#">Motel</a>
-										<a href="#">Hostel</a>
-										<a href="#">Homestay</a>
-									</div>
-								</div>
-								<div class="cat-box">
-									<h4>Category</h4>
-									<div class="cat">
-										<a href="#">Hotel</a>
-									</div>
-								</div>
-							</div>
 						</div>
 						<!-- END / POST -->
 

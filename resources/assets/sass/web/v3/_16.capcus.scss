@@ -61,6 +61,11 @@ $bg-tour-page: "../../../images/bg-tour-page.jpg";
 .text-black			{ color: black !important; }
 .text-yellow		{ color: $yellow !important;  }
 .text-gray			{ color: #ccc !important; }
+*:hover.text-hover-yellow	{ color: $yellow !important; -webkit-transform: color 0.5s;
+   -moz-transform: color 0.5s;
+    -ms-transform: color 0.5s;
+     -o-transform: color 0.5s;
+        transform: color 0.5s; }
 
 // MODIFICATION
 .text-uppercase { text-transform: uppercase;}
@@ -95,9 +100,6 @@ $bg-tour-page: "../../../images/bg-tour-page.jpg";
 
 
 a:hover { text-decoration: none !important;}
-
-
-
 
 // ------------------------------------------------------------------------------------------------------------------
 // 
@@ -310,3 +312,8 @@ a:hover { text-decoration: none !important;}
     filter: blur(3px);
     opacity: 0.4;
 }
+
+.bg-diamond { background: lighten($color2, 10%) !important }
+.bg-gold { background: lighten($color2, 20%) !important }
+.bg-silver { background: lighten($color2, 30%) !important }
+.bg-bronze { background: lighten($color2, 40%) !important }

@@ -44,4 +44,9 @@ class Subscriber extends Model
 			return $q->where("email", "like", $v);
 		}
 	}
+
+	function scopeActive($q)
+	{
+		return $q->where('is_subscribe', '=', 1);
+	}
 }

@@ -21,8 +21,18 @@
 	</thead>
 	<tbody>
 		@forelse ($tour_schedules as $schedule)
+			<?php
+				switch (strtolower($schedule->tour->travel_agent->active_packages[0]->name))
+				{
+					case 'diamond': $tr_class 	= 'bg-diamond'; break;
+					case 'gold': $tr_class 		= 'bg-gold'; break;
+					case 'silver': $tr_class 	= 'bg-silver'; break;
+					case 'bronze': $tr_class 	= 'bg-bronze'; break;
+					default: $tr_class = ''; break;
+				}
+			?>
 			{{-- GENERATE CLASS --}}
-			<tr class='text-regular {{ ($schedule->departure->lt(\Carbon\Carbon::now()) ? "text-muted":"") }}'
+			<tr class='text-regular {{ ($schedule->departure->lt(\Carbon\Carbon::now()) ? "text-muted":"") }} {{ $tr_class }}'
 						data-duration="{{ $schedule->tour->duration_day * 1 }}"
 						data-price="{{ $schedule->discounted_price * 1 }}"
 						data-travel-agent="{{ $schedule->tour->travel_agent->id }}"
@@ -123,7 +133,7 @@
 					3: { sorter: 'data_value_numeric'},
 					4: { sorter: 'data_value_numeric'}
 				},
-				sortList: [[0,0]]
+				// sortList: [[0,0]]
 			});
 		})
 			

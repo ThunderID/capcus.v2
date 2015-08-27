@@ -21,8 +21,6 @@ class BlogController extends Controller {
 		$start_pagination = max(1, $page - 3);
 		$last_pagination = min(ceil($article_count/$per_page), $page + 3);
 
-		
-
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
@@ -32,7 +30,6 @@ class BlogController extends Controller {
 		$this->layout->page->start_pagination 	= $start_pagination;
 		$this->layout->page->last_pagination 	= $last_pagination;
 		$this->layout->page->top_destinations 	= $this->get_top_destinations();
-		// $this->layout->page->latest_tours 		= $this->get_latest_tours();
 		$this->layout->page->current_page 		= $page;
 
 		return $this->layout;

@@ -80,6 +80,23 @@ class Tour extends BaseModel
 	}
 
 	// ----------------------------------------------------------------------
-	// ACCESSORS
+	// 
 	// ----------------------------------------------------------------------
+	static public function ByPriorityTravelAgent($limit = 10)
+	{
+		return Static::join('travel_agencies', 'travel_agencies.id', '=', 'tours.travel_agent_id')
+						->join('package_travel_agent', 'package_travel_agent.travel_agent_id', '=', 'travel_agencies.id')
+						->join('packages', function($join) { 
+							$join->on('packages.id', '=', 'package_travel_agent.package_id')
+								->where('active_since', '<=', \Carbon\Carbon::now())
+								->where('active_until', '>=', \Carbon\Carbon::now());
+							})
+						->whereHas('schedules', function($q){
+							$q->where('departure', '>=', \Carbon\Carbon::now());
+						})
+						->select('tours.*')
+						->orderBy('packages.priority', 'desc')
+						->limit($limit)
+						->get();
+	}
 }

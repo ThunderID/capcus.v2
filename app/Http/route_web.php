@@ -2,6 +2,7 @@
 
 Route::group(['namespace' => 'Web\\'], function(){
 
+
 	get('/',																		['uses' => 'HomeController@index',					'as' => 'web.home']);
 
 	Route::group(['prefix' => 'tour'], function(){
@@ -51,17 +52,21 @@ Route::group(['namespace' => 'Web\\'], function(){
 			});
 		});
 
-
-
 		get('/profile/edit',														['uses' => 'MeController@edit_profile',		'as' => 'web.me.profile.edit']);
 		post('/profile/edit',														['uses' => 'MeController@edit_profile_post','as' => 'web.me.profile.post']);
 		post('/update_password',													['uses' => 'MeController@edit_password_post','as' => 'web.me.update_password.post']);
 	});
 
+	// SUBSCRIPTION
 	Route::group(['prefix' => 'subscription'], function(){
 		post('/',																	['uses' => 'SubscriptionController@add'		,'as' => 'web.subscription.add']);
 		get('/success/{subscriber_id}',												['uses' => 'SubscriptionController@success'	,'as' => 'web.subscription.success']);
 		get('/unsubscribe/{id}/{token}',											['uses' => 'SubscriptionController@unsubscribe'	,'as' => 'web.subscription.unsubscribe']);
 	});
+
+	// NEWSLETTER
+	Route::group(['prefix' => 'newsletter'], function() {
+		get('/send',																['uses' => 'NewsletterController@send',			'as' => 'web.newsletter.send']);
+	}); 
 
 });

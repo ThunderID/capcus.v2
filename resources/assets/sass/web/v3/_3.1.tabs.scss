@@ -93,3 +93,28 @@
 		}
 	}
 }
+
+.nav-pills { 
+	li { 
+		float:none;
+		display:inline-block;
+
+		a:link, a:visited { 
+			border-radius:20px;
+			border:1px solid #d4d4d4;
+			color:#ccc;
+			padding:8px 20px;
+		}
+		
+		&.active { 
+			a:link, a:visited { 
+				background:$color2 !important;
+				color:black !important;
+				border-radius:20px;
+				border:1px solid $color2;
+			}
+		}
+
+	}
+
+}

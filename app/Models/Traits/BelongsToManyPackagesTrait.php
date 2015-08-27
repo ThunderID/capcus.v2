@@ -25,8 +25,8 @@ trait BelongsToManyPackagesTrait {
 	function active_packages()
 	{
 		return $this->belongsToMany(__NAMESPACE__ . '\Package')->withPivot('active_since', 'active_until')
-																->wherePivot('active_since', '>=', \Carbon\Carbon::now())
-																->wherePivot('active_until', '<=', \Carbon\Carbon::now());
+																->wherePivot('active_since', '<=', \Carbon\Carbon::now())
+																->wherePivot('active_until', '>=', \Carbon\Carbon::now());
 
 	}
 

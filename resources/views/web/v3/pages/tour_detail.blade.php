@@ -192,7 +192,7 @@
 @section('js')
 	@parent
 	<script>
-		$('.tour_schedule_table').on('click', 'tr', function(event) {
+		$('.tour_schedule_table tbody').on('click', 'tr', function(event) {
 			window.location = $(this).data('link');
 		});
 			
