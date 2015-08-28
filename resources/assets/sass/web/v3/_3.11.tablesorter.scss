@@ -1,22 +1,22 @@
 .table-sorter { 
 	thead { 
 		th { cursor:pointer }
-		th.header.headerSortUp { 
+		th.tablesorter-headerAsc { 
 			.icon { 
-				background-image: url(../../images/tablesorter/asc.gif);  
+				background: transparent url(../../images/tablesorter/asc.gif) top left no-repeat;  
 				width:23px;
 				height:10px;
 			}
 		}
-		th.header.headerSortDown {
+		th.tablesorter-headerDesc {
 			.icon {
-				background-image: url(../../images/tablesorter/desc.gif);  
+				background: transparent url(../../images/tablesorter/desc.gif) top left no-repeat;  
 				width:23px;
 				height:10px;
 			} 
 		}
 
-		th.header {
+		th.tablesorter-headerUnSorted {
 			.icon { 
 				background-image: url(../../images/tablesorter/bg.gif);  
 				background-repeat: no-repeat; 

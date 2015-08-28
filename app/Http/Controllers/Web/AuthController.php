@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Web;
 
 use Auth, Input, \Illuminate\Support\MessageBag, App;
-use Socialize;
+use Socialite;
 use Session;
 use \App\User;
 use \App\Jobs\CreateMemberFromFacebook, \App\Jobs\CreateMemberFromTwitter;
@@ -18,7 +18,7 @@ class AuthController extends Controller {
 
 		switch (strtolower($provider)) {
 			case 'twitter': case 'facebook':
-				return Socialize::driver(strtolower($provider))->redirect();
+				return Socialite::driver(strtolower($provider))->redirect();
 				break;
 			default:
 				// ------------------------------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ class AuthController extends Controller {
 	{
 		switch (strtolower($provider)) {
 			case 'facebook': case 'twitter':
-				$user_sso = Socialize::driver(strtolower($provider))->user();
+				$user_sso = Socialite::driver(strtolower($provider))->user();
 				if (str_is(strtolower($provider), 'facebook'))
 				{
 					$result = $this->dispatch(new CreateMemberFromFacebook($user_sso));

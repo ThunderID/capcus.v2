@@ -46,7 +46,7 @@
 					</div>
 
 					<div class='hidden-sm hidden-md hidden-lg'>
-						<h6 class='text-regular text-bold text-uppercase'>Oleh</h6>
+						<h6 class='text-regular text-bold text-uppercase text-yellow'>Oleh</h6>
 						<img src='{{ $tour_schedule->tour->travel_agent->images->where('name', 'SmallLogo')->first()->path}}' alt='{{$tour_schedule->tour->travel_agent->name }}' class='pull-right' style='width:100px'> 
 						<strong class='text-uppercase'>{{ $tour_schedule->tour->travel_agent->name}}</strong>
 						<p>{{ $tour_schedule->tour->travel_agent->addresses}}
@@ -56,7 +56,7 @@
 				<div class="col-xs-12 col-sm-9 col-md-10 col-lg-9 text-black">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7  pb-lg">
-							<h6 class='text-regular text-bold text-uppercase'>Ittinary</h6>
+							<h6 class='text-regular text-bold text-uppercase text-yellow'>Ittinary</h6>
 							{!! $tour_schedule->tour->ittinary !!}
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
@@ -72,7 +72,7 @@
 
 							{{-- JADWAL LAINNYA --}}
 							@if ($tour_schedule->tour->schedules->count() > 1)
-								<h6 class='text-regular text-bold text-uppercase mt-xl'>Jadwal Keberangkatan Lainnya</h6>
+								<h6 class='text-regular text-bold text-uppercase mt-xl text-yellow'>Jadwal Keberangkatan Lainnya</h6>
 								<table class='table table-hover tour_schedule_table'>
 									<thead>
 										<tr>

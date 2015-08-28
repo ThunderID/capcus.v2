@@ -15,6 +15,7 @@ $text-xs		: 9px !default;
 // colors
 $yellow			: #FFD34E;
 $silver			: #F0f0f0;
+$gray			: #CCC;
 
 // colors
 $space-0    : 0px;
@@ -60,7 +61,7 @@ $bg-tour-page: "../../../images/bg-tour-page.jpg";
 .text-white			{ color: white !important; }
 .text-black			{ color: black !important; }
 .text-yellow		{ color: $yellow !important;  }
-.text-gray			{ color: #ccc !important; }
+.text-gray			{ color: $gray !important; }
 *:hover.text-hover-yellow	{ color: $yellow !important; -webkit-transform: color 0.5s;
    -moz-transform: color 0.5s;
     -ms-transform: color 0.5s;
@@ -244,6 +245,10 @@ a:hover { text-decoration: none !important;}
 .pr-xxxl { padding-right: $space-xxxl !important; }
 .pl-xxxl { padding-left: $space-xxxl !important; }
 
+.fullwidth { width:100%;}
+.fullheight { height:100%;}
+.display-table { display:table;}
+.display-table-cell { display:table-cell;}
 // ------------------------------------------------------------------------------------------------------------------
 // 
 // 3. INPUT

@@ -14,29 +14,21 @@
 <div class="trip-item">
 	<div class="item-media">
 		<div class="image-cover">
-			<img src="{{ $tour->destinations->first()->images->where('name', 'LargeImage')->first()->path }}" alt="{{ $tour->name }}">
-		</div>
-		<div class="trip-icon">
+			<img src="{{ ($tour->destinations->first()->images->where('name', 'LargeImage')->first()->path ? $tour->destinations->first()->images->where('name', 'LargeImage')->first()->path : asset('images/no-img.jpg'))  }}" alt="{{ $tour->name }}">
 		</div>
 	</div>
 	<div class="item-body">
 		<div class="item-title">
 			<h2>
-				<a href="#">{{ $tour->name }}</a>
+				<a href="{{ route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => $tour->cheapest->departure->format('Ymd') ]) }}">{{ $tour->name }}</a>
 			</h2>
 		</div>
 		<div class="item-list">
 			{{ implode(', ', $tour->places->name) }}
 		</div>
 		<div class="item-footer">
-			<div class="item-rate">
-			</div>
 			<div class="item-icon">
-				<i class="awe-icon awe-icon-gym"></i>
-				<i class="awe-icon awe-icon-car"></i>
-				<i class="awe-icon awe-icon-food"></i>
-				<i class="awe-icon awe-icon-level"></i>
-				<i class="awe-icon awe-icon-wifi"></i>
+				<img src="{{$tour->travel_agent->images->where('name', '=', 'SmallLogo')->first()->path}}">
 			</div>
 		</div>
 	</div>
@@ -53,7 +45,7 @@
 			@endif
 	
 		</div>
-		<a href="#" class="awe-btn">DETAIL</a>
+		<a href="{{ route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => $tour->cheapest->departure->format('Ymd') ]) }}" class="awe-btn">DETAIL</a>
 	</div>
 </div>
 <!-- END / ITEM -->

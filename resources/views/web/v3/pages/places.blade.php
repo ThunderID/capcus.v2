@@ -32,8 +32,15 @@
 									<?php
 										$locations = ['asia' => 'asia','afrika' => 'africa', 'amerika' => 'america','eropa' => 'europe','australia' => 'australia', 'antartika' => 'antarctica'];
 										asort($locations);
+										$i = 0;
 									?>
 									@foreach ($locations as $k => $v)
+
+										@if ($i++ % 3 == 0)
+											<div class="clearfix hidden-md hidden-lg mb-md"></div>
+										@endif
+										<?php $i++; ?>
+
 										<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
 											<a href="{{ route('web.tour', ['travel-agent' => 'semua-travel-agent', 'tujuan' => $k])}}" class='text-black text-hover-yellow'>
 												<div>
@@ -48,6 +55,7 @@
 												</div>
 											</a>
 										</div>
+
 									@endforeach
 								</div>
 							</div>
@@ -62,16 +70,18 @@
 												];
 									asort($kategori);
 								?>
-								@foreach ($kategori as $k => $v)
-									<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 place-icon">
-										<a href="{{ route('web.tour', ['travel-agent' => 'semua-travel-agent', 'tujuan' => $k])}}">
-											<div>
-												<i class="awe-icon awe-icon-{{$v}}"></i>
-												<p class='mt-sm'><span class='text-uppercase'>{{ $k }}</span></p>
-											</div>
-										</a>
-									</div>
-								@endforeach
+								<div class="row">
+									@foreach ($kategori as $k => $v)
+										<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 place-icon">
+											<a href="{{ route('web.tour', ['travel-agent' => 'semua-travel-agent', 'tujuan' => $k])}}">
+												<div class='text-center'>
+													<i class="awe-icon awe-icon-{{$v}}"></i>
+													<p class='mt-xs'><span class='text-uppercase'>{{ $k }}</span></p>
+												</div>
+											</a>
+										</div>
+									@endforeach
+								</div>
 							</div>
 						</div>
 					</div>
@@ -87,10 +97,10 @@
 @section('content_2')
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 				
 			</div>
-			<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" >
+			<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9" >
 				<main>
 					<div class="row">
 						@forelse ($places as $x)
@@ -112,7 +122,7 @@
 								</div>
 							</div>
 						@empty
-							<div class='text-center'>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
 								<div class='bg-white-glass pt-lg pb-lg'>Tidak ada tujuan wisata dalam kriteria terpilih</div>
 							</div>
 						@endforelse

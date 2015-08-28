@@ -43,7 +43,7 @@ class HomeController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY PAKET PROMO
 		// ------------------------------------------------------------------------------------------------------------
-		$promo_tours = \App\TourSchedule::with('tour', 'tour.places', 'tour.destinations', 'tour.destinations.images')
+		$promo_tours = \App\TourSchedule::with('tour', 'tour.places', 'tour.destinations', 'tour.destinations.images', 'tour.travel_agent')
 										->published()
 										->promo()
 										->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYears(5))
@@ -60,7 +60,7 @@ class HomeController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// TOP DESTINATION
 		// ------------------------------------------------------------------------------------------------------------
-		$top_destinations = \App\Destination::TopDestination(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addMonth(6))->limit(5)->get();
+		$top_destinations = \App\Destination::with('images')->TopDestination(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addMonth(6))->limit(5)->get();
 
 		// ------------------------------------------------------------------------------------------------------------
 		// TOTAL UPCOMING TOUR

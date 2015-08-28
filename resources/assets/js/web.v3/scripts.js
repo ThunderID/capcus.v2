@@ -385,8 +385,8 @@
                                 duration: 200
                             },
                             activate: function(event, ui) {
-                                $('.flight-popup__grid-wrapper .image-wrap').imageCover();
-                                if ($('.flight-popup__grid-wrapper', ui.newPanel).length && !$('.flight-popup__grid-wrapper',ui.newPanel).data('mansory-loaded')) {
+                                // $('.flight-popup__grid-wrapper .image-wrap').imageCover();
+                                // if ($('.flight-popup__grid-wrapper', ui.newPanel).length && !$('.flight-popup__grid-wrapper',ui.newPanel).data('mansory-loaded')) {
                                     // $('.flight-popup__grid-wrapper', ui.newPanel).masonry({
                                     //     columnWidth: '.grid-item.col-md-3',
                                     //     itemSelector: '.grid-item'
@@ -409,26 +409,26 @@
             });
         }
 
-        // if ($('.full-price-open-popup').length) {
-        //     $('.full-price-open-popup').magnificPopup({
-        //         type: 'ajax',
-        //         closeMarkup: '<button title="%title%" class="mfp-close">Cancel <i class="awe-icon awe-icon-close-o"></i></button>',
-        //         callbacks: {
-        //             ajaxContentAdded: function() {
-        //                 aweSelect();
-        //                 placeholder();
+        if ($('.full-price-open-popup').length) {
+            $('.full-price-open-popup').magnificPopup({
+                type: 'ajax',
+                closeMarkup: '<button title="%title%" class="mfp-close">Cancel <i class="awe-icon awe-icon-close-o"></i></button>',
+                callbacks: {
+                    ajaxContentAdded: function() {
+                        aweSelect();
+                        placeholder();
 
-        //                 $('.awe-calendar').each(function() {
-        //                     $(this).datepicker({
-        //                         showOtherMonths: true,
-        //                         selectOtherMonths: true,
-        //                         dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat']
-        //                     });
-        //                 });
-        //             }
-        //         }
-        //     });
-        // }
+                        $('.awe-calendar').each(function() {
+                            $(this).datepicker({
+                                showOtherMonths: true,
+                                selectOtherMonths: true,
+                                dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat']
+                            });
+                        });
+                    }
+                }
+            });
+        }
     }
     function stickyMenu() {
         var $fixed = $('.header-page__inner'),

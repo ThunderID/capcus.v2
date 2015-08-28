@@ -87,14 +87,6 @@
 				</div>
 				<div class="col-md-3">
 					<div class="page-sidebar">
-						<!-- WIDGET -->
-						<div class="widget widget_search">
-							<h3>Search in Blog</h3>
-							<form>
-								<input type="search" value="Search and hit enter">
-							</form>
-						</div>
-						<!-- END / WIDGET -->
 
 						<!-- WIDGET -->
 						<div class="widget widget_has_thumbnail">
