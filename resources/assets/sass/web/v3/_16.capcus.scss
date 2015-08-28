@@ -28,7 +28,10 @@ $space-xl   : 30px;
 $space-xxl   : 40px;
 $space-xxxl   : 50px;
 
-$bg-tour-page: "../../../images/bg-tour-page.jpg";
+$bg-tour-page: "../../../images/paket-tour-bg.jpg";
+$bg-tujuan-wisata-page: "../../../images/tujuan-wisata-bg.jpg";
+$bg-blog-page: "../../../images/blog-bg.jpg";
+
 
 
 // -------------------------------------------------------- 
@@ -283,7 +286,10 @@ a:hover { text-decoration: none !important;}
 // 4. BG
 // 
 // ------------------------------------------------------------------------------------------------------------------
-.bg-capcus { background:transparent url($bg-tour-page) bottom left repeat-x; background-size:cover; background-attachment: fixed};
+.bg-tour-page { background:transparent url($bg-tour-page) bottom left repeat-x; background-size:cover; background-attachment: fixed};
+.bg-tujuan-wisata-page { background:transparent url($bg-tujuan-wisata-page) bottom left repeat-x; background-size:cover; background-attachment: fixed};
+.bg-blog-page { background:transparent url($bg-blog-page) top left no-repeat;};
+
 .bg-black-glass { background:rgba(0,0,0,0.9)};
 .bg-white-glass { background:rgba(255,255,255,0.9)};
 .bg-yellow-glass { background:rgba(247,205,30,0.9)};

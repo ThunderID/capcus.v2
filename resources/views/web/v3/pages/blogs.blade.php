@@ -12,7 +12,7 @@
 		</div>
 	</div>
 
-	<section class="awe-parallax page-heading-demo" style="background-position: 50% 12px;">
+	<section class="bg-blog-page" style='height:100%;'>
 		<div class="awe-overlay"></div>
 		<div class="container">
 			<div class="blog-heading-content text-uppercase">

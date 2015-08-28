@@ -19,6 +19,7 @@
 	</div>
 	<div class="item-body">
 		<div class="item-title">
+			<img src="{{ $tour_schedule->tour->travel_agent->images->where('name','SmallLogo')->first()->path }}" width="50" class='pull-right'>
 			<h2>
 				<a href="{{ route('web.tour.show', ['travel_agent' => $tour_schedule->tour->travel_agent->slug, 'tour_slug' => $tour_schedule->tour->slug, 'schedule' => $tour_schedule->departure->format('Ymd') ]) }}">{{ $tour_schedule->tour->name }}</a>
 			</h2>

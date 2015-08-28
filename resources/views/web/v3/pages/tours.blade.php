@@ -1,6 +1,6 @@
 @section('content_1')
 	<!-- HEADING PAGE -->
-	<section class="awe-parallax bg-capcus" style="background:transparent url({{asset('images/bg.jpg')}} bottom left repeat-x)">
+	<section class="awe-parallax bg-tour-page">
 		<div class="awe-overlay"></div>
 		<div class="container">
 			<div class="category-heading-content category-heading-content__2">

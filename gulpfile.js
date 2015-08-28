@@ -13,16 +13,12 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.less('admin.less')
-    	// .less('web/v3/web.less')
     	.styles([
     			'web.v3/lib/bootstrap.min.css',
     			'web.v3/lib/font-awesome.min.css',
                 'web.v3/lib/awe-booking-font.css',
                 'web.v3/lib/daterangepicker.css',
     			'web.v3/lib/bootstrap-slider.css',
-                // 'web.v3/lib/jquery-ui.css',
-    			// 'web.v3/lib/magnific-popup.css',
-    			// 'web.v3/lib/owl.carousel.css',
     		], 'public/css/web_v3.css')
     	.sass('web/v3/web_v3_style.scss')
     	.scripts([
@@ -32,14 +28,8 @@ elixir(function(mix) {
                 'web.v3/lib/moment.js',
                 'web.v3/lib/daterangepicker.js',
                 'web.v3/lib/bootstrap-slider.min.js',
-    			// 'web.v3/lib/masonry.pkgd.min.js',
-				// 'web.v3/lib/jquery.owl.carousel.js',
-				// 'web.v3/lib/theia-sticky-sidebar.js',
-				// 'web.v3/lib/jquery.magnific-popup.min.js',
-				// 'web.v3/lib/jquery-ui.js',
 				'web.v3/scripts.js'
     		], 'public/js/web_v3.js')
-    	// .less('web/v2/web.less')
     	.version([
                     'public/css/admin.css',
                     'public/css/web_v3.css',

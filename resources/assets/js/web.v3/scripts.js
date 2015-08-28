@@ -111,7 +111,7 @@
         $('.awe-parallax').each(function() {
             if (isMobile.any()) {
             } else {
-                $(this).parallax("50%", 0.2);
+                $(this).parallax("0%", 0.1);
             }
         });
     }
@@ -385,13 +385,13 @@
                                 duration: 200
                             },
                             activate: function(event, ui) {
-                                // $('.flight-popup__grid-wrapper .image-wrap').imageCover();
-                                // if ($('.flight-popup__grid-wrapper', ui.newPanel).length && !$('.flight-popup__grid-wrapper',ui.newPanel).data('mansory-loaded')) {
-                                    // $('.flight-popup__grid-wrapper', ui.newPanel).masonry({
-                                    //     columnWidth: '.grid-item.col-md-3',
-                                    //     itemSelector: '.grid-item'
-                                    // });
-                                    // $('.flight-popup__grid-wrapper', ui.newPanel).data('mansory-loaded', 1);
+                                $('.flight-popup__grid-wrapper .image-wrap').imageCover();
+                                if ($('.flight-popup__grid-wrapper', ui.newPanel).length && !$('.flight-popup__grid-wrapper',ui.newPanel).data('mansory-loaded')) {
+                                    $('.flight-popup__grid-wrapper', ui.newPanel).masonry({
+                                        columnWidth: '.grid-item.col-md-3',
+                                        itemSelector: '.grid-item'
+                                    });
+                                    $('.flight-popup__grid-wrapper', ui.newPanel).data('mansory-loaded', 1);
                                 }
                             }
                         });

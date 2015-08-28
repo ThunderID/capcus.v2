@@ -12,7 +12,7 @@
 		</div>
 	</div>
 
-	<section class="travelling-block-section-demo awe-parallax" style="background-position: 50% 12px;">
+	<section class="awe-parallax bg-tujuan-wisata-page" style="background-position: 50% 12px;">
 		<div class="container">
 			<div class="travelling-block text-center">
 				<div class="title">
