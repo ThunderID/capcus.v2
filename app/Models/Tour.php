@@ -26,6 +26,8 @@ class Tour extends BaseModel
 	static $name_field = 'name';
 	static $slug_field = 'slug';
 
+	protected $cheapest;
+
 	// ----------------------------------------------------------------------
 	// BOOT
 	// ----------------------------------------------------------------------
@@ -76,6 +78,10 @@ class Tour extends BaseModel
 			}
 		}
 
+		if (!$this->cheapest)
+		{
+			$this->cheapest = $cheapest;
+		}
 		return $cheapest;
 	}
 

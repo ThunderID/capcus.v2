@@ -5,9 +5,9 @@
 				<ul>
 					<li><a href="{{ route('web.home') }}">Home</a></li>
 					<li><a href="{{ route('web.tour') }}">Paket Tour</a></li>
-					<li><a href="{{ route('web.tour', ['travel_agent' => $tour_schedule->tour->vendor->name]) }}">{{$tour_schedule->tour->travel_agent->name}}</a></li>
-					<li><a href="{{ route('web.tour', ['travel_agent' => $tour_schedule->tour->vendor->name]) }}">{{$tour_schedule->departure->format('M Y')}}</a></li>
-					<li><span>{{ $tour_schedule->tour->name}} ({{ $tour_schedule->departure->format('d-M-Y') }})</span></li>
+					<li><a href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $tour->destinations->first()->path_slug]) }}">{{$tour->destinations->first()->long_name}}</a></li>
+					<li><a href="{{ route('web.tour', ['travel_agent' => $tour->travel_agent->slug]) }}">{{$tour->travel_agent->name}}</a></li>
+					<li><span>{{ $tour->name}} ({{ $tour_schedule->departure->format('d-M-Y') }})</span></li>
 				</ul>
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 				<div class="col-md-12">
 					{{-- TOUR NAME --}}
 					<h2 class='text-center'>
-						{{ $tour_schedule->tour->name }}
+						{{ $tour->name }}
 					</h2>
 					<div class='text-center text-lg text-uppercase text-black'>
 						@if (is_null($tour_schedule->departure_until))
@@ -40,27 +40,44 @@
 
 				<div class="col-xs-12 col-sm-3 col-md-2 col-lg-3 text-black pb-lg">
 					<div class='hidden-xs'>
-						<img src='{{ $tour_schedule->tour->travel_agent->images->where('name', 'SmallLogo')->first()->path}}' class='img-responsive mb-md' alt='{{$tour_schedule->tour->travel_agent->name }}'> 
-						<strong class='text-uppercase text-lg'>{{ $tour_schedule->tour->travel_agent->name}}</strong>
-						<p>{{ $tour_schedule->tour->travel_agent->addresses}}
+						<img src='{{ $tour->travel_agent->images->where('name', 'SmallLogo')->first()->path}}' class='img-responsive mb-md' alt='{{$tour->travel_agent->name }}'> 
+						<strong class='text-uppercase text-lg'>{{ $tour->travel_agent->name}}</strong>
+						<p>{{ $tour->travel_agent->addresses}}
 					</div>
 
 					<div class='hidden-sm hidden-md hidden-lg'>
 						<h6 class='text-regular text-bold text-uppercase text-yellow'>Oleh</h6>
-						<img src='{{ $tour_schedule->tour->travel_agent->images->where('name', 'SmallLogo')->first()->path}}' alt='{{$tour_schedule->tour->travel_agent->name }}' class='pull-right' style='width:100px'> 
-						<strong class='text-uppercase'>{{ $tour_schedule->tour->travel_agent->name}}</strong>
-						<p>{{ $tour_schedule->tour->travel_agent->addresses}}
+						<img src='{{ $tour->travel_agent->images->where('name', 'SmallLogo')->first()->path}}' alt='{{$tour->travel_agent->name }}' class='pull-right' style='width:100px'> 
+						<strong class='text-uppercase'>{{ $tour->travel_agent->name}}</strong>
+						<p>{{ $tour->travel_agent->addresses}}
 					</div>
 				</div>
 
 				<div class="col-xs-12 col-sm-9 col-md-10 col-lg-9 text-black">
 					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-lg">
+							<section class="hero-section">
+								<div id="slider-revolution">
+									<ul>
+										@foreach ($tour->places as $x)
+											<li data-slotamount="{{$tour->places->count()}}" data-masterspeed="500" data-title="{{ $x->name }}" data-link="{{ route('web.places.show', ['destination' => $x->destination, 'slug' => $x->slug]) }}" style='cursor:pointer'>
+												<img src="{{ $x->images->where('name', 'LargeImage')->first()->path }}" data-bgposition="left center" data-duration="14000" data-bgpositionend="right center" alt="{{ $x->name }}">
+
+												<div class="tp-caption sfb fadeout slider-caption-sub slider-caption-sub-1" data-x="30" data-y="bottom" data-speed="400" data-start="1500" data-easing="easeOutBack">
+													<div class='pb-xl'>{{ $x->name }}</div>
+												</div>
+											</li> 
+										@endforeach
+									</ul>
+								</div>
+							</section>
+						</div>
 						<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7  pb-lg">
 							<h6 class='text-regular text-bold text-uppercase text-yellow'>Ittinary</h6>
-							{!! $tour_schedule->tour->ittinary !!}
+							{!! $tour->ittinary !!}
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-							<p class='text-xl text-black'>
+							<p class='text-xl text-black mt-lg'>
 								{{ $tour_schedule->currency }} {{ number_format($tour_schedule->discounted_price ,0,',','.') }}
 								@if ($tour_schedule->discounted_price < $tour_schedule->original_price)
 									<br>
@@ -71,7 +88,7 @@
 							</p>
 
 							{{-- JADWAL LAINNYA --}}
-							@if ($tour_schedule->tour->schedules->count() > 1)
+							@if ($tour->schedules->count() > 1)
 								<h6 class='text-regular text-bold text-uppercase mt-xl text-yellow'>Jadwal Keberangkatan Lainnya</h6>
 								<table class='table table-hover tour_schedule_table'>
 									<thead>
@@ -82,9 +99,9 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach ($tour_schedule->tour->schedules as $other_schedule)
+										@foreach ($tour->schedules as $other_schedule)
 											@if ($other_schedule->id !=  $tour_schedule->id)
-												<tr class='text-regular {{ $other_schedule->departure->lt(\Carbon\Carbon::now()) ? "text-muted":"" }}' data-link="{{route('web.tour.show', ['travel_agent' => $other_schedule->tour->travel_agent->slug, 'tour_slug' => $other_schedule->tour->slug, 'schedule' => $other_schedule->departure->format('Ymd')])}}">
+												<tr class='text-regular {{ $other_schedule->departure->lt(\Carbon\Carbon::now()) ? "text-muted":"" }}' data-link="{{route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => $other_schedule->departure->format('Ymd')])}}">
 													<td class="ticket-price">
 														@if (is_null($other_schedule->departure_until))
 															{{ $other_schedule->departure->format('d-m-Y')}}
@@ -108,7 +125,7 @@
 														@if ($other_schedule->original_price > $other_schedule->discounted_price)
 															<span class="label label-warning">Promo</span>
 														@endif
-														@if ($other_schedule->id == $tour_schedule->tour->cheapest->id)
+														@if ($other_schedule->id == $tour->cheapest->id)
 															<span class="label label-success">Termurah!</span>
 														@endif
 													</td>
@@ -121,14 +138,17 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</section>
 
+
+
 	{{-- OTHER TOURS --}}
 	<section>
 		<div class="container">
+			<hr class='border-0 border-bottom-1 border-black border-solid'>
+			
 			@if (!Auth::user())
 				<div class='cover-login text-center' style='position:absolute; top:0; bottom:0; left:0; right:0; background:rgba(255,255,255,0.0); z-index:100000'>
 					<h3 class='text-light pt-xxxl mt-xxxl mr-sm ml-sm'>
@@ -148,40 +168,40 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<h3 class='text-light'>PAKET TOUR LAINNYA</h3>
 					<div role="tabpanel" class="bs-tab-yellow-border">
-					    <!-- Nav tabs -->
-					    <ul class="nav nav-tabs" role="tablist">
-					        <li role="presentation" class="active">
-					            <a href="#same-destination" aria-controls="same-destination" role="tab" data-toggle="tab">Tujuan <span class='hidden-xs'>yg sama</span></a>
-					        </li>
-					        <li role="presentation">
-					            <a href="#same-date" aria-controls="same-date" role="tab" data-toggle="tab"><span class='hidden-xs'>Keberangkatan </span>±{{ $tour_schedule->departure->format('d-M-Y')}}</a>
-					        </li>
-					        <li role="presentation">
-					            <a href="#same-price" aria-controls="same-price" role="tab" data-toggle="tab"><span class='hidden-xs'>Harga </span>±{{ $tour_schedule->currency}} {{ number_format($tour_schedule->discounted_price,0,',','.')}}</a>
-					        </li>
-					    </ul>
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active">
+								<a href="#same-destination" aria-controls="same-destination" role="tab" data-toggle="tab">Tujuan <span class='hidden-xs'>yg sama</span></a>
+							</li>
+							<li role="presentation">
+								<a href="#same-date" aria-controls="same-date" role="tab" data-toggle="tab"><span class='hidden-xs'>Keberangkatan </span>±{{ $tour_schedule->departure->format('d-M-Y')}}</a>
+							</li>
+							<li role="presentation">
+								<a href="#same-price" aria-controls="same-price" role="tab" data-toggle="tab"><span class='hidden-xs'>Harga </span>±{{ $tour_schedule->currency}} {{ number_format($tour_schedule->discounted_price,0,',','.')}}</a>
+							</li>
+						</ul>
 					
-					    <!-- Tab panes -->
-					    <div class="tab-content ">
-					        <div role="tabpanel" class="tab-pane pt-lg active" id="same-destination">
-					        	@include('web.v3.components.tour_schedules.table', ['tour_schedules' => $other_tours['by_destination']])
+						<!-- Tab panes -->
+						<div class="tab-content ">
+							<div role="tabpanel" class="tab-pane pt-lg active" id="same-destination">
+								@include('web.v3.components.tour_schedules.table', ['tour_schedules' => $other_tours['by_destination']])
 								<p class='text-right'>
-									<a class='btn btn-yellow btn-block text-uppercase' href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $tour_schedule->tour->destinations->first()->path_slug])}}">Lihat Lebih Lengkapnya</a>
-								</p>
-					        </div>
-					        <div role="tabpanel" class="tab-pane pt-lg" id="same-date">
-					        	@include('web.v3.components.tour_schedules.table', ['tour_schedules' => $other_tours['by_departure']])
-								<p class='text-right'>
-									<a class='btn btn-yellow btn-block text-uppercase' href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $tour_schedule->tour->destinations->first()->path_slug])}}">Lihat Lebih Lengkapnya</a>
-								</p>
-					        </div>
-					        <div role="tabpanel" class="tab-pane pt-lg" id="same-price">
-						        @include('web.v3.components.tour_schedules.table', ['tour_schedules' => $other_tours['by_budget']])
-								<p class='text-right'>
-									<a class='btn btn-yellow btn-block text-uppercase' href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $tour_schedule->tour->destinations->first()->path_slug])}}">Lihat Lebih Lengkapnya</a>
+									<a class='btn btn-yellow btn-block text-uppercase' href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $tour->destinations->first()->path_slug])}}">Lihat Lebih Lengkapnya</a>
 								</p>
 							</div>
-					    </div>
+							<div role="tabpanel" class="tab-pane pt-lg" id="same-date">
+								@include('web.v3.components.tour_schedules.table', ['tour_schedules' => $other_tours['by_departure']])
+								<p class='text-right'>
+									<a class='btn btn-yellow btn-block text-uppercase' href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $tour->destinations->first()->path_slug])}}">Lihat Lebih Lengkapnya</a>
+								</p>
+							</div>
+							<div role="tabpanel" class="tab-pane pt-lg" id="same-price">
+								@include('web.v3.components.tour_schedules.table', ['tour_schedules' => $other_tours['by_budget']])
+								<p class='text-right'>
+									<a class='btn btn-yellow btn-block text-uppercase' href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $tour->destinations->first()->path_slug])}}">Lihat Lebih Lengkapnya</a>
+								</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

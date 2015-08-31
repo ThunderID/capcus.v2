@@ -33,8 +33,8 @@ trait BelongsToManyPlacesTrait {
 		}
 		else
 		{
-			return $q->whereHas('Places', function($q) use ($v) {
-				$q->whereIn('id', is_array($v) ? $v : [$v]);
+			return $q->whereHas('places', function($q) use ($v) {
+				$q->whereIn('places.id', is_array($v) ? $v : [$v]);
 			});
 		}
 	}

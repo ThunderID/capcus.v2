@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<!-- TITLE -->
-	<title>CAPCUS</title>
+	<title>{{$title}}</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="format-detection" content="telephone=no">
@@ -21,6 +21,11 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 	<![endif]-->
+
+	@forelse ($og as $x)
+		<meta property="{{ $x }}" content="{{$og[$x]}}">
+	@empty
+	@endforelse
 
 	@yield('css')
 

@@ -95,7 +95,7 @@
 @stop
 
 @section('content_2')
-	<div class="container">
+	<div class="container mt-xxxl">
 		<div class="row">
 			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 				
@@ -105,21 +105,31 @@
 					<div class="row">
 						@forelse ($places as $x)
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-								<div class="row">
-									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-										<a href="{{ route('web.places.show', ['destination' => $x->destination->slug, 'slug' => $x->slug]) }}">
+								<!-- ITEM -->
+								<div class="trip-item">
+									<div class="item-media">
+										<div class="image-cover">
 											<img src="{{$x->images->where('name', '=', 'LargeImage')->first()->path}}" style='width:100%'>
-										</a>
+										</div>
 									</div>
-									<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-										<a href="{{ route('web.places.show', ['destination' => $x->destination->slug, 'slug' => $x->slug]) }}">
-											{{$x->title}}
-										</a>
-										<p>{{$x->summary}}</p>
+									<div class="item-body">
+										<div class="item-title">
+											<h2>
+												<a href="{{ route('web.places.show', ['destination' => $x->destination->slug, 'slug' => $x->slug]) }}">{{$x->name}}</a>
+											</h2>
+										</div>
+										<div class="item-list">
+											{{$x->summary}}
+											<p>{{$x->images}}
+										</div>
 									</div>
-									<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+									<div class="item-price-more">
+										<div class="price">
+										</div>
+										<a href="{{ route('web.places.show', ['destination' => $x->destination->slug, 'slug' => $x->slug]) }}" class='awe-btn'>DETAIL</a>
 									</div>
 								</div>
+								<!-- END / ITEM -->
 							</div>
 						@empty
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">

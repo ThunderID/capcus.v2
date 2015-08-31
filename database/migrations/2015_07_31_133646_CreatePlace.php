@@ -29,6 +29,7 @@ class CreatePlace extends Migration
             $table->index('destination_id');
             $table->index(['longitude', 'latitude']);
             $table->index('long_name');
+            $table->index('published_at', 'long_name');
         });
     }
 

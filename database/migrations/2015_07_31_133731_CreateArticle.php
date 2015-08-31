@@ -24,6 +24,7 @@ class CreateArticle extends Migration
 
             $table->index('published_at');
             $table->index('writer_id');
+            $table->index('slug');
         });
     }
 

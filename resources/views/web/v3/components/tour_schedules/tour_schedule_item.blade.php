@@ -25,7 +25,7 @@
 			</h2>
 		</div>
 		<div class="item-list">
-			{{ implode(', ', $tour_schedule->tour->places->name) }}
+			{{ implode(', ', $tour_schedule->tour->places->lists('name')->toArray()) }}
 		</div>
 		<div class="item-footer">
 			<div class="item-icon">

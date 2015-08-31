@@ -17,7 +17,7 @@
 	<thead>
 		<tr>
 			<th title="klik untuk mengurutkan" class='text-uppercase hidden-xs'>Tgl <div class='icon'></div></th>
-			<th title="klik untuk mengurutkan" class='text-uppercase text-center hidden-xs'>Travel Agent <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" class='text-uppercase text-center hidden-xs'>Oleh <div class='icon'></div></th>
 			<th title="klik untuk mengurutkan" class='text-uppercase '>
 				<span class='hidden-xs'>Tujuan</span>
 				<span class='hidden-sm hidden-md hidden-lg'>PAKET TOUR</span>
@@ -46,23 +46,23 @@
 						data-travel-agent="{{ $schedule->tour->travel_agent->id }}"
 						data-link="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}"
 				>
-				<td class='text-left hidden-xs' height=60 data-sort-value="{{$schedule->departure->format('Ymd')}}">
+				<td class='text-left hidden-xs' height=60 data-sort-value="{{$schedule->departure->format('Ymd')}}" width='150'>
 					@if (is_null($schedule->departure_until))
 						{{ $schedule->departure->format('d-m-Y')}}
 					@else
 						<span class='text-sm'>
 							Kapanpun antara
-							<br>{{ $schedule->departure->format('d-m-Y')}} s/d {{ $schedule->departure_until->format('d-m-Y')}}
+							<br><span class="">{{ $schedule->departure->format('d-m-Y')}} s/d <br>{{ $schedule->departure_until->format('d-m-Y')}}</span>
 						</span>
 					@endif
 				</td>
-				<td class='text-center hidden-xs' data-sort-value="{{$schedule->tour->travel_agent->name}}">
-					<img src="{{ $schedule->tour->travel_agent->images->where('name', "SmallLogo")->first()->path}}" alt='{{ $schedule->tour->travel_agent->name}}' width="50" class='mr-xs'>
+				<td class='text-center hidden-xs' data-sort-value="{{$schedule->tour->travel_agent->name}}" width="90">
+					<img src="{{ $schedule->tour->travel_agent->images->where('name', "SmallLogo")->first()->path}}" alt='{{ $schedule->tour->travel_agent->name}}' width="50" class='mr-xs mt-5'>
 				</td>
 				<td class='text-left' data-sort-value="{{$schedule->tour->destinations[0]->long_name}}">
 					<div class='hidden-xs'>
 						<strong class='text-uppercase'>{{ implode(', ', $schedule->tour->destinations->lists('long_name')->toArray()) }}</strong>
-						{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}
+						<br><span class=''>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</span>
 						<p>
 						@foreach ($schedule->tour->options as $option)
 							<li>
@@ -75,7 +75,7 @@
 
 					<div class='hidden-sm hidden-md hidden-lg'>
 						<h2 class='text-uppercase text-md text-bold'>{{ implode(', ', $schedule->tour->destinations->lists('long_name')->toArray()) }}</h2>
-
+						<p>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</p>
 						<table class="table">
 							<tbody>
 								<tr>
@@ -115,12 +115,12 @@
 					</div>
 				</td>
 
-				<td class='text-left hidden-xs' data-sort-value="{{$schedule->tour->duration_day}}">{{ $schedule->tour->duration_day . 'D/' . $schedule->tour->duration_night . 'N'}}</td>
-				<td class='text-right hidden-xs' data-sort-value="{{$schedule->discounted_price}}">
+				<td class='text-left hidden-xs' data-sort-value="{{$schedule->tour->duration_day}}" width="90">{{ $schedule->tour->duration_day . 'D/' . $schedule->tour->duration_night . 'N'}}</td>
+				<td class='text-right hidden-xs' data-sort-value="{{$schedule->discounted_price}}" width="100">
 					{{ $schedule->currency . ' ' . number_format($schedule->discounted_price, 0, ',','.')}}
 					@if ($schedule->discounted_price < $schedule->original_price)
 						<br>
-						<span class='text-strikethrough text-primary'>
+						<span class='text-strikethrough text-primary pr-5'>
 							<span class='text-light text-gray'>{{ $schedule->currency . ' ' . number_format($schedule->original_price, 0, ',','.')}}</span>
 						</span>
 					@endif

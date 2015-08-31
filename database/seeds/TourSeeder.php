@@ -12,11 +12,14 @@ class TourSeeder extends Seeder
      */
     public function run()
     {
+    	with(new \App\Tag(['tag' => 'adventure']))->save();
+// DB::enableQueryLog();
+
         //
          for ($i = 1; $i<= 200; $i++)
 	    {
-	    	$destination_id = rand(1,251);
-	    	$destination = \App\Destination::find($destination_id);
+	    	$destination = \App\Destination::whereNotNull('parent_id')->orderByRaw("RAND()")->first();
+	    	$destination_id = $destination->id;
 
 	    	// TOUR
 	    	$duration = rand(3,12);
@@ -29,7 +32,8 @@ class TourSeeder extends Seeder
 	    			'duration_day'		=> $duration,
 	    			'duration_night'	=> $duration-1,
 	    			'published_at'		=> \Carbon\Carbon::now(),
-	    			'slug'				=> str_slug($duration . 'D/' . ($duration-1) . 'N ' . $destination->name) . ' ' . $i
+	    			'slug'				=> str_slug($duration . 'D/' . ($duration-1) . 'N ' . $destination->name) . ' ' . $i,
+	    			'tag_ids'			=> 1
 	    		]);
 			if (!$tour->save())
 			{
@@ -40,6 +44,15 @@ class TourSeeder extends Seeder
 
 			// TOUR DESTINATION
 			$tour->destinations()->sync([$destination_id]);
+
+			// PLACES
+			$places = \App\Place::whereIn('destination_id', $tour->destinations->lists('id'))->limit($tour->duration_day)->orderByRaw('rand()')->get();
+			// $queries = DB::getQueryLog();
+			// dd(end($queries));
+			if ($places->count())
+			{
+				$tour->places()->sync($places->lists('id')->toArray());
+			}
 
 			// SCHEDULE
 			if (!$is_fit)

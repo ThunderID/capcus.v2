@@ -18,6 +18,9 @@ class CreateTravelAgency extends Migration
             $table->string('slug');
             $table->string('email');
             $table->timestamps();
+
+            $table->index('name');
+            $table->index('slug');
         });
     }
 

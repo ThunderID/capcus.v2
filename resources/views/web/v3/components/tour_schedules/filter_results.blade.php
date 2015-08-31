@@ -1,6 +1,6 @@
 <div class="page-sidebar filter_tour_schedule_results">
 	<div class="sidebar-title">
-		<h2>Tour</h2>
+		<h2>FILTER</h2>
 		<div class="clear-filter">
 			<a href="javascript:;" id="reset_filter_schedule">Reset</a>
 		</div>
@@ -131,7 +131,7 @@
 
 		$(document).ready(function(){
 			price_slider.slider({
-				min: price_slider.data('min'),
+				min: 0,
 				max: price_slider.data('max'),
 				value: price_slider.data('value'),
 				step: 250000,

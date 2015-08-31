@@ -3,7 +3,7 @@
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Http\Controllers\Controller as BaseController;
-use Auth, Route, Input, Session;
+use Auth, Route, Input, Session, Cache;
 
 use \App\TravelAgent;
 use \App\Destination;
@@ -41,12 +41,16 @@ abstract class Controller extends BaseController {
 		// ------------------------------------------------------------------------------------------------------------
 		// GET TRAVEL AGENT
 		// ------------------------------------------------------------------------------------------------------------
-		$this->all_travel_agents = TravelAgent::orderby('name')->get();
+		$this->all_travel_agents = Cache::remember('all_travel_agent_list', 60, function() {
+			return TravelAgent::orderby('name')->get();
+		});
 
 		// ------------------------------------------------------------------------------------------------------------
 		// GET DESTINATION
 		// ------------------------------------------------------------------------------------------------------------
-		$this->all_destinations = Destination::orderby('path')->get();
+		$this->all_destinations = Cache::remember('all_destination_list', 60, function() {
+			return Destination::orderby('path')->get();
+		});
 
 		// ------------------------------------------------------------------------------------------------------------
 		// GET DEPARTURE LISTS
@@ -81,6 +85,8 @@ abstract class Controller extends BaseController {
 		// ------------------------------------------------------------------------------------------------------------
 		// GET PLACE
 		// ------------------------------------------------------------------------------------------------------------
-		$this->place_list = Place::published()->orderBy('long_name')->get();
+		$this->place_list = Cache::remember('all_place_list', 60, function() { 
+			return Place::published()->orderBy('long_name')->get();
+		});
 	}
 }

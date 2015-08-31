@@ -8,7 +8,12 @@
 				<div class="breadcrumb">
 					<ul>
 						<li><a href="{{ route('web.home') }}">Home</a></li>
-						<li><span>Paket Tour</span></li>
+						@if ($tag)
+							<li><a href="{{ route('web.tour') }}">Paket Tour</a></li>
+							<li><span>{{$tag->tag}}</span></li>
+						@else
+							<li><span>Paket Tour</span></li>
+						@endif
 					</ul>
 				</div>
 				<!-- /BREADCRUMB -->
@@ -46,7 +51,7 @@
 		<div class="row mt-lg mb-xl">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<div class='pull-right'>@include('web.v3.components.tour_schedules.display_options')</div>
-				<h4 class='text-md text-uppercase'>
+				<h1 class='text-md text-uppercase'>
 					@if ($tag)
 						PAKET TOUR <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>#{{$tag->tag}}</span>
 					@else
@@ -69,15 +74,15 @@
 							@endif
 						@endif
 					@endif
-				</h4>
+				</h1>
 
-				<h5 class='text-muted text-md text-light'>
+				<p class='text-muted text-md text-light'>
 					@if ($tour_schedules_count > $max_data)
 						Ditemukan Lebih dari {{$max_data}} paket tour, Silahkan melakukan pencarian lebih spesifik untuk mempermudah perbandingan
 					@else
 						Ditemukan {{$tour_schedules_count}} paket tour
 					@endif
-				</h5>
+				</p>
 			</div>
 		</div>
 
@@ -86,7 +91,9 @@
 				@include('web.v3.components.tour_schedules.filter_results', ['filter_schedules' => $filter_schedules])
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-				@include('web.v3.components.tour_schedules.table')
+				<main>
+					@include('web.v3.components.tour_schedules.table')
+				</main>
 			</div>
 		</div>
 	</div>

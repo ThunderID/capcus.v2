@@ -38,8 +38,8 @@
 				</ul>
 			</li>
 		@endif
-		<li class=" {{ str_is('web.about.imvendor', Route::getCurrentRoute()->getName()) ? 'current-menu-parent' : '' }} ">
+		{{-- <li class=" {{ str_is('web.about.imvendor', Route::getCurrentRoute()->getName()) ? 'current-menu-parent' : '' }} ">
 			<a href="{{ route('web.about.imvendor')}}">Are you travel agent?</a>
-		</li>
+		</li> --}}
 	</ul>
 </nav>

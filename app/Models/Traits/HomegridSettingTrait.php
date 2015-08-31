@@ -4,11 +4,8 @@ namespace App;
 
 trait HomegridSettingTrait {
 
-    /**
-     * Boot the soft deleting trait for a model.
-     *
-     * @return void
-     */
+	protected $tag_detail;
+
     public static function bootHomegridSettingTrait()
     {
         static::addGlobalScope(new HomegridSettingScope);
@@ -19,7 +16,7 @@ trait HomegridSettingTrait {
     // ----------------------------------------------------------------------
 	// SCOPE
 	// ----------------------------------------------------------------------
-    function scopeHomegrid($q, $id = null)
+    public function scopeHomegrid($q, $id = null)
 	{
 		if (!$id)
 		{
@@ -34,7 +31,7 @@ trait HomegridSettingTrait {
 	// ----------------------------------------------------------------------
 	// MUTATOR
 	// ----------------------------------------------------------------------
-	function setTypeAttribute($v)
+	public function setTypeAttribute($v)
 	{
 		$value = json_decode($this->attributes['value']);
 		$value->type = $v;
@@ -42,28 +39,28 @@ trait HomegridSettingTrait {
 	}
 
 	//destination & featured destination
-	function setTitleAttribute($v)
+	public function setTitleAttribute($v)
 	{
 		$value = json_decode($this->attributes['value']);
 		$value->title = $v;
 		$this->attributes['value'] = json_encode($value);
 	}
 
-	function setDestinationAttribute($v)
+	public function setDestinationAttribute($v)
 	{
 		$value = json_decode($this->attributes['value']);
 		$value->destination = $v;
 		$this->attributes['value'] = json_encode($value);
 	}
 
-	function setImageUrlAttribute($v)
+	public function setImageUrlAttribute($v)
 	{
 		$value = json_decode($this->attributes['value']);
 		$value->image_url = $v;
 		$this->attributes['value'] = json_encode($value);
 	}
 
-	function setIsFeaturedAttribute($v)
+	public function setIsFeaturedAttribute($v)
 	{
 		$value = json_decode($this->attributes['value']);
 		$value->is_featured = $v;
@@ -71,16 +68,22 @@ trait HomegridSettingTrait {
 	}
 
 	// TAG
-	function setTagAttribute($v)
+	public function setTagAttribute($v)
 	{
 		$value = json_decode($this->attributes['value']);
 		$value->tag = $v;
 		$this->attributes['value'] = json_encode($value);
 	}
 
+	// TAG
+	public function setTagDetailAttribute($v)
+	{
+		$this->tag_detail = $v;
+	}
+
 
 	//script
-	function setScriptAttribute($v)
+	public function setScriptAttribute($v)
 	{
 		$value = json_decode($this->attributes['value']);
 		$value->script = $v;
@@ -90,26 +93,26 @@ trait HomegridSettingTrait {
 	// ----------------------------------------------------------------------
 	// ACCESSOR
 	// ----------------------------------------------------------------------
-	function getTypeAttribute()
+	public function getTypeAttribute()
 	{
 		$value = json_decode($this->attributes['value']);
 		return $value->type;
 	}
 
 	//destination & featured destination
-	function getTitleAttribute()
+	public function getTitleAttribute()
 	{
 		$value = json_decode($this->attributes['value']);
 		return $value->title;
 	}
 
-	function getDestinationAttribute()
+	public function getDestinationAttribute()
 	{
 		$value = json_decode($this->attributes['value']);
 		return $value->destination;
 	}
 
-	function getDestinationDetailAttribute()
+	public function getDestinationDetailAttribute()
 	{
 		if (!$this->attributes['destination_detail'])
 		{
@@ -120,38 +123,48 @@ trait HomegridSettingTrait {
 		return $this->attributes['destination_detail'];
 	}
 
-	function getImageUrlAttribute()
+	public function getImageUrlAttribute()
 	{
 		$value = json_decode($this->attributes['value']);
 		return $value->image_url;
 	}
 
-	function getIsFeaturedAttribute()
+	public function getIsFeaturedAttribute()
 	{
 		$value = json_decode($this->attributes['value']);
 		return $value->is_featured;
 	}
 
 	// tag
-	function getTagAttribute()
+	public function getTagAttribute()
 	{
 		$value = json_decode($this->attributes['value']);
 		return $value->tag;
 	}
 
-	function getTagDetailAttribute()
+	public function getTagDetailAttribute()
 	{
-		if (!$this->attributes['tag_detail'])
+		if (!$this->tag_detail)
 		{
 			$tag_id = $this->tag;
-			$tmp 	= \App\Tag::find($tag_id);
-			$this->attributes['tag_detail'] = $tmp;
+			if ($tag_id)
+			{
+				$tmp 	= \App\Tag::find($tag_id);
+				if (!$tmp)
+				{
+					$this->tag_detail = $tmp;
+				}
+				else
+				{
+					$this->tag_detail = new \App\Tag;
+				}
+			}
 		}
-		return $this->attributes['tag_detail'];
+		return $this->tag_detail;
 	}
 
 	//script
-	function getScriptAttribute()
+	public function getScriptAttribute()
 	{
 		$value = json_decode($this->attributes['value']);
 		return $value->script;
@@ -160,7 +173,7 @@ trait HomegridSettingTrait {
 	// ----------------------------------------------------------------------
 	// ACCESSOR
 	// ----------------------------------------------------------------------
-	static function getType()
+	static public function getType()
 	{
 		// return ['destination', 'featured_destination', 'script', 'place', 'article', 'blog'];
 		return ['destination', 'tour_tags'];

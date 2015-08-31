@@ -5,7 +5,12 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<ul>
 						<li><a href="{{ route('web.home') }}">Home</a></li>
-						<li><span>Blog</span></li>
+						@if ($current_page > 1)
+							<li><a href="{{ route('web.blog') }}">Blog</a></li>
+							<li><span>Halaman {{$current_page}}</span></li>
+						@else
+							<li><span>Blog</span></li>
+						@endif
 					</ul>
 				</div>
 			</div>
@@ -38,7 +43,7 @@
 								<div class="post-media">
 									<div class="image-wrap image-style">
 										<a href="{{ route('web.blog.show', ['year' => $article->published_at->year, 'month' => $article->published_at->month, 'slug' => $article->slug])}}">
-											<img src="{{ $article->images->where('name', 'MediumImage')->first()->path }}" alt="{{$article->title}}" style="height: 100%; width: auto;">
+											<img src="{{ $article->images->where('name', 'SmallImage')->first()->path }}" alt="{{$article->title}}" style="height: 100%; width: auto;">
 										</a>
 									</div>
 								</div>
