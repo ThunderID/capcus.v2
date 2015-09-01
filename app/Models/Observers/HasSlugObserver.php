@@ -10,7 +10,7 @@ class HasSlugObserver {
 	public function saving($model)
 	{
 		// RULES
-		$rules[$model->getSlugField()]				= ['required', 'unique:' . $model->getTable() . ',' . $model->getSlugField() . ',' . ($model->id ? $model->id .',id' : '')];
+		$rules[$model->getSlugField()]				= ['required', 'alpha_dash', 'unique:' . $model->getTable() . ',' . $model->getSlugField() . ',' . ($model->id ? $model->id .',id' : '')];
 
 		$validator = Validator::make($model->toArray(), $rules);
 		if ($validator->fails())

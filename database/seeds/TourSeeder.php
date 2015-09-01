@@ -32,7 +32,7 @@ class TourSeeder extends Seeder
 	    			'duration_day'		=> $duration,
 	    			'duration_night'	=> $duration-1,
 	    			'published_at'		=> \Carbon\Carbon::now(),
-	    			'slug'				=> str_slug($duration . 'D/' . ($duration-1) . 'N ' . $destination->name) . ' ' . $i,
+	    			'slug'				=> str_slug($duration . 'D/' . ($duration-1) . 'N ' . $destination->name . ' ' . $i),
 	    			'tag_ids'			=> 1
 	    		]);
 			if (!$tour->save())

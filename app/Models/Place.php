@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Place extends BaseModel
 {
 	use HasNameTrait, HasSlugTrait, HasPublishedAtTrait,
-		BelongsToDestinationTrait, HasManyImagesTrait, BelongsToManyToursTrait;
+		BelongsToDestinationTrait, HasManyImagesTrait, BelongsToManyToursTrait, BelongsToManyTagsTrait;
 
     //
 	protected $table = 'places';
@@ -20,6 +20,7 @@ class Place extends BaseModel
 							'latitude', 
 							'published_at', 
 							'destination_id', 
+							'tag_ids'
 						];
 	protected $dates = ['published_at'];
 	static $name_field = 'name';
@@ -40,11 +41,27 @@ class Place extends BaseModel
 	// ----------------------------------------------------------------------
 	// RELATIONS
 	// ----------------------------------------------------------------------
+	public function upcoming_tours()
+	{
+		return $this->belongsToMany(__NAMESPACE__  .'\Tour')->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1));
+	}
 
 
 	// ----------------------------------------------------------------------
 	// SCOPES
 	// ----------------------------------------------------------------------
+	public function scopeLongNameLike($q, $v = null)
+	{
+		if (!$v)
+		{
+			return $q;
+		}
+		else
+		{
+			$v = str_replace('*', '%', $v);
+			return $q->where('long_name', 'like', $v);
+		}
+	}
 
 	// ----------------------------------------------------------------------
 	// MUTATORS

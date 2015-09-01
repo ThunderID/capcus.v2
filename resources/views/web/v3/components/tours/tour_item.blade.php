@@ -21,7 +21,7 @@
 		<div class="item-title">
 			<img src="{{ $tour->travel_agent->images->where('name','SmallLogo')->first()->path }}" width="50" class='pull-right'>
 			<h2>
-				<a href="{{ route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => $tour->cheapest->departure->format('Ymd') ]) }}">{{ $tour->name }}</a>
+				<a href="{{ route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => ($tour->cheapest ? $tour->cheapest->departure->format('Ymd') : $tour->schedules->first()->departure->format('Ymd')) ]) }}">{{ $tour->name }}</a>
 			</h2>
 		</div>
 		<div class="item-list">
@@ -46,7 +46,7 @@
 			@endif
 	
 		</div>
-		<a href="{{ route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => $tour->cheapest->departure->format('Ymd') ]) }}" class="awe-btn">DETAIL</a>
+		<a href="{{ route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => ($tour->cheapest ? $tour->cheapest->departure->format('Ymd') : $tour->schedules->first()->departure->format('Ymd')) ]) }}" class="awe-btn">DETAIL</a>
 	</div>
 </div>
 <!-- END / ITEM -->

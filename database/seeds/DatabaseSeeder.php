@@ -14,7 +14,12 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
+        // KEEP FOR LIVE
         $this->call(UserTableSeeder::class);
+        $this->call(TagSeeder::class);
+        $this->call(PackageSeeder::class);
+
+        // 
         $this->call(DestinationTableSeeder::class);
         $this->call(TravelAgentTableSeeder::class);
         $this->call(ArticleTableSeeder::class);
@@ -23,7 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TourSeeder::class);
         $this->call(HeadlineSeeder::class);
         $this->call(HomegridSeeder::class);
-        $this->call(PackageSeeder::class);
         $this->call(BlogSeeder::class);
 
         Model::reguard();

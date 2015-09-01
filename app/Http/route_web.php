@@ -17,10 +17,9 @@ Route::group(['namespace' => 'Web\\'], function(){
 	});
 
 	Route::group(['prefix' => 'places'], function(){
-		get('/{destination?}',														['uses' => 'PlaceController@index',					'as' => 'web.places']);
-		get('/{destination}/{slug}',												['uses' => 'PlaceController@show',					'as' => 'web.places.show']);
+		get('/detail/{destination}/{slug}',											['uses' => 'PlaceController@show',					'as' => 'web.places.show']);
+		get('/{destination?}/{tag?}/{page?}',										['uses' => 'PlaceController@index',					'as' => 'web.places']);
 	});
-
 
 	// get('/contact-us', 															['uses' => 'AboutController@contactus', 			'as' => 'web.about.contactus']);
 	// post('/contact-us',															['uses' => 'AboutController@contactus_post', 		'as' => 'web.about.contactus.post']);
