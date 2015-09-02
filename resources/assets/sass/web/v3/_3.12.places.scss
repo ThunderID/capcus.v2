@@ -3,14 +3,14 @@
 		color:#000 !important;
 		text-align: center;
 		i.awe-icon { 
-			padding-top:21px;
+			padding-top:24px;
 			padding-left:3px;
 			border-radius:1000px;
-			width:70px;
-			height:70px;
+			width:80px;
+			height:80px;
 			background: #fff !important;
 			color: #000 !important;
-			font-size:25px;
+			font-size:30px;
 		}
 		&.active { 
 			i { 
@@ -27,11 +27,7 @@
 			i.awe-icon { 
 				background:$color2 !important;
 				color:white !important;
-				-webkit-transform: background 0.5s;
-				   -moz-transform: background 0.5s;
-				    -ms-transform: background 0.5s;
-				     -o-transform: background 0.5s;
-				        transform: background 0.5s;
+				transition: 0.5s ease;
 			}
 			span {
 				color:black !important;
@@ -51,5 +47,19 @@
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		text-overflow: ellipsis;
+	}
+}
+
+.place-list { 
+	&:hover {
+		.title { 
+			color:$color2;
+			transition: 0.5s ease;
+			background:rgba(255,255,255,0.8);
+		}
+		img { 
+			opacity: 0.8;
+			transition: 0.5s ease;
+		}
 	}
 }

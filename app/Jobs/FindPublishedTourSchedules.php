@@ -20,7 +20,7 @@ class FindPublishedTourSchedules extends Job implements SelfHandling
 								$budget_min = 0, 
 								$budget_max = null, 
 								$travel_agent_id = null, 
-								$place_id = null, 
+								$place_slug = null, 
 								$skip = 0, 
 								$take = null,
 								$with_count = false)
@@ -34,7 +34,7 @@ class FindPublishedTourSchedules extends Job implements SelfHandling
 		$this->filters['budget_min']                = $budget_min;
 		$this->filters['budget_max']                = $budget_max;
 		$this->filters['travel_agent_id']           = $travel_agent_id;
-		$this->filters['place_id']                  = $place_id;
+		$this->filters['place_slug']                  = $place_slug;
 		$this->filters['skip'] 	    	            = $skip;
 		$this->filters['take']  	                = $take;
 		$this->filters['with_count']                = $with_count;
@@ -56,7 +56,7 @@ class FindPublishedTourSchedules extends Job implements SelfHandling
 		$rules['budget_min']        = ['integer', 'min:0'];
 		$rules['budget_max']        = ['integer', 'min:0'];
 		$rules['travel_agent_id']   = ['integer', 'min:0'];
-		$rules['place_id']          = ['integer', 'min:0'];
+		$rules['place_slug']        = [];
 
 		$validator = Validator::make($this->filters, $rules);
 		if ($validator->fails())
@@ -79,14 +79,14 @@ class FindPublishedTourSchedules extends Job implements SelfHandling
 		// Filter By Tour
 		$destination_id = $this->filters['destination_id'];
 		$travel_agent_id = $this->filters['travel_agent_id'];
-		$place_id = $this->filters['place_id'];
+		$place_slug = $this->filters['place_slug'];
 
-		$q = $q->whereHas('tour', function($q) use ($destination_id, $travel_agent_id, $place_id) {
+		$q = $q->whereHas('tour', function($q) use ($destination_id, $travel_agent_id, $place_slug) {
 				// published, destination, travel agent, place
 				$q->published()
 					->inDestinationByIds($destination_id)
 					->TravelAgentByIds($travel_agent_id)
-					->inPlaceByIds($place_id);
+					->inPlaceBySlug($place_slug);
 			});
 
 		//------------------------------------------------------------------------------------------------

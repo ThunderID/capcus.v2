@@ -39,6 +39,20 @@ trait BelongsToManyPlacesTrait {
 		}
 	}
 
+	function scopeInPlaceBySlug($q, $v = null)
+	{
+		if (!$v || (is_array($v) && empty($v)))
+		{
+			return $q;
+		}
+		else
+		{
+			return $q->whereHas('places', function($q) use ($v) {
+				$q->whereIn('places.slug', is_array($v) ? $v : [$v]);
+			});
+		}
+	}
+
 	//------------------------------------------------------------------------
 	// ACCESSOR
 	//------------------------------------------------------------------------

@@ -8,18 +8,18 @@
 		}
 	}
 ?>
-<div class='bg-white'>
+<div class='place-list bg-white'>
 	<div class="row">
 		<div class="hidden-xs hidden-sm col-md-6 col-lg-4 pr-0">
-			<img src="{{$place->images->where('name', 'LargeImage')->first()->path}}" class='image43'>
+			<img src="{{$place->images->where('name', 'Gallery1')->first()->path}}" class='image43'>
 		</div>
 		<div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
-			<img src="{{$place->images->where('name', 'LargeImage')->first()->path}}" class='image43'>
+			<img src="{{$place->images->where('name', 'Gallery1')->first()->path}}" class='image43'>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
 			<div class='mr-xs ml-xs'>
 				<h2 class='text-lg mb-0'>
-					<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}">{{$place->name}}</a>
+					<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}" class='title'>{{$place->name}}</a>
 				</h2>
 				<div class='mt-5'><i class='fa fa-map-marker'></i> {{$place->destination->long_name}}</div>
 

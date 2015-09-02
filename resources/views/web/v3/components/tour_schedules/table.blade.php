@@ -4,7 +4,7 @@
 	{
 		if (!array_key_exists($x, get_defined_vars(oid)))
 		{
-			throw new Exception('web.v3.components.home.homegrids: ' . $x . ": Required", 1);
+			throw new Exception($widget_name . ': ' . $x . ": Required", 1);
 		}
 	}
 ?>
@@ -62,7 +62,9 @@
 				<td class='text-left' data-sort-value="{{$schedule->tour->destinations[0]->long_name}}">
 					<div class='hidden-xs'>
 						<strong class='text-uppercase'>{{ implode(', ', $schedule->tour->destinations->lists('long_name')->toArray()) }}</strong>
-						<br><span class=''>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</span>
+						@if (!$hide_places)
+							<br><span class=''>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</span>
+						@endif
 						<p>
 						@foreach ($schedule->tour->options as $option)
 							<li>
@@ -75,7 +77,10 @@
 
 					<div class='hidden-sm hidden-md hidden-lg'>
 						<h2 class='text-uppercase text-md text-bold'>{{ implode(', ', $schedule->tour->destinations->lists('long_name')->toArray()) }}</h2>
-						<p>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</p>
+						@if (!$hide_places)
+							<p>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</p>
+						@endif 
+						
 						<table class="table">
 							<tbody>
 								<tr>

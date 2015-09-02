@@ -99,168 +99,194 @@ class TourController extends Controller {
 		// ------------------------------------------------------------------------
 		// REDIRECT IF REQUEST URL
 		// ------------------------------------------------------------------------
-		if (Input::has('travel_agent') || Input::has('tujuan') || Input::has('keberangkatan') || Input::has('budget'))
+		$filters = Input::only('travel_agent', 'tujuan', 'keberangkatan', 'budget');
+		if (!empty(array_filter($filters)))
 		{
-			$travel_agent 	= Input::get('travel_agent') 	? Input::get('travel_agent') 	: "semua-travel-agent";
-			$tujuan 		= Input::get('tujuan') 			? Input::get('tujuan') 			: "semua-tujuan";
-			if (Input::get('keberangkatan'))
+			$filters = array_filter($filters);
+
+			// Travel Agent
+			if (!$filters['travel_agent'])
 			{
-				list($tmp1, $tmp2) = explode(" s/d ", Input::get('keberangkatan'));
+				$filters['travel_agent'] = 'semua-travel-agent';
+			}
 
-				list($tmp1_d, $tmp1_m, $tmp1_y) = explode('-', $tmp1);
-				list($tmp2_d, $tmp2_m, $tmp2_y) = explode('-', $tmp2);
-				if (strtotime("$tmp1_y-$tmp1_m-$tmp1_d") === false)
-				{
+			// Tujuan
+			if (!$filters['tujuan'])
+			{
+				$filters['tujuan'] = 'semua-tujuan';
+			}
+
+			// Keberangkatan
+			if ($filters['keberangkatan'])
+			{
+				list($tmp1, $tmp2) = explode(" s/d ", $filters['keberangkatan']);
+
+				try {
+					$tmp1 = \Carbon\Carbon::createFromFormat('d-m-Y', $tmp1);
+					$tmp2 = \Carbon\Carbon::createFromFormat('d-m-Y', $tmp2);
+				} catch (Exception $e) {
 					return App::abort(404);
 				}
-				$tmp1_carbon = \Carbon\Carbon::Parse("$tmp1_y-$tmp1_m-$tmp1_d");
 
-				if (strtotime("$tmp2_y-$tmp2_m-$tmp2_d") === false)
+				if ($tmp1->lt($tmp2))
 				{
-					return App::abort(404);
+					$keberangkatan_str = $tmp1->format('Ymd').'-'.$tmp2->format('Ymd');
 				}
-				$tmp2_carbon = \Carbon\Carbon::Parse("$tmp2_y-$tmp2_m-$tmp2_d");
-
-				$keberangkatan_str = $tmp1_carbon->format('Ymd') . '-' . $tmp2_carbon->format('Ymd');
+				else
+				{
+					$keberangkatan_str = $tmp2->format('Ymd').'-'.$tmp1->format('Ymd');
+				}
 			}
 			else
 			{
 				$keberangkatan_str 	= "semua-keberangkatan";
 			}
 
-			$budget 		= Input::get('budget') 			? Input::get('budget') 			: "semua-budget";
+			// Tujuan
+			if (!$filters['budget'])
+			{
+				$filters['budget'] = 'semua-budget';
+			}
 
-			return redirect()->route('web.tour', ['travel_agent' => $travel_agent, 'tujuan' => $tujuan, 'keberangkatan' => $keberangkatan_str, 'budget' => $budget]);
+			return redirect()->to(route('web.tour', [
+											'travel_agent' 	=> $filters['travel_agent'], 
+											'tujuan' 		=> $filters['tujuan'], 
+											'keberangkatan' => $keberangkatan_str, 
+											'budget' 		=> $filters['budget']]
+										) . (Input::has('place') ? '?place='. Input::get('place') : ''));
 		}
+
+
 		// ------------------------------------------------------------------------
-		// PARSE SEARCH
+		// PARSE QUERY
 		// ------------------------------------------------------------------------
 		else
 		{
-			if (str_is(strtolower($travel_agent), 'semua-travel-agent'))
+			$filters['travel_agent']			 = $travel_agent;
+			$filters['tujuan']					 = $tujuan;
+			$filters['keberangkatan']			 = $keberangkatan;
+			$filters['budget']					 = $budget;
+			$filters['place']					 = Input::get('place');
+
+			// TRAVEL AGENT
+			if (str_is(strtolower($filters['travel_agent']), 'semua-travel-agent'))
 			{
-				unset($travel_agent);
+				unset($filters['travel_agent']);
 			}
 			else
 			{
-				$this->layout->basic->filters['travel_agent'] = $travel_agent;
-			}
-
-			if (str_is(strtolower($tujuan), 'semua-tujuan'))
-			{
-				unset($tujuan);
-			}
-			else
-			{
-				$this->layout->basic->filters['tujuan'] = $tujuan;
-			}
-
-			if (str_is(strtolower($keberangkatan), 'semua-keberangkatan'))
-			{
-				unset($keberangkatan);
-			}
-			else
-			{
-				$this->layout->basic->filters['keberangkatan'] = $keberangkatan;
-			}
-
-			if (str_is(strtolower($budget), 'semua-budget'))
-			{
-				unset($budget);
-			}
-			else
-			{
-				$this->layout->basic->filters['budget'] = $budget;
-			}
-		}
-
-		// ------------------------------------------------------------------------
-		// CHECK travel_agent
-		// ------------------------------------------------------------------------
-		if ($travel_agent)
-		{
-			$travel_agent = TravelAgent::SlugIs($travel_agent)->first();
-			if (!$travel_agent)
-			{
-				return App::abort(404);
-			}
-		}
-
-		if ($tujuan)
-		{
-			$tujuan_tree = Destination::findPath(str_replace(',', Destination::getDelimiter(), $tujuan.'*'))->get();
-
-			if (!$tujuan_tree)
-			{
-				return App::abort(404);
-			}
-
-			// get tujuan object
-			foreach ($tujuan_tree as $x)
-			{
-				if (str_is($tujuan, $x->path_slug))
+				$filters['travel_agent'] = TravelAgent::SlugIs($filters['travel_agent'])->first();
+				if (!$filters['travel_agent'])
 				{
-					$tujuan = $x;
-					break;
+					return App::abort(404);
+				}
+
+				$this->layout->basic->filters['travel_agent'] = $filters['travel_agent'];
+			}
+
+			// TUJUAN
+			if (str_is(strtolower($filters['tujuan']), 'semua-tujuan'))
+			{
+				unset($filters['tujuan']);
+			}
+			else
+			{
+				$tujuan_tree = Destination::findPath(str_replace(',', Destination::getDelimiter(), $filters['tujuan'].'*'))->get();
+
+				if (!$tujuan_tree)
+				{
+					return App::abort(404);
+				}
+
+				// get tujuan object
+				foreach ($tujuan_tree as $x)
+				{
+					if (str_is($filters['tujuan'], $x->path_slug))
+					{
+						$filters['tujuan'] = $x;
+						break;
+					}
+				}
+				$this->layout->basic->filters['tujuan'] = $filters['tujuan'];
+			}
+
+			// KEBERANGKATAN
+			if (str_is(strtolower($filters['keberangkatan']), 'semua-keberangkatan'))
+			{
+				unset($filters['keberangkatan']);
+				$filters['keberangkatan']['from'] = \Carbon\Carbon::now()->startOfMonth();
+				$filters['keberangkatan']['to'] = \Carbon\Carbon::now()->startOfMonth()->addYear(1);
+			}
+			elseif ($filters['keberangkatan'])
+			{
+				list($keberangkatan_from, $keberangkatan_to) = explode('-', $filters['keberangkatan']);
+
+				try {
+					$keberangkatan_from = \Carbon\Carbon::createFromFormat('Ymd', $keberangkatan_from);
+					$keberangkatan_to = \Carbon\Carbon::createFromFormat('Ymd', $keberangkatan_to);
+				} catch (Exception $e) {
+					App::abort(404);				
+				}	
+
+				unset($filters['keberangkatan']);
+				$filters['keberangkatan']['from'] 	= $keberangkatan_from;
+				$filters['keberangkatan']['to'] 	= $keberangkatan_to;
+				$this->layout->basic->filters['keberangkatan'] = $filters['keberangkatan'];
+			}
+			else
+			{
+				$filters['keberangkatan']['from'] = \Carbon\Carbon::now()->startOfMonth();
+				$filters['keberangkatan']['to'] = \Carbon\Carbon::now()->startOfMonth()->addYear(1);
+			}
+			
+			// BUDGET
+			if (str_is(strtolower($filters['budget']), 'semua-budget'))
+			{
+				unset($filters['budget']);
+			}
+			else
+			{
+				list($budget_min, $budget_max) = explode('-', $filters['budget']);
+
+				if ($budget_min * 1 < 0)
+				{
+					return App::abort(404);
+				}
+
+				if (!is_null($budget_max) && ($budget_max <= 0 || $budget_max <= $budget_min))
+				{
+					return App::abort(404);
+				}
+
+				unset($filters['budget']);
+				$filters['budget'] = ['min' => $budget_min, 'max' => $budget_max];
+				$this->layout->basic->filters['budget'] = $filters['budget'];
+			}
+
+			// PLACE
+			if ($filters['place'])
+			{
+				$filters['place'] = \App\Place::slugIs($filters['place'])->first();
+				if (!$filters['place'])
+				{
+					return App::abort(404);
 				}
 			}
-		}
-
-		if ($keberangkatan)
-		{
-			list($keberangkatan_from, $keberangkatan_to) = explode('-', $keberangkatan);
-
-			$keberangkatan_from_ymd = substr($keberangkatan_from, 0, 4) . '-' . substr($keberangkatan_from, 4, 2) . '-' . substr($keberangkatan_from, 6, 4);
-			$keberangkatan_to_ymd = substr($keberangkatan_to, 0, 4) . '-' . substr($keberangkatan_to, 4, 2) . '-' . substr($keberangkatan_to, 6, 4);
-			if (strtotime($keberangkatan_from) === false)
-			{
-				App::abort(404);
-			}
-
-			if (strtotime($keberangkatan_to)  === false)
-			{
-				App::abort(404);
-			}
-
-			$departure_from = \Carbon\Carbon::parse($keberangkatan_from);
-			$departure_to = \Carbon\Carbon::parse($keberangkatan_to);
-
-		}
-		else
-		{
-			$departure_from = \Carbon\Carbon::now()->startOfMonth();
-			$departure_to = \Carbon\Carbon::now()->startOfMonth()->addYear(1);
-		}
-
-		if ($budget)
-		{
-			list($budget_min, $budget_max) = explode('-', $budget);
-
-			if ($budget_min * 1 < 0)
-			{
-				return App::abort(404);
-			}
-
-			if ($budget_max <= 0 && $budget_max <= $budget_min)
-			{
-				return App::abort(404);
-			}
-			$budget = ['min' => $budget_min, 'max' => $budget_max];
 		}
 
 		// ------------------------------------------------------------------------
 		// QUERY
 		// ------------------------------------------------------------------------
 		$max_data = 100;
-		$results = Cache::remember('tour_schedules_' . serialize([$travel_agent, $tujuan, $keberangkatan, $budget]), 30, function() use ($departure_from, $departure_to, $tujuan_tree, $budget, $travel_agent, $max_data){
+		$results = Cache::remember('tour_schedules_' . serialize($filters), 30, function() use ($filters, $tujuan_tree, $max_data){
 			$results = $this->dispatch(new FindPublishedTourSchedules(
-													$departure_from,
-													$departure_to,
+													$filters['from'],
+													$filters['to'],
 													$tujuan_tree ? $tujuan_tree->lists('id') : null, 
-													$budget['min'] * 1,
-													$budget['max'] ? $budget['max'] * 1 : 99999999999,
-													$travel_agent->id,
-													null,
+													$filters['budget']['min'] * 1,
+													$filters['budget']['max'] ? $filters['budget']['max'] * 1 : 99999999999,
+													$filters['travel_agent']->id,
+													$filters['place']->slug,
 													0,
 													$max_data,
 													true
@@ -306,15 +332,12 @@ class TourController extends Controller {
 		$this->layout->page = view($this->page_base_dir . 'tours');
 		$this->layout->page->travel_agent 		= $travel_agent;
 		$this->layout->page->tujuan_tree 		= $tujuan_tree;
-		$this->layout->page->tujuan 			= $tujuan;
-		$this->layout->page->keberangkatan 		= $keberangkatan;
-		$this->layout->page->departure_from 	= $departure_from;
-		$this->layout->page->departure_to 		= $departure_to;
-		$this->layout->page->budget 			= $budget;
+		$this->layout->page->max_data 			= $max_data;
+
+		$this->layout->page->filters 			= $filters;
+		$this->layout->page->filter_schedules 	= $filter_schedules;
 		$this->layout->page->tour_schedules 	= $tour_schedules;
 		$this->layout->page->tour_schedules_count= $tour_schedules_count;
-		$this->layout->page->max_data 			= $max_data;
-		$this->layout->page->filter_schedules 	= $filter_schedules;
 		$this->layout->page->other_tours 		= $other_tours;
 
 		// search tour
@@ -325,10 +348,10 @@ class TourController extends Controller {
 
 		// 
 		$this->layout->title 					= "Paket Tour " . 
-													($tujuan ? 'ke ' . $tujuan->name : '').
-													($travel_agent ? ' oleh ' . $travel_agent->name : '').
-													($departure_from && $departure_to ? ' keberangkatan ' . $departure_from->format('d-m-Y') . ' s/d ' . $departure_to->format('d-m-Y') : '').
-													($budget ? ' harga ' . $budget['min'] . '-' . $budget['max'] : '') . 
+													($filters['tujuan'] ? 'ke ' . $filters['tujuan']->name : '').
+													($filters['travel_agent'] ? ' oleh ' . $filters['travel_agent']->name : '').
+													($filters['departure_from'] && $filters['departure_to'] ? ' keberangkatan ' . $filters['departure_from']->format('d-m-Y') . ' s/d ' . $filters['departure_to']->format('d-m-Y') : '').
+													($filters['budget'] ? ' harga ' . $filters['budget']['min'] . '-' . $filters['budget']['max'] : '') . 
 													' - Capcus.id';
 
 		$this->layout->og['title'] 				= $this->layout->title;

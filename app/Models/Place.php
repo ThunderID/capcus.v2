@@ -46,7 +46,6 @@ class Place extends BaseModel
 		return $this->belongsToMany(__NAMESPACE__  .'\Tour')->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1));
 	}
 
-
 	// ----------------------------------------------------------------------
 	// SCOPES
 	// ----------------------------------------------------------------------

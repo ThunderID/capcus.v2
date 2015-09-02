@@ -137,25 +137,57 @@ class PlaceController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// DETAIL PLACE
 		// ------------------------------------------------------------------------------------------------------------		
-		$place = Place::inDestinationByPath(str_replace(',', \App\Destination::getDelimiter(), $destination_slug))->slugIs($place_slug)->published()->first();
+		$place = Place::inDestinationByPath(str_replace(',', \App\Destination::getDelimiter(), $destination_slug))
+						->slugIs($place_slug)
+						->published()
+						->first();
+		$place->load('images', 'destination');
 		if (!$place)
 		{
 			\App::abort(404);
 		}
 
 		// ------------------------------------------------------------------------------------------------------------
+		// OTHER PLACE FROM THE SAME DESTINATION
+		// ------------------------------------------------------------------------------------------------------------		
+		$other_places = Cache::remember('other_place_in_' . $place->destination->id, 60, function() use ($destination_slug, $place) {
+			$other_places = Place::inDestinationByPath(str_replace(',', \App\Destination::getDelimiter(), $destination_slug))->where('id', '!=', $place->id)->published()->limit(8)->get();
+			$other_places->load('images', 'destination');
+			return $other_places;
+		});
+
+		// ------------------------------------------------------------------------------------------------------------
+		// PAKET TOUR KE TEMPAT INI
+		// ------------------------------------------------------------------------------------------------------------		
+		$tour_schedules = Cache::remember('upcoming_tour_to_place_' . $place->id, 60, function() use ($place) {
+			$tour_schedules = \App\TourSchedule::published()
+									->whereHas('tour', function($q) use ($place) {
+										$q->inPlaceByIds($place->id);
+									})
+									->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1))
+									->limit(5)
+									->oldest('departure')
+									->get();
+			$tour_schedules->load('tour', 'tour.travel_agent', 'tour.travel_agent.images', 'tour.travel_agent.active_packages', 'tour.places', 'tour.options', 'tour.destinations');
+			return $tour_schedules;
+		});
+
+
+		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
 		$this->layout->page = view($this->page_base_dir . 'place_detail');
 		$this->layout->page->place 				= $place;
+		$this->layout->page->other_places 		= $other_places;
+		$this->layout->page->tour_schedules 	= $tour_schedules;
 
 		$this->layout->title					= $place->name . ' - Capcus.id';
 		$this->layout->og['title'] 				= $this->layout->title;
-		$this->layout->og['type'] 				= 'website';
-		$this->layout->og['image'] 				= $place->images->where('name', 'LargeImage')->path;
+		$this->layout->og['type'] 				= 'article';
+		$this->layout->og['image'] 				= $place->images->where('name', 'Gallery1')->path;
 		$this->layout->og['image:type']			= pathinfo('images/'.$this->layout->og['image'], PATHINFO_EXTENSION);
-		$this->layout->og['image:width'] 		= 275;
-		$this->layout->og['image:height'] 		= 121;
+		$this->layout->og['image:width'] 		= 600;
+		$this->layout->og['image:height'] 		= 400;
 
 		return $this->layout;
 	}

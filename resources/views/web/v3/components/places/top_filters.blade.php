@@ -1,8 +1,8 @@
 <section class="awe-parallax bg-tujuan-wisata-page" style="background-position: 50% 12px;">
 	<div class="container">
-		<div class="travelling-block text-center">
+		<div class="bg-white-glass text-center mb-xxxl mt-xxxl">
 			<div class="title">
-				<h2>BROWSE TUJUAN WISATA</h2>
+				<h2 class='pt-lg'>BROWSE TUJUAN WISATA</h2>
 
 				<div role="tabpanel" class='text-center'>
 				   <!-- Nav tabs -->
@@ -13,7 +13,7 @@
 
 					<!-- Tab panes -->
 					<div class="tab-content pt-xxxl">
-						<div role="tabpanel" class="tab-pane active" id="lokasi">
+						<div role="tabpanel" class="tab-pane active pb-xxl" id="lokasi">
 							<div class="row ">
 								<?php
 									$locations = ['asia' => 'asia','afrika' => 'africa', 'amerika' => 'america','eropa' => 'europe','australia' => 'australia', 'antartika' => 'antarctica'];
@@ -45,8 +45,8 @@
 								@endforeach
 							</div>
 						</div>
-						<div role="tabpanel" class="tab-pane" id="kategori">
-							<div class="row">
+						<div role="tabpanel" class="tab-pane pb-xxl" id="kategori">
+							<div class="row mb-md">
 								@foreach ($tag_list as $k => $v)
 									<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 place-icon">
 										<a href="{{ route('web.places', ['tujuan' => 'semua', 'tag' => $k])}}">

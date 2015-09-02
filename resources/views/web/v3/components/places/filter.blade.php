@@ -15,9 +15,9 @@
 			<h2>FILTER</h2>
 		</div>
 		
-		<div class="widget widget_has_radio_checkbox pb-xs">
+		<div class="widget widget_has_radio_checkbox pb-sm">
 			<h3>NAMA</h3>
-			{!! Form::text('nama', '', ['class' => 'form-control']) !!}
+			{!! Form::text('nama', $filters['nama'], ['class' => 'form-control']) !!}
 		</div>	
 
 		<div class="widget widget_has_radio_checkbox pb-xs">

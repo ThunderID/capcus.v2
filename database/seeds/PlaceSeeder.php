@@ -33,8 +33,11 @@ class PlaceSeeder extends Seeder
             }
 			$img = rand(1,12);
 			$place->images()->saveMany([
-										new Image(['name' => 'SmallImage', 'path' => 'http://localhost:8000/images/43/'.$img.'.jpg','title' => $place->name, 'description' => $place->summary]),
-										new Image(['name' => 'LargeImage', 'path' => 'http://localhost:8000/images/43/'.$img.'.jpg','title' => $place->name, 'description' => $place->summary]),
+										new Image(['name' => 'Gallery1', 'path' => 'http://localhost:8000/images/43/'.(max(1,($img+1)%12)).'.jpg','title' => $place->name, 'description' => $place->summary]),
+                                        new Image(['name' => 'Gallery2', 'path' => 'http://localhost:8000/images/43/'.(max(1,($img+2)%12)).'.jpg','title' => $place->name, 'description' => $place->summary]),
+                                        new Image(['name' => 'Gallery3', 'path' => 'http://localhost:8000/images/43/'.(max(1,($img+3)%12)).'.jpg','title' => $place->name, 'description' => $place->summary]),
+                                        new Image(['name' => 'Gallery4', 'path' => 'http://localhost:8000/images/43/'.(max(1,($img+4)%12)).'.jpg','title' => $place->name, 'description' => $place->summary]),
+										new Image(['name' => 'Gallery5', 'path' => 'http://localhost:8000/images/43/'.(max(1,($img+5)%12)).'.jpg','title' => $place->name, 'description' => $place->summary]),
 									]);
 
             $tag_count = rand(1,3);

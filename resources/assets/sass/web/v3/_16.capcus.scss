@@ -28,9 +28,10 @@ $space-xl   : 30px;
 $space-xxl   : 40px;
 $space-xxxl   : 50px;
 
-$bg-tour-page: "../../../images/paket-tour-bg.jpg";
-$bg-tujuan-wisata-page: "../../../images/tujuan-wisata-bg.jpg";
-$bg-blog-page: "../../../images/blog-bg.jpg";
+$bg-tour-page: "../../../images/cover/paket-tour-bg.jpg";
+$bg-tujuan-wisata-page: "../../../images/cover/tujuan-wisata-bg.jpg";
+$bg-blog-page: "../../../images/cover/blog-bg.jpg";
+$bg-place-page: "../../../images/cover/place-bg.jpg";
 
 
 
@@ -38,6 +39,9 @@ $bg-blog-page: "../../../images/blog-bg.jpg";
 // INDEX:
 // 1. TYPO
 // 2. BORDERS
+// 3. SPACING
+// 4. BG
+// 5. POSITION
 // -------------------------------------------------------- 
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -289,13 +293,21 @@ a:hover { text-decoration: none !important;}
 .bg-tour-page { background:transparent url($bg-tour-page) bottom left repeat-x; background-size:cover; background-attachment: fixed};
 .bg-tujuan-wisata-page { background:transparent url($bg-tujuan-wisata-page) bottom left repeat-x; background-size:cover; background-attachment: fixed};
 .bg-blog-page { background:transparent url($bg-blog-page) top left no-repeat;};
+.bg-place-page { background:transparent url($bg-place-page) top left no-repeat;};
 
 .bg-black-glass { background:rgba(0,0,0,0.9)};
-.bg-white-glass { background:rgba(255,255,255,0.9)};
+.bg-white-glass { background:rgba(255,255,255,0.7)};
 .bg-yellow-glass { background:rgba(247,205,30,0.9)};
 .bg-light-yellow { background:#ffffef};
-.bg-white { background: white;}
+.bg-black { background: black !important;}
+.bg-white { background: white !important;}
 .bg-yellow { background: $yellow !important;}
+.bg-hover-yellow:hover { background: $yellow !important; -webkit-transform: background 1s;
+   -moz-transform: background 1s;
+    -ms-transform: background 1s;
+     -o-transform: background 1s;
+        transform: background 1s;}
+
 .btn-twitter { 
 	background: #77CBEF !important;
 	&:hover { 
@@ -305,6 +317,7 @@ a:hover { text-decoration: none !important;}
 		}
 	}	
 }
+
 .btn-facebook { background: #537ABC !important;
 	&:hover { 
 		background: #638ACC !important;
@@ -328,3 +341,18 @@ a:hover { text-decoration: none !important;}
 .bg-gold { background: lighten($color2, 20%) !important }
 .bg-silver { background: lighten($color2, 30%) !important }
 .bg-bronze { background: lighten($color2, 40%) !important }
+
+// ------------------------------------------------------------------------------------------------------------------
+// 
+// 5. POSITION
+// 
+// ------------------------------------------------------------------------------------------------------------------
+.relative { position:relative !important;}
+.absolute { position:absolute !important;}
+.top { top:0px !important;}
+.left { left:0px !important;}
+.bottom { bottom:0px !important;}
+.right { right:0px !important;}
+
+.overflowhidden {overflow: hidden;}
+.overflowellipsis {overflow: ellipsis;}

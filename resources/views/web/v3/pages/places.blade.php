@@ -1,14 +1,32 @@
 @section('content_1')
 	<?php
 		$breadcrumbs['Home'] = route('web.home');
-		if ($destination->id)
+
+		if ($filters['destination'] || $filters['tags'])
 		{
-			$breadcrumbs['Tujuan Wisata'] = route('web.places');
-			$breadcrumbs[$destination->name] = '';
-		}
-		else
-		{
-			$breadcrumbs['Tujuan Wisata'] = '';
+			if (count($filters['tags']) == 1)
+			{
+				$breadcrumbs['Tujuan Wisata'] = route('web.places');
+
+				if ($filters['destination'])
+				{
+					$breadcrumbs[$destination->name] = route('web.places', ['tujuan' => $destination->path_slug]);
+				}
+
+				$breadcrumbs[ucwords($filters['tags'][0]) ] = '';
+			}
+			else
+			{
+				if ($filters['destination'])
+				{
+					$breadcrumbs['Tujuan Wisata'] = route('web.places');
+					$breadcrumbs[$destination->name] = '';
+				}
+				else
+				{
+					$breadcrumbs['Tujuan Wisata'] = '';
+				}
+			}
 		}
 	?>
 	{{-- BREADCRUMB --}}
