@@ -83,7 +83,14 @@ class TourSeeder extends Seeder
 				}
 			}
 
-
+			// OPTIONS
+			$tour->options()->sync(
+									[
+										1 => ['description' => rand(1,5)],
+										3 => ['description' => 'Singapore Airlines'],
+										5 => ['description' => ''],
+										6 => ['description' => ''],
+									]);
 		}
     }
 }

@@ -78,6 +78,12 @@ abstract class Controller extends BaseController {
 												'20000000' 			 => "Rp. 20.000.000 ke atas",
 									  		];
 
+  		// ------------------------------------------------------------------------
+		// TOUR OPTIONS
+		// ------------------------------------------------------------------------
+		$this->option_list = Cache::remember('all_option_list', 120, function(){
+			return \App\TourOption::orderBy('name')->get();
+		});
 	}
 
 	function init_search_place()

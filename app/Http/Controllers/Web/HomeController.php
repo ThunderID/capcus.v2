@@ -70,8 +70,8 @@ class HomeController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// TOP DESTINATION
 		// ------------------------------------------------------------------------------------------------------------
-		$top_destinations = Cache::remember('5_top_destination_in_6_months', 30, function() { 
-			return \App\Destination::with('images')->TopDestination(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addMonth(6))->limit(5)->get();
+		$top_destinations = Cache::remember('8_top_destination_in_6_months', 30, function() { 
+			return \App\Destination::with('images')->TopDestination(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addMonth(6))->limit(8)->get();
 		});
 
 		// ------------------------------------------------------------------------------------------------------------

@@ -72,7 +72,7 @@
 								</p>
 
 								<p class='mt-lg'>
-									<button class='submit' class='btn btn-yellow'>Simpan</button>
+									<button type='submit' class='awe-btn btn-block awe-btn-style2'>Simpan</button>
 								</p>
 							{!! Form::close() !!}
 						</div>

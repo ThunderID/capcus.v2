@@ -115,6 +115,7 @@ class PlaceController extends Controller {
 		$this->layout->page->tag_list 			= $tag_list;
 		$this->layout->page->filters 			= $filters;
 		$this->layout->page->places 			= $places;
+		$this->layout->page->option_list 		= $this->option_list;
 
 		$this->layout->page->current_page 		= $page;
 		$this->layout->page->per_page 	 		= $per_page;
@@ -180,6 +181,7 @@ class PlaceController extends Controller {
 		$this->layout->page->place 				= $place;
 		$this->layout->page->other_places 		= $other_places;
 		$this->layout->page->tour_schedules 	= $tour_schedules;
+		$this->layout->page->option_list 		= $this->option_list;
 
 		$this->layout->title					= $place->name . ' - Capcus.id';
 		$this->layout->og['title'] 				= $this->layout->title;

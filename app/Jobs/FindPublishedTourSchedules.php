@@ -34,7 +34,7 @@ class FindPublishedTourSchedules extends Job implements SelfHandling
 		$this->filters['budget_min']                = $budget_min;
 		$this->filters['budget_max']                = $budget_max;
 		$this->filters['travel_agent_id']           = $travel_agent_id;
-		$this->filters['place_slug']                  = $place_slug;
+		$this->filters['place_slug']                 = $place_slug;
 		$this->filters['skip'] 	    	            = $skip;
 		$this->filters['take']  	                = $take;
 		$this->filters['with_count']                = $with_count;

@@ -33,7 +33,7 @@
 			<li class="menu-item-has-children {{ str_is('web.login', Route::getCurrentRoute()->getName()) ? 'current-menu-parent' : '' }}">
 				<a href="javascript:;">Hi, {{Auth::user()->name}}</a>
 				<ul class="sub-menu">
-					<li><a href="{{route('web.me.profile.edit')}}">Profil</a></li>
+					{{-- <li><a href="{{route('web.me.profile.edit')}}">Profil</a></li> --}}
 					<li><a href="{{route('web.logout')}}">Logout</a></li>
 				</ul>
 			</li>

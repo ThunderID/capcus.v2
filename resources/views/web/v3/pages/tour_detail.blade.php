@@ -59,14 +59,16 @@
 							<section class="hero-section">
 								<div id="slider-revolution">
 									<ul>
-										@foreach ($tour->places as $x)
-											<li data-slotamount="{{$tour->places->count()}}" data-masterspeed="500" data-title="{{ $x->name }}" data-link="{{ route('web.places.show', ['destination' => $x->destination, 'slug' => $x->slug]) }}" style='cursor:pointer'>
-												<img src="{{ $x->images->where('name', 'LargeImage')->first()->path }}" data-bgposition="left center" data-duration="14000" data-bgpositionend="right center" alt="{{ $x->name }}">
+										@foreach ($tour->places as $k => $x)
+											@if ($k <= 5)
+												<li data-slotamount="" data-masterspeed="500" data-title="{{ $x->name }}" data-link="{{ route('web.places.show', ['destination' => $x->destination, 'slug' => $x->slug]) }}" style='cursor:pointer'>
+													<img src="{{ $x->images->where('name', 'Gallery1')->first()->path }}" data-bgposition="left center" data-duration="14000" data-bgpositionend="right center" alt="{{ $x->name }}">
 
-												<div class="tp-caption sfb fadeout slider-caption-sub slider-caption-sub-1" data-x="30" data-y="bottom" data-speed="400" data-start="1500" data-easing="easeOutBack">
-													<div class='pb-xl'>{{ $x->name }}</div>
-												</div>
-											</li> 
+													<div class="tp-caption sfb fadeout slider-caption-sub slider-caption-sub-1" data-x="30" data-y="bottom" data-speed="400" data-start="1500" data-easing="easeOutBack">
+														<div class='pb-xl'>{{ $x->name }}</div>
+													</div>
+												</li> 
+											@endif
 										@endforeach
 									</ul>
 								</div>
@@ -74,7 +76,18 @@
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7  pb-lg">
 							<h6 class='text-regular text-bold text-uppercase text-yellow'>Ittinary</h6>
+							{{-- ITTINARY --}}
 							{!! $tour->ittinary !!}
+
+							{{-- TUJUAN WISATA --}}
+							<h6 class='text-regular text-bold text-uppercase text-yellow'>Tujuan Wisata</h6>
+							@foreach ($tour->places as $k => $place)
+								@if ($k)
+									, 
+								@endif
+								<a href='{{ route("web.places.show", ["destination" => $place->destination->slug, 'slug' => $place->slug])}}' class='text-black text-hover-yellow'>{{$place->name}}</a>
+							@endforeach
+
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 							<p class='text-xl text-black mt-lg'>
@@ -86,6 +99,9 @@
 									</span>
 								@endif
 							</p>
+
+							{{-- OPTIONS --}}
+							@include('web.v3.components.tour_options.table_for_tour_schedule')
 
 							{{-- JADWAL LAINNYA --}}
 							@if ($tour->schedules->count() > 1)

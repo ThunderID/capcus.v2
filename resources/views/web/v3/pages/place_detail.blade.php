@@ -29,18 +29,13 @@
 					<div class="mb-0">{{ $place->destination->long_name}}</div>
 					<h1 class='mt-5 pt-5'>{{ $place->name }}</h1>
 				</div>
-				<div class="col-md-6 text-black mb-md">
-					<!-- POST -->
-					{!! $place->content !!}
-
-				</div>
-				<div class='col-md-6'>
+				<div class='col-md-12'>
 					<section class="hero-section">
 						<div id="slider-revolution">
 							<ul>
 								@foreach ($place->images as $x)
 									@if (str_is('Gallery*', $x->name))
-										<li data-slotamount="" data-masterspeed="500" data-title="{{ $x->title }}" data-link="{{ route('web.places.show', ['destination' => $x->destination, 'slug' => $x->slug]) }}" style='cursor:pointer'>
+										<li data-slotamount="" data-masterspeed="500" data-title="{{ $x->title }}" style='cursor:pointer'>
 											<img src="{{ $x->path }}" data-bgposition="left center" data-duration="14000" data-bgpositionend="right center" alt="{{ $x->title }}">
 											<div class="tp-caption sfb fadeout slider-caption-sub slider-caption-sub-1" data-x="30" data-y="bottom" data-speed="400" data-start="1500" data-easing="easeOutBack">
 												<div class='pb-xs'>{{ $x->title }}</div>
@@ -51,10 +46,16 @@
 							</ul>
 						</div>
 					</section>
+				</div>
+				<div class="col-md-12 text-black mt-xl mb-xl">
+					<!-- POST -->
+					{!! $place->content !!}
+				</div>
 
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					@if ($tour_schedules->count())
-						<h3 class='text-light'>Paket Tour</h3>
-						@include('web.v3.components.tour_schedules.table', ['tour_schedules' => $tour_schedules, 'hide_places' => true])
+						<h3 class='text-light'>Paket Tour Ke Tujuan Wisata Ini</h3>
+						@include('web.v3.components.tour_schedules.table', ['tour_schedules' => $tour_schedules])
 
 						<p><a href='{{ route("web.tour") . "?" . http_build_query(["place" => $place->slug]) }}' class='btn btn-block btn-yellow'>Lihat Semua</a></p>
 					@endif

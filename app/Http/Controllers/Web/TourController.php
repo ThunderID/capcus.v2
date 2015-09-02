@@ -23,7 +23,7 @@ class TourController extends Controller {
 		// ------------------------------------------------------------------------
 		// QUERY
 		// ------------------------------------------------------------------------
-		$max_data = 100;
+		$max_data = 50;
 		$tour_schedules_count = Cache::remember('tours_tag_count_' . $tag_str, 30, function() use ($tag) {
 										return \App\TourSchedule::published()
 											->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(1))
@@ -67,7 +67,7 @@ class TourController extends Controller {
 
 		ksort($filter_schedules['durations']);
 		asort($filter_schedules['travel_agents']);
-		
+
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
@@ -76,6 +76,7 @@ class TourController extends Controller {
 		$this->layout->page->tour_schedules_count= $tour_schedules_count;
 		$this->layout->page->max_data 			= $max_data;
 		$this->layout->page->tag 				= $tag;
+		$this->layout->page->option_list 		= $this->option_list;
 		$this->layout->page->filter_schedules 	= $filter_schedules;
 
 		// search tour
@@ -175,10 +176,13 @@ class TourController extends Controller {
 			}
 			else
 			{
-				$filters['travel_agent'] = TravelAgent::SlugIs($filters['travel_agent'])->first();
-				if (!$filters['travel_agent'])
+				if ($filters['travel_agent'])
 				{
-					return App::abort(404);
+					$filters['travel_agent'] = TravelAgent::SlugIs($filters['travel_agent'])->first();
+					if (!$filters['travel_agent'])
+					{
+						return App::abort(404);
+					}
 				}
 
 				$this->layout->basic->filters['travel_agent'] = $filters['travel_agent'];
@@ -277,7 +281,7 @@ class TourController extends Controller {
 		// ------------------------------------------------------------------------
 		// QUERY
 		// ------------------------------------------------------------------------
-		$max_data = 100;
+		$max_data = 50;
 		$results = Cache::remember('tour_schedules_' . serialize($filters), 30, function() use ($filters, $tujuan_tree, $max_data){
 			$results = $this->dispatch(new FindPublishedTourSchedules(
 													$filters['from'],
@@ -336,6 +340,7 @@ class TourController extends Controller {
 
 		$this->layout->page->filters 			= $filters;
 		$this->layout->page->filter_schedules 	= $filter_schedules;
+		$this->layout->page->option_list 		= $this->option_list;
 		$this->layout->page->tour_schedules 	= $tour_schedules;
 		$this->layout->page->tour_schedules_count= $tour_schedules_count;
 		$this->layout->page->other_tours 		= $other_tours;
@@ -350,8 +355,8 @@ class TourController extends Controller {
 		$this->layout->title 					= "Paket Tour " . 
 													($filters['tujuan'] ? 'ke ' . $filters['tujuan']->name : '').
 													($filters['travel_agent'] ? ' oleh ' . $filters['travel_agent']->name : '').
-													($filters['departure_from'] && $filters['departure_to'] ? ' keberangkatan ' . $filters['departure_from']->format('d-m-Y') . ' s/d ' . $filters['departure_to']->format('d-m-Y') : '').
-													($filters['budget'] ? ' harga ' . $filters['budget']['min'] . '-' . $filters['budget']['max'] : '') . 
+													($filters['keberangkatan']['from'] && $filters['keberangkatan']['to'] ? ' keberangkatan ' . $filters['keberangkatan']['from']->format('d-m-Y') . ' s/d ' . $filters['keberangkatan']['to']->format('d-m-Y') : '').
+													($filters['budget']['min'] ? ' harga ' . $filters['budget']['min'] . '-' . $filters['budget']['max'] : '') . 
 													' - Capcus.id';
 
 		$this->layout->og['title'] 				= $this->layout->title;
@@ -372,7 +377,10 @@ class TourController extends Controller {
 			$tour = Tour::slugIs($tour_slug)->first();
 			if ($tour)
 			{
-				$tour->load('schedules', 'travel_agent', 'travel_agent.addresses', 'travel_agent.images', 'places', 'destinations' );
+				$tour->load('schedules', 
+							'travel_agent', 'travel_agent.addresses', 'travel_agent.images', 
+							'places', 'places.images', 'places.destination',
+							'destinations' );
 			}
 			return $tour;
 		}); 
@@ -413,7 +421,11 @@ class TourController extends Controller {
 													15
 												)
 									);
-			$data->load('tour', 'tour.travel_agent','tour.travel_agent.active_packages', 'tour.places', 'tour.destinations', 'tour.travel_agent.images', 'tour.options');
+			$data->load('tour', 
+						'tour.travel_agent', 'tour.travel_agent.images', 'tour.travel_agent.active_packages', 
+						'tour.places', 'tour.places.images',
+						'tour.destinations', 
+						'tour.options');
 			return $data;
 		});
 
@@ -471,6 +483,7 @@ class TourController extends Controller {
 				});
 			}
 		}
+
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
@@ -478,6 +491,7 @@ class TourController extends Controller {
 		$this->layout->page->tour 			= $tour;
 		$this->layout->page->tour_schedule	= $tour_schedule;
 		$this->layout->page->other_tours 	= $other_tours;
+		$this->layout->page->option_list 	= $this->option_list;
 
 		$this->layout->title 					= "Paket Tour " . $tour->name . 
 															' oleh ' . $tour->travel_agent->name . 

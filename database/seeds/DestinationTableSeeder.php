@@ -316,6 +316,13 @@ class DestinationTableSeeder extends Seeder
 			{
 				dd($destination->getErrors());
 			}
+
+			$destination->images()->saveMany([
+				new \App\Image(['name' => 'CoverImage', 'path' => 'http://localhost:8000/images/43/'.rand(1,12).'.jpg','title' => $destination->name, 'description' => $destination->long_name]),
+				new \App\Image(['name' => 'SmallImage', 'path' => 'http://localhost:8000/images/43/'.rand(1,12).'.jpg','title' => $destination->name, 'description' => $destination->long_name]),
+				new \App\Image(['name' => 'MediumImage', 'path' => 'http://localhost:8000/images/43/'.rand(1,12).'.jpg','title' => $destination->name, 'description' => $destination->long_name]),
+				new \App\Image(['name' => 'LargeImage', 'path' => 'http://localhost:8000/images/43/'.rand(1,12).'.jpg','title' => $destination->name, 'description' => $destination->long_name])
+			]);
 		}
     }
 }

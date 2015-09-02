@@ -32,11 +32,11 @@
 			<?php
 				switch (strtolower($schedule->tour->travel_agent->active_packages[0]->name))
 				{
-					case 'diamond': $tr_class 	= 'bg-diamond'; break;
-					case 'gold': $tr_class 		= 'bg-gold'; break;
-					case 'silver': $tr_class 	= 'bg-silver'; break;
-					case 'bronze': $tr_class 	= 'bg-bronze'; break;
-					default: $tr_class = ''; break;
+					case 'diamond'	: $tr_class 	= 'bg-diamond'; break;
+					case 'gold'		: $tr_class 	= 'bg-gold'; break;
+					case 'silver'	: $tr_class 	= 'bg-silver'; break;
+					case 'bronze'	: $tr_class 	= 'bg-bronze'; break;
+					default			: $tr_class 	= ''; break;
 				}
 			?>
 			{{-- GENERATE CLASS --}}
@@ -46,7 +46,7 @@
 						data-travel-agent="{{ $schedule->tour->travel_agent->id }}"
 						data-link="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}"
 				>
-				<td class='text-left hidden-xs' height=60 data-sort-value="{{$schedule->departure->format('Ymd')}}" width='150'>
+				<td class='pt-md pb-lg text-left hidden-xs' height=60 data-sort-value="{{$schedule->departure->format('Ymd')}}" width='150'>
 					@if (is_null($schedule->departure_until))
 						{{ $schedule->departure->format('d-m-Y')}}
 					@else
@@ -56,23 +56,21 @@
 						</span>
 					@endif
 				</td>
-				<td class='text-center hidden-xs' data-sort-value="{{$schedule->tour->travel_agent->name}}" width="90">
+				<td class='pt-md pb-lg text-center hidden-xs' data-sort-value="{{$schedule->tour->travel_agent->name}}" width="90">
 					<img src="{{ $schedule->tour->travel_agent->images->where('name', "SmallLogo")->first()->path}}" alt='{{ $schedule->tour->travel_agent->name}}' width="50" class='mr-xs mt-5'>
 				</td>
-				<td class='text-left' data-sort-value="{{$schedule->tour->destinations[0]->long_name}}">
+				<td class='pt-md pb-lg text-left' data-sort-value="{{$schedule->tour->destinations[0]->long_name}}">
 					<div class='hidden-xs'>
-						<strong class='text-uppercase'>{{ implode(', ', $schedule->tour->destinations->lists('long_name')->toArray()) }}</strong>
+						<strong class='text-uppercase text-md mb-sm'>{{ implode(', ', $schedule->tour->destinations->lists('name')->toArray()) }}</strong>
 						@if (!$hide_places)
-							<br><span class=''>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</span>
+							<p class='mt-sm'><span class=''>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</span></p>
 						@endif
-						<p>
-						@foreach ($schedule->tour->options as $option)
-							<li>
-								{{$option->name}} <br>
-								{{$option->description}}
-							</li>
-						@endforeach
-						</p>
+
+						@if (!$hide_options)
+							<div class='mt-xs'>
+								@include('web.v3.components.tour_options.table_for_tour_schedule', ['tour_schedule' => $schedule])
+							</div>
+						@endif
 					</div>
 
 					<div class='hidden-sm hidden-md hidden-lg'>
@@ -81,7 +79,7 @@
 							<p>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</p>
 						@endif 
 						
-						<table class="table">
+						<table class="table bg-transparent mt-lg">
 							<tbody>
 								<tr>
 									<td style='width:30% !important'>Keberangkatan</td>
@@ -115,13 +113,22 @@
 										@endif
 									</td>
 								</tr>
+								@if (!$hide_options)
+									<tr>
+										<td>Inc/Exc</td>
+										<td>
+											@include('web.v3.components.tour_options.table_for_tour_schedule', ['tour_schedule' => $schedule])
+										</td>
+									</tr>
+								@endif
+
 							</tbody>
 						</table>
 					</div>
 				</td>
 
-				<td class='text-left hidden-xs' data-sort-value="{{$schedule->tour->duration_day}}" width="90">{{ $schedule->tour->duration_day . 'D/' . $schedule->tour->duration_night . 'N'}}</td>
-				<td class='text-right hidden-xs' data-sort-value="{{$schedule->discounted_price}}" width="100">
+				<td class='pt-md pb-lg text-left hidden-xs' data-sort-value="{{$schedule->tour->duration_day}}" width="90">{{ $schedule->tour->duration_day . 'D/' . $schedule->tour->duration_night . 'N'}}</td>
+				<td class='pt-md pb-lg text-right hidden-xs' data-sort-value="{{$schedule->discounted_price}}" width="100">
 					{{ $schedule->currency . ' ' . number_format($schedule->discounted_price, 0, ',','.')}}
 					@if ($schedule->discounted_price < $schedule->original_price)
 						<br>

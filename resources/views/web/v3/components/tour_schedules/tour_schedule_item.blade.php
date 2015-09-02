@@ -19,12 +19,12 @@
 	</div>
 	<div class="item-body">
 		<div class="item-title">
-			<img src="{{ $tour_schedule->tour->travel_agent->images->where('name','SmallLogo')->first()->path }}" width="50" class='pull-right'>
+			<img src="{{ $tour_schedule->tour->travel_agent->images->where('name','SmallLogo')->first()->path }}" width="50" class='pull-right mt-5'>
 			<h2>
 				<a href="{{ route('web.tour.show', ['travel_agent' => $tour_schedule->tour->travel_agent->slug, 'tour_slug' => $tour_schedule->tour->slug, 'schedule' => $tour_schedule->departure->format('Ymd') ]) }}">{{ $tour_schedule->tour->name }}</a>
 			</h2>
 		</div>
-		<div class="item-list">
+		<div class="item-list mt-sm">
 			{{ implode(', ', $tour_schedule->tour->places->lists('name')->toArray()) }}
 		</div>
 		<div class="item-footer">

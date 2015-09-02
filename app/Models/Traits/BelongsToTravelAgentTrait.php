@@ -34,7 +34,7 @@ trait BelongsToTravelAgentTrait {
 		else
 		{
 			return $q->whereHas('travel_agent', function($q) use ($v) {
-				$q->whereIn('id', is_array($v) ? $v : [$v]);
+				$q->whereIn('travel_agencies.id', is_array($v) ? $v : [$v]);
 			});
 		}
 	}
