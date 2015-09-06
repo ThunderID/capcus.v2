@@ -75,7 +75,7 @@
 
 						<div class='mt-md'>					
 							<a href="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}" class='awe-btn awe-btn-style2'>Detail</a>
-							<a href="javascript:;" data-id='{{$schedule->id}}' class='awe-btn awe-btn-style2 compare_tour add'>Bandingkan</a>
+							{{-- <a href="javascript:;" data-id='{{$schedule->id}}' class='awe-btn awe-btn-style2 compare_tour add'>Bandingkan</a> --}}
 						</div>
 
 					</div>
@@ -134,7 +134,7 @@
 
 						<div class='mt-md text-center'>
 							<a href="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}" class='awe-btn awe-btn-style2'>Detail</a>
-							<a href="javascript:;" data-id='{{$schedule->id}}' class='awe-btn awe-btn-style2 compare_tour add'>Bandingkan</a>
+							{{-- <a href="javascript:;" data-id='{{$schedule->id}}' class='awe-btn awe-btn-style2 compare_tour add'>Bandingkan</a> --}}
 						</div>
 					</div>
 				</td>
