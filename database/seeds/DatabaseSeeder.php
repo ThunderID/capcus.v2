@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         // KEEP FOR LIVE
+        $this->call(HeadlineSeeder::class);
         $this->call(UserTableSeeder::class);
         $this->call(TagSeeder::class);
         $this->call(PackageSeeder::class);
@@ -26,7 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TourOptionSeeder::class);
         $this->call(PlaceSeeder::class);
         $this->call(TourSeeder::class);
-        $this->call(HeadlineSeeder::class);
         $this->call(HomegridSeeder::class);
         $this->call(BlogSeeder::class);
 

@@ -16,7 +16,7 @@
 
 	@include('admin.widgets.'.$view_name.'.schedule_form', [
 		'widget_template' 	=> 'plain',
-		'widget_title' 		=> (!$schedule->id ? 'Add new schedule' : 'Edit Schedule: ' . $schedule->departure->format('d/m/Y') . ' - ' . $schedule->arrival->format('d/m/Y')),
+		'widget_title' 		=> (!$schedule->id ? 'Add new schedule' : 'Edit Schedule: ' . $schedule->departure->format('d/m/Y')),
 		'tour'				=> $data,
 		'schedule'			=> $schedule,
 	])

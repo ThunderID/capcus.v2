@@ -24,9 +24,8 @@ class ArticleController extends Controller {
 		$this->page_base_dir .= $this->view_name . '.';
 
 		$this->required_images = [
-									'SmallImage' 	=> 'Small Image',
-									'MediumImage'	=> 'Medium Image',
-									'LargeImage'	=> 'Large Image',
+									'SmallImage' 	=> 'Small Image (400x300)',
+									'LargeImage'	=> 'Large Image (800x600)',
 
 								];
 		

@@ -2,7 +2,7 @@
 	<h2>Mengapa CAPCUS?</h2>
 	<ul class="awe-services__list">
 		<li>
-			<a href="#">
+			<a href="javascript:;">
 				<i class="awe-icon awe-icon-check"></i>
 				<i class="awe-icon awe-icon-arrow-right"></i>
 				100% Free
@@ -10,7 +10,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="#">
+			<a href="javascript:;">
 				<i class="awe-icon awe-icon-check"></i>
 				<i class="awe-icon awe-icon-arrow-right"></i>
 				Cepat
@@ -18,7 +18,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="#">
+			<a href="javascript:;">
 				<i class="awe-icon awe-icon-check"></i>
 				<i class="awe-icon awe-icon-arrow-right"></i>
 				Mudah
@@ -26,7 +26,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="#">
+			<a href="javascript:;">
 				<i class="awe-icon awe-icon-check"></i>
 				<i class="awe-icon awe-icon-arrow-right"></i>
 				Praktis
@@ -34,7 +34,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="#">
+			<a href="javascript:;">
 				<i class="awe-icon awe-icon-check"></i>
 				<i class="awe-icon awe-icon-arrow-right"></i>
 				Terpercaya

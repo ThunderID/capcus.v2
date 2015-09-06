@@ -21,6 +21,10 @@ class Tour extends BaseModel
 							'published_at', 
 							'destination_ids', 
 							'tag_ids', 
+							'place_ids',
+							'travel_agent_id',
+							'option_ids',
+							'image_ids'
 						];
 	protected $dates = ['published_at'];
 	static $name_field = 'name';

@@ -24,10 +24,9 @@ class DestinationController extends Controller {
 		$this->page_base_dir .= $this->view_name . '.';
 
 		$this->required_images = [
-									'CoverImage' => 'Cover Image', 
-									'SmallThumbnail' => 'Small Thumbnail', 
-									'MediumThumbnail' => 'Medium Thumbnail', 
-									'LargeThumbnail' => 'Large Thumbnail'
+									// 'CoverImage' => 'Cover Image', 
+									'SmallThumbnail' => 'Small Thumbnail (360x270)', 
+									'LargeThumbnail' => 'Large Thumbnail (600x400)'
 								];
 		
 		$this->layout->content_title = strtoupper($this->view_name);

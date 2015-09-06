@@ -23,10 +23,10 @@ class TourController extends Controller {
 		$this->layout->route_name = $this->route_name;
 		$this->page_base_dir .= $this->view_name . '.';
 
-		$this->required_images = [ 
-			'SmallImage'		=> 'Small Image',
-			'LargeImage'		=> 'Large Image',
-		];
+		// $this->required_images = [ 
+		// 	'SmallImage'		=> 'Small Image',
+		// 	'LargeImage'		=> 'Large Image',
+		// ];
 		
 		$this->layout->content_title = strtoupper($this->view_name);
 	}
@@ -285,35 +285,57 @@ class TourController extends Controller {
 		}
 
 		$input = Input::all();
-		if ($input['departure'])
-		{
+		try {
 			$input['departure'] = \Carbon\Carbon::createFromFormat('d/m/Y', $input['departure']);
+		} catch (Exception $e) {
+			return redirect()->back()->withInput()->withErrors(['departure' => 'Invalid date']);
 		}
 
-		if ($input['departure_until'])
-		{
-			$input['departure_until'] = \Carbon\Carbon::createFromFormat('d/m/Y', $input['departure_until']);
+		try {
+			if ($input['departure_until'])
+			{
+				$input['departure_until'] = \Carbon\Carbon::createFromFormat('d/m/Y', $input['departure_until']);
+			}
+			else
+			{
+				$input['departure_until'] = null;
+			}
+		} catch (Exception $e) {
+			$input['departure_until'] = null;
+			return redirect()->back()->withInput()->withErrors(['departure' => 'Invalid date for valid through']);
 		}
+
 		$input['tour_id'] = $tour_id;
 
 		// schedule
 		$schedule->fill($input);
+		$rules['departure'] = ['required', 'date'];
+		if ($input['departure_until'])
+		{
+			$rules['departure_until'] = ['date', 'after:departure'];
+		}
+
+		$validator = Validator::make($input, $rules);
+		if ($validator->fails())
+		{
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
 
 		if ($schedule->save())
 		{
 			if ($schedule_id)
 			{
-				$success_message = 'Schedule has been updated: ' . $schedule->departure->format('d/m/Y') . ' - ' . $schedule->arrival->format('d/m/Y');
+				$success_message = 'Schedule has been updated: ' . $schedule->departure->format('d/m/Y');
 			}
 			else
 			{
-				$success_message = 'Schedule has been added: ' . $schedule->departure->format('d/m/Y') . ' - ' . $schedule->arrival->format('d/m/Y');
+				$success_message = 'Schedule has been added: ' . $schedule->departure->format('d/m/Y');
 			}
 			return redirect()->route('admin.'.$this->route_name.'.schedules', ['tour_id' => $tour_id])->with('alert_success', $success_message) ;
 		}
 		else
 		{
-			return redirect()->back()->withInput()->withErrors($schedule->errors);
+			return redirect()->back()->withInput()->withErrors($schedule->getErrors());
 		}
 
 		return $this->layout;		
@@ -338,7 +360,7 @@ class TourController extends Controller {
 		}
 		else
 		{
-			return redirect()->route('admin.'.$this->route_name.'.schedules', ['tour_id' => $tour_id])->with('alert_success', '"Schedule ' .$schedule->departure->format('d-m-Y') . '-'. $schedule->arrival->format('d-m-Y') . '" has been deleted successfully') ;
+			return redirect()->route('admin.'.$this->route_name.'.schedules', ['tour_id' => $tour_id])->with('alert_success', '"Schedule ' .$schedule->departure->format('d-m-Y') . '" has been deleted successfully') ;
 		}
 	}
 }

@@ -26,6 +26,7 @@ abstract class Controller extends BaseController {
 		$this->layout->basic 	= view($this->layout_base_dir.'page_templates.v3_content');
 		$this->init_search_tour();
 		$this->init_search_place();
+		$this->compare_tour();
 
 		// ------------------------------------------------------------------------------------------------------------
 		// HANDLE REDIRECT
@@ -94,5 +95,20 @@ abstract class Controller extends BaseController {
 		$this->place_list = Cache::remember('all_place_list', 60, function() { 
 			return Place::published()->orderBy('long_name')->get();
 		});
+	}
+
+	function compare_tour()
+	{
+		if (Session::has('compare_cart'))
+		{
+			$ids = Session::get('compare_cart', []);
+			$this->layout->basic->compare_cart = \App\TourSchedule::with('tour', 
+															'tour.travel_agent', 'tour.travel_agent.images'
+														)
+													->whereIn('id', $ids)
+													->published()
+													->orderBy('departure')
+													->get();
+		}
 	}
 }

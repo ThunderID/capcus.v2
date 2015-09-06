@@ -23,13 +23,13 @@ class PlaceController extends Controller {
 		$this->layout->route_name = $this->route_name;
 		$this->page_base_dir .= $this->view_name . '.';
 		$this->required_images = [
-									'Gallery1'	=> 'Gallery 1', 
-									'Gallery2' 	=> 'Gallery 2', 
-									'Gallery3' 	=> 'Gallery 3', 
-									'Gallery4' 	=> 'Gallery 4', 
-									'Gallery5' 	=> 'Gallery 5', 
-									'SmallThumbnail' 	=> 'Small Thumbnail', 
-									'MediumThumbnail' 	=> 'Medium Thumbnail'
+									'Gallery1'	=> 'Gallery 1 (1000x500)', 
+									'Gallery2' 	=> 'Gallery 2 (1000x500)', 
+									'Gallery3' 	=> 'Gallery 3 (1000x500)', 
+									'Gallery4' 	=> 'Gallery 4 (1000x500)', 
+									'Gallery5' 	=> 'Gallery 5 (1000x500)', 
+									'SmallImage' 	=> 'Small Image (360x270)', 
+									'LargeImage' 	=> 'Large Image (600x400)'
 								];
 		
 		$this->layout->content_title = strtoupper($this->view_name);

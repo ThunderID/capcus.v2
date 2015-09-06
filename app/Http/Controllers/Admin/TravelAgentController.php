@@ -23,8 +23,8 @@ class TravelAgentController extends Controller {
 		$this->page_base_dir .= $this->view_name . '.';
 
 		$this->required_images = [
-									'SmallLogo'	=> 'Small Logo',
-									'LargeLogo'	=> 'Large Logo',
+									'SmallLogo'	=> 'Small Logo (200x150) - transparent background',
+									'LargeLogo'	=> 'Large Logo (400x300) - transparent background',
 		];
 		
 		$this->layout->content_title = "Travel Agents";
@@ -247,7 +247,7 @@ class TravelAgentController extends Controller {
 		}
 		else
 		{
-			return redirect()->route('admin.'.$this->route_name.'.schedules', ['tour_id' => $travel_agent_id])->with('alert_success', '"Schedule ' .$schedule->departure->format('d-m-Y') . '-'. $schedule->arrival->format('d-m-Y') . '" has been deleted successfully') ;
+			return redirect()->route('admin.'.$this->route_name.'.schedules', ['tour_id' => $travel_agent_id])->with('alert_success', '"Schedule ' .$schedule->departure->format('d-m-Y') . '- has been deleted successfully') ;
 		}
 	}
 }

@@ -60,23 +60,30 @@
 					<img src="{{ $schedule->tour->travel_agent->images->where('name', "SmallLogo")->first()->path}}" alt='{{ $schedule->tour->travel_agent->name}}' width="50" class='mr-xs mt-5'>
 				</td>
 				<td class='pt-md pb-lg text-left' data-sort-value="{{$schedule->tour->destinations[0]->long_name}}">
+					{{-- DESKTOP --}}
 					<div class='hidden-xs'>
 						<strong class='text-uppercase text-md mb-sm'>{{ implode(', ', $schedule->tour->destinations->lists('name')->toArray()) }}</strong>
 						@if (!$hide_places)
-							<p class='mt-sm'><span class=''>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</span></p>
+							<p class='mt-sm tour_schedule_places_detail'><span class=''>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</span></p>
 						@endif
 
 						@if (!$hide_options)
-							<div class='mt-xs'>
+							<div class='mt-xs tour_schedule_paket_detail'>
 								@include('web.v3.components.tour_options.table_for_tour_schedule', ['tour_schedule' => $schedule])
 							</div>
 						@endif
+
+						<div class='mt-md'>					
+							<a href="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}" class='awe-btn awe-btn-style2'>Detail</a>
+							<a href="javascript:;" data-id='{{$schedule->id}}' class='awe-btn awe-btn-style2 compare_tour add'>Bandingkan</a>
+						</div>
+
 					</div>
 
 					<div class='hidden-sm hidden-md hidden-lg'>
 						<h2 class='text-uppercase text-md text-bold'>{{ implode(', ', $schedule->tour->destinations->lists('long_name')->toArray()) }}</h2>
 						@if (!$hide_places)
-							<p>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</p>
+							<p class='tour_schedule_places_detail'>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</p>
 						@endif 
 						
 						<table class="table bg-transparent mt-lg">
@@ -114,7 +121,7 @@
 									</td>
 								</tr>
 								@if (!$hide_options)
-									<tr>
+									<tr class='tour_schedule_paket_detail'>
 										<td>Inc/Exc</td>
 										<td>
 											@include('web.v3.components.tour_options.table_for_tour_schedule', ['tour_schedule' => $schedule])
@@ -124,6 +131,11 @@
 
 							</tbody>
 						</table>
+
+						<div class='mt-md text-center'>
+							<a href="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}" class='awe-btn awe-btn-style2'>Detail</a>
+							<a href="javascript:;" data-id='{{$schedule->id}}' class='awe-btn awe-btn-style2 compare_tour add'>Bandingkan</a>
+						</div>
 					</div>
 				</td>
 
@@ -136,6 +148,7 @@
 							<span class='text-light text-gray'>{{ $schedule->currency . ' ' . number_format($schedule->original_price, 0, ',','.')}}</span>
 						</span>
 					@endif
+
 				</td>
 {{-- 				<td>
 					<a href="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}">Detail <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
@@ -158,7 +171,7 @@
 	<script>
 
 		$(document).ready(function(){
-			$('.tour_schedule_table > tbody').on('click', 'tr', function(event) {
+			$('.tour_schedule_table > tbody.clickable').on('click', 'tr', function(event) {
 				window.location = $(this).data('link');
 			});
 
@@ -207,10 +220,10 @@
 			var select = $(this);
 			$('.table-sorter').find('th:eq('+(select.val())+')').trigger('sort');
 		});
-		// $('#select_sort_tour_result')[0].selectize.on('change', function(event) {
-		// 	var select = $('#select_sort_tour_result')[0].selectize;
-		// 	alert(select.getValue());
-		// });
+
+
+
+
 			
 	</script>
 @stop

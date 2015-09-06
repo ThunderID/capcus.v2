@@ -64,66 +64,6 @@
 		});
 	}
 
-
-	// function placeholder() {
-	//     var $ph = $('input[type="search"], input[type="text"], input[type="email"], textarea');
-	//     $ph.each(function() {
-	//         var value = $(this).val();
-	//         $(this).focus(function() {
-	//             if ($(this).val() === value) {
-	//                 $(this).val('');
-	//             }
-	//         });
-	//         $(this).blur(function() {
-	//             if ($(this).val() === '') {
-	//                 $(this).val(value);
-	//             }
-	//         });
-	//     });
-	// }
-
-	/*==============================
-		Masonry
-	==============================*/
-	// function masonry() {
-	//     $('.awe-masonry').each(function(){ 
-	//         var $gallery = $(this),
-	//             $galleryItem = $gallery.children('.awe-masonry__item');
-	//         setTimeout(function() {
-	//             $gallery.masonry({
-	//                 columnWidth: '.awe-masonry__item:first-child',
-	//                 itemSelector: '.awe-masonry__item'
-	//             });
-	//         }, 1);
-	//         if ($galleryItem.length === 1) {
-	//             $gallery.addClass('item-1');
-	//         }
-	//         if ($galleryItem.length === 2) {
-	//             $gallery.addClass('item-2');
-	//         }
-	//         if ($galleryItem.length === 3) {
-	//             $gallery.addClass('item-3');
-	//         }
-	//         if ($galleryItem.length === 4) {
-	//             $gallery.addClass('item-4');
-	//         }
-	//         if ($galleryItem.length === 5) {
-	//             $gallery.addClass('item-5');
-	//         }
-	//         if ($galleryItem.length === 6) {
-	//             $gallery.addClass('item-6');
-	//         }
-	//         if ($galleryItem.length === 7) {
-	//             $gallery.addClass('item-7');
-	//         }
-	//         if ($galleryItem.length === 8) {
-	//             $gallery.addClass('item-8');
-	//         }
-	//         if ($galleryItem.length === 9) {
-	//             $gallery.addClass('item-9');
-	//         }
-	//     });
-	// }
 	function parallax() {
 		$('.awe-parallax').each(function() {
 			if (isMobile.any()) {
@@ -232,47 +172,6 @@
 		}
 	}
 
-	// function aweCalendar() {
-	//     $('.awe-calendar').each(function() {
-	//         $(this).datepicker({
-	//             showOtherMonths: true,
-	//             selectOtherMonths: true,
-	//             dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat']
-	//         });
-	//     });
-	// }
-
-	// function priceSlider() {
-	//     $('.price-slider').each(function() {
-	//         var priceslider = $(this);
-	//         priceslider.slider({
-	//             min: 0,
-	//             max: priceslider.data('max'),
-	//             step: 250000,
-	//             values: [ 0, priceslider.data('max') ],
-	//             range: true,
-	//             slide: function( event, ui ) {
-	//                 var $this=$(this),
-	//                     values=ui.values;
-	//                 priceslider.siblings('.price_slider_amount').find('.from').text('Rp.' + numberWithCommas(values[0]));
-	//                 priceslider.siblings('.price_slider_amount').find('.to').text('Rp.' + numberWithCommas(values[1]));
-	//             }
-	//         });
-
-	//         var values = priceslider.slider( "option", "values");
-	//         priceslider.siblings('.price_slider_amount').find('.from').text('Rp.' + numberWithCommas(values[0]));
-	//         priceslider.siblings('.price_slider_amount').find('.to').text('Rp.' + numberWithCommas(values[1]));
-	//     });
-	// }
-
-	// function aweSelect() {
-	//     $('.awe-select').each(function() {
-	//         var aweselect = $(this);
-	//         aweselect.wrap('<div class="awe-select-wrapper"></div>');
-	//         aweselect.after('<i class="fa fa-caret-down"></i>');
-	//     });
-	// }
-
 	function tabs() {
 		$(".tabs").tabs({
 			active: 0,
@@ -286,14 +185,6 @@
 			}
 		});
 	}
-
-	// function accordion() {
-	//     $(".accordion").accordion({
-	//         collapsible: true,
-	//         heightStyle: "content",
-	//         animate: 200
-	//     });
-	// }
 
 	function seasonHover() {
 		var season = $('.travelling-tabs__time').find('.season'),
@@ -333,21 +224,6 @@
 			});
 	}
 
-	// function theiaStickySidebar() {
-	//     if ($('.awe-services').length > 0) {
-	//         $('.awe-services').parent().theiaStickySidebar({
-	//             updateSidebarHeight: true
-	//         });
-	//     }
-
-	//     if ($('.detail-sidebar').length > 0) {
-	//         $('.detail-sidebar').parent().theiaStickySidebar({
-	//             updateSidebarHeight: true,
-	//             additionalMarginTop: -40
-
-	//         });
-	//     }
-	// }
 	function magnificPopup() {
 		if ($('.initiative-choose-other-open').length) {
 			$('.initiative-choose-other-open').magnificPopup({
@@ -567,6 +443,11 @@
 		});
 	}
 
+	function addToCompareCart()
+	{
+		
+	}
+
 	$(window).on('load resize', function() {
 		imageSquare();
 		image43();
@@ -602,9 +483,6 @@
 		$(document).find('.awe-navigation-responsive').toggleClass('awe-navigation-responsive-active');
 	});
 	$(window).load(function() {
-		// $('.preloader').fadeOut(1200);
-		// masonry();
-		// placeholder();
 		parallax();
 		slider();
 		square_grid();
@@ -661,17 +539,9 @@
 
 
 	$(document).ready(function() {
-		// aweCalendar();
-		// priceSlider();
-		// aweSelect();
 		seasonHover();
-		// tabs();
-		// accordion();
-		// theiaStickySidebar();
-		magnificPopup();
+		// magnificPopup();
 		stickyMenu();
-
-
 
 		$('.tab').tab();
 

@@ -56,10 +56,10 @@
 						PAKET TOUR <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>#{{$tag->tag}}</span>
 					@else
 						Paket Tour 
-						@if ($travel_agent)
+						@if ($filters['travel_agent'])
 							oleh <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>{{$filters['travel_agent']->name}}</span>
 						@endif
-						@if ($tujuan)
+						@if ($filters['tujuan'])
 							ke <span class='border-top-0 border-left-0 border-right-0 border-bottom-2 border-dashed border-yellow text-yellow'>{{$filters['tujuan']->name}}</span>
 						@endif
 						@if ($filters['keberangkatan']['from'] && $filters['keberangkatan']['to'])

@@ -6,6 +6,28 @@
 		</div>
 	</div>
 
+	{{-- WIDGET DURATION --}}
+	<div class="widget widget_has_radio_checkbox pb-xl">
+		<h3>Opsi Tampilan</h3>
+		<ul>
+			<li>
+				<label>
+					<input type="checkbox" value="1" class='filter_checkbox_place_detail' checked="checked">
+					<i class="awe-icon awe-icon-check"></i>
+					Tampilkan Tujuan Wisata
+				</label>
+			</li>
+
+			<li>
+				<label>
+					<input type="checkbox" value="1" class='filter_checkbox_paket_detail' checked="checked">
+					<i class="awe-icon awe-icon-check"></i>
+					Tampilkan Detail Paket
+				</label>
+			</li>
+		</ul>
+	</div>
+
 	{{-- WIDGET PRICE --}}
 	<div class="widget widget_price_filter">
 		<h3>Harga</h3>
@@ -134,9 +156,10 @@
 				min: 0,
 				max: price_slider.data('max'),
 				value: price_slider.data('value'),
-				step: 250000,
+				step: 100000,
 				range: true,
 				tooltip_split: true,
+				tooltip: 'hide',
 				formatter: function(x) {
 					return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 				}
@@ -151,6 +174,30 @@
 				$('#price_slider_label > .from').html(x[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 				$('#price_slider_label > .to').html(x[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 			})
+		});
+
+		$('.filter_checkbox_place_detail').on('change', function(event) {
+			if ($(this).is(':checked'))
+			{
+				$('.tour_schedule_places_detail').slideDown();
+			}
+			else
+			{
+				$('.tour_schedule_places_detail').slideUp();
+			}
+			/* Act on the event */
+		});
+
+		$('.filter_checkbox_paket_detail').on('change', function(event) {
+			if ($(this).is(':checked'))
+			{
+				$('.tour_schedule_paket_detail').slideDown();
+			}
+			else
+			{
+				$('.tour_schedule_paket_detail').slideUp();
+			}
+			/* Act on the event */
 		});
 	</script>
 @stop

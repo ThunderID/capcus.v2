@@ -45,7 +45,7 @@
 
 		<div class="widget widget_has_radio_checkbox">
 			<div class='text-center'>
-				<button type='submit' class='awe-btn'>Filter</button>							
+				<button type='submit' class='awe-btn btn-block'>Filter</button>							
 			</div>
 		</div>
 	</div>

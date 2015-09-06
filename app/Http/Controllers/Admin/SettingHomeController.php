@@ -91,9 +91,7 @@ class SettingHomeController extends Controller {
 	public function HeadlineCreate($data = null)
 	{
 		$this->required_images = [
-									'SmallImage' 	=> 'Small Image',
-									'MediumImage'	=> 'Medium Image',
-									'LargeImage'	=> 'Large Image',
+									'LargeImage'	=> 'Large Image (1524x896 - center image 1524x600)',
 								];
 		// ------------------------------------------------------------------------------------------------------------
 		// DESTINATIONS
@@ -115,9 +113,7 @@ class SettingHomeController extends Controller {
 	public function HeadlineStore($id = null)
 	{
 		$this->required_images = [
-								'SmallImage' 	=> 'Small Image',
-								'MediumImage'	=> 'Medium Image',
-								'LargeImage'	=> 'Large Image',
+								'LargeImage'	=> 'Large Image (400x400)',
 							];
 		// ---------------------------------------- HANDLE REQUEST ----------------------------------------
 		// handle id

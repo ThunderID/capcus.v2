@@ -19,11 +19,14 @@
 		}
 
 		tr { 
-			cursor:pointer !important;
 
 			td { 
 				color:black !important;
 			}
 		} 
+
+		tr.clickable { 
+			cursor:pointer !important;
+		}
 	}
 }

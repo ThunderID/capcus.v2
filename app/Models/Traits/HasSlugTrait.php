@@ -4,6 +4,12 @@ use Illuminate\Support\MessageBag;
 
 trait HasSlugTrait {
 
+	function bootHasSlugTrait()
+	{
+		Static::observe(new HasSlugObserver);
+	}
+
+
 	//
 	function scopeSlugIs($q, $v)
 	{

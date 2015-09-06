@@ -62,10 +62,4 @@ Route::group(['namespace' => 'Web\\'], function(){
 		get('/success/{subscriber_id}',												['uses' => 'SubscriptionController@success'	,'as' => 'web.subscription.success']);
 		get('/unsubscribe/{id}/{token}',											['uses' => 'SubscriptionController@unsubscribe'	,'as' => 'web.subscription.unsubscribe']);
 	});
-
-	// NEWSLETTER
-	Route::group(['prefix' => 'newsletter'], function() {
-		get('/send',																['uses' => 'NewsletterController@send',			'as' => 'web.newsletter.send']);
-	}); 
-
 });

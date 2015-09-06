@@ -9,18 +9,12 @@ class TravelAgentObserver {
 	// ----------------------------------------------------------------
 	public function saving($model)
 	{
-		// Create Slug
-		if (!$model->slug)
-		{
-			$i = 0;
-			do {
-				$model->slug = str_slug($model->name . ($i ? '-' . $i : '')) ;
-				$i++;
-			} while (\App\Place::SlugIs($model->slug)->where('id', '!=', $model->id ? $model->id : 0)->count());
-		}
-		
 		// RULES
-		$rules['email']				= ['email'];
+		$rules['name'] 		= ['required']; 
+		$rules['email'] 	= ['required', 'email']; 
+		$rules['slug'] 		= ['required', 'alpha_dash']; 
+		$rules['address'] 	= ['required', 'min:20'];
+		$rules['phone'] 	= ['required'];		
 
 		$validator = Validator::make($model->toArray(), $rules);
 		if ($validator->fails())
@@ -65,10 +59,14 @@ class TravelAgentObserver {
 	// ----------------------------------------------------------------
 	public function deleting($model)
 	{
+		if ($model->tours->count())
+		{
+			$model->setErrors(new MessageBag(['HasTours' => 'unable to delete this travel agent as it has some tours']));
+			return false;
+		}	
 	}
 
 	public function deleted($model)
 	{
-
 	}
 }

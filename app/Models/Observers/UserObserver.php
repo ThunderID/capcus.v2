@@ -1,6 +1,7 @@
 <?php namespace App;
 
 use Validator, \Illuminate\Support\MessageBag, Hash;
+use Illuminate\Foundation\Bus\DispatchesCommands;
 
 class UserObserver {
 
@@ -56,7 +57,7 @@ class UserObserver {
 
 	public function saved($model)
 	{
-
+		
 	}
 
 	// ----------------------------------------------------------------
@@ -69,7 +70,22 @@ class UserObserver {
 
 	public function created($model)
 	{
+		// ADD TO SUBSCRIBER
+		if ($model->email)
+		{
+			$subscriber = \App\Subscriber::where('user_id','=', $model->id)->first();
+			if (!$subscriber)
+			{
+				$subscriber = new \App\Subscriber();
+				$subscriber->email = $model->email;
+				$subscriber->is_subscribe = 1;
+				$subscriber->user_id = $model->id;
+				$subscriber->save();
+			}
+		}
 
+		// SEND WELCOME EMAIL
+		event(new \App\Events\NewMemberRegistered($model));
 	}
 
 	// ----------------------------------------------------------------

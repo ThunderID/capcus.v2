@@ -12,7 +12,7 @@ class TagObserver {
 		// ------------------------------------------------------------
 		// GENERATE RULES
 		// ------------------------------------------------------------
-		$rules['tag']				= ['required', 'alpha_num'];
+		$rules['tag']				= ['required', 'alpha_num', 'unique:' . $model->getTable() . ',tag,'. ($model->id ? $model->id : 'NULL') . ',id'];
 		// $model->name = strtolower($model->name);
 
 		$validator = Validator::make($model->toArray(), $rules);

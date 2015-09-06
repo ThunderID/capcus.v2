@@ -66,6 +66,38 @@
 																]) 
 						!!}
 					</div>
+
+					<div class='mb-sm'>
+						<strong class='text-uppercase'>Phone</strong>
+						@if ($errors->has('phone'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('phone'))}}</span>
+						@endif
+						{!! Form::text('phone', $travel_agent->phone, [
+																'class' 			=> 'form-control', 
+																'placeholder' 		=> 'enter phone here', 
+																'required' 			=> 'required',
+																'data-toggle' 		=> ($errors->has('phone') ? 'tooltip' : ''), 
+																'data-placement' 	=> 'bottom', 
+																'title' 			=> ($errors->has('phone') ? $errors->first('phone') : ''), 
+																]) 
+						!!}
+					</div>
+
+					<div class='mb-sm'>
+						<strong class='text-uppercase'>Address</strong>
+						@if ($errors->has('address'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('address'))}}</span>
+						@endif
+						{!! Form::textarea('address', $travel_agent->address, [
+																'class' 			=> 'form-control', 
+																'placeholder' 		=> 'enter address here', 
+																'required' 			=> 'required',
+																'data-toggle' 		=> ($errors->has('address') ? 'tooltip' : ''), 
+																'data-placement' 	=> 'bottom', 
+																'title' 			=> ($errors->has('address') ? $errors->first('address') : ''), 
+																]) 
+						!!}
+					</div>
 				</div>
 				@if (!empty($required_images))
 					<div class="well">

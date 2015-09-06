@@ -1,16 +1,44 @@
-<?php namespace App\Http\Controllers\Web;
+<?php
 
-use Auth, Input, Exception, \Illuminate\Support\MessageBag;
+namespace App\Console\Commands;
 
-use \App\Headline;
-use \App\Tour;
-use \App\TourSchedule;
+use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use \App\Article;
-use \Illuminate\Support\Collection;
+use Mail;
 
-class NewsletterController extends Controller {
+class SendNewsletter extends Command
+{
+	/**
+	 * The name and signature of the console command.
+	 *
+	 * @var string
+	 */
+	protected $signature = 'capcus:blast_newsletter';
 
-	public function send()
+	/**
+	 * The console command description.
+	 *
+	 * @var string
+	 */
+	protected $description = 'Command description.';
+
+	/**
+	 * Create a new command instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
+	/**
+	 * Execute the console command.
+	 *
+	 * @return mixed
+	 */
+	public function handle() 
 	{
 		// ------------------------------------------------------------------------------------------------------------
 		// GET HEADLINE
@@ -57,25 +85,33 @@ class NewsletterController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// GET USER
 		// ------------------------------------------------------------------------------------------------------------
+		$total_subscriber = \App\Subscriber::active()->count();
+
+		$this->info(' ---------------------------------------------------------------------------------------------- ');
+		$this->info(' BLAST NEWSLETTER ');
+		$this->info(' ---------------------------------------------------------------------------------------------- ');
+		$this->info(' * Sending Newsletter to ' . $total_subscriber . ' subscribers');
 		\App\Subscriber::with('user')->active()->orderby('id')->chunk(100, function($subscribers){
 			foreach ($subscribers as $subscriber)
 			{
-				Mail::queue($this->page_base_dir . 'newsletters.weekly', ['headlines' => $headlines, 'homegrids' => $homegrids, 'tours' => $tours, 'articles' => $articles, 'subscriber' => $subscriber], function ($m) use ($subscriber) {
-					$m->to($subscriber->email, $subscriber->user ? $subscriber->name)->subject('CAPCUS.id - Newsletter Edisi ' . \Carbon\Carbon::now()->year . '.' . \Carbon\Carbon::now()->format('W');
-				});
+
+				Mail::queue('web.v3.emails.newsletters.weekly', ['headlines' => $headlines, 
+																			'homegrids' => $homegrids, 
+																			'tours' => $tours, 
+																			'articles' => $articles, 
+																			'subscriber' => $subscriber
+																		], function ($m) use ($subscriber) 
+																			{
+																				$m->to($subscriber->email, $subscriber->user ? $subscriber->user->name : $subscriber->email )
+																					->subject('CAPCUS.id - Newsletter Edisi ' . \Carbon\Carbon::now()->year . '.' . \Carbon\Carbon::now()->format('W'));
+																			}
+						);
+				$this->info(' * Newsletter sent to ' . $subscriber->email . ' *');
 			}
 		});
 
-		// ------------------------------------------------------------------------------------------------------------
-		// SHOW DISPLAY
-		// ------------------------------------------------------------------------------------------------------------
-		$this->page 				= view($this->page_base_dir . 'newsletters.weekly');
-		$this->page->headlines		= $headlines;
-		$this->page->homegrids		= $homegrids;
-		$this->page->tours			= $tours;	
-		$this->page->articles		= $articles;	
-		return $this->page;
+		$this->info(' ---------------------------------------------------------------------------------------------- ');
+		$this->info(' BLAST NEWSLETTER COMPLETED');
+		$this->info(' ---------------------------------------------------------------------------------------------- ');
 	}
-
-	
 }

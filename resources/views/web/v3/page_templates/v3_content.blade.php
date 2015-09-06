@@ -16,4 +16,5 @@
 
 @section('basic_js')
 	@include('web.v3.components.js.slider')
+	{{-- @include('web.v3.components.js.compare_tour') --}}
 @stop

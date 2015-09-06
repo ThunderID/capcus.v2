@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TravelAgent extends BaseModel
 {
 	use HasNameTrait, HasSlugTrait,
-		HasManyImagesTrait, HasManyAddressesTrait, HasManyToursTrait, BelongsToManyPackagesTrait;
+		HasManyImagesTrait, HasManyToursTrait, BelongsToManyPackagesTrait;
 
     //
 	protected $table = 'travel_agencies';
@@ -15,6 +15,8 @@ class TravelAgent extends BaseModel
 							'name', 
 							'email', 
 							'slug', 
+							'address',
+							'phone'
 						];
 
 	static $name_field	= 'name';
@@ -28,23 +30,20 @@ class TravelAgent extends BaseModel
 		parent::boot();
 		Static::observe(new TravelAgentObserver);
 		Static::observe(new HasNameObserver);
-		Static::observe(new HasSlugObserver);
 	}
 
 	// ----------------------------------------------------------------------
 	// RELATIONS
 	// ----------------------------------------------------------------------
-	function addresses()
-	{
-		return $this->morphMany(__NAMESPACE__ . '\Address', 'location');
-	}
+	// function addresses()
+	// {
+	// 	return $this->morphMany(__NAMESPACE__ . '\Address', 'location');
+	// }
 
-	function phones()
-	{
-		return $this->morphMany(__NAMESPACE__ . '\Phone', 'phoneable');
-	}
-
-
+	// function phones()
+	// {
+	// 	return $this->morphMany(__NAMESPACE__ . '\Phone', 'phoneable');
+	// }
 	
 	// ----------------------------------------------------------------------
 	// SCOPES

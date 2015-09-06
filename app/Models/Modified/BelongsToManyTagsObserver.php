@@ -34,7 +34,7 @@ class BelongsToManyTagsObserver {
 
 	public function saved($model)
 	{
-		$model->tags()->sync(is_array($model->tag_ids) ? $model->tag_ids : [$model->tag_ids]);
+		$model->tags()->sync(is_array($model->tag_ids) ? array_unique($model->tag_ids) : [$model->tag_ids]);
 	}
 
 	// ----------------------------------------------------------------

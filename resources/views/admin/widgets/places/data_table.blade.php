@@ -48,7 +48,6 @@
 					<th>#</th>
 					<th>Name</th>
 					<th>Location</th>
-					<th><span class="fa fa-sort-desc" aria-hidden="true"></span> Created At</th>
 					<th>Published At</th>
 					<th></th>
 				</tr>
@@ -66,6 +65,10 @@
 						</td>
 						<td>{{$x->long_name}}</td>
 						<td>{{$x->destination->path}}</td>
+						<td>
+							P: {!! $x->published_at->year > 0 ? $x->published_at->diffForHumans() : '<span class="text-warning">draft</span>' !!}<br/>
+							C: {!! $x->created_at->diffForHumans() !!}
+						</td>
 						<td class='text-right'>
 							<div class="btn-group">
 								<a href='{{route("admin." . $route_name . ".edit", ["id" => $x->id])}}' type="button" class="btn btn-default"><span class="fa fa-pencil-square-o"></a>

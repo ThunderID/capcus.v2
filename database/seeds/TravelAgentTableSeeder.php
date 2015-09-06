@@ -20,7 +20,9 @@ class TravelAgentTableSeeder extends Seeder
 	    	$travel = new \App\TravelAgent;
 	    	$travel->fill([
 	    			'name'	=> $x,
-	    			'email'	=> 'book@' . strtolower(camel_case(str_replace(' ', '', $x))) . '.com'
+	    			'email'	=> 'book@' . strtolower(camel_case(str_replace(' ', '', $x))) . '.com',
+	    			'address' => 'Jl Jenderal Sudirman No 1 Jakarta',
+	    			'phone'	=> '021-' . rand(9000000, 9999999)
 	    		]);
 	    	if (!$travel->save())
 	    	{

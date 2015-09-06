@@ -7,7 +7,7 @@ use DB;
 
 class Destination extends BaseModel
 {
-	use HasNameTrait, HasSlugTrait, TreeTrait,
+	use HasNameTrait, TreeTrait,
 		BelongsToManyArticlesTrait, HasManyImagesTrait, HasManyPlacesTrait,  BelongsToManyToursTrait;
 
     //

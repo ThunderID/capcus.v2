@@ -16,7 +16,6 @@
 	}
 ?>
 
-
 @extends('admin.widget_templates.' . ($widget_template ? $widget_template : 'plain_no_title'))
 
 @if (!$widget_error_count)
@@ -46,7 +45,7 @@
 				</div>
 
 				<div class="mb-xs">
-					<strong class='text-uppercase'>Departure Until (For FIT Only)</strong>
+					<strong class='text-uppercase'>Departure Until (For Individual Tour Only)</strong>
 					@if ($errors->has('departure_until'))
 						<span class='text-danger pull-right'>{{implode(', ', $errors->get('departure_until'))}}</span>
 					@endif
@@ -91,7 +90,7 @@
 				</div>
 
 				<div class="mb-xs">
-					<strong class='text-uppercase'>Discounted Price </strong>
+					<strong class='text-uppercase'>Discounted Price (If no discount, please enter same number as original price)</strong>
 					@if ($errors->has('discounted_price'))
 						<span class='text-danger pull-right'>{{implode(', ', $errors->get('discounted_price'))}}</span>
 					@endif

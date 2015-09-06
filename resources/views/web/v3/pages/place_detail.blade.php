@@ -26,7 +26,6 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<div class="mb-0">{{ $place->destination->long_name}}</div>
 					<h1 class='mt-5 pt-5'>{{ $place->name }}</h1>
 				</div>
 				<div class='col-md-12'>

@@ -17,6 +17,7 @@ class BelongsToDestinationObserver {
 		$validator = Validator::make($model->toArray(), $rules);
 		if ($validator->fails())
 		{
+			dd('BelongsToDestinationObserver');
 			$model->setErrors($validator->messages());
 			return false;
 		}

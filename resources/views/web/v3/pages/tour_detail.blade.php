@@ -18,7 +18,7 @@
 @stop
 
 @section('content_2')
-	<section class="product-detail pb-0" style="-webkit-transform: none;">
+	<section class="pb-0" style="-webkit-transform: none;">
 		<div class="container" style="-webkit-transform: none;">
 			<div class="row">
 				<div class="col-md-12">
@@ -41,15 +41,36 @@
 				<div class="col-xs-12 col-sm-3 col-md-2 col-lg-3 text-black pb-lg">
 					<div class='hidden-xs'>
 						<img src='{{ $tour->travel_agent->images->where('name', 'SmallLogo')->first()->path}}' class='img-responsive mb-md' alt='{{$tour->travel_agent->name }}'> 
-						<strong class='text-uppercase text-lg'>{{ $tour->travel_agent->name}}</strong>
-						<p>{{ $tour->travel_agent->addresses}}
+						
+						{{-- <strong class='text-uppercase text-lg'>{{ $tour->travel_agent->name}}</strong> --}}
+						{{nl2br($tour->travel_agent->address)}}
+
+						<div class="clearfix"></div>
+
+						<div class='mt-xxl text-black'>
+							<div class='text-xxxl pull-left mr-sm'>
+								<i class='fa fa-phone border-1 border-solid border-gray border-circle text-yellow' style='padding:8px 11px'></i>
+							</div>
+							Untuk Reservasi Hub:
+							<br><strong class='text-lg text-black'>{{$tour->travel_agent->phone}}</strong>
+						</div>
 					</div>
 
 					<div class='hidden-sm hidden-md hidden-lg'>
 						<h6 class='text-regular text-bold text-uppercase text-yellow'>Oleh</h6>
 						<img src='{{ $tour->travel_agent->images->where('name', 'SmallLogo')->first()->path}}' alt='{{$tour->travel_agent->name }}' class='pull-right' style='width:100px'> 
 						<strong class='text-uppercase'>{{ $tour->travel_agent->name}}</strong>
-						<p>{{ $tour->travel_agent->addresses}}
+						<br>{{nl2br($tour->travel_agent->address)}}
+						
+						<div class="clearfix"></div>
+
+						<div class='mt-sm text-black mb-lg'>
+							<div class='text-xxxl pull-left mr-sm'>
+								<i class='fa fa-phone border-1 border-solid border-gray border-circle text-yellow' style='padding:8px 11px'></i>
+							</div>
+							Untuk Reservasi Hub:
+							<br><strong class='text-lg text-black'>{{$tour->travel_agent->phone}}</strong>
+						</div>
 					</div>
 				</div>
 
@@ -74,19 +95,19 @@
 								</div>
 							</section>
 						</div>
-						<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7  pb-lg">
+						<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 pb-lg">
 							<h6 class='text-regular text-bold text-uppercase text-yellow'>Ittinary</h6>
 							{{-- ITTINARY --}}
 							{!! $tour->ittinary !!}
 
 							{{-- TUJUAN WISATA --}}
-							<h6 class='text-regular text-bold text-uppercase text-yellow'>Tujuan Wisata</h6>
+							{{-- <h6 class='text-regular text-bold text-uppercase text-yellow'>Tujuan Wisata</h6>
 							@foreach ($tour->places as $k => $place)
 								@if ($k)
 									, 
 								@endif
 								<a href='{{ route("web.places.show", ["destination" => $place->destination->slug, 'slug' => $place->slug])}}' class='text-black text-hover-yellow'>{{$place->name}}</a>
-							@endforeach
+							@endforeach --}}
 
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">

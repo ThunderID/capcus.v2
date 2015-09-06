@@ -1,0 +1,28 @@
+.compare_tour_cart { 
+	position:fixed;
+	bottom:0;
+	width:100%;
+	background:#f0f0f0;
+	z-index:9999999;
+	padding:0px;
+	margin:0px;
+	color:black;
+
+	.show-toggle { 
+		position:relative;
+		float:right;
+		top:-20px;
+		right:30px;
+		border-radius: 3px;
+		// border-color:#aaa;
+		// border-style:solid;
+		// border-width:1px 1px 0px 1px;
+		background: $color2;
+		padding:3px 10px;
+		color:black;
+	}
+
+	.content {
+		height: 100px;
+	 }
+}

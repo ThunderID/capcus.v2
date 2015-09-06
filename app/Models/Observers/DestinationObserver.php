@@ -55,6 +55,23 @@ class DestinationObserver {
 	// ----------------------------------------------------------------
 	public function deleting($model)
 	{
+		if ($model->places->count())
+		{
+			$model->setErrors('Fail to delete ' . $model->{$model->getNameField()} . ' as it\'s linked to some places');
+			return false;
+		}
+
+		if ($model->tours->count())
+		{
+			$model->setErrors('Fail to delete ' . $model->{$model->getNameField()} . ' as it\'s linked to some tours');
+			return false;
+		}
+
+		if ($model->articles->count())
+		{
+			$model->setErrors('Fail to delete ' . $model->{$model->getNameField()} . ' as it\'s linked to some articles');
+			return false;
+		}
 	}
 
 	public function deleted($model)

@@ -11,10 +11,14 @@
 <div class='place-list bg-white'>
 	<div class="row">
 		<div class="hidden-xs hidden-sm col-md-6 col-lg-4 pr-0">
-			<img src="{{$place->images->where('name', 'Gallery1')->first()->path}}" class='image43'>
+			<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}" class='title'>
+				<img src="{{$place->images->where('name', 'Gallery1')->first()->path}}" class='image43'>
+			</a>
 		</div>
 		<div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
-			<img src="{{$place->images->where('name', 'Gallery1')->first()->path}}" class='image43'>
+			<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}" class='title'>
+				<img src="{{$place->images->where('name', 'Gallery1')->first()->path}}" class='image43'>
+			</a>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
 			<div class='mr-xs ml-xs'>
@@ -38,15 +42,15 @@
 				<div class='mt-xl'>
 					<div class='hidden-sm hidden-md hidden-lg text-center mb-sm'>
 						<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}" class='awe-btn'>BACA SELENGKAPNYA</a>
-						<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}" class='awe-btn'><i class='fa fa-plane'></i> {{$total_schedules}} Paket tour</a>
+						<a href="{{ route('web.tour') . '?place=' . urlencode($place->slug) }}" class='awe-btn'><i class='fa fa-plane'></i> {{$total_schedules}} Paket tour</a>
 					</div>
 					<div class='hidden-xs hidden-md hidden-lg text-center mb-sm'>
 						<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}" class='awe-btn btn-block'>BACA SELENGKAPNYA</a>
-						<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}" class='awe-btn btn-block mt-xs'><i class='fa fa-plane'></i> {{$total_schedules}} Paket tour</a>
+						<a href="{{ route('web.tour') . '?place=' . urlencode($place->slug) }}" class='awe-btn btn-block mt-xs'><i class='fa fa-plane'></i> {{$total_schedules}} Paket tour</a>
 					</div>
 					<div class='hidden-xs hidden-sm text-right'>
 						<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}" class='awe-btn '>BACA SELENGKAPNYA</a>
-						<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}" class='awe-btn '><i class='fa fa-plane'></i> {{$total_schedules}} Paket tour</a>
+						<a href="{{ route('web.tour') . '?place=' . urlencode($place->slug) }}" class='awe-btn '><i class='fa fa-plane'></i> {{$total_schedules}} Paket tour</a>
 					</div>
 				</div>
 			</div>

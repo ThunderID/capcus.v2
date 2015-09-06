@@ -378,7 +378,7 @@ class TourController extends Controller {
 			if ($tour)
 			{
 				$tour->load('schedules', 
-							'travel_agent', 'travel_agent.addresses', 'travel_agent.images', 
+							'travel_agent', 'travel_agent.images', 
 							'places', 'places.images', 'places.destination',
 							'destinations' );
 			}

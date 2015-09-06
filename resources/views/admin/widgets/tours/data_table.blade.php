@@ -69,7 +69,7 @@
 							<br>Duration: {{$x->duration_day}}D/{{$x->duration_night}}N
 							<br>By: {{$x->travel_agent->name}}</td>
 						</td>
-						<td>
+						<td width='45%'>
 							<strong>{{implode(', ', $x->destinations->lists('path')->toArray())}} </strong>
 							<br>
 							{{implode(', ', $x->places->lists('name')->toArray())}} 

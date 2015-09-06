@@ -37,7 +37,11 @@ class MeController extends Controller {
 		$user = Auth::user();
 		$user->email = Input::get('email');
 		$user->gender = Input::get('gender');
-		$user->dob = \Carbon\Carbon::createFromDate(Input::get('year'), Input::get('month'), Input::get('day'));
+		try {
+			$user->dob = \Carbon\Carbon::createFromDate(Input::get('year'), Input::get('month'), Input::get('day'));
+		} catch (\Exception $e) {
+			return redirect()->back()->withInput()->withErrors('Tanggal lahir anda dalam format yang salah');
+		}
 
 		$rules['email'] = ['required', 'email'];
 		$rules['gender'] = ['required', 'in:pria,wanita'];

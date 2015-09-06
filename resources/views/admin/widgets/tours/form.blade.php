@@ -116,67 +116,6 @@
 					</div>
 				</div>
 
-				@if (!empty($required_images))
-					<div class="well">
-						<div class='title'>Images</div>
-						@include('admin.components.required_image_form', ['required_images' => $required_images, 'data' => $tour])
-					</div>
-				@endif
-			</div>
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
-				<div class="well">
-					<div class='title'>DURATION</div>
-					<div class='mb-sm'>	
-						<strong class='text-uppercase'>Day</strong>
-						@if ($errors->has('duration_day'))
-							<span class='text-danger pull-right'>{{implode(', ', $errors->get('duration_day'))}}</span>
-						@endif
-						{!! Form::select('duration_day', range(1,365), $tour->duration_day, [
-																'class' 			=> 'form-control select2', 
-																'placeholder'		=> '-',
-																'required' 			=> 'required',
-																'data-toggle'		=> ($errors->has('duration_day') ? 'tooltip' : ''), 
-																'data-placement'	=> 'left', 
-																'title' 			=> ($errors->has('duration_day') ? $errors->first('duration_day') : ''), 
-															]) 
-						!!}
-					</div>
-
-					<div class='mb-sm'>	
-						<strong class='text-uppercase'>Night</strong>
-						@if ($errors->has('duration_night'))
-							<span class='text-danger pull-right'>{{implode(', ', $errors->get('duration_night'))}}</span>
-						@endif
-						{!! Form::select('duration_night', range(1,365), $tour->duration_night, [
-																'class' 			=> 'form-control select2', 
-																'placeholder'		=> '-',
-																'required' 			=> 'required',
-																'data-toggle'		=> ($errors->has('duration_night') ? 'tooltip' : ''), 
-																'data-placement'	=> 'left', 
-																'title' 			=> ($errors->has('duration_night') ? $errors->first('duration_night') : ''), 
-															]) 
-						!!}
-					</div>
-				</div>
-
-				<div class="well">
-					<div class='title'>Tag</div>
-					<p>	
-						<strong class='text-uppercase'>Tag</strong>
-						@if ($errors->has('tags'))
-							<span class='text-danger pull-right'>{{implode(', ', $errors->get('tags'))}}</span>
-						@endif
-						{!! Form::select('tags[]', $tag_list->lists('tag', 'tag'), ($tour->tags ? $tour->tags->lists('tag')->toArray() : null), [
-																'class' 			=> 'form-control select2-tags', 
-																'data-toggle'		=> ($errors->has('tags') ? 'tooltip' : ''), 
-																'data-placement'	=> 'left', 
-																'title' 			=> ($errors->has('tags') ? $errors->first('tags') : ''), 
-																'multiple'			=> 'multiple'
-															]) 
-						!!}
-					</p>
-				</div>
-
 				<div class="well">
 					<div class='title'>Destinations</div>
 					<p>	
@@ -211,13 +150,80 @@
 					</p>
 				</div>
 
+				@if (!empty($required_images))
+					<div class="well">
+						<div class='title'>Images</div>
+						@include('admin.components.required_image_form', ['required_images' => $required_images, 'data' => $tour])
+					</div>
+				@endif
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+				<div class="well">
+					<div class='title'>DURATION</div>
+					<div class='mb-sm'>	
+						<strong class='text-uppercase'>Day</strong>
+						@if ($errors->has('duration_day'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('duration_day'))}}</span>
+						@endif
+						{!! Form::select('duration_day', range(0,365), $tour->duration_day, [
+																'class' 			=> 'form-control select2', 
+																'placeholder'		=> '-',
+																'required' 			=> 'required',
+																'data-toggle'		=> ($errors->has('duration_day') ? 'tooltip' : ''), 
+																'data-placement'	=> 'left', 
+																'title' 			=> ($errors->has('duration_day') ? $errors->first('duration_day') : ''), 
+															]) 
+						!!}
+					</div>
+
+					<div class='mb-sm'>	
+						<strong class='text-uppercase'>Night</strong>
+						@if ($errors->has('duration_night'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('duration_night'))}}</span>
+						@endif
+						{!! Form::select('duration_night', range(0,365), $tour->duration_night, [
+																'class' 			=> 'form-control select2', 
+																'placeholder'		=> '-',
+																'required' 			=> 'required',
+																'data-toggle'		=> ($errors->has('duration_night') ? 'tooltip' : ''), 
+																'data-placement'	=> 'left', 
+																'title' 			=> ($errors->has('duration_night') ? $errors->first('duration_night') : ''), 
+															]) 
+						!!}
+					</div>
+				</div>
+
+				<div class="well">
+					<div class='title'>Tag</div>
+					<p>	
+						<strong class='text-uppercase'>Tag</strong>
+						@if ($errors->has('tags'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('tags'))}}</span>
+						@endif
+						{!! Form::select('tags[]', $tag_list->lists('tag', 'tag'), ($tour->tags ? $tour->tags->lists('tag')->toArray() : null), [
+																'class' 			=> 'form-control select2-tags', 
+																'data-toggle'		=> ($errors->has('tags') ? 'tooltip' : ''), 
+																'data-placement'	=> 'left', 
+																'title' 			=> ($errors->has('tags') ? $errors->first('tags') : ''), 
+																'multiple'			=> 'multiple'
+															]) 
+						!!}
+					</p>
+				</div>
+
+				
+
 				<div class="well">
 					<div class='title'>Include/Exclude</div>
 					<p>	
 						@forelse ($tour_options as $tour_option)
 							<label class='text-light'>
 								{!! Form::checkbox('tour_options[]', $tour_option->id, (!is_null($tour->options) && ($tour->options->find($tour_option->id)) ? true : false), [])!!} {{ $tour_option->name }}
+								@if (str_is('hotel', strtolower($tour_option->name)))
+									(Input 1-5 for hotel stars or text for hotel name)
+								@endif
 							</label>
+
 							{!! Form::textarea('tour_options_description_' . $tour_option->id, ($tour->options ? $tour->options->where('id', $tour_option->id)->shift()->pivot->description : '')	, ['class' => 'form-control', 'rows' => 2]) !!}
 							<hr>
 						@empty

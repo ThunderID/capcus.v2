@@ -16,7 +16,7 @@ trait HasManyPlacesTrait {
 	//------------------------------------------------------------------------
 	function places()
 	{
-		return $this->hasMany(__NAMESPACE__ . '\TourSchedule');
+		return $this->hasMany(__NAMESPACE__ . '\Place');
 	}
 
 	//------------------------------------------------------------------------

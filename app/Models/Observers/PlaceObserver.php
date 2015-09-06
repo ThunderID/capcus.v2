@@ -36,8 +36,8 @@ class PlaceObserver {
 		// ------------------------------------------------------------
 		$rules['summary']				= ['required', 'min:40'];
 		$rules['content']				= ['required', 'min:100'];
-		$rules['longitude']				= ['numeric'];
-		$rules['latitude']				= ['numeric'];
+		// $rules['longitude']				= ['numeric'];
+		// $rules['latitude']				= ['numeric'];
 
 		$validator = Validator::make($model->toArray(), $rules);
 		if ($validator->fails())
@@ -82,6 +82,11 @@ class PlaceObserver {
 	// ----------------------------------------------------------------
 	public function deleting($model)
 	{
+		if ($model->tours->count())
+		{
+			$model->setErrors('Fail to delete ' . $model->{$model->getNameField()} . ' as it\'s linked to some tour');
+			return false;
+		}
 	}
 
 	public function deleted($model)

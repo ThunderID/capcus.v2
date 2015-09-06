@@ -4,6 +4,11 @@ use Illuminate\Support\MessageBag;
 
 trait HasNameTrait {
 
+	function bootHasNameTrait()
+	{
+		Static::observe(new HasNameObserver);
+	}
+
 	//
 	public function scopeNameLike($q, $v = null)
 	{

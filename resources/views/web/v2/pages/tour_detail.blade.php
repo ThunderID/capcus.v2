@@ -38,11 +38,13 @@
 					<p class='text-center'>
 						<img src="{{$tour->travel_agent->images->where('name', 'LargeLogo')->first()->path}}">
 						<br><strong class='text-lg text-light'>{{$tour->travel_agent->name}}</strong>
-						<br>
-							@forelse ($tour->travel_agent->addresses as $x)
-								{{$x}}
-							@empty
-							@endforelse
+						<br>{{nl2br($tour->travel_agent->address)}}
+
+						<div class="clearfix">
+							<div class='fa fa-phone pull-left'></div>
+							Untuk Reservasi Hub:
+							<br>{{$tour->travel_agent->phone}}
+						</div>
 					</p>
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">

@@ -26,56 +26,28 @@
 
 	@yield('nav', '[nav]')
 
-	<div id="wrapper">
-		<!-- Sidebar -->
-		<div id="sidebar-wrapper">
-			{{-- LOAD NAV_SIDEBAR --}}
-			@yield('nav_sidebar', '[nav_sidebar]')
-		</div>
-		<!-- /#sidebar-wrapper -->
-
-		<!-- Page Content -->
-		<div id="page-content-wrapper">
-			<div class="container-fluid">
+	<!-- Page Content -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12 mt-sm">
+				{{-- page content --}}
+				@include('admin.widgets.common.alerts')
+				
 				<div class="row">
-					<div class="hidden-sm hidden-md hidden-lg">
-						<a href="#menu-toggle" id="menu-toggle" class='btn btn-info pull-left mr-sm'><i class='glyphicon glyphicon-list'></i></a>
-						<span class='text-lg'>CAPCUS</span>
-						<hr>
+					<div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+						<aside>
+							<h4 class='text-primary text-bold text-uppercase'>{{$content_title}}</h4>
+							<hr>
+
+							{{-- LOAD SIDEBAR 2 CONTENT --}}
+							@yield('content_sidebar', '[content_sidebar]')
+						</aside>
 					</div>
 
-					<div class="col-lg-12 mt-sm">
-						{{-- page content --}}
-						@include('admin.widgets.common.alerts')
-						
-						<div class="row">
-							<div class="hidden-xs col-sm-3 col-md-3 col-lg-2">
-								<div class='sidebar2 mr-md' data-spy="affix" data-offset-top="0" >
-									<h4 class='text-primary text-bold text-uppercase'>
-										{{$content_title}}
-									</h4>
-									<hr>
-
-									{{-- LOAD SIDEBAR 2 CONTENT --}}
-									@yield('content_sidebar', '[content_sidebar]')
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-								
-
-								{{-- sidebar2 replacement for mobile --}}
-								<div class='hidden-sm hidden-md hidden-lg mb-lg'>
-									<div class='mt-sm mr-sm mb-sm ml-sm pt-sm'>
-										{{-- LOAD SIDEBAR 2 CONTENT --}}
-										@yield('content_sidebar', '[content_sidebar]')
-									</div>
-									<hr/>
-								</div>
-
-								{{-- LOAD PAGE CONTENT --}}
-								@yield('content_body', '[content_body]')
-							</div>
-						</div>
+					<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+						<main>
+							@yield('content_body', '[content_body]')
+						</main>
 					</div>
 				</div>
 			</div>
@@ -95,15 +67,6 @@
 	@include('admin.plugins.tooltip')
 	@include('admin.plugins.single_submit')
 	@include('admin.plugins.no_enter_form')
-
-	<script>
-		$("#menu-toggle").click(function(e) {
-			e.preventDefault();
-			$("#wrapper").toggleClass("toggled");
-		});
-
-		// ---------------------------- ENABLE BOOTSTRAP TOOLTIP ----------------------------
-	</script>
 
 	@yield('modal')
 	@yield('js')
