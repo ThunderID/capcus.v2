@@ -21,7 +21,7 @@ class CreateUserTable extends Migration
             $table->string('telp')->nullable();
             $table->enum('gender', ['pria', 'wanita']);
             $table->date('dob')->nullable();
-            $table->boolean('is_admin');
+            $table->integer('is_admin');
 
             $table->string('sso_twitter_id', 60);
             $table->text('sso_twitter_data');

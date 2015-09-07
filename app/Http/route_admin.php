@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
+Route::group(['before' => 'auth.admin', 'prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 
 	Route::get('/', 					['uses' => 'LoginController@getLogin',					'as' => 'admin.login']);
 	Route::post('/login', 				['uses' => 'LoginController@postLogin',					'as' => 'admin.login.post']);
@@ -57,8 +57,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 				]);
 		}
 
-		Route::group(['prefix' => 'admin', 'before' => 'auth.admin'], function(){
-			Route::controller($k, $v, $additional_routes[$k] + [
+		Route::group(['before' => 'auth.superadmin'], function(){
+			Route::controller('admin', 'AdminController', [
 						'getIndex'		=> 'admin.admin.index',
 						'getCreate'		=> 'admin.admin.create',
 						'postStore'		=> 'admin.admin.store',

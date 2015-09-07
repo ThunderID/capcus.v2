@@ -14,7 +14,7 @@ class UserTableSeeder extends Seeder
     {
         //
         $user = new User;
-		$user->fill(['name' => 'Erick Mo', 'email' => 'erick.mo@vortege.com', 'password' => '123123123', 'is_admin' => true]);
+		$user->fill(['name' => 'Erick Mo', 'email' => 'erick.mo@vortege.com', 'password' => '123123123', 'is_admin' => 2]);
 		if (!$user->save())
 		{
 			dd($user->getErrors());
