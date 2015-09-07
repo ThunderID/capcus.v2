@@ -64,7 +64,8 @@ class TourSeeder extends Seeder
 						'departure_until'	=> \Carbon\Carbon::parse($departure)->addDay(rand(30, 150)),
 						'currency'			=> 'IDR',
 						'original_price'	=> $original_price,
-						'discounted_price'	=> $original_price * (rand(0,100) <= 20 ? (rand(80,100) / 100) : 1)
+						'discounted_price'	=> $original_price * (rand(0,100) <= 20 ? (rand(80,100) / 100) : 1),
+						'views'				=> 0
 					])]);
 			}
 			else
@@ -78,7 +79,8 @@ class TourSeeder extends Seeder
 							'departure_until'	=> null,
 							'currency'			=> 'IDR',
 							'original_price'	=> $original_price,
-							'discounted_price'	=> $original_price * (rand(0,100) <= 20 ? (rand(80,100) / 100) : 1)
+							'discounted_price'	=> $original_price * (rand(0,100) <= 20 ? (rand(80,100) / 100) : 1),
+							'views'				=> 0
 						])]);
 				}
 			}
