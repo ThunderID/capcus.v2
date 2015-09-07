@@ -17,7 +17,7 @@ class UserObserver {
 		{
 			$rules['password']								= ['required', 'min:8'];
 		}
-		$rules['is_admin']								= ['boolean'];
+		$rules['is_admin']								= ['integer', 'in:0,1,2'];
 		$rules['telp']									= ['numeric'];
 		if ($model->dob->year != -1)
 		{
