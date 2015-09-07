@@ -19,7 +19,7 @@ class IsAdminScope implements ScopeInterface {
 	 */
 	public function apply(Builder $builder, Model $model)
 	{
-		$builder->where('is_admin', '=', true);
+		$builder->where('is_admin', '>', 0);
 
 		// $this->extend($builder);
 	}
