@@ -43,7 +43,7 @@ class AuthenticateSuperadmin
             }
             else
             {
-                return redirect()->guest(route('admin.login'));
+                return redirect()->back()->withErrors('Unauthorized Access');
             }
         }
 

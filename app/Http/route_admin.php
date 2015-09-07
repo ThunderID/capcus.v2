@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['before' => 'auth.admin', 'prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
+Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 
 	Route::get('/', 					['uses' => 'LoginController@getLogin',					'as' => 'admin.login']);
 	Route::post('/login', 				['uses' => 'LoginController@postLogin',					'as' => 'admin.login.post']);
@@ -57,7 +57,7 @@ Route::group(['before' => 'auth.admin', 'prefix' => 'admin', 'namespace' => 'Adm
 				]);
 		}
 
-		Route::group(['before' => 'auth.superadmin'], function(){
+		Route::group(['middleware' => 'auth.superadmin'], function(){
 			Route::controller('admin', 'AdminController', [
 						'getIndex'		=> 'admin.admin.index',
 						'getCreate'		=> 'admin.admin.create',
