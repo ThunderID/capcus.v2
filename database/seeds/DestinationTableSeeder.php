@@ -306,6 +306,8 @@ class DestinationTableSeeder extends Seeder
 			['name' => 'South Afrika', 'parent_name' => 'Afrika'],
 			['name' => 'Madagaskar', 'parent_name' => 'Afrika'],
 
+			['name' => 'Antartika', 'parent_name' => null],
+
 		];
 
 		foreach ($destinations as $x)
