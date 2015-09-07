@@ -29,6 +29,7 @@
 			<h1 class='mt-sm text-uppercase text-lg text-center'>
 				{{ $tour->name }}
 				<br><small>{{ $tour_schedule->departure->format('d M Y') }}</small>
+				<div class="addthis_sharing_toolbox hidden-sm hidden-md hidden-lg"></div>
 			</h1>
 
 			<hr class='border-1 border-black'>

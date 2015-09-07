@@ -79,12 +79,19 @@ class PlaceController extends Controller {
 		$destinations = \App\Destination::orderBy(\App\Destination::getPathField());
 
 		// ------------------------------------------------------------------------------------------------------------
+		// TAG
+		// ------------------------------------------------------------------------------------------------------------
+		$tag_list = \App\Tag::orderBy('tag')->get();
+
+
+		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
 		$this->layout->page 				= view($this->page_base_dir . 'create')->with('route_name', $this->route_name)->with('view_name', $this->view_name);
 		$this->layout->page->data 			= $data;
 		$this->layout->page->required_images= $this->required_images;
 		$this->layout->page->destinations 	= $destinations;
+		$this->layout->page->tag_list 		= $tag_list;
 
 		return $this->layout;
 	}
@@ -102,6 +109,26 @@ class PlaceController extends Controller {
 			$data = $this->model->newInstance();
 		}
 
+		// ---------------------------------------- CHECK TAG ----------------------------------------
+		$tags_in_db = \App\Tag::whereIn('tag', Input::get('tags'))->get();
+		if (!$tags_in_db)
+		{
+			$tags_in_db = new Collection;
+		}
+
+		foreach (Input::get('tags') as $x )
+		{
+			if (!$tags_in_db->where('tag', $x)->first()->id)
+			{
+				$new_tag = new \App\Tag(['tag' => $x]);
+				if (!$new_tag->save())
+				{
+					dd($new_tag->getErrors());
+				}
+				$tags_in_db->push($new_tag);
+			}
+		}
+
 		// ---------------------------------------- HANDLE SAVE ----------------------------------------
 		$input = Input::all();
 		if (!empty($input['published_at']))
@@ -114,6 +141,8 @@ class PlaceController extends Controller {
 		}
 
 		unset($input['longlat']);
+		$input['tag_ids'] 			= $tags_in_db->pluck('id')->toArray();
+		
 		$data->fill($input);
 
 		if ($data->save())

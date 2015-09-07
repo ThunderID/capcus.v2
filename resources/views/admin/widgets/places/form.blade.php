@@ -127,6 +127,24 @@
 				@endif
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+				<div class="well">
+					<div class='title'>Tag</div>
+					<p>	
+						<strong class='text-uppercase'>Tag</strong>
+						@if ($errors->has('tags'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('tags'))}}</span>
+						@endif
+						{!! Form::select('tags[]', $tag_list->lists('tag', 'tag'), ($place->tags ? $place->tags->lists('tag')->toArray() : null), [
+																'class' 			=> 'form-control select2-tags', 
+																'data-toggle'		=> ($errors->has('tags') ? 'tooltip' : ''), 
+																'data-placement'	=> 'left', 
+																'title' 			=> ($errors->has('tags') ? $errors->first('tags') : ''), 
+																'multiple'			=> 'multiple'
+															]) 
+						!!}
+					</p>
+				</div>
+
 				<div class="well hidden-xs hidden-sm hidden-md">
 					<div class='title'>PUBLISH</div>
 					<strong class='text-uppercase'>Published At <small class='text-primary'>(dd/mm/yyyy hh:mm)</small></strong>

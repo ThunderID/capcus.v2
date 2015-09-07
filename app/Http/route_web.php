@@ -8,6 +8,7 @@ Route::group(['namespace' => 'Web\\'], function(){
 	Route::group(['prefix' => 'tour'], function(){
 		get('/tag/{tag}',															['uses' => 'TourController@tag',					'as' => 'web.tour.tag']);
 		get('/detail/{travel_agent}/{tour_slug}/{schedule}',						['uses' => 'TourController@show',					'as' => 'web.tour.show']);
+		get('/compare/{id?}',														['uses' => 'TourController@compare',				'as' => 'web.tour.compare']);
 		get('/{travel_agent?}/{tujuan?}/{keberangkatan?}/{budget?}',				['uses' => 'TourController@lists',					'as' => 'web.tour']);
 	});
 

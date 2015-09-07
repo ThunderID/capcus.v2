@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Web;
 
-use Auth, Input, \Illuminate\Support\MessageBag, App, \Illuminate\Support\Collection, Config, Cache;
+use Auth, Input, \Illuminate\Support\MessageBag, App, \Illuminate\Support\Collection, Config, Cache, Session;
 use App\Tour;
 use App\TravelAgent;
 use App\Destination;
@@ -510,6 +510,39 @@ class TourController extends Controller {
 		$this->layout->og['article:published_time']	= $tour->published_at->format('Y-m-d H:i:s');
 		$this->layout->og['article:section']	= 'paket tour';
 		$this->layout->og['article:tag']		= implode(', ', $tour->destinations->lists('name'));
+		return $this->layout;
+	}
+
+	public function compare($id_list = null)
+	{
+		if (!is_null($id_list))
+		{
+			$ids = explode(',', $id_list);
+		}
+		elseif (Session::has('compare_cart'))
+		{
+			$ids = Session::get('compare_cart');
+		}
+		else
+		{
+			return App::abort(404);
+		}
+
+		// get data
+		$tour_schedules = \App\TourSchedule::whereIn('id', $ids)->get();
+		$tour_schedules->load('tour', 'tour.travel_agent', 'tour.travel_agent.images');
+
+		if (count($ids) != $tour_schedules->count()){
+			return App::abort(404);
+		}
+
+		// ------------------------------------------------------------------------------------------------------------
+		// SHOW DISPLAY
+		// ------------------------------------------------------------------------------------------------------------
+		$this->layout->page = view($this->page_base_dir . 'tour_compare');
+		$this->layout->page->tour_schedules 			= $tour_schedules;
+		$this->layout->page->option_list 				= $this->option_list;
+
 		return $this->layout;
 	}
 }

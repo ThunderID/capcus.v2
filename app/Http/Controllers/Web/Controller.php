@@ -99,16 +99,26 @@ abstract class Controller extends BaseController {
 
 	function compare_tour()
 	{
+		// dd(Session::get('compare_cart'));
 		if (Session::has('compare_cart'))
 		{
 			$ids = Session::get('compare_cart', []);
-			$this->layout->basic->compare_cart = \App\TourSchedule::with('tour', 
-															'tour.travel_agent', 'tour.travel_agent.images'
-														)
-													->whereIn('id', $ids)
-													->published()
-													->orderBy('departure')
-													->get();
+			foreach ($ids as $k => $v)
+			{
+				if (is_null($v) || !$v)
+				{
+					unset($ids[$k]);
+				}
+			}
+
+			Session::put('compare_cart', $ids);
 		}
+		$this->layout->basic->compare_cart = \App\TourSchedule::with('tour', 
+														'tour.travel_agent', 'tour.travel_agent.images'
+													)
+												->whereIn('id', $ids)
+												->published()
+												->orderBy('departure')
+												->get();
 	}
 }

@@ -48,11 +48,13 @@
 						<div class="clearfix"></div>
 
 						<div class='mt-xxl text-black'>
-							<div class='text-xxxl pull-left mr-sm'>
-								<i class='fa fa-phone border-1 border-solid border-gray border-circle text-yellow' style='padding:8px 11px'></i>
-							</div>
-							Untuk Reservasi Hub:
-							<br><strong class='text-lg text-black'>{{$tour->travel_agent->phone}}</strong>
+							<a href='tel:{{str_replace('-', '', $tour->travel_agent->phone)}}'>
+								<div class='text-xxxl pull-left mr-sm'>
+									<i class='fa fa-phone border-1 border-solid border-gray border-circle text-yellow bg-hover-yellow text-hover-black' style='padding:8px 11px'></i>
+								</div>
+								<span class='text-black'>Untuk Reservasi Hub./Klik:</span>
+								<br><strong class='text-lg text-black'>{{$tour->travel_agent->phone}}</strong>
+							</a>
 						</div>
 					</div>
 
@@ -99,6 +101,12 @@
 							<h6 class='text-regular text-bold text-uppercase text-yellow'>Ittinary</h6>
 							{{-- ITTINARY --}}
 							{!! $tour->ittinary !!}
+
+							<p class='mt-md mb-md'>
+								<a href="javascript:;" data-id='{{$tour_schedule->id}}' class='awe-btn {{ in_array( $tour_schedule->id, Session::get('compare_cart')) ? '': 'awe-btn-style2'}} compare_tour add'>
+									<i class='fa fa-check {{ in_array( $tour_schedule->id, Session::get('compare_cart')) ? '': 'hidden'}}'></i> Bandingkan
+								</a>
+							</p>
 
 							{{-- TUJUAN WISATA --}}
 							{{-- <h6 class='text-regular text-bold text-uppercase text-yellow'>Tujuan Wisata</h6>
@@ -157,14 +165,17 @@
 																</span>
 															</span>
 														@endif
-													</td>
-													<td>
+														<p>
 														@if ($other_schedule->original_price > $other_schedule->discounted_price)
 															<span class="label label-warning">Promo</span>
 														@endif
 														@if ($other_schedule->id == $tour->cheapest->id)
 															<span class="label label-success">Termurah!</span>
 														@endif
+														</p>
+													</td>
+													<td>
+														<a href="{{route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => $other_schedule->departure->format('Ymd')])}}" class=''>Detail</a>
 													</td>
 												</tr>
 											@endif

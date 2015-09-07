@@ -9,6 +9,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'API\\'], function(){
 	// COMPARE TOUR
 	Route::group(['prefix' => 'compare'], function(){
 		get('/add', ['as' => 'api.compare.add', 'uses' => 'CompareTour@add']);
+		get('/remove', ['as' => 'api.compare.remove', 'uses' => 'CompareTour@remove']);
 	});
 
 	Route::group(['middleware' => ['auth.user'], 'prefix' => 'me'], function(){

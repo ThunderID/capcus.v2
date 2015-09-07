@@ -79,6 +79,11 @@
 		@yield('search_tour_tab', '[search_tour_tab]')
 		<!-- END / SEARCH TABS -->
 
+
+		<div class='mt-xxxl'>
+			@include('web.v3.components.ads.728x90')
+		</div>
+
 		@yield('content_2', '[content_2]')
 
 		<div class="clearfix mt-xxxl"></div>
@@ -94,8 +99,16 @@
 	<!-- END / PAGE WRAP -->
 
 	<!-- LOAD JQUERY -->
+	<script>
+		var web_url = '{{Config::get('app.url')}}';
+	</script>
 	<script type="text/javascript" src="{{ asset('js/web_v3.js') }}"></script>
+	<!-- Go to www.addthis.com/dashboard to customize your tools -->
 	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55dca75101742d57" async="async"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55dca75101742d57" async="async"></script>
+
+	
+
 
 	@yield('basic_js')
 	@yield('js')

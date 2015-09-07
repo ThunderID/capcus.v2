@@ -74,6 +74,11 @@ $bg-place-page: "../../../images/cover/place-bg.jpg";
     -ms-transform: color 0.5s;
      -o-transform: color 0.5s;
         transform: color 0.5s; }
+*:hover.text-hover-black	{ color: black !important; -webkit-transform: color 0.5s;
+   -moz-transform: color 0.5s;
+    -ms-transform: color 0.5s;
+     -o-transform: color 0.5s;
+        transform: color 0.5s; }
 
 // MODIFICATION
 .text-uppercase { text-transform: uppercase;}

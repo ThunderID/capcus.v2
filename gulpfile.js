@@ -28,7 +28,8 @@ elixir(function(mix) {
                 'web.v3/lib/moment.js',
                 'web.v3/lib/daterangepicker.js',
                 'web.v3/lib/bootstrap-slider.min.js',
-				'web.v3/scripts.js'
+                'web.v3/scripts.js',
+				'web.v3/compare_tour.js'
     		], 'public/js/web_v3.js')
     	.version([
                     'public/css/admin.css',

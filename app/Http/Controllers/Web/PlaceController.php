@@ -122,7 +122,14 @@ class PlaceController extends Controller {
 		$this->layout->page->start_pagination	= max(1, $page - 3);
 		$this->layout->page->last_pagination	= min(ceil($place_count/$per_page), $page + 3);
 
-		$this->layout->title					= "Tujuan Wisata - Capcus.id";
+		$this->layout->title					= "Tujuan Wisata "; 
+		if ($destination->id)
+		{
+			$this->layout->title				.= "di " . $destination->name; 
+		}
+		$this->layout->title 					.= "- Capcus.id";
+
+
 		$this->layout->og['title'] 				= $this->layout->title;
 		$this->layout->og['type'] 				= 'website';
 		$this->layout->og['image'] 				= ($places->count() ? $places->first()->images->where('name', 'LargeImage')->path : asset('images/logo-black.png'));

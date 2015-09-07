@@ -44,6 +44,9 @@
 					@endif
 				@endif
 			</h1>
+
+			<!-- Go to www.addthis.com/dashboard to customize your tools -->
+			<div class="addthis_sharing_toolbox"></div>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center mt-md">
 			@include('web.v2.components.tours.data_table',[

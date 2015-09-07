@@ -58,14 +58,25 @@
 		<b>Detail Paket:</b>
 	</div>
 	@foreach ($simple_options as $option)
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-			@if ($tour_schedule->tour->options->where('id', $option->id)->count())
-				<i class='fa fa-check-circle-o text-yellow'></i>
-			@else
-				<i class='fa fa-circle-o'></i>
-			@endif
-			{{$option->name}}
-		</div>
+		@if ($layout_style == 'list')
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				@if ($tour_schedule->tour->options->where('id', $option->id)->count())
+					<i class='fa fa-check-circle-o text-yellow'></i>
+				@else
+					<i class='fa fa-circle-o'></i>
+				@endif
+				{{$option->name}}
+			</div>
+		@else
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+				@if ($tour_schedule->tour->options->where('id', $option->id)->count())
+					<i class='fa fa-check-circle-o text-yellow'></i>
+				@else
+					<i class='fa fa-circle-o'></i>
+				@endif
+				{{$option->name}}
+			</div>
+		@endif
 	@endforeach
 </div>
 

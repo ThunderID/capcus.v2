@@ -6,26 +6,38 @@
 	<div class="container">
 		<div class='content pt-sm'>
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tour_list">
-					<a href='' class='pull-right awe-btn awe-btn-style2'>Bandingkan</a>
+				<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
 					<strong>BANDINGKAN</strong><br>
-					@forelse ($compare_cart as $k => $cart)
-						{{ ($k ? ', ' : '')}} {{$cart->tour->name}}
-					@empty
-					@endforelse
+					<div class='hidden-xs hidden-sm compare_tour_list'>
+						@forelse ($compare_cart as $k => $cart)
+							<a href='javascript:;' class='awe-btn awe-btn-style2 compare_tour remove text-sm  mr-5 mb-xs ' data-id='{{$cart->id}}'><i class='fa fa-close'></i> {{$cart->tour->name}} ({{$cart->tour->travel_agent->name}})</a>
+						@empty
+						@endforelse
+					</div>
+					<div class='hidden-md hidden-lg compare_tour_list'>
+						@forelse ($compare_cart as $k => $cart)
+							<a href='javascript:;' class='awe-btn awe-btn-style2 compare_tour remove text-sm  mr-5 mb-xs ' data-id='{{$cart->id}}'><i class='fa fa-close'></i> {{$cart->tour->name}} ({{$cart->tour->travel_agent->name}})</a>
+						@empty
+						@endforelse
+					</div>
+				</div>
+				<div class="hidden-xs hidden-sm col-md-2 col-lg-2 tour_list">
+					<a href='{{ route("web.tour.compare") }}' class='pull-right awe-btn awe-btn-style2 pt-xl pb-xl mt-xs'>Bandingkan</a>
+				</div>
+				<div class="col-xs-12 col-sm-12 hidden-md hidden-lg text-center bg-black">
+					<a href='{{ route("web.tour.compare") }}' class='awe-btn awe-btn-style2 mt-xs mb-xs'>Bandingkan</a>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-		
 <script>
 	@if (Session::has('compare_cart'))
-		@if (is_array(Session::get('compare_cart')))
+		@if (is_array(Session::get('compare_cart')) && count(Session::get('compare_cart') > 0))
 			var compare_tour_cart = [ {{ implode(',', Session::get('compare_cart')) }} ];
 		@else
-			var compare_tour_cart = [ {{ implode(',', [Session::get('compare_cart')]) }} ];
+			var compare_tour_cart = [  ];
 		@endif
 	@else
 		var compare_tour_cart = [];
@@ -35,55 +47,4 @@
 		compare_cart_toggle();
 	});
 
-
-	function compare_cart_toggle()
-	{
-		if ($('.compare_tour_cart').find('.content').css('display') != 'none')
-		{
-			$('.compare_tour.hide_list > i.fa-chevron-up').hide();
-			$('.compare_tour.hide_list > i.fa-chevron-down').show();
-		}
-		else
-		{
-			$('.compare_tour.hide_list > i.fa-chevron-up').show();
-			$('.compare_tour.hide_list > i.fa-chevron-down').hide();	
-		}
-
-		if (compare_tour_cart.length)
-		{
-			$('.compare_tour_cart').show();
-		}
-		else
-		{
-			$('.compare_tour_cart').hide();
-		}
-	}
-	// COMPARE TOUR ACTION
-	$('.compare_tour.add').on('click', function(event) {
-				var self = $(this);
-				$.ajax({
-					url: '{{route("api.compare.add")}}',
-					cache: false,
-					data: {id: self.data('id')},
-					dataType: 'json',
-					success: function(data) { 
-						if (data.length)
-						{
-							$('.compare_tour_cart').fadeIn();
-						}
-						$('.compare_tour_cart').find('.content').html(data);
-					}
-				})
-			});
-
-	// COMPARE TOUR CART
-	$('.compare_tour.hide_list').click(function(){
-		$('.compare_tour_cart').find('.content').animate(
-			{
-				height: "toggle"
-			},
-			500, function() {
-				compare_cart_toggle()
-		});
-	});
 </script>
