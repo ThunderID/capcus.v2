@@ -30,7 +30,7 @@ class MeController extends Controller {
 		}
 
 		// check old password
-		if (!Hash::check(Input::get('new_password'), $me->password))
+		if (!Hash::check(Input::get('current_password'), $me->password))
 		{
 			return redirect()->back()->withErrors(new MessageBag(['invalid_password' => 'Invalid current password']));
 		}
