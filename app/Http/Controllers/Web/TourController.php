@@ -406,7 +406,7 @@ class TourController extends Controller {
 			}
 		}
 
-		$tour_schedule->view++;
+		$tour_schedule->views++;
 		$tour_schedule->save();
 
 		// ------------------------------------------------------------------------------------------------------------
