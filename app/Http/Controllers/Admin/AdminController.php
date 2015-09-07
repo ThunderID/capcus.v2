@@ -77,7 +77,6 @@ class AdminController extends Controller {
 		$validator = Validator::make($input, $rules);
 		if ($validator->fails())
 		{
-			dd($validator->messages());
 			return redirect()->back()->withInput()->withErrors($validator->messages());
 		}
 
