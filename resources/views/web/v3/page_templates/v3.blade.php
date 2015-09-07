@@ -79,10 +79,9 @@
 		@yield('search_tour_tab', '[search_tour_tab]')
 		<!-- END / SEARCH TABS -->
 
+		@yield('ads_leaderboard', '[ads_leaderboard]')
 
-		<div class='mt-xxxl'>
-			@include('web.v3.components.ads.728x90')
-		</div>
+
 
 		@yield('content_2', '[content_2]')
 
