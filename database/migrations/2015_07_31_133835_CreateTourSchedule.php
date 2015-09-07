@@ -25,6 +25,8 @@ class CreateTourSchedule extends Migration
 
             $table->index(['tour_id', 'departure', 'discounted_price', 'original_price'], 'tour_sched');
             $table->index(['departure', 'discounted_price', 'original_price']);
+            $table->index(['tour_id', 'views']);
+            $table->index(['views']);
         });
     }
 
