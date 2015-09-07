@@ -23,7 +23,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 						'travel_agents'			=> "TravelAgentController",
 						'tours'					=> "TourController",
 						'tour_options'			=> "TourOptionController",
-						'admin'	 				=> "AdminController",
 						'members'	 			=> "MemberController",
 					];
 
@@ -41,7 +40,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 													'getDeleteSchedule'	=> 'admin.tours.schedules.delete'
 													],
 						'tour_options'			=> [],
-						'admin'					=> [],
 						'members'				=> [],
 		];
 
@@ -58,6 +56,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
 					'postDelete'	=> 'admin.'. str_replace('/', '.', $k) .'.delete',
 				]);
 		}
+
+		Route::group(['prefix' => 'admin', 'before' => 'auth.admin'], function(){
+			Route::controller($k, $v, $additional_routes[$k] + [
+						'getIndex'		=> 'admin.admin.index',
+						'getCreate'		=> 'admin.admin.create',
+						'postStore'		=> 'admin.admin.store',
+						'getEdit'		=> 'admin.admin.edit',
+						'getUpdate'		=> 'admin.admin.update',
+						'getShow'		=> 'admin.admin.show',
+						'getDelete'		=> 'admin.admin.delete_confirmation',
+						'postDelete'	=> 'admin.admin.delete',
+					]);
+		});
 
 		// CONFIGURE HOMEPAGE
 
