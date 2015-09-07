@@ -18,6 +18,7 @@ class CreateTourSchedule extends Migration
             $table->date('departure');
             $table->date('departure_until')->nullable();
             $table->string('currency');
+            $table->integer('views');
             $table->double('original_price');
             $table->double('discounted_price');
             $table->timestamps();
