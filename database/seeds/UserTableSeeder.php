@@ -20,14 +20,14 @@ class UserTableSeeder extends Seeder
 			dd($user->getErrors());
 		}
 
-		for ($i = 0; $i <= 10; $i++)
-		{
-			$user = new User;
-			$user->fill(['name' => 'Member ' . $i, 'email' => 'member.'.$i.'@gmail.com', 'password' => '123123123', 'is_admin' => false]);
-			if (!$user->save())
-			{
-				dd($user->getErrors());
-			}
-		}
+		// for ($i = 0; $i <= 10; $i++)
+		// {
+		// 	$user = new User;
+		// 	$user->fill(['name' => 'Member ' . $i, 'email' => 'member.'.$i.'@gmail.com', 'password' => '123123123', 'is_admin' => false]);
+		// 	if (!$user->save())
+		// 	{
+		// 		dd($user->getErrors());
+		// 	}
+		// }
     }
 }
