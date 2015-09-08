@@ -85,10 +85,10 @@
 
 		@yield('content_2', '[content_2]')
 
-		<div class="clearfix mt-xxxl"></div>
+		@yield('footer_top_margin')
 
 		<!-- FOOTER PAGE -->
-		<footer id="footer-page" class='mt-xxxl'>
+		<footer id="footer-page">
 			<div class="container">
 				@yield('footer', '[footer]')
 			</div>

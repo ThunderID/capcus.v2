@@ -16,6 +16,12 @@
 	@include('web.v3.components.common.toggle-menu-responsive')
 @stop
 
+@section('footer_top_margin')
+	<div class="clearfix mt-xxxl"></div>
+	<div class="clearfix mt-xxxl"></div>
+@stop
+
+
 @section('footer')
 	@include('web.v3.components.common.footer')
 @stop
@@ -24,3 +30,4 @@
 	@include('web.v3.components.js.slider')
 	@include('web.v3.components.js.compare_tour')
 @stop
+

@@ -1,5 +1,5 @@
 @section('content_1')
-	<section class="awe-parallax login-page-demo" style="background-position: 50% 12px;">
+	<section class="awe-parallax bg-tujuan-wisata-page" style="background-position: 50% 12px;">
 		<div class="awe-overlay"></div>
 		<div class="container">
 			<div class="login-register-page__content">
@@ -27,6 +27,10 @@
 @stop
 
 @section('content_2')
-	
-	
 @stop
+
+@section('ads_leaderboard')
+@overwrite
+
+@section('footer_top_margin')
+@overwrite
