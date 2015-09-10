@@ -34,6 +34,10 @@ class CompareTour extends Controller {
 				{
 					$ids = [$ids];
 				}
+				else
+				{
+					$ids = [];
+				}
 				$ids = array_merge($ids, [Input::get('id') * 1]);
 				$ids = array_unique($ids);
 				if (count($ids) > 4)
@@ -59,6 +63,7 @@ class CompareTour extends Controller {
 		{
 			$tour_schedules = new Collection;
 		}
+
 
 		return Response::json(['data' => $tour_schedules->toArray()], 200);
 	}

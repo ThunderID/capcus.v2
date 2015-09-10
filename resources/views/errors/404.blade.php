@@ -35,11 +35,13 @@
 @section('content_2')
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center mt-xxxl pt-xxxl">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center mt-xxxl pt-xxxl mb-xxxl pb-xxxl">
 				<h1>Opps, Halaman Tidak Ditemukan</h1>
 				<p></p>
 				<p><a href="{{ route('web.home')}}" class='awe-btn awe-btn-style2 text-lg'><i class='fa fa-home'></i> Kembali ke Home</a></p>
 			</div>
 		</div>
 	</div>
+
+	<div class="clearfix mb-xxxl pb-xxxl"></div>
 @stop
