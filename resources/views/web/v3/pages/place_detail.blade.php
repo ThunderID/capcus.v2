@@ -35,10 +35,12 @@
 								@foreach ($place->images as $x)
 									@if (str_is('Gallery*', $x->name))
 										<li data-slotamount="" data-masterspeed="500" data-title="{{ $x->title }}" style='cursor:pointer'>
-											<img src="{{ $x->path }}" data-bgposition="left center" data-duration="14000" data-bgpositionend="right center" alt="{{ $x->title }}">
-											<div class="tp-caption sfb fadeout slider-caption-sub slider-caption-sub-1" data-x="30" data-y="bottom" data-speed="400" data-start="1500" data-easing="easeOutBack">
-												<div class='pb-xs'>{{ $x->title }}</div>
-											</div>
+											<a href='javascript:;'>
+												<img src="{{ $x->path }}" data-bgposition="left center" data-duration="14000" data-bgpositionend="right center" alt="{{ $x->title }}">
+												<div class="tp-caption sfb fadeout slider-caption-sub slider-caption-sub-1" data-x="30" data-y="bottom" data-speed="400" data-start="1500" data-easing="easeOutBack">
+													<div class='pb-xs'>{{ $x->title }}</div>
+												</div>
+											</a>
 										</li> 
 									@endif
 								@endforeach

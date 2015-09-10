@@ -12,12 +12,12 @@
 	<div class="row">
 		<div class="hidden-xs hidden-sm col-md-6 col-lg-4 pr-0">
 			<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}" class='title'>
-				<img src="{{$place->images->where('name', 'Gallery1')->first()->path}}" class='image43'>
+				<img src="{{$place->images->where('name', 'SmallImage')->first()->path}}" class='image43'>
 			</a>
 		</div>
 		<div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
 			<a href="{{ route('web.places.show', ['destination' => $place->destination->path_slug, 'slug' => $place->slug]) }}" class='title'>
-				<img src="{{$place->images->where('name', 'Gallery1')->first()->path}}" class='image43'>
+				<img src="{{$place->images->where('name', 'SmallImage')->first()->path}}" class='image43'>
 			</a>
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
@@ -28,7 +28,7 @@
 				<div class='mt-5'><i class='fa fa-map-marker'></i> {{$place->destination->long_name}}</div>
 
 				<div class='description text-black mt-sm'>
-					{{$place->summary}}
+					{{str_limit($place->summary,250)}}
 				</div>
 
 				<?php
