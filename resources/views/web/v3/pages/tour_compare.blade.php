@@ -44,10 +44,8 @@
 									@if (is_null($x->departure_until))
 										{{ $x->departure->format('d-m-Y')}}
 									@else
-										<span class='text-sm'>
-											Kapanpun antara
-											<br><span class="">{{ $x->departure->format('d-m-Y')}} s/d <br>{{ $x->departure_until->format('d-m-Y')}}</span>
-										</span>
+										Kapanpun antara
+										{{ $x->departure->format('d-m-Y')}} s/d {{ $x->departure_until->format('d-m-Y')}}
 									@endif
 								</td>
 							</tr>
