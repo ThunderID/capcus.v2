@@ -1,5 +1,5 @@
 <!-- REVOLUTION DEMO -->
-{{-- <link rel="stylesheet" type="text/css" href="{{ asset('plugins/revslider-demo/css/settings.css') }}"> --}}
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/revslider-demo/css/settings.css') }}">
 
 <script type="text/javascript" src="{{ asset('plugins/revslider-demo/js/jquery.themepunch.revolution.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/revslider-demo/js/jquery.themepunch.tools.min.js') }}"></script>
@@ -12,8 +12,8 @@
 			startheight:500,
 			hideThumbs:200,
 
-			thumbWidth:80,
-			thumbHeight:40,
+			thumbWidth:100,
+			thumbHeight:50,
 			thumbAmount:5,
 			
 									
@@ -66,7 +66,7 @@
 			shuffle:"off",
 
 			autoHeight:"off",
-			forceFullWidth:"on",
+			forceFullWidth:"off",
 			
 			
 			

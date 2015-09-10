@@ -123,7 +123,7 @@
 									{!! $x->tour->ittinary !!}
 
 									<p class='mt-lg'>
-										<a href="{{route('web.tour.show', ['travel_agent_slug' => $x->tour->travel_agent->slug, 'tour_slug' => $x->tour->slug, 'schedule' => $x->departure->tour_optormat('Ymd')])}}" class='awe-btn awe-btn-style2 btn-block'>Detail</a>
+										<a href="{{route('web.tour.show', ['travel_agent_slug' => $x->tour->travel_agent->slug, 'tour_slug' => $x->tour->slug, 'schedule' => $x->departure->format('Ymd')])}}" class='awe-btn awe-btn-style2 btn-block'>Detail</a>
 									</p>
 								</td>
 							</tr>
