@@ -26,7 +26,7 @@
 				<table class="table table-hover text-black">
 					<thead>
 						<tr>
-							<th width='15%'>TRAVEL AGENT</th>
+							<th style='width:15%'>TRAVEL AGENT</th>
 							<th>DETAIL</th>
 						</tr>
 					</thead>
@@ -40,7 +40,7 @@
 									{{$x->tour->name}}
 									<br><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'>
 								</td>
-								<td valign='top' align='center'>
+								<td valign='top'>
 									@if (is_null($x->departure_until))
 										{{ $x->departure->format('d-m-Y')}}
 									@else
@@ -62,7 +62,7 @@
 									{{$x->tour->name}}
 									<br><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'>
 								</td>
-								<td valign='top' align='center'>
+								<td valign='top'>
 									{{ $x->currency . ' ' . number_format($x->discounted_price, 0, ',','.')}}
 									@if ($x->discounted_price < $x->original_price)
 										<br>
@@ -98,7 +98,7 @@
 									{{$x->tour->name}}
 									<br><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'>
 								</td>
-								<td valign='top' align='center'>
+								<td valign='top'>
 									{{ $x->currency . ' ' . number_format($x->discounted_price, 0, ',','.')}}
 									@if ($x->discounted_price < $x->original_price)
 										<br>
