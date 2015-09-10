@@ -34,7 +34,7 @@ class CompareTour extends Controller {
 				{
 					$ids = [$ids];
 				}
-				else
+				elseif (is_null($ids))
 				{
 					$ids = [];
 				}
