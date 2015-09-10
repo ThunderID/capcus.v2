@@ -23,7 +23,7 @@
 	<div class="container mt-xl">
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<table class="table table-hover text-black">
+				<table class="table table-hover text-black table-responsive">
 					<thead>
 						<tr>
 							<th width='15%'>KETERANGAN</th>
