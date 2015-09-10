@@ -1,5 +1,4 @@
 <?php namespace App\Http\Controllers\Admin;
-
 use Auth, Input, \Illuminate\Support\MessageBag, Validator, Exception, App;
 use \App\Headline;
 use \App\Setting;
@@ -312,10 +311,10 @@ class SettingHomeController extends Controller {
 					$homegrid->image_url 		= Input::get('image_url');
 					break;
 				case 'tour_tags':
-					$homegrid->tag 		= Input::get('tag');
+					$homegrid->tag 				= Input::get('tag');
 					$homegrid->image_url 		= Input::get('image_url');
 				case 'script' :
-					$homegrid->script 		= Input::get('script');
+					$homegrid->script 			= Input::get('script');
 					break;
 			}
 

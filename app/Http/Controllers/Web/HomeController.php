@@ -50,7 +50,7 @@ class HomeController extends Controller {
 		// QUERY PAKET PROMO
 		// ------------------------------------------------------------------------------------------------------------
 		$promo_tours = Cache::remember('8_upcoming_promo_tours', 30, function(){
-			return \App\TourSchedule::with('tour', 'tour.places', 'tour.destinations', 'tour.destinations.images', 'tour.travel_agent', 'tour.travel_agent.images', 'tour.schedules')
+			return \App\TourSchedule::with('tour', 'tour.places', 'tour.places.images' ,'tour.destinations', 'tour.destinations.images', 'tour.travel_agent', 'tour.travel_agent.images', 'tour.schedules')
 										->published()
 										->promo()
 										->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYears(5))
@@ -64,7 +64,7 @@ class HomeController extends Controller {
 		// QUERY PAKET TOUR TERBARU
 		// ------------------------------------------------------------------------------------------------------------
 		$latest_tours = Cache::remember('8_latest_tours', 30, function(){ 
-			return \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'travel_agent', 'travel_agent.images')->published()->latest()->limit(8)->get();
+			return \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'places.images','travel_agent', 'travel_agent.images')->published()->latest()->limit(8)->get();
 		});
 
 		// ------------------------------------------------------------------------------------------------------------

@@ -76,6 +76,27 @@
 						!!}
 					</div>
 
+					<div class='mb-sm'>
+						<strong class='text-uppercase'>Image URL</strong>
+						@if ($errors->has('image_url'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('image_url'))}}</span>
+						@endif
+						{!! Form::text('image_url', $homegrid->image_url, [
+																'class' 			=> 'form-control grid-image_url', 
+																'placeholder' 		=> 'http://',
+																'data-toggle' 		=> ($errors->has('image_url') ? 'tooltip' : ''), 
+																'data-placement' 	=> 'bottom', 
+																'title' 			=> ($errors->has('image_url') ? $errors->first('image_url') : ''), 
+																]) 
+						!!}
+
+						<div id='destination_img_preview' class='mt-md text-center'>
+							@if ($homegrid->image_url)
+								<img src="{{ $homegrid->image_url}}">
+							@endif
+						</div>
+					</div>
+
 					{{-- DESTINATION & FEATURED DESTINATION --}}
 					@include('admin.components.homegrid.form_destination')
 
