@@ -36,7 +36,7 @@ function rerender_compare_cart_list(data)
 function add_compare_cart(id)
 {
 	$.ajax({
-			url: web_url + '/api/compare/add',
+			url: web_url + 'api/compare/add',
 			cache: false,
 			data: {id: id},
 			dataType: 'json',
@@ -58,7 +58,7 @@ function add_compare_cart(id)
 function remove_compare_cart(id)
 {
 	$.ajax({
-			url: web_url + '/api/compare/remove',
+			url: web_url + 'api/compare/remove',
 			cache: false,
 			data: {id: id},
 			dataType: 'json',
