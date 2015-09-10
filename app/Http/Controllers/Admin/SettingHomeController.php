@@ -90,7 +90,7 @@ class SettingHomeController extends Controller {
 	public function HeadlineCreate($data = null)
 	{
 		$this->required_images = [
-									'LargeImage'	=> 'Large Image (1524x896 - center image 1524x600)',
+									'LargeImage'	=> 'Large Image (1400x500px)',
 								];
 		// ------------------------------------------------------------------------------------------------------------
 		// DESTINATIONS

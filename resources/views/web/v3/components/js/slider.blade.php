@@ -1,5 +1,5 @@
 <!-- REVOLUTION DEMO -->
-<link rel="stylesheet" type="text/css" href="{{ asset('plugins/revslider-demo/css/settings.css') }}">
+{{-- <link rel="stylesheet" type="text/css" href="{{ asset('plugins/revslider-demo/css/settings.css') }}"> --}}
 
 <script type="text/javascript" src="{{ asset('plugins/revslider-demo/js/jquery.themepunch.revolution.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/revslider-demo/js/jquery.themepunch.tools.min.js') }}"></script>
@@ -8,8 +8,8 @@
 		$('#slider-revolution').show().revolution({
 			ottedOverlay:"none",
 			delay:10000,
-			startwidth:1200,
-			startheight:700,
+			startwidth:1000,
+			startheight:500,
 			hideThumbs:200,
 
 			thumbWidth:80,
@@ -66,7 +66,7 @@
 			shuffle:"off",
 
 			autoHeight:"off",
-			forceFullWidth:"off",
+			forceFullWidth:"on",
 			
 			
 			
@@ -84,7 +84,7 @@
 	}
 
 	$('#slider-revolution > ul > li').click(function(event) {
-		if ($(this).data('link'))
+		if ($(this).data('link') != 'undefined')
 		{
 			window.location = $(this).data('link');
 		}
