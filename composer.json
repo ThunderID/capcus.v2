@@ -12,7 +12,8 @@
     	"laravelcollective/html": "~5.0",
         "jenssegers/date": "^3.0",
         "thunderid/jsend": "dev-master",
-        "laravel/socialite": "^2.0"
+        "laravel/socialite": "^2.0",
+        "guzzlehttp/guzzle": "~5.3|~6.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
