@@ -16,15 +16,15 @@
 <table class="table table-hover tour_schedule_table table-sorter">
 	<thead>
 		<tr>
-			<th title="klik untuk mengurutkan" class='text-uppercase hidden-xs'>Tgl <div class='icon'></div></th>
-			<th title="klik untuk mengurutkan" class='text-uppercase text-center hidden-xs'>Oleh <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" class='text-uppercase hidden-xs'>Tgl <div class='icon hidden-xs'></div></th>
+			<th title="klik untuk mengurutkan" class='text-uppercase text-center hidden-xs'>Oleh <div class='icon hidden-xs'></div></th>
 			<th title="klik untuk mengurutkan" class='text-uppercase '>
 				<span class='hidden-xs'>Tujuan</span>
 				<span class='hidden-sm hidden-md hidden-lg'>PAKET TOUR</span>
-				<div class='icon'></div>
+				<div class='icon hidden-xs'></div>
 			</th>
-			<th title="klik untuk mengurutkan" class='text-uppercase hidden-xs'>Hari <div class='icon'></div></th>
-			<th title="klik untuk mengurutkan" class='text-uppercase text-right hidden-xs'>Harga <div class='icon'></div></th>
+			<th title="klik untuk mengurutkan" class='text-uppercase hidden-xs'>Hari <div class='icon hidden-xs'></div></th>
+			<th title="klik untuk mengurutkan" class='text-uppercase text-right hidden-xs'>Harga <div class='icon hidden-xs'></div></th>
 		</tr>
 	</thead>
 	<tbody>
