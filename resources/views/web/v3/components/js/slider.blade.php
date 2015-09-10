@@ -8,12 +8,12 @@
 		$('#slider-revolution').show().revolution({
 			ottedOverlay:"none",
 			delay:10000,
-			startwidth:1600,
-			startheight:650,
+			startwidth:1200,
+			startheight:700,
 			hideThumbs:200,
 
-			thumbWidth:100,
-			thumbHeight:50,
+			thumbWidth:80,
+			thumbHeight:40,
 			thumbAmount:5,
 			
 									
@@ -84,7 +84,9 @@
 	}
 
 	$('#slider-revolution > ul > li').click(function(event) {
-
-		window.location = $(this).data('link');
+		if ($(this).data('link'))
+		{
+			window.location = $(this).data('link');
+		}
 	});
 </script>
