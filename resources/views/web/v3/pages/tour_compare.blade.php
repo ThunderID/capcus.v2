@@ -38,7 +38,7 @@
 							<tr>
 								<td valign='top'>
 									{{$x->tour->name}}
-									<br><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'>
+									<p class='mt-sm'><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'></p>
 								</td>
 								<td valign='top'>
 									@if (is_null($x->departure_until))
@@ -58,7 +58,7 @@
 							<tr>
 								<td valign='top'>
 									{{$x->tour->name}}
-									<br><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'>
+									<p class='mt-sm'><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'></p>
 								</td>
 								<td valign='top'>
 									{{ $x->currency . ' ' . number_format($x->discounted_price, 0, ',','.')}}
@@ -79,7 +79,7 @@
 							<tr>
 								<td valign='top'>
 									{{$x->tour->name}}
-									<br><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'>
+									<p class='mt-sm'><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'></p>
 								</td>
 								<td valign='top' align='left'>
 									@include('web.v3.components.tour_options.table_for_tour_schedule', ['tour_schedule' => $x, 'option_list' => $option_list, 'layout_style' => "list"])
@@ -94,7 +94,7 @@
 							<tr>
 								<td valign='top'>
 									{{$x->tour->name}}
-									<br><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'>
+									<p class='mt-sm'><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'></p>
 								</td>
 								<td valign='top'>
 									{{ $x->currency . ' ' . number_format($x->discounted_price, 0, ',','.')}}
@@ -115,7 +115,7 @@
 							<tr>
 								<td valign='top'>
 									{{$x->tour->name}}
-									<br><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'>
+									<p class='mt-sm'><img src='{{$x->tour->travel_agent->images->where("name", "SmallLogo")->first()->path}}'></p>
 								</td>
 								<td valign='top' align=''>
 									{!! $x->tour->ittinary !!}
