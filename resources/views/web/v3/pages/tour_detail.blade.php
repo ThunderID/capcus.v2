@@ -84,7 +84,7 @@
 									<ul>
 										@foreach ($tour->places as $k => $x)
 											@if ($k <= 5)
-												<li data-slotamount="" data-masterspeed="500" data-title="{{ $x->name }}" data-link="{{ route('web.places.show', ['destination' => $x->destination, 'slug' => $x->slug]) }}" style='cursor:pointer'>
+												<li data-slotamount="" data-masterspeed="500" data-title="{{ $x->name }}" data-link="{{ route('web.places.show', ['destination' => $x->destination->path_slug, 'slug' => $x->slug]) }}" style='cursor:pointer'>
 													<img src="{{ $x->images->where('name', 'Gallery1')->first()->path }}" data-bgposition="left center" data-duration="14000" data-bgpositionend="right center" alt="{{ $x->name }}">
 
 													<div class="tp-caption sfb fadeout slider-caption-sub slider-caption-sub-1" data-x="30" data-y="bottom" data-speed="400" data-start="1500" data-easing="easeOutBack">
