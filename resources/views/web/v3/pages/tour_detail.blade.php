@@ -198,7 +198,7 @@
 			<hr class='border-0 border-bottom-1 border-black border-solid'>
 			
 			@if (!Auth::user())
-				<div class='cover-login text-center' style='position:absolute; top:0; bottom:0; left:0; right:0; background:rgba(255,255,255,0.0); z-index:100000'>
+				<div class='cover-login text-center' style='position:absolute; top:0; bottom:0; left:0; right:0; background:rgba(255,255,255,0.0); z-index:100'>
 					<h3 class='text-light pt-xxxl mt-xxxl mr-sm ml-sm'>
 						Bantu kami untuk <br>mencarikan paket tour sesuai kebutuhan anda
 					</h3>
