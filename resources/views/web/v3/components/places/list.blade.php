@@ -28,7 +28,7 @@
 				<div class='mt-5'><i class='fa fa-map-marker'></i> {{$place->destination->long_name}}</div>
 
 				<div class='description text-black mt-sm'>
-					{{str_limit($place->summary,250)}}
+					{{str_limit($place->summary,150)}}
 				</div>
 
 				<?php
