@@ -53,9 +53,9 @@ class FindPublishedTourSchedules extends Job implements SelfHandling
 		$rules['destination_id']    = [];
 		$rules['departure_from']    = ['date'];
 		$rules['departure_to']      = ['date', 'after:departure_from'];
-		$rules['budget_min']        = ['integer', 'min:0'];
-		$rules['budget_max']        = ['integer', 'min:0'];
-		$rules['travel_agent_id']   = ['integer', 'min:0'];
+		$rules['budget_min']        = ['numeric', 'min:0'];
+		$rules['budget_max']        = ['numeric', 'min:0'];
+		$rules['travel_agent_id']   = ['numeric', 'min:0'];
 		$rules['place_slug']        = [];
 
 		$validator = Validator::make($this->filters, $rules);
