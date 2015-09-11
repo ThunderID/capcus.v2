@@ -25,7 +25,7 @@
 			</h2>
 		</div>
 		<div class="item-list mt-sm">
-			{{ implode(', ', $tour->places->lists('long_name')->toArray()) }}
+			{{ implode(', ', $tour->places->lists('name')->toArray()) }}
 		</div>
 		<div class="item-footer">
 			<div class="item-icon">
