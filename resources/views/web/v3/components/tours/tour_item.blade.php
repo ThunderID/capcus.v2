@@ -14,7 +14,7 @@
 <div class="trip-item">
 	<div class="item-media">
 		<div class="image-cover">
-			<img src="{{ ($tour->destinations->count() && $tour->destinations->first()->images->where('name', 'SmallImage')->first()->path ? $tour->destinations->first()->images->where('name', 'SmallImage')->first()->path : asset('images/no-img.jpg'))  }}" alt="{{ $tour->name }}">
+			<img src="{{ ($tour->places->count() && $tour->places->first()->images->where('name', 'SmallImage')->first()->path ? $tour->places->first()->images->where('name', 'SmallImage')->first()->path : asset('images/no-img.jpg'))  }}" alt="{{ $tour->name }}">
 		</div>
 	</div>
 	<div class="item-body">
