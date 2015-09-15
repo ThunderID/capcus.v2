@@ -46,7 +46,12 @@
 								{{++$i}}
 							@endif
 						</td>
-						<td>{{$x->departure->format('d-m-Y')}} {{$x->departure_until ? ' / ' . $x->departure_until->format('d-m-Y') : ''}} </td>
+						<td>
+							{{$x->departure->format('d-m-Y')}} {{$x->departure_until ? ' / ' . $x->departure_until->format('d-m-Y') : ''}} 
+							@if ($x->min_person)
+								<br>Min Person: {{$x->min_person}}
+							@endif
+						</td>
 						<td>{{$x->currency}}</td>
 						<td class='text-right'>{{number_format($x->original_price)}}</td>
 						<td class='text-right'>{{number_format($x->discounted_price)}}</td>

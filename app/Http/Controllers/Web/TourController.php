@@ -507,7 +507,7 @@ class TourController extends Controller {
 		$this->layout->title 					= "Capcus.id - Cari tour tidak lagi ribet";
 		$this->layout->og['title'] 				= $this->layout->title;
 		$this->layout->og['type'] 				= 'article';
-		$this->layout->og['image'] 				= $tour->destinations->first()->images('name', 'LargeImage')->path;
+		$this->layout->og['image'] 				= ($tour->destinations->first() ? $tour->destinations->first()->images('name', 'LargeImage')->path : asset('images/logo/logo-new.png'));
 		$this->layout->og['image:type']			= pathinfo('images/'.$this->layout->og['image'], PATHINFO_EXTENSION);
 		$this->layout->og['image:width'] 		= 800;
 		$this->layout->og['image:height'] 		= 600;

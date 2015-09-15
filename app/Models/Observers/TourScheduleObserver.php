@@ -16,6 +16,7 @@ class TourScheduleObserver {
 		$rules['original_price']		= ['required', 'numeric', 'min:0'];
 		$rules['discounted_price']		= ['required', 'numeric', 'min:0'];
 		$rules['views']					= ['integer'];
+		$rules['min_person']			= ['integer', 'min:0'];
 
 		$validator = Validator::make($model->toArray(), $rules);
 		if ($validator->fails())

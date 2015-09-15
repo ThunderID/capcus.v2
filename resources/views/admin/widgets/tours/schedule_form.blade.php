@@ -44,22 +44,7 @@
 					!!}
 				</div>
 
-				<div class="mb-xs">
-					<strong class='text-uppercase'>Departure Until (For Individual Tour Only)</strong>
-					@if ($errors->has('departure_until'))
-						<span class='text-danger pull-right'>{{implode(', ', $errors->get('departure_until'))}}</span>
-					@endif
-					{!! Form::input('text', 'departure_until', ($schedule->departure_until ? $schedule->departure_until->format('d/m/Y H:i') : ''), [
-																						'class' 			=> 'form-control',
-																						'placeholder'		=> 'dd/mm/yyyy',
-																						'data-toggle'		=> ($errors->has('departure_until') ? 'tooltip' : ''), 
-																						'data-placement'	=> 'left', 
-																						'title' 			=> ($errors->has('departure_until') ? $errors->first('departure_until') : ''), 
-																						'data-inputmask'	=> "'alias':'date'"
-																					 ])
-					!!}
-				</div>
-
+				
 				<div class="mb-xs">
 					<strong class='text-uppercase'>Currency </strong>
 					@if ($errors->has('currency'))
@@ -103,6 +88,38 @@
 																 ])
 					!!}
 				</div>
+
+				<h3>For Individual Travel Only</h3>
+				<div class="mb-xs">
+					<strong class='text-uppercase'>Departure Until</strong>
+					@if ($errors->has('departure_until'))
+						<span class='text-danger pull-right'>{{implode(', ', $errors->get('departure_until'))}}</span>
+					@endif
+					{!! Form::input('text', 'departure_until', ($schedule->departure_until ? $schedule->departure_until->format('d/m/Y H:i') : ''), [
+																						'class' 			=> 'form-control',
+																						'placeholder'		=> 'dd/mm/yyyy',
+																						'data-toggle'		=> ($errors->has('departure_until') ? 'tooltip' : ''), 
+																						'data-placement'	=> 'left', 
+																						'title' 			=> ($errors->has('departure_until') ? $errors->first('departure_until') : ''), 
+																						'data-inputmask'	=> "'alias':'date'"
+																					 ])
+					!!}
+				</div>
+
+				<div class="mb-xs">
+					<strong class='text-uppercase'>Min Person</strong>
+					@if ($errors->has('min_person'))
+						<span class='text-danger pull-right'>{{implode(', ', $errors->get('min_person'))}}</span>
+					@endif
+					{!! Form::select('min_person', range(0,100), $schedule->min_person, [
+																						'class' 			=> 'form-control',
+																						'data-toggle'		=> ($errors->has('min_person') ? 'tooltip' : ''), 
+																						'data-placement'	=> 'left', 
+																						'title' 			=> ($errors->has('min_person') ? $errors->first('min_person') : ''), 
+																					 ])
+					!!}
+				</div>
+
 
 				<div class="col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xs-4 col-sm-4 col-md-4 col-lg-4">
 					<button type='submit' class='btn btn-default btn-block mt-sm'>Save</button>

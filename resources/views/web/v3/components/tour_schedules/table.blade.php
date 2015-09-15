@@ -53,6 +53,9 @@
 						<span class='text-sm'>
 							Kapanpun antara
 							<br><span class="">{{ $schedule->departure->format('d-m-Y')}} s/d <br>{{ $schedule->departure_until->format('d-m-Y')}}</span>
+							@if ($schedule->min_person)
+								<i class='mt-xs'>Min {{$schedule->min_person}} pax</i>
+							@endif
 						</span>
 					@endif
 				</td>
@@ -98,6 +101,9 @@
 										@else
 											<span class='text-sm'>
 												Kapanpun antara {{ $schedule->departure->format('d-m-Y')}} s/d {{ $schedule->departure_until->format('d-m-Y')}}
+												@if ($schedule->min_person)
+													<i class='mt-xs'>Min {{$schedule->min_person}} pax</i>
+												@endif
 											</span>
 										@endif
 									</td>

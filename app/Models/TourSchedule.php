@@ -19,6 +19,7 @@ class TourSchedule extends BaseModel
 							'original_price', 
 							'discounted_price', 
 							'tour_id',
+							'min_person'
 						];
 	protected $dates = ['departure', 'departure_until', 'published_at'];
 
