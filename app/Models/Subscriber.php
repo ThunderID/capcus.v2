@@ -2,13 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Subscriber extends Model
+class Subscriber extends BaseModel
 {
     //
 	protected $table = 'subscribers';
 	protected $fillable = [
+							'user_id',
 							'email', 
 							'is_subscribe', 
 						];

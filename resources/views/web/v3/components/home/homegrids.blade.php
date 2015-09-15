@@ -26,9 +26,9 @@
 							</ul>
 						</div>
 					</div>
-					@if ($x->is_featured)
+					@if ($x->label)
 						<div class='item-featured bg-yellow text-black text-uppercase'>
-							Featured
+							{{ $x->label }}
 						</div>
 					@endif
 					<div class="item-available">
@@ -52,9 +52,9 @@
 							</ul>
 						</div>
 					</div>
-					@if ($x->is_featured)
+					@if ($x->label)
 						<div class='item-featured bg-yellow text-black text-uppercase'>
-							Featured
+							{{ $x->label }}
 						</div>
 					@endif
 					<div class="item-available">
@@ -63,6 +63,18 @@
 							paket tour
 						</a>
 					</div>
+				@elseif (str_is('link', $x->type))
+					<a href="{{ $x->link }}">
+						<img src="{{ $x->image_url }}" alt="{{ $x->title }}">
+					</a>
+					<div class="item-title">
+						<h2><a href="{{ $x->link }}">{{$x->title}}</a></h2>
+					</div>
+					@if ($x->label)
+						<div class='item-featured bg-yellow text-black text-uppercase'>
+							{{ $x->label }}
+						</div>
+					@endif
 				@endif
 			</div>
 		</div>

@@ -60,11 +60,15 @@ trait HomegridSettingTrait {
 		$this->attributes['value'] = json_encode($value);
 	}
 
-	public function setIsFeaturedAttribute($v)
+	public function setLabelAttribute($v)
 	{
 		$value = json_decode($this->attributes['value']);
-		$value->is_featured = $v;
+		$value->label = $v;
 		$this->attributes['value'] = json_encode($value);
+	}
+
+	public function setIsFeaturedAttribute($v)
+	{
 	}
 
 	// TAG
@@ -79,6 +83,13 @@ trait HomegridSettingTrait {
 	public function setTagDetailAttribute($v)
 	{
 		$this->tag_detail = $v;
+	}
+
+	public function setLinkAttribute($v)
+	{
+		$value = json_decode($this->attributes['value']);
+		$value->link = $v;
+		$this->attributes['value'] = json_encode($value);
 	}
 
 
@@ -129,10 +140,16 @@ trait HomegridSettingTrait {
 		return $value->image_url;
 	}
 
-	public function getIsFeaturedAttribute()
+	public function getLabelAttribute()
 	{
 		$value = json_decode($this->attributes['value']);
-		return $value->is_featured;
+		return $value->label;
+	}
+
+	public function getLinkAttribute()
+	{
+		$value = json_decode($this->attributes['value']);
+		return $value->link;
 	}
 
 	// tag
@@ -176,6 +193,6 @@ trait HomegridSettingTrait {
 	static public function getType()
 	{
 		// return ['destination', 'featured_destination', 'script', 'place', 'article', 'blog'];
-		return ['destination', 'tour_tags'];
+		return ['destination', 'tour_tags', 'link'];
 	}
 }

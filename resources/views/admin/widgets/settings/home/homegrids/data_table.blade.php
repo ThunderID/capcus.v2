@@ -46,14 +46,17 @@
 							<td>
 								@if (str_is('destination', $homegrids->where('name', 'homegrid_' . $i)->first()->type) || str_is('featured_destination', $homegrids->where('name', 'homegrid_' . $i)->first()->type))
 									<p><strong>Destination</strong><br>{{ $homegrids->where('name', 'homegrid_' . $i)->first()->destination_detail->long_name }}</p>
-									<p><strong>Image</strong><br><a href="{{ $homegrids->where('name', 'homegrid_' . $i)->first()->image_url }}" target="_blank">{{ $homegrids->where('name', 'homegrid_' . $i)->first()->image_url }}</a></p>
 
 								@elseif (str_is('tour_tags', $homegrids->where('name', 'homegrid_' . $i)->first()->type))
 									<p><strong>Tag</strong><br>{{ $homegrids->where('name', 'homegrid_' . $i)->first()->tag_detail->tag }}</p>
 
 								@elseif (str_is('script', $homegrids->where('name', 'homegrid_' . $i)->first()->type))
 									<p><strong>Script</strong><br>{{ $homegrids->where('name', 'homegrid_' . $i)->first()->script }}</p>
+
+								@elseif (str_is('link', $homegrids->where('name', 'homegrid_' . $i)->first()->type))
+									<p><strong>Link</strong><br>{{ $homegrids->where('name', 'homegrid_' . $i)->first()->link }}</p>
 								@endif
+								<p><strong>Image</strong><br><a href="{{ $homegrids->where('name', 'homegrid_' . $i)->first()->image_url }}" target="_blank">{{ $homegrids->where('name', 'homegrid_' . $i)->first()->image_url }}</a></p>
 							</td>
 						@else
 							<td colspan='2'>Has not been set</td>

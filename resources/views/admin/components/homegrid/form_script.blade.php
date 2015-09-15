@@ -13,15 +13,3 @@
 		!!}
 	</div>
 </div>
-
-
-@section('js')
-	@parent
-
-	<script>
-		$('#grid_type_destination').on('change', '.grid-image_url', function(event) {
-			var obj = $(this);
-			$('#grid_type_destination #destination_img_preview').html('<img src="'+obj.val()+'">');
-		});
-	</script>
-@stop

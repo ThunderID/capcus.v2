@@ -18,22 +18,3 @@
 </div>
 
 
-@section('js')
-	@parent
-
-	<script>
-		$('.grid_type_destination,.grid_type_tour_tag').find('input[name=image_url]').keyup(function(e) {
-			var obj = $(this);
-			var code = e.keyCode || e.which;
-			if(code == 13) 
-			{ 
-				$('.grid_type_destination #destination_img_preview').html('<img src="'+obj.val()+'">');
-			}
-		});
-
-		$('.grid_type_destination,.grid_type_tour_tag').find('input[name=image_url]').blur(function(e) {
-			var obj = $(this);
-			$('.grid_type_destination #destination_img_preview').html('<img src="'+obj.val()+'">');
-		});
-	</script>
-@stop

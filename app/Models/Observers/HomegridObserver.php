@@ -13,21 +13,24 @@ class HomegridObserver {
 		$tmp_tag = new \App\Tag;
 
 		// RULES
+		$rules['label']				= [''];
+		$rules['image_url']			= ['required', 'url'];
+		
 		if (str_is('destination', strtolower($model->type)))
 		{
 			$rules['destination']		= ['integer', 'exists:' . $tmp_dest->getTable() . ',id'];
-			$rules['image_url']			= ['required', 'url'];
-			$rules['is_featured']		= ['boolean'];
 		}
 		elseif (str_is('tour_tag', strtolower($model->type)))
 		{
 			$rules['tag']				= ['integer', 'exists:' . $tmp_tag->getTable() . ',id'];
-			$rules['image_url']			= ['required', 'url'];
-			$rules['is_featured']		= ['boolean'];
 		}
 		elseif (str_is('script', strtolower($model->type)))
 		{
 			$rules['script']			= ['required'];
+		}
+		elseif (str_is('link', strtolower($model->type)))
+		{
+			$rules['link']			= ['required', 'url'];
 		}
 
 		$rules['title']				= ['required'];

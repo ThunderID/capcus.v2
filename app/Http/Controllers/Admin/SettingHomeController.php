@@ -302,19 +302,23 @@ class SettingHomeController extends Controller {
 			$homegrid->script 			= '';
 			$homegrid->tag 				= '';
 			$homegrid->is_featured 		= Input::get('featured');
+			$homegrid->label 			= Input::get('label');
+			$homegrid->image_url 		= Input::get('image_url');
 
 			switch (Input::get('type'))
 			{
 
 				case 'destination' : case 'featured_destination' : 
 					$homegrid->destination 		= Input::get('destination');
-					$homegrid->image_url 		= Input::get('image_url');
 					break;
 				case 'tour_tags':
 					$homegrid->tag 				= Input::get('tag');
-					$homegrid->image_url 		= Input::get('image_url');
+					break;
 				case 'script' :
 					$homegrid->script 			= Input::get('script');
+					break;
+				case 'link' :
+					$homegrid->link 			= Input::get('link');
 					break;
 			}
 

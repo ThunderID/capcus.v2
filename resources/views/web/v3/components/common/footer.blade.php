@@ -22,7 +22,7 @@
 				</div>
 			</div>
 			<div class="logo">
-				{!! Html::image('images/logo-white.png') !!}
+				{!! Html::image('images/logo/logo-new.png') !!}
 			</div>
 			<div class="widget_content">
 				<p>

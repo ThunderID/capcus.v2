@@ -10,7 +10,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 
 	<!-- GOOGLE FONT -->
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,400,300|Oswald:400|Lato:400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:700,600,400,300|Lato:400,700' rel='stylesheet' type='text/css'>
 
 	<link rel="icon" type="image/png" href="{{asset('images/favicon.png')}}">
 

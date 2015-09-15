@@ -25,6 +25,7 @@
 	@overwrite
 
 	@section('widget_body')
+
 		{!! Form::open(['method' => 'post', 'url' => route('admin.'.$route_name.'.homegrids.store', ['homegrid_no' => $homegrid_no]), 'class' => 'no_enter']) !!}
 		<div class="row mb-lg">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
@@ -62,22 +63,22 @@
 					</div>
 
 					<div class='mb-sm'>
-						<strong class='text-uppercase'>Featured</strong>
-						@if ($errors->has('featured'))
-							<span class='text-danger pull-right'>{{implode(', ', $errors->get('featured'))}}</span>
+						<strong class='text-uppercase'>Label</strong>
+						@if ($errors->has('label'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('label'))}}</span>
 						@endif
-						{!! Form::select('featured', [0 => 'No', 1 => 'Yes'], $homegrid->is_featured, [
-																'class' 			=> 'form-control select2', 
+						{!! Form::text('label', $homegrid->label, [
+																'class' 			=> 'form-control', 
 																'required' 			=> 'required',
-																'data-toggle' 		=> ($errors->has('featured') ? 'tooltip' : ''), 
+																'data-toggle' 		=> ($errors->has('label') ? 'tooltip' : ''), 
 																'data-placement' 	=> 'bottom', 
-																'title' 			=> ($errors->has('featured') ? $errors->first('featured') : ''), 
+																'title' 			=> ($errors->has('label') ? $errors->first('label') : ''), 
 																]) 
 						!!}
 					</div>
 
 					<div class='mb-sm'>
-						<strong class='text-uppercase'>Image URL</strong>
+						<strong class='text-uppercase'>Image URL (360x360)</strong>
 						@if ($errors->has('image_url'))
 							<span class='text-danger pull-right'>{{implode(', ', $errors->get('image_url'))}}</span>
 						@endif
@@ -105,6 +106,10 @@
 					
 					{{-- Tour tag --}}
 					@include('admin.components.homegrid.form_tour_tag')
+
+					{{-- Link --}}
+					@include('admin.components.homegrid.form_link')
+
 
 					{{-- PLACE --}}
 
@@ -145,6 +150,20 @@
 
 			$(document).ready(function(){
 				toggle_grid_form($('select[name=type]').val());
+			});
+
+			$('input[name=image_url]').keyup(function(e) {
+				var obj = $(this);
+				var code = e.keyCode || e.which;
+				if(code == 13) 
+				{ 
+					$('.grid_type_destination #destination_img_preview').html('<img src="'+obj.val()+'">');
+				}
+			});
+
+			$('input[name=image_url]').blur(function(e) {
+				var obj = $(this);
+				$('.grid_type_destination #destination_img_preview').html('<img src="'+obj.val()+'">');
 			});
 		</script>
 	@stop
