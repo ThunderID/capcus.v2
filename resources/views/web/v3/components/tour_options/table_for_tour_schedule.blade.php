@@ -53,7 +53,53 @@
 		</div>
 	@endforeach
 </div>
+
 <div class="row mt-xs">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<b>Harga Termasuk:</b>
+	</div>
+	@foreach ($simple_options as $option)
+		@if ($layout_style == 'list')
+			@if ($tour_schedule->tour->options->where('id', $option->id)->count())
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<i class='fa fa-check-circle-o text-yellow'></i>
+					{{$option->name}}
+				</div>
+			@endif
+		@else
+			@if ($tour_schedule->tour->options->where('id', $option->id)->count())
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+					<i class='fa fa-check-circle-o text-yellow'></i>
+					{{$option->name}}
+				</div>
+			@endif
+		@endif
+	@endforeach
+</div>
+
+<div class="row mt-xs">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<b>Harga Belum Termasuk:</b>
+	</div>
+	@foreach ($simple_options as $option)
+		@if ($layout_style == 'list')
+			@if (!$tour_schedule->tour->options->where('id', $option->id)->count())
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<i class='fa fa-circle-o text-gray'></i>
+					{{$option->name}}
+				</div>
+			@endif
+		@else
+			@if (!$tour_schedule->tour->options->where('id', $option->id)->count())
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+					<i class='fa fa-circle-o text-gray'></i>
+					{{$option->name}}
+				</div>
+			@endif
+		@endif
+	@endforeach
+</div>
+{{-- <div class="row mt-xs">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<b>Detail Paket:</b>
 	</div>
@@ -78,7 +124,7 @@
 			</div>
 		@endif
 	@endforeach
-</div>
+</div> --}}
 
 
 {{-- <table class="table bg-transparent">
