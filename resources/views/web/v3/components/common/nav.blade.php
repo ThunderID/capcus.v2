@@ -18,9 +18,9 @@
 		<li class=" {{ in_array(Route::getCurrentRoute()->getName(), ['web.tour', 'web.tour.show', 'web.tour.tag']) ? 'current-menu-parent' : '' }} ">
 			<a href="{{ route('web.tour')}}">Paket Tour</a>
 		</li>
-		<li class=" {{ in_array(Route::getCurrentRoute()->getName(), ['web.places', 'web.places.show']) ? 'current-menu-parent' : '' }} ">
+		{{-- <li class=" {{ in_array(Route::getCurrentRoute()->getName(), ['web.places', 'web.places.show']) ? 'current-menu-parent' : '' }} ">
 			<a href="{{ route('web.places')}}">Tujuan Wisata</a>
-		</li>
+		</li> --}}
 		<li class=" {{ in_array(Route::getCurrentRoute()->getName(), ['web.blog', 'web.blog.show']) ? 'current-menu-parent' : '' }} ">
 			<a href="{{ route('web.blog')}}">Blog</a>
 		</li>
