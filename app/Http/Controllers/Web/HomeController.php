@@ -18,6 +18,10 @@ class HomeController extends Controller {
 		$headlines = Cache::remember('current_headline', 60, function() {
 						return \App\Headline::activeOn(\Carbon\Carbon::now())->orderBy('priority')->get();
 		});
+		
+		$headlines = $headlines->sortBy(function($headline) { 
+			return rand(0,1000);
+		});
 
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY HOME GRID
