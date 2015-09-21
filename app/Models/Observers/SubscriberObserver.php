@@ -10,7 +10,7 @@ class SubscriberObserver {
 	public function saving($model)
 	{
 		// RULES
-		$rules['email']			= ['required', 'email'];
+		$rules['email']			= ['required', 'email', 'unique:' . $model->getTable() . ',email,' . ($model->id ? $model->id : 'NULL') . ',id'];
 		$rules['is_subscribe']	= ['required', 'boolean'];
 		
 		$validator = Validator::make($model->toArray(), $rules);
