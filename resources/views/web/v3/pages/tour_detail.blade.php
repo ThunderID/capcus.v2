@@ -43,7 +43,7 @@
 						<img src='{{ $tour->travel_agent->images->where('name', 'SmallLogo')->first()->path}}' class='img-responsive mb-md' alt='{{$tour->travel_agent->name }}'> 
 						
 						{{-- <strong class='text-uppercase text-lg'>{{ $tour->travel_agent->name}}</strong> --}}
-						{{nl2br($tour->travel_agent->address)}}
+						{!! nl2br($tour->travel_agent->address) !!}
 
 						<div class="clearfix"></div>
 
