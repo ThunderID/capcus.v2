@@ -53,5 +53,9 @@ class ImportSubscriber extends Command
                 $subscriber->save();
             }
         }
+        else
+        {
+            $this->error('file not exists');
+        }
     }
 }
