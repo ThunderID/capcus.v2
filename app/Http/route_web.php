@@ -28,6 +28,7 @@ Route::group(['namespace' => 'Web\\'], function(){
 
 	get('/i-am-vendor', 															['uses' => 'AboutController@imvendor', 				'as' => 'web.about.imvendor']);
 	get('/tnc',			 															['uses' => 'AboutController@tnc',	 				'as' => 'web.about.tnc']);
+	get('/privacy',		 															['uses' => 'AboutController@privacy',	 			'as' => 'web.about.privacy']);
 	get('/login/{provider?}',														['uses' => 'AuthController@login',					'as' => 'web.login']);
 	get('/login_callback/{provider}',												['uses' => 'AuthController@login_callback',			'as' => 'web.login_callback']);
 	post('/login',																	['uses' => 'AuthController@login_post',				'as' => 'web.login.post']);
