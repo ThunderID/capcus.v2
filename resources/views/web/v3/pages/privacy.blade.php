@@ -1,4 +1,11 @@
 @section('content_1')
+	
+@stop
+
+@section('search_tour_tab')
+@stop
+
+@section('content_2')
 	<section class="awe-parallax" style="background-position: 50% 12px;">
 		<div class="awe-overlay"></div>
 		<div class="container">
@@ -10,7 +17,7 @@
 						<div class="panel-body pt-lg pb-lg">
 							<div class='ml-sm mr-sm'>
 
-								<p>Capcus.id is owned and operated by Capcus Services Pte. Ltd. (Company Registration No. 201509260N) (“Capcus”, “Us”, “We”, or “Our”). This Privacy Policy describes how we collect, use, disclose, process and protect personally identifiable information (“Personal Data”) that you (the “User”) may provide in connection with Capcus’s services available through the website located at www.Capcus.id ("Site"). Personal Data means data, whether true or not, about an individual who can be identified from that data, or from that data and other information to which the organisation has or is likely to have access. References to the Site are deemed to include derivatives thereof, including but not necessarily limited to mobile websites and applications. By visiting or using the Site, you agree and consent to the collection, use, disclosure and processing of your Personal Data in accordance with this Privacy Policy and/or the Website Terms. If you do not agree to the Privacy Policy below, please leave the Site immediately.</p>
+								<p>Capcus.id is owned and operated by PT. Trio Affogato Mania (“Capcus”, “Us”, “We”, or “Our”). This Privacy Policy describes how we collect, use, disclose, process and protect personally identifiable information (“Personal Data”) that you (the “User”) may provide in connection with Capcus’s services available through the website located at www.Capcus.id ("Site"). Personal Data means data, whether true or not, about an individual who can be identified from that data, or from that data and other information to which the organisation has or is likely to have access. References to the Site are deemed to include derivatives thereof, including but not necessarily limited to mobile websites and applications. By visiting or using the Site, you agree and consent to the collection, use, disclosure and processing of your Personal Data in accordance with this Privacy Policy and/or the Website Terms. If you do not agree to the Privacy Policy below, please leave the Site immediately.</p>
 
 								<p>From time to time, Capcus may revise this Privacy Policy to reflect changes in the law, our Personal Data collection and use practices, the features of our Site, or advances in technology. If we make revisions that change the way we collect or use your Personal Data, those changes will be posted in this Privacy Policy and the effective date will be noted at the beginning of this Privacy Policy. Therefore, you should review this Privacy Policy periodically so that you are up to date on our most current policies and practices. Capcus will also prominently post such material changes prior to implementing the change. If you do not agree with any changes or modifications to the Privacy Policy, please do not continue using the Site. You will be deemed to have consented to any modification of the Privacy Policy when you use the Site after the effective date of the modification.
 
@@ -105,10 +112,4 @@
 			</div>
 		</div>
 	</section>
-@stop
-
-@section('search_tour_tab')
-@stop
-
-@section('content_2')
 @stop

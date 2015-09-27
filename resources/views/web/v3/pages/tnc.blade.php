@@ -1,4 +1,11 @@
 @section('content_1')
+	
+@stop
+
+@section('search_tour_tab')
+@stop
+
+@section('content_2')
 	<section class="awe-parallax" style="background-position: 50% 12px;">
 		<div class="awe-overlay"></div>
 		<div class="container">
@@ -31,10 +38,4 @@
 			</div>
 		</div>
 	</section>
-@stop
-
-@section('search_tour_tab')
-@stop
-
-@section('content_2')
 @stop
