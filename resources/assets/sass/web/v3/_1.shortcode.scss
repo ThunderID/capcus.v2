@@ -211,7 +211,8 @@ img {
     &:focus,
     &:hover {
         background-color: $color;
-        color: #fff;
+        // color: #fff;
+        color: #000;
     }
 }
 section {

@@ -272,7 +272,7 @@ a:hover { text-decoration: none !important;}
 			position: relative;
 			display: block;
 			background-color: $yellow;
-			color: #fff;
+			color: #000;
 			font-size: 14px;
 			font-weight: 600;
 			border: 0;
@@ -286,6 +286,7 @@ a:hover { text-decoration: none !important;}
 
 .btn-yellow:hover { 
 	color:black !important;
+	background-color: lighten($yellow, 10%);
 	-webkit-transition: 0.4s ease;
 	-moz-transition: 0.4s ease;
 	-o-transition: 0.4s ease;
