@@ -27,7 +27,7 @@ class HomeController extends Controller {
 		// QUERY HOME GRID
 		// ------------------------------------------------------------------------------------------------------------
 		$homegrids = Cache::remember('current_homegrids', 60, function() {
-			$homegrids = \App\HomegridSetting::get();
+			$homegrids = \App\HomegridSetting::orderBy('name')->get();
 			// get upcoming package schedules
 			$homegrid_destination_ids = new Collection;
 			foreach ($homegrids as $k => $v)
