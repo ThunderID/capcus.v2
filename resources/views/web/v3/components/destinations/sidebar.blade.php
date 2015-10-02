@@ -10,15 +10,19 @@
 ?>
 
 <div class="row">
+	<?php $i= 0; ?>
 	@foreach ($top_destinations as $x)
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<p class='mb-lg'>
-				<a class='text-uppercase text-black' href='{{ route("web.tour", ["travel-agent" => "semua-travel-agent", "tujuan" => $x->path_slug]) }}'>
-					{{$x->iamges}}
-					{!! Html::image($x->images->where('name', 'SmallImage')->first()->path, $x->long_name, ['width' => '100%', 'class' => 'image43']) !!}	
-					<p class='mt-5'>{{$x->name}}</p>
-				</a>
-			</p>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class='pt-xs pb-xs bg-yellow pull-left text-center mr-sm'>
+				<div class='mr-sm ml-sm text-lg text-black'>{{++$i}}</div>
+			</div>
+			<a class='text-uppercase text-black' href='{{ route("web.tour", ["travel-agent" => "semua-travel-agent", "tujuan" => $x->path_slug]) }}'>
+				<p class='mt-5'>
+					<span class=' text-lg'>{{$x->name}}</span>
+					<br>{{$x->total_upcoming_schedules}} Paket Tour
+				</p>
+			</a>
+			<hr class='mt-5 mb-sm'>
 		</div>
 	@endforeach
 </div>
