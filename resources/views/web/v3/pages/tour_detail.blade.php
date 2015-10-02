@@ -82,8 +82,8 @@
 				<div class="col-xs-12 col-sm-9 col-md-10 col-lg-9 text-black">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-lg">
-							<section class="hero-section">
-								<div id="slider-revolution">
+							<section>
+								{{-- <div id="slider-revolution">
 									<ul>
 										@foreach ($tour->places as $k => $x)
 											@if ($k <= 5)
@@ -97,6 +97,33 @@
 											@endif
 										@endforeach
 									</ul>
+								</div> --}}
+
+								<div id="place-carousel" class="carousel slide" data-ride="carousel">
+									<ol class="carousel-indicators">
+										@foreach ($tour->places as $k => $x)
+											@if ($k <= 5)
+												<li data-target="#place-carousel" data-slide-to="0" class="{{ $k == 0 ? 'active' : ''}}"></li>
+											@endif
+										@endforeach
+									</ol>
+									<div class="carousel-inner">
+										@foreach ($tour->places as $k => $x)
+											@if ($k <= 5)
+												<div class="item">
+													<img class='fullwidth' src='{{ $x->images->where('name', 'Gallery1')->first()->path }}'>
+													<div class="container">
+														<div class="carousel-caption">
+															<h1>{{ $x->name }}</h1>
+															{{-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p> --}}
+														</div>
+													</div>
+												</div>
+											@endif
+										@endforeach
+									</div>
+									<a class="left carousel-control" href="#place-carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+									<a class="right carousel-control" href="#place-carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 								</div>
 							</section>
 						</div>
