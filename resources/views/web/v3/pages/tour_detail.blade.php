@@ -31,6 +31,9 @@
 							{{ $tour_schedule->departure->format('d-m-Y')}}
 						@else
 							Kapanpun antara {{ $tour_schedule->departure->format('d-m-Y')}} s/d {{ $tour_schedule->departure_until->format('d-m-Y')}}
+							@if ($tour_schedule->min_person)
+								(min {{ $tour_schedule->min_person}} pax)
+							@endif
 						@endif
 					</div>
 
@@ -84,7 +87,7 @@
 									<ul>
 										@foreach ($tour->places as $k => $x)
 											@if ($k <= 5)
-												<li data-slotamount="" data-masterspeed="500" data-title="{{ $x->name }}" data-link="{{ route('web.places.show', ['destination' => $x->destination->path_slug, 'slug' => $x->slug]) }}" style='cursor:pointer'>
+												<li data-slotamount="" data-masterspeed="500" data-title="{{ $x->name }}" data-link-hihihi="{{ route('web.places.show', ['destination' => $x->destination->path_slug, 'slug' => $x->slug]) }}" style='cursor:pointer'>
 													<img src="{{ $x->images->where('name', 'Gallery1')->first()->path }}" data-bgposition="left center" data-duration="14000" data-bgpositionend="right center" alt="{{ $x->name }}">
 
 													<div class="tp-caption sfb fadeout slider-caption-sub slider-caption-sub-1" data-x="30" data-y="bottom" data-speed="400" data-start="1500" data-easing="easeOutBack">
@@ -146,7 +149,7 @@
 									<tbody>
 										@foreach ($tour->schedules as $other_schedule)
 											@if ($other_schedule->id !=  $tour_schedule->id)
-												<tr class='text-regular {{ $other_schedule->departure->lt(\Carbon\Carbon::now()) ? "text-muted":"" }}' data-link="{{route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => $other_schedule->departure->format('Ymd')])}}">
+												<tr class='text-regular {{ $other_schedule->departure->lt(\Carbon\Carbon::now()) ? "text-muted":"" }}' data-link-hihihi="{{route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => $other_schedule->departure->format('Ymd')])}}">
 													<td class="ticket-price">
 														@if (is_null($other_schedule->departure_until))
 															{{ $other_schedule->departure->format('d-m-Y')}}
