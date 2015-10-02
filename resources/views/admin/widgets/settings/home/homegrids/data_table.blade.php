@@ -36,6 +36,7 @@
 					<tr class='text-regular'>
 						<td>{{$i}}</td>
 						@if ($homegrids instanceOf \Illuminate\Support\Collection)
+							<?php $i = str_pad($i, 2, '0', STR_PAD_LEFT); ?>
 							<td>
 								{{ $homegrids->where('name', 'homegrid_' . $i)->first()->type }}
 								@if ($homegrids->where('name', 'homegrid_' . $i)->first()->is_featured)
