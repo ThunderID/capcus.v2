@@ -73,6 +73,7 @@ class HomeController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		$latest_tours = Cache::remember('8_latest_tours', 30, function(){ 
 			return \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'places.images','travel_agent', 'travel_agent.images')
+						->has('schedules')
 						->select('tours.*')
 						->join('travel_agencies', 'travel_agencies.id', '=', 'travel_agent_id')
 						->published()
