@@ -65,7 +65,7 @@
 						<h6 class='text-regular text-bold text-uppercase text-yellow'>Oleh</h6>
 						<img src='{{ $tour->travel_agent->images->where('name', 'SmallLogo')->first()->path}}' alt='{{$tour->travel_agent->name }}' class='pull-right' style='width:100px'> 
 						<strong class='text-uppercase'>{{ $tour->travel_agent->name}}</strong>
-						<br>{{nl2br($tour->travel_agent->address)}}
+						<br>{!! nl2br($tour->travel_agent->address) !!}
 						
 						<div class="clearfix"></div>
 
@@ -103,7 +103,7 @@
 									<ol class="carousel-indicators">
 										@foreach ($tour->places as $k => $x)
 											@if ($k <= 5)
-												<li data-target="#place-carousel" data-slide-to="0" class="{{ $k == 0 ? 'active' : ''}}"></li>
+												<li data-target="#place-carousel" data-slide-to="{{$k}}" class="{{ $k == 0 ? 'active' : ''}}"></li>
 											@endif
 										@endforeach
 									</ol>
