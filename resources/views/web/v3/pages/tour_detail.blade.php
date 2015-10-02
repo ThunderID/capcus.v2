@@ -112,7 +112,7 @@
 											@if ($k <= 5)
 												<div class="item {{ $k == 0 ? 'active' : ''}}">
 													<img class='fullwidth' src='{{ $x->images->where('name', 'Gallery1')->first()->path }}'>
-													<div class="container">
+													<div class="container-fluid">
 														<div class="carousel-caption">
 															<h1 class='text-white'>{{ $x->name }}</h1>
 															{{-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p> --}}
