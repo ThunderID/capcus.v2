@@ -16,7 +16,7 @@
 		@endforeach
 	</ol>
 	<div class="carousel-inner">
-		@foreach ($carousel_items as $k => $i)
+		@foreach ($carousel_items as $k => $item)
 			<div class="item {{$k == 0 ? 'active' : ''}}">
 				<img src='{{ $item->images->where('name', 'LargeImage')->first()->path }}' class='fullwidth' data-link="{{ $item->link_to }}" style='cursor:pointer'>
 			</div>
