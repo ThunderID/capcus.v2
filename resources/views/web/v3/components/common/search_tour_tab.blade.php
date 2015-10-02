@@ -29,7 +29,7 @@
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="home">
-					<h4 class='text-lg text-uppercase'>Cari Paket Tour</h4>
+					<h4 class='text-lg text-uppercase mt-md'>Cari Paket Tour</h4>
 					@include('web.v3.components.search.tour_form')
 				</div>
 				{{-- <div role="tabpanel" class="tab-pane fade" id="tab">
