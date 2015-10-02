@@ -11,11 +11,11 @@
 
 <div role="tabpanel" class="bs-tab-yellow-border">
 	<!-- Nav tabs -->
-	<ul class="nav nav-tabs tab-tour" role="tablist" class='active'>
-		<li role="presentation">
+	<ul class="nav nav-tabs tab-tour" role="tablist">
+		<li role="presentation"  class='active'>
 			<a href="#tour_terbaru" aria-controls="tab" role="tab" data-toggle="tab">Terbaru</a>
 		</li>
-		<li role="presentation" role='tablist'>
+		<li role="presentation">
 			<a href="#tour_promo" aria-controls="home" role="tab" data-toggle="tab">Promo</a>
 		</li>
 	</ul>
