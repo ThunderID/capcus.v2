@@ -110,7 +110,7 @@
 									<div class="carousel-inner">
 										@foreach ($tour->places as $k => $x)
 											@if ($k <= 5)
-												<div class="item">
+												<div class="item {{ $k == 0 ? 'active' : ''}}">
 													<img class='fullwidth' src='{{ $x->images->where('name', 'Gallery1')->first()->path }}'>
 													<div class="container">
 														<div class="carousel-caption">
