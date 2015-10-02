@@ -30,6 +30,7 @@
 	@endforelse
 
 	@yield('css')
+	@yield('header_js')
 
 	
 </head>
