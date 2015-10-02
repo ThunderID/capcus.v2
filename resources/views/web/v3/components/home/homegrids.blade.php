@@ -16,7 +16,7 @@
 				{{-- DESTINATION --}}
 				@if (str_is('destination', $x->type))
 					<a href="{{ route('web.tour', ['travel-agent' => 'semua-travel-agent', 'tujuan' => $x->destination_detail->path_slug]) }}">
-						<img src="{{ $x->image_url }}" alt="{{ $x->title }}">
+						<img src="{{ $x->image_url }}" alt="{{ $x->title }}" class='fullwidth'>
 					</a>
 					<div class="item-title">
 						<h2><a href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $x->destination_detail->path_slug])}}">{{$x->title}}</a></h2>
@@ -42,7 +42,7 @@
 				{{-- TAG --}}
 				@elseif (str_is('tour_tags', $x->type))
 					<a href="{{ route('web.tour.tag', ['tag' => $x->tag_detail->tag]) }}">
-						<img src="{{ $x->image_url }}" alt="{{ $x->title }}">
+						<img src="{{ $x->image_url }}" alt="{{ $x->title }}" class='fullwidth'>
 					</a>
 					<div class="item-title">
 						<h2><a href="{{ route('web.tour.tag', ['tag' => $x->tag_detail->tag])}}">{{$x->title}}</a></h2>
@@ -65,7 +65,7 @@
 					</div>
 				@elseif (str_is('link', $x->type))
 					<a href="{{ $x->link }}">
-						<img src="{{ $x->image_url }}" alt="{{ $x->title }}">
+						<img src="{{ $x->image_url }}" alt="{{ $x->title }}" class='fullwidth'>
 					</a>
 					<div class="item-title">
 						<h2><a href="{{ $x->link }}">{{$x->title}}</a></h2>
