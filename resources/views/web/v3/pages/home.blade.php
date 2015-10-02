@@ -1,6 +1,11 @@
 @section('content_1')
 	{{-- @include('web.v3.components.common.carousel', ['carousel_items' => $headlines]) --}}
-	@include('web.v3.components.common.bscarousel', ['carousel_items' => $headlines])
+	<div class='hidden-xs hidden-sm'>
+		@include('web.v3.components.common.bscarousel', ['carousel_items' => $headlines])
+	</div>
+	<div class='hidden-md hidden-lg'>
+		@include('web.v3.components.common.mobile_carousel', ['carousel_items' => $headlines])
+	</div>
 @stop
 
 @section('search_tour_tab')
