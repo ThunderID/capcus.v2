@@ -56,9 +56,8 @@
 @stop
 
 @section('basic_js')
-	@include('web.v3.components.js.slider')
+	{{-- @include('web.v3.components.js.slider') --}}
 	@include('web.v3.components.js.compare_tour')
-
 
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

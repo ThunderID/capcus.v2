@@ -73,6 +73,67 @@
 		});
 	}
 
+	function slider() {
+		var paginationSlider = ['<i class="fa fa-caret-left"></i>', '<i class="fa fa-caret-right"></i>'];
+		if ($('.purpose-slider').length) {
+			$('.purpose-slider').owlCarousel({
+				autoPlay: false,
+				slideSpeed: 300,
+				items: 7,
+				navigation: true,
+				pagination: false,
+				autoHeight: true,
+				navigationText: paginationSlider
+			});
+		}
+		if ($('.related-slider').length) {
+			$('.related-slider').owlCarousel({
+				autoPlay: 10000,
+				slideSpeed: 300,
+				navigation: true,
+				pagination: false,
+				singleItem: true,
+				autoHeight: true,
+				navigationText: paginationSlider
+			});
+		}
+		if ($('.product-slider').length) {
+			$('.product-slider').owlCarousel({
+				autoPlay: false,
+				slideSpeed: 500,
+				navigation: true,
+				pagination: false,
+				singleItem: true,
+				autoHeight: true,
+				navigationText: paginationSlider,
+				afterAction : syncPosition
+			});
+
+			$('.product-slider-thumb').owlCarousel({
+				slideSpeed: 500,
+				items: 5,
+				itemsCustom: [[320, 3],[480, 4], [768, 4], [992, 5], [1200, 5]],
+				pagination:false,
+				navigation:false,
+				navigationText: paginationSlider,
+				mouseDrag:false,
+				afterInit : function(el){
+				  el.find(".owl-item").eq(0).addClass("synced");
+				}
+			});
+			
+			$('.product-slider-thumb').on("click", ".owl-item", function(e){
+				e.preventDefault();
+				if($(this).hasClass('synced')){
+					return false;
+				}else{
+					var number = $(this).data("owlItem");
+					$('.product-slider').trigger("owl.goTo",number);
+				}
+			});
+		}
+	}
+
 	function syncPosition(el){
 		var current = this.currentItem;
 		$('.product-slider-thumb')
@@ -423,6 +484,7 @@
 	});
 	$(window).load(function() {
 		parallax();
+		slider();
 		square_grid();
 
 		$('.daterangepicker').each(function(index, el) {
