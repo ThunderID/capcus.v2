@@ -1,5 +1,5 @@
 @section('content_1')
-	{{-- @include('web.v3.components.common.bscarousel', ['carousel_items' => $headlines]) --}}
+	@include('web.v3.components.common.bscarousel', ['carousel_items' => $headlines])
 @stop
 
 @section('search_tour_tab')
