@@ -281,7 +281,7 @@ class SettingHomeController extends Controller {
 		$homegrid = HomegridSetting::homegrid($homegrid_no)->first();
 		if (!$homegrid)
 		{
-			$homegrid = new HomegridSetting(['name' => 'homegrid_' . $homegrid_no, 'since' => \Carbon\Carbon::now()]);
+			$homegrid = new HomegridSetting(['name' => 'homegrid_' . str_pad($homegrid_no, 2, STR_PAD_LEFT), 'since' => \Carbon\Carbon::now()]);
 		}
 
 		// ------------------------------------------------------------------------------------------------------------
