@@ -60,6 +60,10 @@ class HomeController extends Controller {
 										->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYears(5))
 										->orderby('departure')
 										->limit(8)
+										->select('tour_schedules.*')
+										->join('tours', 'tours.id', '=', 'tour_schedules.tour_id')
+										->join('travel_agencies', 'travel_agencies.id', '=', 'tours.travel_agent_id')
+										->groupBy('tours.travel_agent_id')
 										->get();
 		});
 
@@ -68,7 +72,14 @@ class HomeController extends Controller {
 		// QUERY PAKET TOUR TERBARU
 		// ------------------------------------------------------------------------------------------------------------
 		$latest_tours = Cache::remember('8_latest_tours', 30, function(){ 
-			return \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'places.images','travel_agent', 'travel_agent.images')->published()->latest()->limit(8)->get();
+			return \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'places.images','travel_agent', 'travel_agent.images')
+						->select('tours.*')
+						->join('travel_agencies', 'travel_agencies.id', '=', 'travel_agent_id')
+						->published()
+						->latest('tours.created_at')
+						->limit(8)
+						->groupBy('travel_agent_id')
+						->get();
 		});
 
 		// ------------------------------------------------------------------------------------------------------------
