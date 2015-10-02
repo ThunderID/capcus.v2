@@ -18,10 +18,8 @@
 		<tr>
 			<th title="klik untuk mengurutkan" class='text-uppercase hidden-xs'>Tgl <div class='icon hidden-xs'></div></th>
 			<th title="klik untuk mengurutkan" class='text-uppercase text-center hidden-xs'>Oleh <div class='icon hidden-xs'></div></th>
-			<th title="klik untuk mengurutkan" class='text-uppercase '>
-				<span class='hidden-xs'>Tujuan</span>
-				<span class='hidden-sm hidden-md hidden-lg'>PAKET TOUR</span>
-				<div class='icon hidden-xs'></div>
+			<th title="klik untuk mengurutkan" class='text-uppercase ' data-sorter="false">
+				PAKET TOUR
 			</th>
 			<th title="klik untuk mengurutkan" class='text-uppercase hidden-xs'>Hari <div class='icon hidden-xs'></div></th>
 			<th title="klik untuk mengurutkan" class='text-uppercase text-right hidden-xs'>Harga <div class='icon hidden-xs'></div></th>
@@ -65,7 +63,7 @@
 				<td class='pt-md pb-lg text-left' data-sort-value="{{$schedule->tour->destinations[0]->long_name}}">
 					{{-- DESKTOP --}}
 					<div class='hidden-xs'>
-						<strong class='text-uppercase text-md mb-sm'>{{ implode(', ', $schedule->tour->destinations->lists('name')->toArray()) }}</strong>
+						<strong class='text-uppercase text-md mb-sm'>{{ $schedule->tour->name }}</strong>
 						@if (!$hide_places)
 							<p class='mt-sm tour_schedule_places_detail'><span class=''>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</span></p>
 						@endif
@@ -86,7 +84,7 @@
 					</div>
 
 					<div class='hidden-sm hidden-md hidden-lg'>
-						<h2 class='text-uppercase text-md text-bold'>{{ implode(', ', $schedule->tour->destinations->lists('long_name')->toArray()) }}</h2>
+						<h2 class='text-uppercase text-md text-bold'>{{ $schedule->tour->name }}</h2>
 						@if (!$hide_places)
 							<p class='tour_schedule_places_detail'>{{ implode(', ', $schedule->tour->places->lists('name')->toArray()) }}</p>
 						@endif 
