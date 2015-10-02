@@ -283,6 +283,10 @@ class SettingHomeController extends Controller {
 		{
 			$homegrid = new HomegridSetting(['name' => 'homegrid_' . str_pad($homegrid_no, 2, STR_PAD_LEFT), 'since' => \Carbon\Carbon::now()]);
 		}
+		else
+		{
+			$homegrid = new HomegridSetting(['name' => 'homegrid_' . str_pad($homegrid_no, 2, STR_PAD_LEFT), 'since' => \Carbon\Carbon::now()]);
+		}
 
 		// ------------------------------------------------------------------------------------------------------------
 		// PROCESS INPUT
