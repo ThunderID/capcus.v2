@@ -114,7 +114,7 @@
 													<img class='fullwidth' src='{{ $x->images->where('name', 'Gallery1')->first()->path }}'>
 													<div class="container">
 														<div class="carousel-caption">
-															<h1>{{ $x->name }}</h1>
+															<h1 class='text-white'>{{ $x->name }}</h1>
 															{{-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p> --}}
 														</div>
 													</div>
