@@ -25,7 +25,11 @@
 		$day_list[$i] = $i;
 	}
 ?>
+
 @section('content_1')
+@stop
+
+@section('content_2')
 	<section class="awe-parallax" style="background-position: 50% 12px;">
 		<div class="awe-overlay"></div>
 		<div class="container">
@@ -86,8 +90,6 @@
 @section('search_tour_tab')
 @stop
 
-@section('content_2')
-@stop
 
 @section('js')
 	@parent
