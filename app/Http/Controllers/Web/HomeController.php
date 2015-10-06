@@ -43,6 +43,7 @@ class HomeController extends Controller {
 				foreach ($homegrids as $k => $v)
 				{
 					$homegrids[$k]->destination_detail = $homegrid_destinations->find($v->destination);
+					$homegrids[$k]->destination_detail->total_upcoming_tours;
 				}
 			}
 

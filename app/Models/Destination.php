@@ -22,6 +22,8 @@ class Destination extends BaseModel
 	static $path_field = 'path';
 	protected $appends = ['long_name'];
 
+	protected $total_upcoming_schedules;
+
 	// ----------------------------------------------------------------------
 	// BOOT
 	// ----------------------------------------------------------------------
@@ -84,16 +86,22 @@ class Destination extends BaseModel
 
 	function getTotalUpcomingSchedulesAttribute()
 	{
-		$destination_ids = new Collection;
-		$destination_ids->push($this->id);
-		foreach ($this->descendant as $x)
+
+		if (!isset($this->total_upcoming_schedules))
 		{
-			$destination_ids->push($x->id);
+			$destination_ids = new Collection;
+			$destination_ids->push($this->id);
+			foreach ($this->descendant as $x)
+			{
+				$destination_ids->push($x->id);
+			}
+
+			$this->total_upcoming_schedules = TourSchedule::whereHas('tour', function($query) use ($destination_ids) { 
+											$query->InDestinationByIds($destination_ids);
+										})->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(5))->count();
 		}
 
-		return TourSchedule::whereHas('tour', function($query) use ($destination_ids) { 
-					$query->InDestinationByIds($destination_ids);
-				})->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(5))->count();
+		return $this->total_upcoming_schedules;
 
 
 		// $destination_ids = Static::where(function($query) uses ($this) {
