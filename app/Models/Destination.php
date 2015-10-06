@@ -83,11 +83,24 @@ class Destination extends BaseModel
 
 	function getTotalUpcomingSchedulesAttribute()
 	{
+		// calculate this destination total schedules
 		$total_schedule = 0;
 		foreach ($this->tours as $tour)
 		{
 			$total_schedule += $tour->schedules->count();
 		}
+
+		// calculate this destination and its children total schedules
+		$descendats = $this->descendant;
+		$descendats->load('tours', 'tours.schedules');
+		foreach ($descendants as $descendant)
+		{
+			foreach ($descendant->tours as $tour)
+			{
+				$total_schedule += $tour->schedules->count();
+			}			
+		}
+
 
 		return $total_schedule;
 	}
