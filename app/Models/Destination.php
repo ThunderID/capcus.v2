@@ -88,7 +88,7 @@ class Destination extends BaseModel
 		$destination_ids->push($this->id);
 		foreach ($this->descendant as $x)
 		{
-			$destination_ids->add($x->id);
+			$destination_ids->push($x->id);
 		}
 
 		return TourSchedule::whereHas('tour', function($query) use ($destination_ids) { 
