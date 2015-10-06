@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use DB;
 
 class Destination extends BaseModel
@@ -83,26 +84,43 @@ class Destination extends BaseModel
 
 	function getTotalUpcomingSchedulesAttribute()
 	{
-		// calculate this destination total schedules
-		$total_schedule = 0;
-		foreach ($this->tours as $tour)
+		$destination_ids = new Collection;
+		$destination_ids->push($this->id);
+		foreach ($this->descendant as $x)
 		{
-			$total_schedule += $tour->schedules->count();
+			$destination_ids->add($x->id);
 		}
 
-		// calculate this destination and its children total schedules
-		$descendants = $this->descendant;
-		$descendants->load('tours', 'tours.schedules');
-		foreach ($descendants as $descendant)
-		{
-			foreach ($descendant->tours as $tour)
-			{
-				$total_schedule += $tour->schedules->count();
-			}			
-		}
+		return TourSchedule::whereHas('tour', function($query) use ($destination_ids) { 
+					$query->InDestinationByIds($destination_ids);
+				})->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYear(5))->count();
 
 
-		return $total_schedule;
+		// $destination_ids = Static::where(function($query) uses ($this) {
+		// 	$query->where('id', '=', $this->id)
+		// 			->orWhere($this->getPathField(), 'like', $this->attributes[$this->getPathField()] . Static::getDelimiter() . '%')
+		// })->join('tours', 'tours.')
+
+		// // calculate this destination total schedules
+		// $total_schedule = 0;
+		// foreach ($this->tours as $tour)
+		// {
+		// 	$total_schedule += $tour->schedules->count();
+		// }
+
+		// // calculate this destination and its children total schedules
+		// $descendants = $this->descendant;
+		// $descendants->load('tours', 'tours.schedules');
+		// foreach ($descendants as $descendant)
+		// {
+		// 	foreach ($descendant->tours as $tour)
+		// 	{
+		// 		$total_schedule += $tour->schedules->count();
+		// 	}			
+		// }
+
+
+		// return $total_schedule;
 	}
 
 	// ----------------------------------------------------------------------
