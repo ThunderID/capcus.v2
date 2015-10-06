@@ -81,6 +81,11 @@ class BlogController extends Controller {
 			return $related_articles;
 		});
 
+		if (!$related_articles)
+		{
+			$related_articles = Article::published()->where('slug', 'like', $slug)->latest('published_at')->limit(6)->get();
+		}
+
 
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY RELATED TOUR
