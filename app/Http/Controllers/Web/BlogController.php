@@ -81,7 +81,7 @@ class BlogController extends Controller {
 								->get();
 			if (!$related_articles->count())
 			{
-				$related_articles = Article::latest('published_at')->where('id', '!=', $article->id)->limit(5)->get();
+				$related_articles = Article::latest('published_at')->where('id', '!=', $article->id)->limit(6)->get();
 			}
 			return $related_articles;
 		});
