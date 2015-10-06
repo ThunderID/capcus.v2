@@ -73,19 +73,18 @@ class BlogController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		$destinations = $article->destinations;
 		$related_articles = Cache::remember('related_article_by_slug' . $slug, 30, function() use ($article, $destinations) { 
-			$related_articles =  Article::InDestinationByIds($destinations->lists('id')->toArray())->where('id', '!=', $article->id)->published()->latest('published_at')->limit(6)->get();
-			if (!$related_articles)
+			$related_articles =  Article::InDestinationByIds($destinations->lists('id')->toArray())
+								->where('id', '!=', $article->id)
+								->published()
+								->latest('published_at')
+								->limit(6)
+								->get();
+			if (!$related_articles->count())
 			{
 				$related_articles = Article::latest('published_at')->where('id', '!=', $article->id)->limit(5)->get();
 			}
 			return $related_articles;
 		});
-
-		if (!$related_articles)
-		{
-			$related_articles = Article::published()->where('slug', 'like', $slug)->latest('published_at')->limit(6)->get();
-		}
-
 
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY RELATED TOUR
