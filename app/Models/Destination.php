@@ -91,8 +91,8 @@ class Destination extends BaseModel
 		}
 
 		// calculate this destination and its children total schedules
-		$descendats = $this->descendant;
-		$descendats->load('tours', 'tours.schedules');
+		$descendants = $this->descendant;
+		$descendants->load('tours', 'tours.schedules');
 		foreach ($descendants as $descendant)
 		{
 			foreach ($descendant->tours as $tour)

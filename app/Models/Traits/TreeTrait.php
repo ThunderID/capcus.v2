@@ -110,7 +110,7 @@ trait TreeTrait {
 	// ----------------------------------------------------------------------
 	function getDescendantAttribute()
 	{
-		return Static::where($this->getPathField(), 'not like', $this->attributes[$this->getPathField()] . Static::getDelimiter() . '%')->get();
+		return Static::where($this->getPathField(), 'like', $this->attributes[$this->getPathField()] . Static::getDelimiter() . '%')->get();
 	}
 
 	function getPathAttribute()
