@@ -28,6 +28,7 @@ class HomeController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		$homegrids = Cache::remember('current_homegrids', 60, function() {
 			$homegrids = \App\HomegridSetting::orderBy('name')->get();
+			
 			// get upcoming package schedules
 			$homegrid_destination_ids = new Collection;
 			foreach ($homegrids as $k => $v)
@@ -35,15 +36,18 @@ class HomeController extends Controller {
 				if (str_is('destination', $v->type))
 				{
 					$homegrid_destination_ids->push($v->destination);
+
 				}
 			}
+			
+			// 
 			if ($homegrid_destination_ids->count())
 			{
 				$homegrid_destinations = \App\Destination::with('tours', 'tours.schedules')->whereIn('id', $homegrid_destination_ids)->get();
 				foreach ($homegrids as $k => $v)
 				{
 					$homegrids[$k]->destination_detail = $homegrid_destinations->find($v->destination);
-					$homegrids[$k]->destination_detail->total_upcoming_tours;
+					$homegrids[$k]->destination_detail->total_upcoming_schedules;
 				}
 			}
 
@@ -88,7 +92,12 @@ class HomeController extends Controller {
 		// TOP DESTINATION
 		// ------------------------------------------------------------------------------------------------------------
 		$top_destinations = Cache::remember('8_top_destination_in_6_months', 30, function() { 
-			return \App\Destination::with('images')->TopDestination(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addMonth(6))->limit(8)->get();
+			$destinations = \App\Destination::with('images')->TopDestination(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addMonth(6))->limit(8)->get();
+			foreach ($destinations as $k => $v)
+			{
+				$destinations[$k]->total_upcoming_schedules;
+			}
+			return $destinations;
 		});
 
 		// ------------------------------------------------------------------------------------------------------------
