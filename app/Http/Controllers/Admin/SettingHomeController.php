@@ -307,7 +307,7 @@ class SettingHomeController extends Controller {
 			$homegrid->tag 				= '';
 			$homegrid->label 			= Input::get('label');
 			$homegrid->image_url 		= Input::get('image_url');
-			$homegrid->show_title 		= Input::get('show_title');
+			$homegrid->show_title 		= (Input::get('show_title') == 1 ? true : false);
 
 			switch (Input::get('type'))
 			{
