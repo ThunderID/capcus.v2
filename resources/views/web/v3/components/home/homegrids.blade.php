@@ -72,7 +72,9 @@
 						<img src="{{ $x->image_url }}" alt="{{ $x->title }}" class='fullwidth'>
 					</a>
 					<div class="item-title">
-						<h2><a href="{{ $x->link }}">{{$x->title}}</a></h2>
+						@if ($x->show_title !== false)
+							<h2><a href="{{ $x->link }}">{{$x->title}}</a></h2>
+						@endif
 					</div>
 					@if ($x->label)
 						<div class='item-featured bg-yellow text-black text-uppercase'>
