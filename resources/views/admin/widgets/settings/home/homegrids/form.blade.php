@@ -63,6 +63,21 @@
 					</div>
 
 					<div class='mb-sm'>
+						<strong class='text-uppercase'>Show Title</strong>
+						@if ($errors->has('show_title'))
+							<span class='text-danger pull-right'>{{implode(', ', $errors->get('show_title'))}}</span>
+						@endif
+						{!! Form::select('show_title', [1 => "Yes", 0 => "No"], $homegrid->show_title, [
+																'class' 			=> 'form-control', 
+																'required' 			=> 'required',
+																'data-toggle' 		=> ($errors->has('show_title') ? 'tooltip' : ''), 
+																'data-placement' 	=> 'bottom', 
+																'title' 			=> ($errors->has('show_title') ? $errors->first('show_title') : ''), 
+																]) 
+						!!}
+					</div>
+
+					<div class='mb-sm'>
 						<strong class='text-uppercase'>Label</strong>
 						@if ($errors->has('label'))
 							<span class='text-danger pull-right'>{{implode(', ', $errors->get('label'))}}</span>

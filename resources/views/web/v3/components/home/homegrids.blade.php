@@ -19,7 +19,9 @@
 						<img src="{{ $x->image_url }}" alt="{{ $x->title }}" class='fullwidth'>
 					</a>
 					<div class="item-title">
-						<h2><a href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $x->destination_detail->path_slug])}}">{{$x->title}}</a></h2>
+						@if ($x->show_title)
+							<h2><a href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $x->destination_detail->path_slug])}}">{{$x->title}}</a></h2>
+						@endif
 						<div class="item-cat">
 							<ul>
 								<li><a href="{{ route('web.tour', ['travel_agent' => 'semua-travel-agent', 'tujuan' => $x->destination_detail->path_slug])}}">{{ $x->destination_detail->long_name}}</a></li>
@@ -45,7 +47,9 @@
 						<img src="{{ $x->image_url }}" alt="{{ $x->title }}" class='fullwidth'>
 					</a>
 					<div class="item-title">
-						<h2><a href="{{ route('web.tour.tag', ['tag' => $x->tag_detail->tag])}}">{{$x->title}}</a></h2>
+						@if ($x->show_title)
+							<h2><a href="{{ route('web.tour.tag', ['tag' => $x->tag_detail->tag])}}">{{$x->title}}</a></h2>
+						@endif
 						<div class="item-cat">
 							<ul>
 								<li><a href="{{ route('web.tour.tag', ['tag' => $x->tag_detail->tag])}}">#{{ $x->tag_detail->tag}}</a></li>

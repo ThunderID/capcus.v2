@@ -67,8 +67,11 @@ trait HomegridSettingTrait {
 		$this->attributes['value'] = json_encode($value);
 	}
 
-	public function setIsFeaturedAttribute($v)
+	public function setShowTitleAttribute($v)
 	{
+		$value = json_decode($this->attributes['value']);
+		$value->show_title = ($v ? true : false);
+		$this->attributes['value'] = json_encode($value);
 	}
 
 	// TAG
@@ -115,6 +118,12 @@ trait HomegridSettingTrait {
 	{
 		$value = json_decode($this->attributes['value']);
 		return $value->title;
+	}
+
+	public function getShowTitleAttribute($v)
+	{
+		$value = json_decode($this->attributes['value']);
+		return $value->show_title;
 	}
 
 	public function getDestinationAttribute()
