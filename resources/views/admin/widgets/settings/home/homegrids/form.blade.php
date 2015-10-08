@@ -67,7 +67,7 @@
 						@if ($errors->has('show_title'))
 							<span class='text-danger pull-right'>{{implode(', ', $errors->get('show_title'))}}</span>
 						@endif
-						{!! Form::select('show_title', [1 => "Yes", 0 => "No"], $homegrid->show_title, [
+						{!! Form::select('show_title', [1 => "Yes", 0 => "No"], ($homegrid->show_title ? 1 : 0), [
 																'class' 			=> 'form-control', 
 																'required' 			=> 'required',
 																'data-toggle' 		=> ($errors->has('show_title') ? 'tooltip' : ''), 

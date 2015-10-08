@@ -241,6 +241,7 @@ class SettingHomeController extends Controller {
 		{
 			$homegrid = new HomegridSetting(['name' => 'homegrid_' . $homegrid_no, 'since' => \Carbon\Carbon::now()]);
 		}
+
 		// ------------------------------------------------------------------------------------------------------------
 		// Destination List
 		// ------------------------------------------------------------------------------------------------------------
