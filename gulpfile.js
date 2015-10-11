@@ -37,6 +37,7 @@ elixir(function(mix) {
                     'public/css/web_v3_style.css',
                     'public/js/web_v3.js',
     			])
+        .copy('resources/assets/fonts', 'public/build/fonts')
     	.copy('resources/assets/images/overlay-gallery.png', 'public/build/images')
     	.copy('resources/assets/css/web.v3/colors', 'public/css/colors')
     	.copy('resources/assets/css/web.v3/fonts', 'public/build/fonts/')
