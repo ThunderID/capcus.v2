@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin\\'], function(){
+Route::group(['prefix' => 'cap-admin', 'namespace' => 'Admin\\'], function(){
 
 	Route::get('/', 					['uses' => 'LoginController@getLogin',					'as' => 'admin.login']);
 	Route::post('/login', 				['uses' => 'LoginController@postLogin',					'as' => 'admin.login.post']);
