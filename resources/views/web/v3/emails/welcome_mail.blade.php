@@ -6,7 +6,7 @@
 		
 	<meta name="viewport" content="width=device-width"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>CAPCUS - Newsletter Edisi {{ \Carbon\Carbon::now()->year }}.{{ \Carbon\Carbon::now()->format('W') }}  </title>
+	<title>CAPCUS - Welcome {{ $user->name }}</title>
 	<style type="text/css">
 
 		/* ------------------------------------- 		GLOBAL ------------------------------------- */
@@ -375,9 +375,31 @@
 			</div>
 
 			<div class="content">
-				<p class='bt'>Lorem ipsum Minim velit incididunt pariatur aute ut Ut id aute aliquip et in nostrud sunt occaecat voluptate sit nostrud pariatur incididunt culpa occaecat ut magna eiusmod deserunt nulla nisi reprehenderit veniam nulla aliquip cupidatat dolore consectetur laborum dolore voluptate ex culpa amet pariatur ullamco voluptate velit ea magna dolore cupidatat ut adipisicing voluptate irure sed ut velit fugiat ullamco labore Duis culpa deserunt do aliquip Excepteur irure ea qui aliqua dolore aliqua cupidatat laboris in amet et laborum culpa dolore voluptate ea do laboris culpa cupidatat in ut sit est in dolor labore eu aliquip irure irure ea consequat ullamco minim est velit quis ad nulla consectetur pariatur deserunt eu sed ullamco non labore sint sit aliquip irure enim laborum cillum in minim ea in culpa nostrud ex pariatur incididunt enim in Duis eiusmod non pariatur aliquip ullamco ad pariatur in officia ea pariatur veniam pariatur dolor laboris proident id aliquip cupidatat Excepteur reprehenderit reprehenderit ex in commodo non enim ex elit nostrud voluptate do dolore Duis eu ad in dolor incididunt ut sit culpa aliqua aliquip minim cillum cupidatat enim nostrud sit qui sed Ut eiusmod proident dolor proident dolore nulla eiusmod eu magna consequat sint enim aliqua fugiat ut incididunt esse ullamco.</p>
-				<p class='bt'>Lorem ipsum Minim velit incididunt pariatur aute ut Ut id aute aliquip et in nostrud sunt occaecat voluptate sit nostrud pariatur incididunt culpa occaecat ut magna eiusmod deserunt nulla nisi reprehenderit veniam nulla aliquip cupidatat dolore consectetur laborum dolore voluptate ex culpa amet pariatur ullamco voluptate velit ea magna dolore cupidatat ut adipisicing voluptate irure sed ut velit fugiat ullamco labore Duis culpa deserunt do aliquip Excepteur irure ea qui aliqua dolore aliqua cupidatat laboris in amet et laborum culpa dolore voluptate ea do laboris culpa cupidatat in ut sit est in dolor labore eu aliquip irure irure ea consequat ullamco minim est velit quis ad nulla consectetur pariatur deserunt eu sed ullamco non labore sint sit aliquip irure enim laborum cillum in minim ea in culpa nostrud ex pariatur incididunt enim in Duis eiusmod non pariatur aliquip ullamco ad pariatur in officia ea pariatur veniam pariatur dolor laboris proident id aliquip cupidatat Excepteur reprehenderit reprehenderit ex in commodo non enim ex elit nostrud voluptate do dolore Duis eu ad in dolor incididunt ut sit culpa aliqua aliquip minim cillum cupidatat enim nostrud sit qui sed Ut eiusmod proident dolor proident dolore nulla eiusmod eu magna consequat sint enim aliqua fugiat ut incididunt esse ullamco.</p>
-				<p class='bt'>Lorem ipsum Minim velit incididunt pariatur aute ut Ut id aute aliquip et in nostrud sunt occaecat voluptate sit nostrud pariatur incididunt culpa occaecat ut magna eiusmod deserunt nulla nisi reprehenderit veniam nulla aliquip cupidatat dolore consectetur laborum dolore voluptate ex culpa amet pariatur ullamco voluptate velit ea magna dolore cupidatat ut adipisicing voluptate irure sed ut velit fugiat ullamco labore Duis culpa deserunt do aliquip Excepteur irure ea qui aliqua dolore aliqua cupidatat laboris in amet et laborum culpa dolore voluptate ea do laboris culpa cupidatat in ut sit est in dolor labore eu aliquip irure irure ea consequat ullamco minim est velit quis ad nulla consectetur pariatur deserunt eu sed ullamco non labore sint sit aliquip irure enim laborum cillum in minim ea in culpa nostrud ex pariatur incididunt enim in Duis eiusmod non pariatur aliquip ullamco ad pariatur in officia ea pariatur veniam pariatur dolor laboris proident id aliquip cupidatat Excepteur reprehenderit reprehenderit ex in commodo non enim ex elit nostrud voluptate do dolore Duis eu ad in dolor incididunt ut sit culpa aliqua aliquip minim cillum cupidatat enim nostrud sit qui sed Ut eiusmod proident dolor proident dolore nulla eiusmod eu magna consequat sint enim aliqua fugiat ut incididunt esse ullamco.</p>
+				<p class='bt'>Selamat bergabung bersama capcus.id,</p>
+				
+				<p class='bt'>
+					<strong>
+						Terima kasih telah bergabung menjadi bagian dari keluarga traveller capcus.id. Kami bertujuan untuk menyediakan 
+						kemudahan dan kenyamanan dalam perencanaan pemilihan paket tour yang sesuai dengan kebutuhan anda.
+					</strong>
+				</p>
+
+				<p class='bt'>
+					Dalam capcus.id anda dapat mencari paket-paket tour yang sesuai dengan kebutuhan anda, baik dari destinasi perjalanan anda,
+					durasi perjalanan, budget perjalanan, dan travel agent penyelenggara paket tour anda. Kami telah bekerja sama dengan berbagai
+					travel agent terpercaya untuk memberikan pelayanan yang terbaik bagi anda.
+				</p>
+
+				<p class='bt'>
+					Selamat berlibur!
+					<br/>&nbsp;
+					<br/>&nbsp;
+					<br/>&nbsp;
+				</p>
+
+				<p class='bt'>
+				Tim CAPCUS.ID				
+				</p>
 			</div>
 			
 			<div class="clear bt">
