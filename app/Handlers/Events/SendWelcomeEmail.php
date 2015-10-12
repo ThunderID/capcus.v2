@@ -33,9 +33,9 @@ class SendWelcomeEmail
             if ($user->email)
             {
                 try {
-                    $m->to($user->email, $user->name)->subject('CAPCUS.id - Welcome to CAPCUS.id');
+                    $m->to($user->email, $user->name)->subject('Hi ' . $user->name . ' - Welcome to CAPCUS.id');
                 } catch (\Exception $e) {
-                    dd($user->email);
+                    // dd($user->email);
                 }
             }
         });
