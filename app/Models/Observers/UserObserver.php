@@ -57,7 +57,6 @@ class UserObserver {
 
 	public function saved($model)
 	{
-		event(new \App\Events\NewMemberRegistered($model));
 	}
 
 	// ----------------------------------------------------------------
@@ -85,6 +84,8 @@ class UserObserver {
 		}
 
 		// SEND WELCOME EMAIL
+		event(new \App\Events\NewMemberRegistered($model));
+		
 	}
 
 	// ----------------------------------------------------------------
