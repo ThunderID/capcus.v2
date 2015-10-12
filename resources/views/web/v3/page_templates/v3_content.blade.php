@@ -61,7 +61,6 @@
 
 	<script>
 		$('#slider-revolution').on('click', 'li', function(event) {
-			alert($(this).data('link'));
 			/* Act on the event */
 			if ($(this).data('link') != 'undefined')
 			{
