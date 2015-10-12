@@ -60,11 +60,11 @@
 	@include('web.v3.components.js.compare_tour')
 
 	<script>
-		$('#slider-revolution').on('click', 'li', function(event) {
+		$('.carousel-inner').on('click', 'img', function(event) {
 			/* Act on the event */
 			if ($(this).data('link') != 'undefined')
 			{
-				window.location = $(this).data('link');
+				window.open($(this).data('link'), '_blank');
 			}
 		});
 	</script>
