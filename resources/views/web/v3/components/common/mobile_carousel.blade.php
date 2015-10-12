@@ -12,7 +12,7 @@
 
 @foreach ($carousel_items as $k => $item)
 	<div>
-		<a href='{{ $item->link_to }}'>
+		<a href='{{ $item->link_to }}' target="_blank">
 			<img src='{{ $item->images->where('name', 'LargeImage')->first()->path }}' class='fullwidth' style='cursor:pointer'>
 		</a>
 	</div>
