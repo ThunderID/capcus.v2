@@ -12,6 +12,8 @@
 
 @foreach ($carousel_items as $k => $item)
 	<div>
-		<img src='{{ $item->images->where('name', 'LargeImage')->first()->path }}' class='fullwidth' data-link="{{ $item->link_to }}" style='cursor:pointer'>
+		<a href='{{ $item->link_to }}'>
+			<img src='{{ $item->images->where('name', 'LargeImage')->first()->path }}' class='fullwidth' style='cursor:pointer'>
+		</a>
 	</div>
 @endforeach
