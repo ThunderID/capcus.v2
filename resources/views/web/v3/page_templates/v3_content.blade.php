@@ -60,13 +60,12 @@
 	@include('web.v3.components.js.compare_tour')
 
 	<script>
-		$('#slider-revolution > ul').on('click', 'li', function(event) {
+		$('#slider-revolution').on('click', 'li', function(event) {
 			/* Act on the event */
 			if ($(this).data('link') != 'undefined')
 			{
 				window.location = $(this).data('link');
 			}
-			event.preventDefault();
 		});
 	</script>
 
