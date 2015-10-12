@@ -354,7 +354,7 @@
 				<td align="center" valign="middle">
 					<tr>
 						<td height="0" border="5px" cellspacing="0" cellpadding="0">
-							<h7>WELCOME {{ $user->name }},</h7>
+							<h7>WELCOME {{ $user['name'] }},</h7>
 						</td>
 					</tr>
 				</td>
