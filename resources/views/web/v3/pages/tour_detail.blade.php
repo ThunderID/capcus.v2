@@ -37,6 +37,11 @@
 						@endif
 					</div>
 
+					<div class='text-center mt-sm fullwidth text-center hidden-lg hidden-md hidden-sm'>
+						<!-- Go to www.addthis.com/dashboard to customize your tools -->
+						<div class="addthis_sharing_toolbox"></div>
+					</div>
+
 					<hr class='border-0 border-bottom-1 border-black border-solid'>
 				</div>
 

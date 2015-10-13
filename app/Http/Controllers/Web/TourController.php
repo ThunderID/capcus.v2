@@ -88,8 +88,8 @@ class TourController extends Controller {
 		$this->layout->title 					= "Paket Tour " . $tag->tag . ' - Capcus.id';
 		$this->layout->og['title'] 				= $this->layout->title;
 		$this->layout->og['type'] 				= 'website';
-		$this->layout->og['image'] 				= ($tour_schedules->count() ? $tour_schedules->first()->tour->destinations->first()->images->where('name', 'LargeImage')->path : '');
-		$this->layout->og['image:type']			= pathinfo('images/'.$this->layout->og['image'], PATHINFO_EXTENSION);
+		$this->layout->og['image'] 				= ($tour_schedules->count() ? $tour_schedules->first()->tour->destinations->first()->images->where('name', 'LargeImage')->first()->path : '');
+		$this->layout->og['image:type']			= 'jpg';
 		$this->layout->og['image:width'] 		= 800;
 		$this->layout->og['image:height'] 		= 600;
 		return $this->layout;	
@@ -361,10 +361,11 @@ class TourController extends Controller {
 
 		$this->layout->og['title'] 				= $this->layout->title;
 		$this->layout->og['type'] 				= 'website';
-		$this->layout->og['image'] 				= ($tour_schedules->count() ? $tour_schedules->first()->tour->destinations->first()->images->where('name', 'LargeImage')->path : '');
-		$this->layout->og['image:type']			= pathinfo('images/'.$this->layout->og['image'], PATHINFO_EXTENSION);
+		$this->layout->og['image'] 				= ($tour_schedules->count() ? $tour_schedules->first()->tour->destinations->first()->images->where('name', 'LargeImage')->first()->path : '');
+		$this->layout->og['image:type']			= 'jpg';
 		$this->layout->og['image:width'] 		= 800;
 		$this->layout->og['image:height'] 		= 600;
+
 		return $this->layout;
 	}
 
@@ -504,11 +505,10 @@ class TourController extends Controller {
 															;
 
 		// 
-		$this->layout->title 					= "Capcus.id - Cari tour tidak lagi ribet";
 		$this->layout->og['title'] 				= $this->layout->title;
 		$this->layout->og['type'] 				= 'article';
-		$this->layout->og['image'] 				= ($tour->destinations->first() ? $tour->destinations->first()->images('name', 'LargeImage')->path : asset('images/logo/logo-new.png'));
-		$this->layout->og['image:type']			= pathinfo('images/'.$this->layout->og['image'], PATHINFO_EXTENSION);
+		$this->layout->og['image'] 				= ($tour->destinations->first() ? $tour->destinations->first()->images('name', 'LargeImage')->first()->path : asset('images/logo/logo-new.png'));
+		$this->layout->og['image:type']			= 'jpg';
 		$this->layout->og['image:width'] 		= 800;
 		$this->layout->og['image:height'] 		= 600;
 		$this->layout->og['article:published_time']	= $tour->published_at->format('Y-m-d H:i:s');
@@ -540,12 +540,26 @@ class TourController extends Controller {
 			return App::abort(404);
 		}
 
+		foreach ($tour_schedules as $x)
+		{
+			$titles[] = $x->tour->name . ' ' . $x->departure->format('d-M-Y') . ($x->departure_until ? ' - ' . $x->departure_until->format('d-M-Y') :'') . ' ('.$x->tour->travel_agent->name.')';
+		}
+
+
 		// ------------------------------------------------------------------------------------------------------------
 		// SHOW DISPLAY
 		// ------------------------------------------------------------------------------------------------------------
 		$this->layout->page = view($this->page_base_dir . 'tour_compare');
 		$this->layout->page->tour_schedules 			= $tour_schedules;
 		$this->layout->page->option_list 				= $this->option_list;
+
+		$this->layout->title 					= "Perbandingan Tour " . implode(', ', $titles) . ' - Capcus.id';
+		$this->layout->og['title'] 				= $this->layout->title;
+		$this->layout->og['type'] 				= 'website';
+		$this->layout->og['image'] 				= ($tour_schedules->count() ? $tour_schedules->first()->tour->destinations->first()->images->where('name', 'LargeImage')->first()->path : '');
+		$this->layout->og['image:type']			= 'jpg';
+		$this->layout->og['image:width'] 		= 800;
+		$this->layout->og['image:height'] 		= 600;
 
 		return $this->layout;
 	}
