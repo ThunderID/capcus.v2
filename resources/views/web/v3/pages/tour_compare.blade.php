@@ -139,7 +139,7 @@
 									{!! $x->tour->ittinary !!}
 
 									<p class='mt-sm'>
-										<a href="{{route('web.tour.show', ['travel_agent_slug' => $x->tour->travel_agent->slug, 'tour_slug' => $x->tour->slug, 'schedule' => $x->departure->format('Ymd')])}}" class='awe-btn awe-btn-style2 btn-block'>Detail</a>
+										<a href="{{route('web.tour.show', ['travel_agent_slug' => $x->tour->travel_agent->slug, 'tour_slug' => $x->tour->slug, 'schedule' => $x->departure->format('Ymd')])}}" class='awe-btn awe-btn-style3 btn-block'>Detail</a>
 									</p>
 								</td>
 							</tr>
@@ -235,7 +235,7 @@
 							<td valign='top'></td>
 							@foreach ($tour_schedules as $x)
 								<td valign='top' align=''>
-									<a href="{{route('web.tour.show', ['travel_agent_slug' => $x->tour->travel_agent->slug, 'tour_slug' => $x->tour->slug, 'schedule' => $x->departure->format('Ymd')])}}" class='awe-btn awe-btn-style2 btn-block'>Detail</a>
+									<a href="{{route('web.tour.show', ['travel_agent_slug' => $x->tour->travel_agent->slug, 'tour_slug' => $x->tour->slug, 'schedule' => $x->departure->format('Ymd')])}}" class='awe-btn awe-btn-style3 btn-block'>Detail</a>
 								</td>
 							@endforeach
 						</tr>
