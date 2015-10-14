@@ -25,7 +25,7 @@
 	<![endif]-->
 
 	@forelse ($og as $k => $x)
-		<meta property="{{ $k }}" content="{{$x}}">
+		<meta property="og:{{ $k }}" content="{{$x}}">
 	@empty
 	@endforelse
 
