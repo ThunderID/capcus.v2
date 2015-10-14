@@ -34,7 +34,7 @@
 		<div class="awe-overlay"></div>
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-md-push-3 text-black">
+				<div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 col-sm-push-2 col-md-push-3 text-black">
 					<h3 class=' text-center'>SATU LANGKAH LAGI,</h3>
 
 					@if ($errors->count())
