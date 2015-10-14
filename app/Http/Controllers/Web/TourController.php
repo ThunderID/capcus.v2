@@ -507,7 +507,7 @@ class TourController extends Controller {
 		// 
 		$this->layout->og['title'] 				= $this->layout->title;
 		$this->layout->og['type'] 				= 'article';
-		$this->layout->og['image'] 				= ($tour->destinations->first() ? $tour->destinations->first()->images('name', 'LargeImage')->first()->path : asset('images/logo/logo-new.png'));
+		$this->layout->og['image'] 				= ($tour->destinations->first() ? $tour->destinations->first()->images->where('name', 'LargeImage')->first()->path : asset('images/logo/logo-new.png'));
 		$this->layout->og['image:type']			= 'jpg';
 		$this->layout->og['image:width'] 		= 800;
 		$this->layout->og['image:height'] 		= 600;
