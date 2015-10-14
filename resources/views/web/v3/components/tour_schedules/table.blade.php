@@ -75,8 +75,8 @@
 						@endif
 
 						<div class='mt-md'>					
-							<a href="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}" class='awe-btn awe-btn-style2'>Detail</a>
-							<a href="javascript:;" data-id='{{$schedule->id}}' class='awe-btn {{ in_array( $schedule->id, Session::get('compare_cart')) ? '': 'awe-btn-style2'}} compare_tour add'>
+							<a href="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}" class='awe-btn awe-btn-style3'>Detail</a>
+							<a href="javascript:;" data-id='{{$schedule->id}}' class='awe-btn {{ in_array( $schedule->id, Session::get('compare_cart')) ? '': 'awe-btn-style3'}} compare_tour add'>
 								<i class='fa fa-check {{ in_array( $schedule->id, Session::get('compare_cart')) ? '': 'hidden'}}'></i> Bandingkan
 							</a>
 						</div>
@@ -139,8 +139,8 @@
 						</table>
 
 						<div class='mt-md text-center'>
-							<a href="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}" class='awe-btn awe-btn-style2'>Detail</a>
-							<a href="javascript:;" data-id='{{$schedule->id}}' class='awe-btn {{ in_array( $schedule->id, Session::get('compare_cart')) ? '': 'awe-btn-style2'}} compare_tour add'>
+							<a href="{{route('web.tour.show', ['travel_agent' => $schedule->tour->travel_agent->slug, 'tour_slug' => $schedule->tour->slug, 'schedule' => $schedule->departure->format('Ymd')])}}" class='awe-btn awe-btn-style3'>Detail</a>
+							<a href="javascript:;" data-id='{{$schedule->id}}' class='awe-btn {{ in_array( $schedule->id, Session::get('compare_cart')) ? '': 'awe-btn-style3'}} compare_tour add'>
 								<i class='fa fa-check {{ in_array( $schedule->id, Session::get('compare_cart')) ? '': 'hidden'}}'></i> Bandingkan
 							</a>
 						</div>
