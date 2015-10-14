@@ -55,6 +55,7 @@ function add_compare_cart(id)
 				}
 			}
 		});
+	
 }
 
 function remove_compare_cart(id)
