@@ -27,9 +27,11 @@ function rerender_compare_cart_list(data)
 
 	compare_tour_cart = [];
 	$.each(data, function(index, val) {
-		$('.compare_tour_cart').find('.compare_tour_list').append($('<a href="javascript:;" class="awe-btn awe-btn-style2 compare_tour text-sm remove mr-5 mb-xs" data-id="'+val.id+'"><i class="fa fa-close"></i> ' + val.tour.name + ' oleh ' + val.tour.travel_agent.name + '</a> '));
+		$('.compare_tour_cart').find('.compare_tour_list').append($('<a href="javascript:;" class="awe-btn awe-btn-style3 compare_tour text-sm remove mr-5 mb-xs" data-id="'+val.id+'"><i class="fa fa-close"></i> ' + val.tour.name + ' oleh ' + val.tour.travel_agent.name + '</a> '));
 		compare_tour_cart.push(val.id);
 	});
+
+	$('a.go-compare').attr('href', 'http://capcus.id/tour/compare/' + compare_tour_cart.toString());
 	compare_cart_toggle();
 }
 
@@ -47,7 +49,7 @@ function add_compare_cart(id)
 				}
 				else
 				{
-					$('.compare_tour.add[data-id='+id+']').removeClass('awe-btn-style2');
+					$('.compare_tour.add[data-id='+id+']').removeClass('awe-btn-style3');
 					$('.compare_tour.add[data-id='+id+'] > .fa-check').removeClass('hidden');
 					rerender_compare_cart_list(data.data);
 				}
@@ -69,7 +71,7 @@ function remove_compare_cart(id)
 				}
 				else
 				{
-					$('.compare_tour.add[data-id='+id+']').addClass('awe-btn-style2');
+					$('.compare_tour.add[data-id='+id+']').addClass('awe-btn-style3');
 					$('.compare_tour.add[data-id='+id+'] > .fa-check').addClass('hidden');
 					rerender_compare_cart_list(data.data);
 				}
@@ -94,7 +96,7 @@ $(document).ready(function() {
 	$('.compare_tour.add').on('click', function(event) {
 		var self = $(this);
 
-		if (self.hasClass('awe-btn-style2'))
+		if (self.hasClass('awe-btn-style3'))
 		{
 			add_compare_cart(self.data('id'));
 		}

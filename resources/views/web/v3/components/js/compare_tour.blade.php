@@ -22,10 +22,10 @@
 					</div>
 				</div>
 				<div class="hidden-xs hidden-sm col-md-2 col-lg-2 tour_list">
-					<a href='{{ route("web.tour.compare") }}' class='pull-right awe-btn awe-btn-style3 pt-xl pb-xl mt-xs'>Bandingkan</a>
+					<a href='{{ route("web.tour.compare") }}' class='pull-right awe-btn awe-btn-style3 pt-xl pb-xl mt-xs go-compare'>Bandingkan</a>
 				</div>
 				<div class="col-xs-12 col-sm-12 hidden-md hidden-lg text-center bg-black">
-					<a href='{{ route("web.tour.compare") }}' class='awe-btn awe-btn-style3 mt-xs mb-xs'>Bandingkan</a>
+					<a href='{{ route("web.tour.compare") }}' class='awe-btn awe-btn-style3 mt-xs mb-xs go-compare'>Bandingkan</a>
 				</div>
 			</div>
 		</div>
