@@ -10,13 +10,13 @@
 					<strong>BANDINGKAN</strong><br>
 					<div class='hidden-xs hidden-sm compare_tour_list'>
 						@forelse ($compare_cart as $k => $cart)
-							<a href='javascript:;' class='awe-btn awe-btn-style compare_tour remove text-sm  mr-5 mb-xs ' data-id='{{$cart->id}}'><i class='fa fa-close'></i> {{$cart->tour->name}} ({{$cart->tour->travel_agent->name}})</a>
+							<a href='javascript:;' class='awe-btn awe-btn-style3 compare_tour remove text-sm  mr-5 mb-xs ' data-id='{{$cart->id}}'><i class='fa fa-close'></i> {{$cart->tour->name}} ({{$cart->tour->travel_agent->name}})</a>
 						@empty
 						@endforelse
 					</div>
 					<div class='hidden-md hidden-lg compare_tour_list'>
 						@forelse ($compare_cart as $k => $cart)
-							<a href='javascript:;' class='awe-btn awe-btn-style compare_tour remove text-sm  mr-5 mb-xs ' data-id='{{$cart->id}}'><i class='fa fa-close'></i> {{$cart->tour->name}} ({{$cart->tour->travel_agent->name}})</a>
+							<a href='javascript:;' class='awe-btn awe-btn-style3 compare_tour remove text-sm  mr-5 mb-xs ' data-id='{{$cart->id}}'><i class='fa fa-close'></i> {{$cart->tour->name}} ({{$cart->tour->travel_agent->name}})</a>
 						@empty
 						@endforelse
 					</div>
