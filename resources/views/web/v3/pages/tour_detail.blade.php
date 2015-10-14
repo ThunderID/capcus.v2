@@ -138,7 +138,7 @@
 							{!! $tour->ittinary !!}
 
 							<p class='mt-md mb-md'>
-								<a href="javascript:;" data-id='{{$tour_schedule->id}}' class='awe-btn {{ in_array( $tour_schedule->id, Session::get('compare_cart')) ? '': 'awe-btn-style2'}} compare_tour add'>
+								<a href="javascript:;" data-id='{{$tour_schedule->id}}' class='awe-btn {{ in_array( $tour_schedule->id, Session::get('compare_cart')) ? '': 'awe-btn-style3'}} compare_tour add'>
 									<i class='fa fa-check {{ in_array( $tour_schedule->id, Session::get('compare_cart')) ? '': 'hidden'}}'></i> Bandingkan
 								</a>
 							</p>
@@ -210,7 +210,7 @@
 														</p>
 													</td>
 													<td>
-														<a href="{{route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => $other_schedule->departure->format('Ymd')])}}" class=''>Detail</a>
+														<a href="{{route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => $other_schedule->departure->format('Ymd')])}}" class='awe-btn awe-btn-style3'>Detail</a>
 													</td>
 												</tr>
 											@endif

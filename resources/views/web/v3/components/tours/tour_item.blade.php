@@ -45,7 +45,7 @@
 			@endif
 	
 		</div>
-		<a href="{{ route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => ($tour->cheapest ? $tour->cheapest->departure->format('Ymd') : $tour->schedules->first()->departure->format('Ymd')) ]) }}" class="awe-btn">DETAIL</a>
+		<a href="{{ route('web.tour.show', ['travel_agent' => $tour->travel_agent->slug, 'tour_slug' => $tour->slug, 'schedule' => ($tour->cheapest ? $tour->cheapest->departure->format('Ymd') : $tour->schedules->first()->departure->format('Ymd')) ]) }}" class="awe-btn awe-btn-style3">DETAIL</a>
 	</div>
 </div>
 <!-- END / ITEM -->
