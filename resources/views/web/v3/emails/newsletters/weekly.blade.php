@@ -420,19 +420,25 @@
 							@endif
 
 							<td valign='top' width='50%'>
-								<a href="{{ route('web.tour.show', ['travel_agent' => $x->travel_agent->slug, 'tour_slug' => $x->slug, 'schedule' => $x->cheapest->departure->format('Ymd')]) }}">
+								<a href="{{ route('web.tour.show', ['travel_agent' => $x->travel_agent->slug, 'tour_slug' => $x->slug, 'schedule' => ($x->cheapest ? $x->cheapest->departure->format('Ymd') : $x->schedules->sortBy('discounted_price')->first()->departure->format('Ymd')]) }}">
 									<img src="{{$x->destinations[0]->images->where('name', '=', 'SmallImage')->first()->path}}" height='150' width='100%'/>
 								</a>
 								<p style='margin-top:15px'>
 									<img style='float:right;' src="{{ $x->travel_agent->images->where('name', 'SmallLogo')->first()->path}}" width=60>
-									<a href="{{ route('web.tour.show', ['travel_agent' => $x->travel_agent->slug, 'tour_slug' => $x->slug, 'schedule' => $x->cheapest->departure->format('Ymd')]) }}" style='text-transform:uppercase; font-weight:bold'>
+									<a href="{{ route('web.tour.show', ['travel_agent' => $x->travel_agent->slug, 'tour_slug' => $x->slug, 'schedule' => ($x->cheapest ? $x->cheapest->departure->format('Ymd') : $x->schedules->sortBy('discounted_price')->first()->departure->format('Ymd')]) }}" style='text-transform:uppercase; font-weight:bold'>
 										{{$x->name}}
 									</a>
 									<br>{{$x->travel_agent->name}}
 									<br>
-									Mulai {{$x->cheapest->currency}} {{number_format($x->cheapest->discounted_price)}}
-									@if ($x->cheapest->discounted_price != $x->cheapest->original_price)
-										<br><span style='text-decoration:line-through;color:#f00'>{{$x->cheapest->currency}} {{number_format($x->cheapest->discounted_price)}}</span>
+									Mulai {{$x->cheapest ?  $x->cheapest->currency :$x->schedules->sortBy('discounted_price')->first()->currency}} {{number_format($x->cheapest ?  $x->cheapest->discounted_price :$x->schedules->sortBy('discounted_price')->first()->discounted_price)}}
+									@if ($x->cheapest)
+										@if ($x->cheapest->discounted_price) != ($x->cheapest->original_price)
+											<br><span style='text-decoration:line-through;color:#f00'>{{$x->cheapest->currency}} {{number_format($x->cheapest->discounted_price)}}</span>
+										@endif
+									@else
+										@if ($x->schedules->sortBy('discounted_price')->first()->discounted_price) != ($x->schedules->sortBy('discounted_price')->first()->original_price)
+											<br><span style='text-decoration:line-through;color:#f00'>{{$x->schedules->sortBy('discounted_price')->first()->currency}} {{number_format($x->schedules->sortBy('discounted_price')->first()->discounted_price)}}</span>
+										@endif
 									@endif
 								</p>
 

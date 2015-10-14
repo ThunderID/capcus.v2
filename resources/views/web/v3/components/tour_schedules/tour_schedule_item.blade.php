@@ -34,13 +34,13 @@
 	</div>
 	<div class="item-price-more">
 		<div class="price">
-			Mulai ({{ $tour_schedule->tour->cheapest->currency }})
+			{{ $tour_schedule->currency }}
 			<ins>
-				<span class="amount"> {{ number_format($tour_schedule->tour->cheapest->discounted_price , 0, ',', '.') }}</span>
+				<span class="amount"> {{ number_format($tour_schedule->discounted_price , 0, ',', '.') }}</span>
 			</ins>
-			@if ($tour_schedule->tour->cheapest->discounted_price < $tour_schedule->tour->cheapest->original_price)
+			@if ($tour_schedule->discounted_price < $tour_schedule->original_price)
 				<del>
-					<span class="amount">{{ number_format($tour_schedule->tour->cheapest->original_price, 0,'.',',') }}</span>
+					<span class="amount">{{ number_format($tour_schedule->original_price, 0,'.',',') }}</span>
 				</del>
 			@endif
 	

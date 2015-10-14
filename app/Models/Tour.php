@@ -61,8 +61,18 @@ class Tour extends BaseModel
 	// ----------------------------------------------------------------------
 	function getCheapestAttribute()
 	{
-		$this->cheapest = $this->schedules->sortBy('discounted_price')->first();
-		return $this->cheapest;
+		if ($this->schedules->count() == 1)
+		{
+			return $this->schedules->first();
+		}
+		elseif ($this->schedules->sortBy('discounted_price')->first()->discounted_price < $this->schedules->sortBy('discounted_price')[1]->discounted_price)
+		{
+			return $this->schedules->sortBy('discounted_price')->first();
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	// ----------------------------------------------------------------------
