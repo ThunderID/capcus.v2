@@ -22,7 +22,8 @@
 				</div>
 			</div>
 			<div class="logo">
-				{!! Html::image('images/logo/logo-new.png') !!}
+				{!! Html::image('images/logo/logo-new.png', 'Capcus.id', ['class' => 'hidden-sm hidden-xs']) !!}
+				{!! Html::image('images/logo/logo-new-white.png', 'Capcus.id', ['class' => 'hidden-md hidden-lg']) !!}
 			</div>
 			<div class="widget_content">
 				<p>
