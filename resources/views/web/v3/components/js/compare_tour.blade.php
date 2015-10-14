@@ -1,4 +1,4 @@
-<div class="compare_tour_cart">
+<div class="compare_tour_cart bg-white">
 	<a href='javascript:;' class='show-toggle compare_tour hide_list'>
 		<i class='fa fa-chevron-up' style='display:none'></i>
 		<i class='fa fa-chevron-down' style='display:none'></i>
@@ -10,19 +10,19 @@
 					<strong>BANDINGKAN</strong><br>
 					<div class='hidden-xs hidden-sm compare_tour_list'>
 						@forelse ($compare_cart as $k => $cart)
-							<a href='javascript:;' class='awe-btn awe-btn-style2 compare_tour remove text-sm  mr-5 mb-xs ' data-id='{{$cart->id}}'><i class='fa fa-close'></i> {{$cart->tour->name}} ({{$cart->tour->travel_agent->name}})</a>
+							<a href='javascript:;' class='awe-btn awe-btn-style compare_tour remove text-sm  mr-5 mb-xs ' data-id='{{$cart->id}}'><i class='fa fa-close'></i> {{$cart->tour->name}} ({{$cart->tour->travel_agent->name}})</a>
 						@empty
 						@endforelse
 					</div>
 					<div class='hidden-md hidden-lg compare_tour_list'>
 						@forelse ($compare_cart as $k => $cart)
-							<a href='javascript:;' class='awe-btn awe-btn-style2 compare_tour remove text-sm  mr-5 mb-xs ' data-id='{{$cart->id}}'><i class='fa fa-close'></i> {{$cart->tour->name}} ({{$cart->tour->travel_agent->name}})</a>
+							<a href='javascript:;' class='awe-btn awe-btn-style compare_tour remove text-sm  mr-5 mb-xs ' data-id='{{$cart->id}}'><i class='fa fa-close'></i> {{$cart->tour->name}} ({{$cart->tour->travel_agent->name}})</a>
 						@empty
 						@endforelse
 					</div>
 				</div>
 				<div class="hidden-xs hidden-sm col-md-2 col-lg-2 tour_list">
-					<a href='{{ route("web.tour.compare") }}' class='pull-right awe-btn awe-btn-style2 pt-xl pb-xl mt-xs'>Bandingkan</a>
+					<a href='{{ route("web.tour.compare") }}' class='pull-right awe-btn awe-btn-style bg-yellow pt-xl pb-xl mt-xs'>Bandingkan</a>
 				</div>
 				<div class="col-xs-12 col-sm-12 hidden-md hidden-lg text-center bg-black">
 					<a href='{{ route("web.tour.compare") }}' class='awe-btn awe-btn-style2 mt-xs mb-xs'>Bandingkan</a>
