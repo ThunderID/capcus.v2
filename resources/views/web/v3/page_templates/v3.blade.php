@@ -24,8 +24,8 @@
 		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 	<![endif]-->
 
-	@forelse ($og as $x)
-		<meta property="{{ $x }}" content="{{$og[$x]}}">
+	@forelse ($og as $k => $x)
+		<meta property="{{ $k }}" content="{{$x}}">
 	@empty
 	@endforelse
 
@@ -39,7 +39,6 @@
 <!--[if IE 8]> <body class="ie8 lt-ie9 lt-ie10"> <![endif]-->
 <!--[if IE 9]> <body class="ie9 lt-ie10"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
-
 
 	<!-- PAGE WRAP -->
 	<div id="page-wrap">
