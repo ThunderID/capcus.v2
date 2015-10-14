@@ -22,11 +22,29 @@
 @section('content_2')
 	<div class="container mt-xl">
 		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h1 class='mb-0 text-center'>
+					Perbandingan Tour
+				</h1>
+				<div class='text-center'>
+					@foreach ($tour_schedules as $k => $x)
+						{{$k ? "," : ""}} {{$x->tour->name}} ({{$x->tour->travel_agent->name}})
+					@endforeach
+				</div>
+
+				<div class='text-center mt-sm fullwidth text-center hidden-lg hidden-md hidden-sm'>
+					<!-- Go to www.addthis.com/dashboard to customize your tools -->
+					<div class="addthis_sharing_toolbox"></div>
+				</div>
+
+				<hr class='border-0 border-bottom-1 border-black border-solid'>
+			</div>
+			{{-- MOBILE --}}
 			<div class="col-xs-12 hidden-sm hidden-md hidden-lg">
 				<table class="table table-hover text-black">
 					<thead>
 						<tr>
-							<th style='width:15%'>TRAVEL AGENT</th>
+							<th style='width:30%'>TOUR</th>
 							<th>DETAIL</th>
 						</tr>
 					</thead>
@@ -130,13 +148,14 @@
 				</table>
 			</div>
 
+			{{-- DESKTOP --}}
 			<div class="hidden-xs col-sm-12 col-md-12 col-lg-12">
 				<table class="table table-hover text-black">
 					<thead>
 						<tr>
 							<th width='15%'>KETERANGAN</th>
 							@foreach ($tour_schedules as $x)
-								<th class='text-center' width="{{ 85 / $tour_schedules->count() }}%">{{ $x->tour->name}}</th>
+								<th class='text-uppercase' width="{{ 85 / $tour_schedules->count() }}%">{{ $x->tour->name}}</th>
 							@endforeach
 						</tr>
 					</thead>
@@ -144,14 +163,14 @@
 						<tr>
 							<td valign='top'>Travel Agent</td>
 							@foreach ($tour_schedules as $x)
-								<td valign='top' align='center'><img src='{{ $x->tour->travel_agent->images->where('name', 'SmallLogo')->first()->path }}' style='height:40px'></td>
+								<td valign='top' align=''><img src='{{ $x->tour->travel_agent->images->where('name', 'SmallLogo')->first()->path }}' style='height:40px'></td>
 							@endforeach
 						</tr>
 
 						<tr>
 							<td valign='top'>Keberangkatan</td>
 							@foreach ($tour_schedules as $x)
-								<td valign='top' align='center'>
+								<td valign='top' align=''>
 									@if (is_null($x->departure_until))
 										{{ $x->departure->format('d-m-Y')}}
 									@else
@@ -167,7 +186,7 @@
 						<tr>
 							<td valign='top'>Harga</td>
 							@foreach ($tour_schedules as $x)
-								<td valign='top' align='center'>
+								<td valign='top' align=''>
 									{{ $x->currency . ' ' . number_format($x->discounted_price, 0, ',','.')}}
 									@if ($x->discounted_price < $x->original_price)
 										<br>
