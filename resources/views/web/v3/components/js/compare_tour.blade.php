@@ -25,7 +25,7 @@
 					<a href='{{ route("web.tour.compare", ["id_list" => implode(',',$compare_cart->lists("id")->toArray())]) }}' class='pull-right awe-btn awe-btn-style3 pt-xl pb-xl mt-xs go-compare'>Bandingkan</a>
 				</div>
 				<div class="col-xs-12 col-sm-12 hidden-md hidden-lg text-center bg-black">
-					<a href='{{ route("web.tour.compare", ["id_list" => $compare_cart->lists("id")->toArray()]) }}' class='awe-btn awe-btn-style3 mt-xs mb-xs go-compare'>Bandingkan</a>
+					<a href='{{ route("web.tour.compare", ["id_list" => implode(',',$compare_cart->lists("id")->toArray())]) }}' class='awe-btn awe-btn-style3 mt-xs mb-xs go-compare'>Bandingkan</a>
 				</div>
 			</div>
 		</div>
