@@ -104,7 +104,7 @@
 	<script>
 		var web_url = '{{Config::get('app.url')}}';
 	</script>
-	<script type="text/javascript" src="{{ asset('js/web_v3.js') }}"></script>
+	<script type="text/javascript" src="{{ elixir('js/web_v3.js') }}"></script>
 
 	<!-- Go to www.addthis.com/dashboard to customize your tools -->
 	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-561d144cbf50438d" async="async"></script>
