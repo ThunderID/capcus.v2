@@ -42,6 +42,10 @@ function add_compare_cart(id)
 			cache: false,
 			data: {id: id},
 			dataType: 'json',
+			beforeSend: function() {
+				$('.compare_tour.add[data-id='+id+']').addClass('disabled');
+				$('.compare_tour.add[data-id='+id+'] > .bandingkan_label').html('Mengirim Data...');
+			},
 			success: function(data) { 
 				if (data.error)
 				{
@@ -49,6 +53,9 @@ function add_compare_cart(id)
 				}
 				else
 				{
+					$('.compare_tour.add[data-id='+id+']').removeClass('disabled');
+					$('.compare_tour.add[data-id='+id+'] > .bandingkan_label').html('Bandingkan');
+
 					$('.compare_tour.add[data-id='+id+']').removeClass('awe-btn-style3');
 					$('.compare_tour.add[data-id='+id+'] > .fa-check').removeClass('hidden');
 					rerender_compare_cart_list(data.data);
@@ -65,6 +72,10 @@ function remove_compare_cart(id)
 			cache: false,
 			data: {id: id},
 			dataType: 'json',
+			beforeSend: function() {
+				$('.compare_tour.add[data-id='+id+']').addClass('disabled');
+				$('.compare_tour.add[data-id='+id+'] > .bandingkan_label').html('Mengirim Data...');
+			},
 			success: function(data) { 
 				if (data.error)
 				{
@@ -72,6 +83,9 @@ function remove_compare_cart(id)
 				}
 				else
 				{
+					$('.compare_tour.add[data-id='+id+']').removeClass('disabled');
+					$('.compare_tour.add[data-id='+id+'] > .bandingkan_label').html('Bandingkan');
+
 					$('.compare_tour.add[data-id='+id+']').addClass('awe-btn-style3');
 					$('.compare_tour.add[data-id='+id+'] > .fa-check').addClass('hidden');
 					rerender_compare_cart_list(data.data);

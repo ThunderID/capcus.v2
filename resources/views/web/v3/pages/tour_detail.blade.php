@@ -139,7 +139,7 @@
 
 							<p class='mt-md mb-md'>
 								<a href="javascript:;" data-id='{{$tour_schedule->id}}' class='awe-btn {{ in_array( $tour_schedule->id, Session::get('compare_cart')) ? '': 'awe-btn-style3'}} compare_tour add'>
-									<i class='fa fa-check {{ in_array( $tour_schedule->id, Session::get('compare_cart')) ? '': 'hidden'}}'></i> Bandingkan
+									<i class='fa fa-check {{ in_array( $tour_schedule->id, Session::get('compare_cart')) ? '': 'hidden'}}'></i> <span class='bandingkan_label'>Bandingkan</span>
 								</a>
 							</p>
 
