@@ -69,7 +69,7 @@ class TourSchedule extends BaseModel
 									$q->whereNotNull('departure_until')
 										->where(function($q) use ($date1, $date2)  { 
 											$q->where(function($q) use ($date1, $date2) {
-												$q->where('departure', '<=', $date1)->where('departure_until', '>=', $date1);
+												$q->where('departure', '<=', $date1)->where('departure_until', '>', $date1);
 											})
 											->orWhere(function($q) use ($date1, $date2) {
 													$q->where('departure', '>', $date1)->where('departure_until', '<=', $date2);
