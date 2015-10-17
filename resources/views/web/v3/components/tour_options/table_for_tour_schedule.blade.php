@@ -48,7 +48,7 @@
 					{{$tour_schedule->tour->options->where('id', $option->id)->first()->pivot->description}}
 				@endif
 			@else
-				-
+				Not Included
 			@endif
 		</div>
 	@endforeach
