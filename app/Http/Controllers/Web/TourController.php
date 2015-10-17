@@ -242,7 +242,7 @@ class TourController extends Controller {
 				$filters['keberangkatan']['from'] = \Carbon\Carbon::now()->startOfMonth();
 				$filters['keberangkatan']['to'] = \Carbon\Carbon::now()->startOfMonth()->addYear(1);
 			}
-			
+
 			// BUDGET
 			if (str_is(strtolower($filters['budget']), 'semua-budget'))
 			{
@@ -284,8 +284,8 @@ class TourController extends Controller {
 		$max_data = 50;
 		$results = Cache::remember('tour_schedules_' . serialize($filters), 30, function() use ($filters, $tujuan_tree, $max_data){
 			$results = $this->dispatch(new FindPublishedTourSchedules(
-													$filters['from'],
-													$filters['to'],
+													$filters['keberangkatan']['from'],
+													$filters['keberangkatan']['to'],
 													$tujuan_tree ? $tujuan_tree->lists('id') : null, 
 													$filters['budget']['min'] * 1,
 													$filters['budget']['max'] ? $filters['budget']['max'] * 1 : 99999999999,
