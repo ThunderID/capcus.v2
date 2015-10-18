@@ -11,8 +11,8 @@
 
 <div class="row">
 	@foreach ($homegrids as $x)
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 mb-lg">
-			<div class='grid_item'>
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mb-lg">
+			<div class="{{ str_is('capcus*choice', strtolower($x->label)) ? 'grid_item_special' : 'grid_item'}}">
 				{{-- DESTINATION --}}
 				@if (str_is('destination', $x->type))
 					<a href="{{ route('web.tour', ['travel-agent' => 'semua-travel-agent', 'tujuan' => $x->destination_detail->path_slug]) }}">
@@ -28,7 +28,7 @@
 							</ul>
 						</div>
 					</div>
-					@if ($x->label)
+					@if (trim($x->label))
 						<div class='item-featured bg-yellow text-black text-uppercase'>
 							{{ $x->label }}
 						</div>
