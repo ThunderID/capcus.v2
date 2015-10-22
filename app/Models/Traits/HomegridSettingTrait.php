@@ -176,7 +176,7 @@ trait HomegridSettingTrait {
 			if ($tag_id)
 			{
 				$tmp 	= \App\Tag::find($tag_id);
-				if (!$tmp)
+				if ($tmp)
 				{
 					$this->tag_detail = $tmp;
 				}

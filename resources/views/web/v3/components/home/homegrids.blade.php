@@ -56,7 +56,7 @@
 							</ul>
 						</div>
 					</div>
-					@if ($x->label)
+					@if (trim($x->label))
 						<div class='item-featured bg-yellow text-black text-uppercase'>
 							{{ $x->label }}
 						</div>
