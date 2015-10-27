@@ -1,0 +1,114 @@
+.grid_item { 
+	position:relative;
+
+	> a { 
+		position:relative;
+		display:block;
+		overflow:hidden;
+
+		&:after {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 100% !important; 
+			height: 100% !important;
+			background: url(../images/overlay-gallery.png) no-repeat;
+			background-color: rgba(0,0,0,0);
+			background-size: 100% 100%;
+			top: 0; left: 0;
+			@include transition(all .3s linear);
+			color: white !important;
+		}
+	}
+
+	&:hover {
+		> a {
+			&:after {
+				background-color: rgba(0,0,0,0.6);
+			}
+		}
+	}
+
+	.item-title { 
+		position:absolute;
+		top:20px; 
+		left:20px;
+
+		h2 { 
+			margin:0px;
+			padding:0px;
+			a:link, a:visited { color:#fff; }
+		}
+
+		.item-cat { 
+			display:none;
+			margin-top:10px;	
+			ul { 
+				list-style: none; 
+				padding:0px;
+
+				li { 
+					a:link, a:visited { background:#fff; padding:3px 10px; border-radius:$border-radius-base;}
+				}
+			}
+		}
+	}
+
+	.item-featured { 
+		position:absolute;
+		bottom:20px;
+		left:0px;
+		max-width:50%;
+		padding:4px 10px 4px 15px;
+	}
+
+	.item-available { 
+		position:absolute;
+		bottom:20px;
+		right:20px;
+		text-transform: uppercase;
+
+		.count { 
+			font-weight: bold; 
+			font-size:$text-xxl; 
+			display:block ; 
+			text-align: right;
+		}
+	}
+
+	&:hover { 
+		.item-title > h2 > a, .item-cat, .item-available { 
+			color:$color2;
+			-webkit-transition: all .50s ease;
+			   -moz-transition: all .50s ease;
+				-ms-transition: all .50s ease;
+				 -o-transition: all .50s ease;
+					transition: all .50s ease;
+		}
+
+
+	}
+}
+
+.grid_item_special { 
+	border:4px solid $color2;
+
+	.item-featured { 
+		position:absolute;
+		bottom:20px;
+		left:15px;
+		padding:5px 10px 5px 15px;
+	}
+
+	&:hover {
+		.item-featured { 
+			background:#000 !important;
+			color:$color2 !important;
+			-webkit-transition: all .50s ease;
+			   -moz-transition: all .50s ease;
+			    -ms-transition: all .50s ease;
+			     -o-transition: all .50s ease;
+			        transition: all .50s ease;
+		}
+	}
+}

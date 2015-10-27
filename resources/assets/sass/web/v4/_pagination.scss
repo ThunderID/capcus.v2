@@ -1,0 +1,26 @@
+.pagination { 
+	a { 
+		&:link, &:visited {
+			@extend .bg-white;
+			@extend .pt-xs;
+			@extend .pb-xs;
+			@extend .pr-sm;
+			@extend .pl-sm;
+			@extend .text-black;
+		}
+
+		&.current { 
+			background:$color2 !important;
+			color:white !important;
+		}
+
+		&:hover { 
+			background: $color2 !important;
+			-webkit-transition: all .25s ease-in;
+			   -moz-transition: all .25s ease-in;
+			    -ms-transition: all .25s ease-in;
+			     -o-transition: all .25s ease-in;
+			        transition: all .25s ease-in;
+		}
+	}
+}

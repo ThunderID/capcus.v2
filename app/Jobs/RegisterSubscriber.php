@@ -39,26 +39,26 @@ class RegisterSubscriber extends Job implements SelfHandling
 				$subscriber->email = $user->email;
 				$subscriber->user_id = $user->id;
 			}
-		}
-		else
-		{
-			if (!$subscriber->user_id)
+			else
 			{
-				$user = \App\User::FindEmail($subscriber->email)->first();
-				$subscriber->user_id = $user->id;
+				$subscriber->email = $this->email;
+			}
+			$subscriber->is_subscribe = true;
+			// add to subscription
+			if (!$subscriber->save())
+			{
+				$jsend = new \ThunderID\jsend\jsend('fail', ['data' => $subscriber->getErrors()->toArray()]);
+			}
+			else
+			{
+				$jsend = new \ThunderID\jsend\jsend('success', ['data' => $subscriber]);
 			}
 		}
-
-		// add to subscription
-		$subscriber->is_subscribe = true;
-		if (!$subscriber->save())
-		{
-            $jsend = new \ThunderID\jsend\jsend('fail', ['data' => $subscriber->getErrors()->toArray()]);
-		}
 		else
 		{
-            $jsend = new \ThunderID\jsend\jsend('success', ['data' => $subscriber]);
+			$jsend = new \ThunderID\jsend\jsend('success', ['data' => $subscriber]);
 		}
+
 		return $jsend->toArray();
 	}
 }

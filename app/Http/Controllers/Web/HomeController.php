@@ -124,6 +124,7 @@ class HomeController extends Controller {
 		$this->layout->page->departure_list 	= $this->departure_list;
 		$this->layout->page->budget_list 		= $this->budget_list;
 		$this->layout->page->place_list 		= $this->place_list;
+		$this->layout->page->tour_shortcut 		= $this->tour_shortcut;
 
 		// 
 		$this->layout->title 					= "Capcus.id - Cari tour tidak lagi ribet";

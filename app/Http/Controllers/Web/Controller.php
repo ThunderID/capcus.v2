@@ -16,17 +16,18 @@ abstract class Controller extends BaseController {
 
 	function __construct()
 	{
-		$this->layout_base_dir 	= 'web.v3.';
+		$this->layout_base_dir 	= 'web.v4.';
 		$this->page_base_dir 	= $this->layout_base_dir . 'pages.';
 
 		// ------------------------------------------------------------------------------------------------------------
 		// BASIC LAYOUT
 		// ------------------------------------------------------------------------------------------------------------
-		$this->layout 			= view($this->layout_base_dir.'page_templates.v3');
-		$this->layout->basic 	= view($this->layout_base_dir.'page_templates.v3_content');
+		$this->layout 			= view($this->layout_base_dir.'page_templates.v4');
+		$this->layout->basic 	= view($this->layout_base_dir.'page_templates.v4_content');
 		$this->init_search_tour();
 		$this->init_search_place();
 		$this->compare_tour();
+		$this->layout->basic->tour_shortcut 	= $this->tour_shortcut;
 
 		// ------------------------------------------------------------------------------------------------------------
 		// HANDLE REDIRECT
@@ -50,7 +51,7 @@ abstract class Controller extends BaseController {
 		// GET DESTINATION
 		// ------------------------------------------------------------------------------------------------------------
 		$this->all_destinations = Cache::remember('all_destination_list', 60, function() {
-			return Destination::orderby('path')->get();
+			return Destination::orderby('name')->get();
 		});
 
 		// ------------------------------------------------------------------------------------------------------------
@@ -70,14 +71,14 @@ abstract class Controller extends BaseController {
 		// GET BUDGET
 		// ------------------------------------------------------------------------------------------------------------
 		$this->budget_list = [
-												0	 				 => "Semua budget",
-												'0-1000000' 		 => "Di bawah Rp. 1.000.000",
-												'1000000-2500000' 	 => "Rp. 1.000.000 - Rp. 2.500.000",
-												'2500000-5000000' 	 => "Rp. 2.500.000 - Rp. 5.000.000",
-												'5000000-10000000' 	 => "Rp. 5.000.000 - Rp. 10.000.000",
-												'10000000-20000000'  => "Rp. 10.000.000 - Rp. 20.000.000",
-												'20000000' 			 => "Rp. 20.000.000 ke atas",
-									  		];
+								0	 				 => "Semua budget",
+								'0-1000000' 		 => "Di bawah Rp. 1.000.000",
+								'1000000-2500000' 	 => "Rp. 1.000.000 - Rp. 2.500.000",
+								'2500000-5000000' 	 => "Rp. 2.500.000 - Rp. 5.000.000",
+								'5000000-10000000' 	 => "Rp. 5.000.000 - Rp. 10.000.000",
+								'10000000-20000000'  => "Rp. 10.000.000 - Rp. 20.000.000",
+								'20000000' 			 => "Rp. 20.000.000 ke atas",
+					  		];
 
   		// ------------------------------------------------------------------------
 		// TOUR OPTIONS
@@ -85,6 +86,23 @@ abstract class Controller extends BaseController {
 		$this->option_list = Cache::remember('all_option_list', 120, function(){
 			return \App\TourOption::orderBy('name')->get();
 		});
+
+		// ------------------------------------------------------------------------
+		// SHORTCUT TOUR LIST
+		// ------------------------------------------------------------------------
+		$this->tour_shortcut['destinations']['Eropa Barat'] = route('web.tour', ['travel_agent' => 'semua-travel-agent', 'destination' => 'eropa,eropa-barat']);
+		$this->tour_shortcut['destinations']['Eropa Timur'] = route('web.tour', ['travel_agent' => 'semua-travel-agent', 'destination' => 'eropa,eropa-timur']);
+		$this->tour_shortcut['destinations']['Asia'] 		= route('web.tour', ['travel_agent' => 'semua-travel-agent', 'destination' => 'asia']);
+		$this->tour_shortcut['destinations']['Australia'] 	= route('web.tour', ['travel_agent' => 'semua-travel-agent', 'destination' => 'australia']);
+		$this->tour_shortcut['destinations']['Amerika'] 	= route('web.tour', ['travel_agent' => 'semua-travel-agent', 'destination' => 'amerika']);
+		$this->tour_shortcut['destinations']['China'] 		= route('web.tour', ['travel_agent' => 'semua-travel-agent', 'destination' => 'asia,china']);
+		$this->tour_shortcut['destinations']['Domestik'] 	= route('web.tour', ['travel_agent' => 'semua-travel-agent', 'destination' => 'domestik']);
+		$this->tour_shortcut['tags']['#Religius'] 			= route('web.tour.tag', ['tag' => 'religius']);
+		$this->tour_shortcut['tags']['#Adventure'] 			= route('web.tour.tag', ['tag' => 'adventure']);
+		$this->tour_shortcut['tags']['#Pantai'] 			= route('web.tour.tag', ['tag' => 'pantai']);
+
+		ksort($this->tour_shortcut['destinations']);
+		ksort($this->tour_shortcut['tags']);
 	}
 
 	function init_search_place()

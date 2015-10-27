@@ -1,0 +1,39 @@
+.filter_tour { 
+
+	h2 { 
+		font-size:$text-lg;
+		padding:15px 0;
+		margin-top:32px;
+		border-top:2px solid #000;
+		border-bottom:1px solid $gray;
+	}
+
+	h3 { 
+		font-size:$text-md;
+		padding-bottom:10px;
+		border-bottom:2px solid $color2;
+	}
+
+	ul { 
+		list-style: none;
+		margin:0px;
+		padding: 0px;
+
+		li { 
+			&:hover { 
+				font-weight:normal;
+				-webkit-transition: all .30s ease;
+				   -moz-transition: all .30s ease;
+				    -ms-transition: all .30s ease;
+				     -o-transition: all .30s ease;
+				        transition: all .30s ease;
+			}
+			label { 
+				cursor: pointer; 
+				@extend .text-light;
+				display: block;
+			}
+		}
+	}
+
+}

@@ -1,0 +1,28 @@
+// INIT
+$color: #0091EA !default;
+// $color3: #FFD34E !default;
+$color2: #FFE200 !default;
+
+// IMPORT
+@import "bootstrap";
+@import "variables";
+@import "homegrid";
+@import "tripitem";
+@import "footer";
+@import "socmed";
+@import "search_tour";
+@import "filter_tour";
+@import "breadcrumb";
+@import "form";
+@import "compare_tour";
+@import "blog";
+@import "pagination";
+@import "tablesorter/tablesorter";
+@import "datepicker/bootstrap-datepicker";
+@import "bootstrap-slider/bootstrap-slider";
+
+del {
+	text-decoration: line-edge;
+	color:$gray;
+}
+

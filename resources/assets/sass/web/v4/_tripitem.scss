@@ -1,0 +1,31 @@
+.trip-item { 
+	background:#fff;
+	border:0px none;
+	.price { 
+		font-weight:bold;
+		color:#000;
+		font-size:$text-xl;
+	}
+
+	img.trip_thumbnail { 
+		border-bottom:3px solid $color2;
+	}
+
+	&:hover {
+		border-color:#000;
+		.price { 
+			color:$color2;
+		}
+
+		.btn-yellow-no-border { 
+			background: lighten($color2, 10%);
+			color:#000;
+		}
+
+		-webkit-transition: all .50s ease;
+		   -moz-transition: all .50s ease;
+		    -ms-transition: all .50s ease;
+		     -o-transition: all .50s ease;
+		        transition: all .50s ease;
+	}
+}

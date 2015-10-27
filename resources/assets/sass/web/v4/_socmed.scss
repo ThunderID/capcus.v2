@@ -1,0 +1,24 @@
+.socmed {
+	a:link, a:visited { 
+		border-radius: 300px;
+		background:transparent;
+		border:3px solid $color2;
+		color:$color2;
+		display: inline-block;
+		width:50px;
+		height:50px;
+		font-size: $text-xxl;
+		text-align: center;
+		padding-top:3px;
+	}
+
+	a:hover { 
+		background:$color2;
+		color:white;
+		-webkit-transition: all .50s ease;
+		   -moz-transition: all .50s ease;
+		    -ms-transition: all .50s ease;
+		     -o-transition: all .50s ease;
+		        transition: all .50s ease;
+	}
+}

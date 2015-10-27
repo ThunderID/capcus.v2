@@ -153,6 +153,18 @@ class TourSchedule extends BaseModel
 	// ----------------------------------------------------------------------
 	// ACCESSORS
 	// ----------------------------------------------------------------------
+	function getStillActiveAttribute()
+	{
+		if (is_null($this->departure_until))
+		{
+			return $this->departure->gt(\Carbon\Carbon::now());
+		}
+		else
+		{
+			return $this->departure_until->gt(\Carbon\Carbon::now());
+		}
+
+	}
 
 	// ----------------------------------------------------------------------
 	// ACCESSORS
