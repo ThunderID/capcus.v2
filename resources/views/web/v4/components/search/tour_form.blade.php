@@ -76,10 +76,12 @@
 								<div class="clearfix mt-sm"></div>
 								{!! Form::select('budget', $budget_list, $default_filter_budget ? $default_filter_budget : '', ['class' => 'select2 form-control']) !!}
 								<div class="row">
-									<div class="input-daterange input-group" id="datepicker">
-										{!! Form::text('keberangkatan_sejak', Input::old('keberangkatan_sejak', \Carbon\Carbon::now()->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl awal keberangkatan']) !!}
-										<span class="input-group-addon">s/d</span>
-										{!! Form::text('keberangkatan_hingga', Input::old('keberangkatan_hingga', \Carbon\Carbon::now()->addMonth(3)->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl akhir keberangkatan']) !!}
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-md mb-md">
+										<div class="input-daterange input-group" id="datepicker">
+											{!! Form::text('keberangkatan_sejak', Input::old('keberangkatan_sejak', \Carbon\Carbon::now()->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl awal keberangkatan']) !!}
+											<span class="input-group-addon">s/d</span>
+											{!! Form::text('keberangkatan_hingga', Input::old('keberangkatan_hingga', \Carbon\Carbon::now()->addMonth(3)->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl akhir keberangkatan']) !!}
+										</div>
 									</div>
 								</div>
 						</div>
