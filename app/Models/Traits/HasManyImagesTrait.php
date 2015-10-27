@@ -30,6 +30,16 @@ trait HasManyImagesTrait {
 		return $this->image_ids;
 	}
 
+	function getSmallImageAttribute()
+	{
+		return $this->images->where('name','SmallImage')->first()->path;
+	}
+
+	function getLargeImageAttribute()
+	{
+		return $this->images->where('name','LargeImage')->first()->path;
+	}
+
 	//------------------------------------------------------------------------
 	// MUTATOR
 	//------------------------------------------------------------------------

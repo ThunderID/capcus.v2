@@ -75,6 +75,38 @@ class Tour extends BaseModel
 		}
 	}
 
+	function getSmallImageAttribute()
+	{
+		if ($this->images->where('name','SmallImage')->first()->path)
+		{
+			return $this->images->where('name','SmallImage')->first()->path;
+		}
+		elseif ($this->places->count() && $this->places->first()->images->where('name', 'SmallImage')->first()->path)
+		{
+			return $this->places->first()->images->where('name', 'SmallImage')->first()->path;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	function getLargeImageAttribute()
+	{
+		if ($this->images->where('name','LargeImage')->first()->path)
+		{
+			return $this->images->where('name','LargeImage')->first()->path;
+		}
+		elseif ($this->places->count() && $this->places->first()->images->where('name', 'LargeImage')->first()->path)
+		{
+			return $this->places->first()->images->where('name', 'LargeImage')->first()->path;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
 	// ----------------------------------------------------------------------
 	// 
 	// ----------------------------------------------------------------------

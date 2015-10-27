@@ -10,7 +10,7 @@
 ?>
 
 <div class="thumbnail trip-item">
-	<img src="{{ ($tour->places->count() && $tour->places->first()->images->where('name', 'SmallImage')->first()->path ? $tour->places->first()->images->where('name', 'SmallImage')->first()->path : asset('images/no-img.jpg'))  }}" alt="{{ $tour->name }}" class="trip_thumbnail">
+	<img src="{{ $tour->small_image or asset('images/no-img.jpg')  }}" alt="{{ $tour->name }}" class="trip_thumbnail">
 	<div class="caption">
 		<div class='ml-xs mr-xs'>
 			<img src="{{ $tour->travel_agent->images->where('name','SmallLogo')->first()->path }}" width="50" class='pull-right mt-5'>

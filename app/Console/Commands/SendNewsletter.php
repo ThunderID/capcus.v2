@@ -51,7 +51,7 @@ class SendNewsletter extends Command
 		// ------------------------------------------------------------------------------------------------------------
 		// GET HOMEGRID
 		// ------------------------------------------------------------------------------------------------------------
-		$homegrids = \App\HomegridSetting::get();
+		$homegrids = \App\HomegridSetting::orderby('name')->get();
 
 		// get upcoming package schedules
 		$homegrid_destination_ids = new Collection;
@@ -74,8 +74,15 @@ class SendNewsletter extends Command
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY PAKET PROMO TERBARU
 		// ------------------------------------------------------------------------------------------------------------
-		$tours = \App\Tour::ByPriorityTravelAgent(10);
-		$tours->load('travel_agent', 'travel_agent.active_packages', 'destinations', 'destinations.images', 'schedules');
+		$tours = \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'places.images','travel_agent', 'travel_agent.images', 'images')
+						->has('schedules')
+						->select('tours.*')
+						->join('travel_agencies', 'travel_agencies.id', '=', 'travel_agent_id')
+						->published()
+						->latest('tours.created_at')
+						->limit(8)
+						->groupBy('travel_agent_id')
+						->get();
 
 		// ------------------------------------------------------------------------------------------------------------
 		// GET BLOG TERBARU
@@ -95,7 +102,7 @@ class SendNewsletter extends Command
 			foreach ($subscribers as $subscriber)
 			{
 
-				Mail::queue('web.v3.emails.newsletters.weekly', ['headlines' => $headlines, 
+				Mail::queue('web.v4.emails.newsletters.weekly', ['headlines' => $headlines, 
 																			'homegrids' => $homegrids, 
 																			'tours' => $tours, 
 																			'articles' => $articles, 

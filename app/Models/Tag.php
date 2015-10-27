@@ -43,6 +43,7 @@ class Tag extends BaseModel
 	function getTotalUpcomingSchedulesAttribute()
 	{
 		$total_schedule = 0;
+		$this->load('tours', 'tours.schedules');
 		foreach ($this->tours as $tour)
 		{
 			$total_schedule += $tour->schedules->count();

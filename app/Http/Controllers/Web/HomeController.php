@@ -23,6 +23,7 @@ class HomeController extends Controller {
 			return rand(0,1000);
 		});
 
+
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY HOME GRID
 		// ------------------------------------------------------------------------------------------------------------
@@ -47,7 +48,10 @@ class HomeController extends Controller {
 				foreach ($homegrids as $k => $v)
 				{
 					$homegrids[$k]->destination_detail = $homegrid_destinations->find($v->destination);
-					$homegrids[$k]->destination_detail->total_upcoming_schedules;
+					if (str_is('destination', $v->type))
+					{
+						$homegrids[$k]->destination_detail->total_upcoming_schedules;
+					}
 				}
 			}
 
@@ -58,26 +62,26 @@ class HomeController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY PAKET PROMO
 		// ------------------------------------------------------------------------------------------------------------
-		$promo_tours = Cache::remember('8_upcoming_promo_tours', 30, function(){
-			return \App\TourSchedule::with('tour', 'tour.places', 'tour.places.images' ,'tour.destinations', 'tour.destinations.images', 'tour.travel_agent', 'tour.travel_agent.images', 'tour.schedules')
-										->published()
-										->promo()
-										->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYears(5))
-										->orderby('departure')
-										->limit(8)
-										->select('tour_schedules.*')
-										->join('tours', 'tours.id', '=', 'tour_schedules.tour_id')
-										->join('travel_agencies', 'travel_agencies.id', '=', 'tours.travel_agent_id')
-										->groupBy('tours.travel_agent_id')
-										->get();
-		});
+		// $promo_tours = Cache::remember('8_upcoming_promo_tours', 30, function(){
+		// 	return \App\TourSchedule::with('tour', 'tour.places', 'tour.places.images' ,'tour.destinations', 'tour.destinations.images', 'tour.travel_agent', 'tour.travel_agent.images', 'tour.schedules', 'tour.images')
+		// 								->published()
+		// 								->promo()
+		// 								->scheduledBetween(\Carbon\Carbon::now(), \Carbon\Carbon::now()->addYears(5))
+		// 								->orderby('departure')
+		// 								->limit(8)
+		// 								->select('tour_schedules.*')
+		// 								->join('tours', 'tours.id', '=', 'tour_schedules.tour_id')
+		// 								->join('travel_agencies', 'travel_agencies.id', '=', 'tours.travel_agent_id')
+		// 								->groupBy('tours.travel_agent_id')
+		// 								->get();
+		// });
 
 
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY PAKET TOUR TERBARU
 		// ------------------------------------------------------------------------------------------------------------
 		$latest_tours = Cache::remember('8_latest_tours', 30, function(){ 
-			return \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'places.images','travel_agent', 'travel_agent.images')
+			return \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'places.images','travel_agent', 'travel_agent.images', 'images')
 						->has('schedules')
 						->select('tours.*')
 						->join('travel_agencies', 'travel_agencies.id', '=', 'travel_agent_id')

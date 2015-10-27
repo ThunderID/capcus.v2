@@ -29,7 +29,7 @@ class SendWelcomeEmail
     {
         $user = $event->user;
         //
-        Mail::queue('web.v3.emails.welcome_mail', ['user' => $user], function ($m) use ($user) {
+        Mail::queue('web.v4.emails.welcome_mail', ['user' => $user], function ($m) use ($user) {
             if ($user->email)
             {
                 try {
