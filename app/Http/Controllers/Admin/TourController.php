@@ -23,10 +23,11 @@ class TourController extends Controller {
 		$this->layout->route_name = $this->route_name;
 		$this->page_base_dir .= $this->view_name . '.';
 
-		// $this->required_images = [ 
-		// 	'SmallImage'		=> 'Small Image',
-		// 	'LargeImage'		=> 'Large Image',
-		// ];
+		$this->required_images = [
+						'SmallImage' => 'Small Image (360x270)', 
+						'LargeImage' => 'Large Image (600x400)',
+					];
+		
 		
 		$this->layout->content_title = strtoupper($this->view_name);
 	}
