@@ -47,6 +47,10 @@
 				<div>
 					{{$article->summary}}
 				</div>
+
+				<a href="{{ route('web.blog.show', ['year' => $article->published_at->year, 'month' => $article->published_at->month, 'slug' => $article->slug])}}" class='btn btn-yellow-2 mt-xl btn-block'>
+					Detail
+				</a>
 			</div>
 		</div>
 	@empty
