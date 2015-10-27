@@ -116,26 +116,44 @@
 
 								<div id="place-carousel" class="carousel slide" data-ride="carousel">
 									<ol class="carousel-indicators">
-										@foreach ($tour->places as $k => $x)
-											@if ($k <= 5)
+										@if ($tour->image_gallery)
+											@foreach ($tour->image_gallery as $k => $x)
 												<li data-target="#place-carousel" data-slide-to="{{$k}}" class="{{ $k == 0 ? 'active' : ''}}"></li>
-											@endif
-										@endforeach
+											@endforeach
+										@else
+											@foreach ($tour->places as $k => $x)
+												@if ($k <= 5)
+													<li data-target="#place-carousel" data-slide-to="{{$k}}" class="{{ $k == 0 ? 'active' : ''}}"></li>
+												@endif
+											@endforeach
+										@endif
 									</ol>
 									<div class="carousel-inner">
-										@foreach ($tour->places as $k => $x)
-											@if ($k <= 5)
+										@if ($tour->image_gallery)
+											@foreach ($tour->image_gallery as $k => $x)
 												<div class="item {{ $k == 0 ? 'active' : ''}}">
-													<img class='fullwidth' src='{{ $x->images->where('name', 'Gallery1')->first()->path }}'>
+													<img class='fullwidth' src='{{ $x->path }}'>
 													<div class="container-fluid">
 														<div class="carousel-caption">
-															<h1 class='text-white'>{{ $x->name }}</h1>
-															{{-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p> --}}
+															<h1 class='text-white'>{{ $x->description }}</h1>
 														</div>
 													</div>
 												</div>
-											@endif
-										@endforeach
+											@endforeach
+										@else
+											@foreach ($tour->places as $k => $x)
+												@if ($k <= 5)
+													<div class="item {{ $k == 0 ? 'active' : ''}}">
+														<img class='fullwidth' src='{{ $x->images->where('name', 'Gallery1')->first()->path }}'>
+														<div class="container-fluid">
+															<div class="carousel-caption">
+																<h1 class='text-white'>{{ $x->name }}</h1>
+															</div>
+														</div>
+													</div>
+												@endif
+											@endforeach
+										@endif
 									</div>
 									<a class="left carousel-control" href="#place-carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
 									<a class="right carousel-control" href="#place-carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>

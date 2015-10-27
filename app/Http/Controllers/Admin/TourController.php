@@ -26,6 +26,11 @@ class TourController extends Controller {
 		$this->required_images = [
 						'SmallImage' => 'Small Image (360x270)', 
 						'LargeImage' => 'Large Image (600x400)',
+						'Gallery1'	=> 'Gallery 1 (600x400)', 
+						'Gallery2' 	=> 'Gallery 2 (600x400)', 
+						'Gallery3' 	=> 'Gallery 3 (600x400)', 
+						'Gallery4' 	=> 'Gallery 4 (600x400)', 
+						'Gallery5' 	=> 'Gallery 5 (600x400)', 
 					];
 		
 		

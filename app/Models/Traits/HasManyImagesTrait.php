@@ -40,6 +40,18 @@ trait HasManyImagesTrait {
 		return $this->images->where('name','LargeImage')->first()->path;
 	}
 
+	function getImageGalleryAttribute()
+	{
+		foreach ($this->images as $image)
+		{
+			if (str_is('gallery*', strtolower($image->name)))
+			{
+				$galleries[] = $image;
+			}
+		}
+		return $galleries;
+	}
+
 	//------------------------------------------------------------------------
 	// MUTATOR
 	//------------------------------------------------------------------------
