@@ -76,11 +76,10 @@
 								<div class="clearfix mt-sm"></div>
 								{!! Form::select('budget', $budget_list, $default_filter_budget ? $default_filter_budget : '', ['class' => 'select2 form-control']) !!}
 								<div class="row">
-									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-										{!! Form::text('keberangkatan_since', $default_filter_tujuan, ['class' => 'form-control mt-sm', 'placeholder' => '3. Keberangkatan Sejak'])!!}
-									</div>
-									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-										{!! Form::text('keberangkatan_since', $default_filter_tujuan, ['class' => 'form-control mt-sm', 'placeholder' => '3. Keberangkatan Hingga'])!!}
+									<div class="input-daterange input-group" id="datepicker">
+										{!! Form::text('keberangkatan_sejak', Input::old('keberangkatan_sejak', \Carbon\Carbon::now()->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl awal keberangkatan']) !!}
+										<span class="input-group-addon">s/d</span>
+										{!! Form::text('keberangkatan_hingga', Input::old('keberangkatan_hingga', \Carbon\Carbon::now()->addMonth(3)->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl akhir keberangkatan']) !!}
 									</div>
 								</div>
 						</div>
@@ -90,6 +89,12 @@
 							<div class='row'>
 								<div class='col-xs-12 text-center'>
 									<div>BROWSE TOUR </div>
+									<span class='text-light'>
+										@forelse ($tour_shortcut['tags'] as $label => $link)
+											<a href='{{$link}}' class='mr-5 label bg-yellow text-black'>{{$label}}</a>
+										@empty
+										@endforelse
+									</span>
 								</div>
 								<div class='col-xs-6 col-xs-offset-3 mt-xxl'>
 									<button class='btn btn-yellow btn-block'>CARI TOUR</button>
