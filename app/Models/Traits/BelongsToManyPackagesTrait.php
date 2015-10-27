@@ -4,7 +4,7 @@ use Illuminate\Support\MessageBag;
 
 trait BelongsToManyPackagesTrait {
 
-	protected $package_ids = [];
+	protected $package_ids;
 
 	//------------------------------------------------------------------------
 	// BOOT
@@ -52,7 +52,14 @@ trait BelongsToManyPackagesTrait {
 	//------------------------------------------------------------------------
 	function getPackageIdsAttribute()
 	{
-		return $this->package_ids;
+		if (isset($this->package_ids))
+		{
+			return $this->package_ids;
+		}
+		else
+		{
+			return $this->packages->lists('id')->toArray();
+		}
 	}
 
 	//------------------------------------------------------------------------

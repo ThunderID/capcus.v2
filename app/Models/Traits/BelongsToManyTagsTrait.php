@@ -4,7 +4,7 @@ use Illuminate\Support\MessageBag;
 
 trait BelongsToManyTagsTrait {
 
-	protected $tag_ids = [];
+	protected $tag_ids;
 
 	//------------------------------------------------------------------------
 	// BOOT
@@ -58,7 +58,14 @@ trait BelongsToManyTagsTrait {
 	//------------------------------------------------------------------------
 	function getTagIdsAttribute()
 	{
-		return $this->tag_ids;
+		if (isset($this->tag_ids))
+		{
+			return $this->tag_ids;
+		}
+		else
+		{
+			return $this->tags->lists('id')->toArray();
+		}
 	}
 
 	//------------------------------------------------------------------------

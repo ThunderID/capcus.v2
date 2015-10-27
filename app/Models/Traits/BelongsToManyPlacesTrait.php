@@ -4,7 +4,7 @@ use Illuminate\Support\MessageBag;
 
 trait BelongsToManyPlacesTrait {
 
-	protected $place_ids = [];
+	protected $place_ids;
 
 	//------------------------------------------------------------------------
 	// BOOT
@@ -58,7 +58,14 @@ trait BelongsToManyPlacesTrait {
 	//------------------------------------------------------------------------
 	function getPlaceIdsAttribute()
 	{
-		return $this->place_ids;
+		if (isset($this->place_ids))
+		{
+			return $this->place_ids;
+		}
+		else
+		{
+			return $this->places->lists('id')->toArray();
+		}
 	}
 
 	//------------------------------------------------------------------------

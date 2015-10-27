@@ -4,7 +4,7 @@ use Illuminate\Support\MessageBag;
 
 trait BelongsToManyDestinationsTrait {
 
-	protected $destination_ids = [];
+	protected $destination_ids;
 
 	//------------------------------------------------------------------------
 	// BOOT
@@ -44,7 +44,14 @@ trait BelongsToManyDestinationsTrait {
 	//------------------------------------------------------------------------
 	function getDestinationIdsAttribute()
 	{
-		return $this->destination_ids;
+		if (isset($this->destination_ids))
+		{
+			return $this->destination_ids;
+		}
+		else
+		{
+			return $this->destinations->lists('id')->toArray();
+		}
 	}
 
 	//------------------------------------------------------------------------

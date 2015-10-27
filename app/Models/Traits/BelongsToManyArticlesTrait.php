@@ -4,7 +4,7 @@ use Illuminate\Support\MessageBag;
 
 trait BelongsToManyArticlesTrait {
 
-	protected $article_ids = [];
+	protected $article_ids;
 
 	//------------------------------------------------------------------------
 	// BOOT
@@ -44,7 +44,14 @@ trait BelongsToManyArticlesTrait {
 	//------------------------------------------------------------------------
 	function getArticleIdsAttribute()
 	{
-		return $this->article_ids;
+		if (isset($this->article_ids))
+		{
+			return $this->article_ids;
+		}
+		else
+		{
+			return $this->articles->lists('id')->toArray();
+		}
 	}
 
 	//------------------------------------------------------------------------

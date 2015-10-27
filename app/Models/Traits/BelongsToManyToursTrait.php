@@ -4,7 +4,7 @@ use Illuminate\Support\MessageBag;
 
 trait BelongsToManyToursTrait {
 
-	protected $tour_ids = [];
+	protected $tour_ids;
 
 	//------------------------------------------------------------------------
 	// BOOT
@@ -44,7 +44,14 @@ trait BelongsToManyToursTrait {
 	//------------------------------------------------------------------------
 	function getTourIdsAttribute()
 	{
-		return $this->tour_ids;
+		if (isset($this->tour_ids))
+		{
+			return $this->tour_ids;
+		}
+		else
+		{
+			return $this->tours->lists('id')->toArray();
+		}
 	}
 
 	//------------------------------------------------------------------------

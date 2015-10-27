@@ -4,7 +4,7 @@ use Illuminate\Support\MessageBag;
 
 trait BelongsToManyTourOptionsTrait {
 
-	protected $option_ids = [];
+	protected $option_ids;
 
 	//------------------------------------------------------------------------
 	// BOOT
@@ -44,7 +44,14 @@ trait BelongsToManyTourOptionsTrait {
 	//------------------------------------------------------------------------
 	function getOptionIdsAttribute()
 	{
-		return $this->option_ids;
+		if (isset($this->option_ids))
+		{
+			return $this->option_ids;
+		}
+		else
+		{
+			return $this->options->lists('id')->toArray();
+		}
 	}
 
 	//------------------------------------------------------------------------

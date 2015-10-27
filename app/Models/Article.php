@@ -17,7 +17,7 @@ class Article extends BaseModel
 									'summary', 
 									'content', 
 									'published_at', 
-									'destinations'
+									'destination_ids'
 								];
 	protected $dates 		= ['published_at'];
 	static $name_field 		= 'title';
@@ -39,10 +39,10 @@ class Article extends BaseModel
 	// ----------------------------------------------------------------------
 	// RELATIONS
 	// ----------------------------------------------------------------------
-	function destinations()
-	{
-		return $this->belongsToMany(__NAMESPACE__ . '\Destination', 'article_destination', 'article_id', 'destination_id');
-	}
+	// function destinations()
+	// {
+	// 	return $this->belongsToMany(__NAMESPACE__ . '\Destination', 'article_destination', 'article_id', 'destination_id');
+	// }
 
 	function writer()
 	{

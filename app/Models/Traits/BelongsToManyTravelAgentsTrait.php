@@ -43,15 +43,22 @@ trait BelongsToManyTravelAgentsTrait {
 	//------------------------------------------------------------------------
 	// ACCESSOR
 	//------------------------------------------------------------------------
-	function getOptionIdsAttribute()
+	function getTravelAgentIdsAttribute()
 	{
-		return $this->travel_agent_ids;
+		if (isset($this->travel_agent_ids))
+		{
+			return $this->travel_agent_ids;
+		}
+		else
+		{
+			return $this->travel_agents->lists('id')->toArray();
+		}
 	}
 
 	//------------------------------------------------------------------------
 	// MUTATOR
 	//------------------------------------------------------------------------
-	function setOptionIdsAttribute( $v )
+	function setTravelAgentIdsAttribute( $v )
 	{
 		$this->travel_agent_ids = $v;
 	}
