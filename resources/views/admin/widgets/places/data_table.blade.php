@@ -87,11 +87,11 @@
 		</table>
 		<hr>
 		<div class="text-center">
-			@if ($destinations)
-				@if (method_exists($destinations, 'firstItem'))
-					@if ($destinations->total())
-						Displaying {{ $destinations->total() > 0 ? $destinations->firstItem() . ' - ' . $destinations->lastItem() : 0 }} of {!! $destinations->total() !!} 
-						<div>{!! $destinations->appends($filters)->render() !!}</div>
+			@if ($places)
+				@if (method_exists($places, 'firstItem'))
+					@if ($places->total())
+						Displaying {{ $places->total() > 0 ? $places->firstItem() . ' - ' . $places->lastItem() : 0 }} of {!! $places->total() !!} 
+						<div>{!! $places->appends($filters)->render() !!}</div>
 					@else
 						0 Results
 					@endif
