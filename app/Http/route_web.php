@@ -2,7 +2,6 @@
 
 Route::group(['namespace' => 'Web\\'], function(){
 
-
 	get('/',																		['uses' => 'HomeController@index',					'as' => 'web.home']);
 
 	Route::group(['prefix' => 'tour'], function(){
