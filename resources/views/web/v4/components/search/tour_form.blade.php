@@ -52,10 +52,10 @@
 					</div>
 					<div class='bg-white'>
 						<div class='ml-sm mr-sm' style='padding:21px 0!important'>
-							<span>BROWSE TOUR: </span>
+							<span class='mr-5'>BROWSE TOUR: </span>
 							<span class='text-light'>
 								@forelse ($tour_shortcut['tags'] as $label => $link)
-									<a href='{{$link}}' class='mr-5 label bg-yellow text-black'>{{$label}}</a>
+									<a href='{{$link}}' class='mr-5 text-black text-light'>{{$label}}</a>
 								@empty
 								@endforelse
 							</span>
@@ -90,10 +90,10 @@
 						<div class='ml-sm mr-sm' style='padding:21px 0!important'>
 							<div class='row'>
 								<div class='col-xs-12 text-center'>
-									<div>BROWSE TOUR </div>
+									<div class='mr-5'>BROWSE TOUR </div>
 									<span class='text-light'>
 										@forelse ($tour_shortcut['tags'] as $label => $link)
-											<a href='{{$link}}' class='mr-5 label bg-yellow text-black'>{{$label}}</a>
+											<a href='{{$link}}' class='mr-5 text-black text-light'>{{$label}}</a>
 										@empty
 										@endforelse
 									</span>
