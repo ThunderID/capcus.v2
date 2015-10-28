@@ -17,7 +17,7 @@
 				<div class='mr-sm ml-sm text-lg text-black'>{{++$i}}</div>
 			</div>
 			<a class='text-uppercase text-black' href='{{ route("web.tour", ["travel-agent" => "semua-travel-agent", "tujuan" => $x->path_slug]) }}'>
-				<p class='mt-5'>
+				<p class='mb-sm'>
 					<span class=' text-lg'>{{$x->name}}</span>
 					<br>{{$x->total_upcoming_schedules}} Paket Tour
 				</p>
