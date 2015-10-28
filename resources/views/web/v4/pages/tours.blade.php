@@ -8,6 +8,7 @@
 					<span class='ml-5 mr-5 text-gray'><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></span>
 					@if ($tag)
 						<a href="{{ route('web.tour') }}">Paket Tour</a>
+						<span class='ml-5 mr-5 text-gray'><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></span>
 						<span>{{$tag->tag}}</span>
 					@else
 						<span>Paket Tour</span>
