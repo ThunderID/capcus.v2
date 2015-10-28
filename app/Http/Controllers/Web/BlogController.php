@@ -121,8 +121,16 @@ class BlogController extends Controller {
 		// ------------------------------------------------------------------------------------------------------------
 		// QUERY PAKET TOUR TERBARU
 		// ------------------------------------------------------------------------------------------------------------
-		return Cache::remember('8_latest_tours', 30, function(){ 
-			return \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'travel_agent', 'travel_agent.images')->published()->latest()->limit(8)->get();
+		$latest_tours = Cache::remember('8_latest_tours_by_different_travel_agent', 30, function(){ 
+			return \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'places.images','travel_agent', 'travel_agent.images', 'images')
+						->has('schedules')
+						->select('tours.*')
+						->join('travel_agencies', 'travel_agencies.id', '=', 'travel_agent_id')
+						->published()
+						->latest('tours.created_at')
+						->limit(8)
+						->groupBy('travel_agent_id')
+						->get();
 		});
 	}
 
