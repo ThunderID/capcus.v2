@@ -14,13 +14,13 @@
 		<div class="row">
 			{{-- PLAN YOUR DREAM TOUR --}}
 			<div class="hidden-xs hidden-sm col-md-2 col-lg-2 pr-0" >
-				<div class='bg-yellow text-center pt-lg pb-lg text-lg'>
+				<div class='bg-seamless text-black text-center pt-lg pb-lg text-lg'>
 					<span class='text-light'>PLAN YOUR</span>
 					<br><span class='text-bold'>DREAM<br>TOUR</span>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 hidden-md hidden-lg" >
-				<div class='bg-yellow text-center pt-sm pb-sm text-lg'>
+				<div class='bg-seamless text-black text-center pt-sm pb-sm text-lg'>
 					<span class='text-light'>PLAN YOUR</span>
 					<br><span class='text-bold'>DREAM TOUR</span>
 				</div>
@@ -32,20 +32,24 @@
 					<div class='bg-light-grey'>
 						<div class='ml-sm mr-sm '>
 								<div class="row">
-									<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pr-0 mt-md mb-md">
-										{!! Form::select('tujuan', ['semua-tujuan' => "Semua Tujuan"] + $destination_list->lists('long_name', 'path_slug')->toArray(), $default_filter_tujuan, ['class' => 'form-control select2'])!!}
+									<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 pr-0 mt-md mb-md">
+										{!! Form::select('tujuan', ['semua-tujuan' => "Semua Tujuan"] + $destination_list->lists('name', 'path_slug')->toArray(), $default_filter_tujuan, ['class' => 'form-control select2', 'style' => 'width:100%'])!!}
 									</div>
 
 									<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pr-0 mt-md mb-md">
-										{!! Form::select('budget', $budget_list, $default_filter_budget ? $default_filter_budget : '', ['class' => 'select2 form-control']) !!}
+										{!! Form::select('budget', $budget_list, $default_filter_budget ? $default_filter_budget : '', ['class' => 'select2 form-control', 'style' => 'width:100%']) !!}
 									</div>
 
-									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mt-md mb-md">
+									<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mt-md mb-md">
 										<div class="input-daterange input-group" id="datepicker">
 											{!! Form::text('keberangkatan_sejak', Input::old('keberangkatan_sejak', \Carbon\Carbon::now()->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl awal keberangkatan']) !!}
 											<span class="input-group-addon">s/d</span>
 											{!! Form::text('keberangkatan_hingga', Input::old('keberangkatan_hingga', \Carbon\Carbon::now()->addMonth(3)->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl akhir keberangkatan']) !!}
 										</div>
+									</div>
+
+									<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pl-0 mt-md mb-md">
+										{!! Form::select('travel_agent', ['semua-travel-agent' => "Semua"] + $travel_agent_list->lists('name', 'slug')->toArray(), $default_filter_travel_agent, ['class' => 'select2 form-control', 'style' => 'width:100%']) !!}
 									</div>
 								</div>
 						</div>
@@ -71,19 +75,20 @@
 				{!! Form::open(['url' => route('web.tour'), 'method' => 'GET']); !!}
 					<div class='bg-light-grey'>
 						<div class='ml-sm mr-sm pt-5 pb-md'>
-								<div class="clearfix mt-sm"></div>
-								{!! Form::select('tujuan', ['semua-tujuan' => "Semua Tujuan"] + $destination_list->lists('long_name', 'path_slug')->toArray(), $default_filter_tujuan, ['class' => 'form-control select2'])!!}
-								<div class="clearfix mt-sm"></div>
-								{!! Form::select('budget', $budget_list, $default_filter_budget ? $default_filter_budget : '', ['class' => 'select2 form-control']) !!}
-								<div class="row">
-									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-md mb-md">
-										<div class="input-daterange input-group" id="datepicker">
-											{!! Form::text('keberangkatan_sejak', Input::old('keberangkatan_sejak', \Carbon\Carbon::now()->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl awal keberangkatan']) !!}
-											<span class="input-group-addon">s/d</span>
-											{!! Form::text('keberangkatan_hingga', Input::old('keberangkatan_hingga', \Carbon\Carbon::now()->addMonth(3)->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl akhir keberangkatan']) !!}
-										</div>
+							<div class="clearfix mt-sm"></div>
+							{!! Form::select('tujuan', ['semua-tujuan' => "Semua Tujuan"] + $destination_list->lists('long_name', 'path_slug')->toArray(), $default_filter_tujuan, ['class' => 'form-control select2', 'style' => 'width:100%'])!!}
+							<div class="clearfix mt-sm"></div>
+							{!! Form::select('budget', $budget_list, $default_filter_budget ? $default_filter_budget : '', ['class' => 'select2 form-control', 'style' => 'width:100%']) !!}
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-md mb-md">
+									<div class="input-daterange input-group" id="datepicker">
+										{!! Form::text('keberangkatan_sejak', Input::old('keberangkatan_sejak', \Carbon\Carbon::now()->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl awal keberangkatan']) !!}
+										<span class="input-group-addon">s/d</span>
+										{!! Form::text('keberangkatan_hingga', Input::old('keberangkatan_hingga', \Carbon\Carbon::now()->addMonth(3)->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl akhir keberangkatan']) !!}
 									</div>
 								</div>
+							</div>
+							{!! Form::select('travel_agent', ['semua-travel-agent' => "Semua Agen"] + $travel_agent_list->lists('name', 'slug')->toArray(), $default_filter_travel_agent, ['class' => 'select2 form-control', 'style' => 'width:100%']) !!}
 						</div>
 					</div>
 					<div class='bg-white'>

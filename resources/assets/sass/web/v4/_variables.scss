@@ -73,12 +73,14 @@ $bg-seamless: "http://drive.thunder.id/file/public/3/1/2015/10/18/07/header-bg.p
    -moz-transform: color 0.5s;
     -ms-transform: color 0.5s;
      -o-transform: color 0.5s;
-        transform: color 0.5s; }
+        transform: color 0.5s; 
+}
 *:hover.text-hover-black	{ color: black !important; -webkit-transform: color 0.5s;
    -moz-transform: color 0.5s;
     -ms-transform: color 0.5s;
      -o-transform: color 0.5s;
-        transform: color 0.5s; }
+        transform: color 0.5s; 
+}
 
 // MODIFICATION
 .text-uppercase { text-transform: uppercase;}
