@@ -131,7 +131,7 @@ class HomeController extends Controller {
 		$this->layout->page->tour_shortcut 		= $this->tour_shortcut;
 
 		// 
-		$this->layout->title 					= "Capcus.id - Cari tour tidak lagi ribet";
+		$this->layout->title 					= "Capcus.id - Cari tour jadi mudah";
 		$this->layout->og['title'] 				= $this->layout->title;
 		$this->layout->og['type'] 				= 'website';
 		$this->layout->og['image'] 				= asset('images/logo-black.png');
