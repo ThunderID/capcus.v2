@@ -26,10 +26,10 @@
 		'destination_list'				=> $all_destinations,
 		'departure_list'				=> $departure_list,
 		'budget_list'					=> $budget_list,
-		'default_filter_travel_agent'	=> null,
-		'default_filter_tujuan'			=> null,
-		'default_filter_keberangkatan'	=> null,
-		'default_filter_budget'			=> null,
+		'default_filter_travel_agent'	=> $filters['travel_agent'],
+		'default_filter_tujuan'			=> $filters['tujuan'],
+		'default_filter_keberangkatan'	=> $filters['keberangkatan'],
+		'default_filter_budget'			=> $filters['budget'],
 		'default_start_date_ymd'		=> \Carbon\Carbon::now()->format('Ymd'),
 		'default_end_date_ymd'			=> \Carbon\Carbon::now()->addMonth(3)->endOfMonth()->format('Ymd'),
 	])
@@ -71,7 +71,7 @@
 
 				<p class='text-muted text-md text-light'>
 					@if ($tour_schedules_count > $max_data)
-						Ditemukan Lebih dari {{$max_data}} paket tour, Silahkan melakukan pencarian lebih spesifik untuk mempermudah perbandingan
+						Menampilkan 1-{{$max_data}} dari {{$tour_schedules_count}}. Untuk mempermudah silahkan lakukan pencarian lebih spesifik.
 					@else
 						Ditemukan {{$tour_schedules_count}} paket tour
 					@endif
