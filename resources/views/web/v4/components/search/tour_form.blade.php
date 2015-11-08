@@ -49,7 +49,7 @@
 									</div>
 
 									<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pl-0 mt-md mb-md">
-										{!! Form::select('travel_agent', ['semua-travel-agent' => "Semua"] + $travel_agent_list->lists('name', 'slug')->toArray(), $default_filter_travel_agent, ['class' => 'select2 form-control', 'style' => 'width:100%']) !!}
+										{!! Form::select('travel_agent', ['semua-travel-agent' => "Semua Travel Agent"] + $travel_agent_list->lists('name', 'slug')->toArray(), $default_filter_travel_agent, ['class' => 'select2 form-control', 'style' => 'width:100%']) !!}
 									</div>
 								</div>
 						</div>
