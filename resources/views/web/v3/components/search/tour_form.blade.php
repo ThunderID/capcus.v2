@@ -28,7 +28,7 @@
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 pr-0">	
 			<label class='text-black text-light'>Travel Agent</label>
-			{!! Form::select('travel_agent', ['semua-travel-agent' => "Semua"] + $travel_agent_list->lists('name', 'slug')->toArray(), $default_filter_travel_agent, ['class' => 'selectize']) !!}
+			{!! Form::select('travel_agent', ['semua-travel-agent' => "Semua Travel Agent"] + $travel_agent_list->lists('name', 'slug')->toArray(), $default_filter_travel_agent, ['class' => 'selectize']) !!}
 		</div>
 		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 			<p class='mt-lg'>
