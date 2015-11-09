@@ -7,6 +7,49 @@
 			throw new Exception($widget_name . ': ' . $x . ": Required", 1);
 		}
 	}
+
+	// TUJUAN
+	$filter_tujuan = $default_filter_tujuan->path_slug;
+	
+	// BUDGET
+	if ($default_filter_budget['min'] == 20000000)
+	{
+		$filter_budget = "20000000";
+	}
+	elseif ($default_filter_budget)
+	{
+		$filter_budget = $default_filter_budget['min'] . '-' . $default_filter_budget['max'];
+	}
+	else
+	{
+		$filter_budget = null;
+	}
+
+	// KEBERANGKATAN
+	if ($default_filter_keberangkatan['from'])
+	{
+		$filter_keberangkatan_from = $default_filter_keberangkatan['from']->format('d-m-Y');
+	}
+	else
+	{
+		$filter_keberangkatan_from = \Carbon\Carbon::now()->format('d-m-Y');
+	}
+
+	if ($default_filter_keberangkatan['to'])
+	{
+		$filter_keberangkatan_to = $default_filter_keberangkatan['to']->format('d-m-Y');
+	}
+	else
+	{
+		$filter_keberangkatan_to = \Carbon\Carbon::now()->format('d-m-Y');
+	}
+
+	// TRAVEL AGENT
+	if ($default_filter_travel_agent)
+	{
+		$filter_travel_agent = $default_filter_travel_agent->slug;
+	}
+
 ?>
 
 <div class="row">
@@ -33,23 +76,23 @@
 						<div class='ml-sm mr-sm '>
 								<div class="row">
 									<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 pr-0 mt-md mb-md">
-										{!! Form::select('tujuan', ['semua-tujuan' => "Semua Tujuan"] + $destination_list->lists('name', 'path_slug')->toArray(), $default_filter_tujuan, ['class' => 'form-control select2', 'style' => 'width:100%'])!!}
+										{!! Form::select('tujuan', ['semua-tujuan' => "Semua Tujuan"] + $destination_list->lists('name', 'path_slug')->toArray(), $filter_tujuan, ['class' => 'form-control select2', 'style' => 'width:100%'])!!}
 									</div>
 
 									<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pr-0 mt-md mb-md">
-										{!! Form::select('budget', $budget_list, $default_filter_budget ? $default_filter_budget : '', ['class' => 'select2 form-control', 'style' => 'width:100%']) !!}
+										{!! Form::select('budget', $budget_list, $filter_budget, ['class' => 'select2 form-control', 'style' => 'width:100%']) !!}
 									</div>
 
 									<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mt-md mb-md">
 										<div class="input-daterange input-group" id="datepicker">
-											{!! Form::text('keberangkatan_sejak', Input::old('keberangkatan_sejak', \Carbon\Carbon::now()->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl awal keberangkatan']) !!}
+											{!! Form::text('keberangkatan_sejak', $filter_keberangkatan_from, ['class' => 'form-control input-sm', 'placeholder' => 'tgl awal keberangkatan']) !!}
 											<span class="input-group-addon">s/d</span>
-											{!! Form::text('keberangkatan_hingga', Input::old('keberangkatan_hingga', \Carbon\Carbon::now()->addMonth(3)->format('d-m-Y')), ['class' => 'form-control input-sm', 'placeholder' => 'tgl akhir keberangkatan']) !!}
+											{!! Form::text('keberangkatan_hingga', $filter_keberangkatan_to, ['class' => 'form-control input-sm', 'placeholder' => 'tgl akhir keberangkatan']) !!}
 										</div>
 									</div>
 
 									<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pl-0 mt-md mb-md">
-										{!! Form::select('travel_agent', ['semua-travel-agent' => "Semua Travel Agent"] + $travel_agent_list->lists('name', 'slug')->toArray(), $default_filter_travel_agent, ['class' => 'select2 form-control', 'style' => 'width:100%']) !!}
+										{!! Form::select('travel_agent', ['semua-travel-agent' => "Semua Travel Agent"] + $travel_agent_list->lists('name', 'slug')->toArray(), $filter_travel_agent, ['class' => 'select2 form-control', 'style' => 'width:100%']) !!}
 									</div>
 								</div>
 						</div>

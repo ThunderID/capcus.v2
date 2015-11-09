@@ -99,7 +99,7 @@ abstract class Controller extends BaseController {
 		$this->tour_shortcut['destinations']['Domestik'] 	= route('web.tour', ['travel_agent' => 'semua-travel-agent', 'destination' => 'domestik']);
 		$this->tour_shortcut['tags']['#Religius'] 			= route('web.tour.tag', ['tag' => 'religius']);
 		$this->tour_shortcut['tags']['#Adventure'] 			= route('web.tour.tag', ['tag' => 'adventure']);
-		$this->tour_shortcut['tags']['#Pantai'] 			= route('web.tour.tag', ['tag' => 'pantai']);
+		$this->tour_shortcut['tags']['#HoneyMoon'] 			= route('web.tour.tag', ['tag' => 'honeymoon']);
 
 		ksort($this->tour_shortcut['destinations']);
 		ksort($this->tour_shortcut['tags']);
