@@ -34,7 +34,7 @@
 					</div>
 				</div>
 
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-black text-md mt-lg">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-black text-md mt-lg text-light">
 					{!! $article->content !!}
 				</div>
 			</main>

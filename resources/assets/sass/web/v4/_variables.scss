@@ -59,10 +59,10 @@ $bg-seamless: "http://drive.thunder.id/file/public/3/1/2015/10/18/07/header-bg.p
 .text-xs 		{ font-size:$text-xs;}
 
 // WEIGHT
-.text-xbold 	{ font-weight: 800	;}
-.text-bold 		{ font-weight: 700	;}
-.text-normal 	{ font-weight: 400	;}
-.text-light 	{ font-weight: 300	;}
+.text-xbold 	{ font-weight: 800 !important	;}
+.text-bold 		{ font-weight: 700 !important	;}
+.text-normal 	{ font-weight: 400 !important	;}
+.text-light 	{ font-weight: 200 !important	;}
 
 // COLOR
 .text-white			{ color: white !important; }
@@ -115,6 +115,8 @@ $bg-seamless: "http://drive.thunder.id/file/public/3/1/2015/10/18/07/header-bg.p
 
 
 a:hover { text-decoration: none !important;}
+
+p { line-height: 2em;}
 
 // ------------------------------------------------------------------------------------------------------------------
 // 
