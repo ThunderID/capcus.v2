@@ -22,11 +22,19 @@
 		<div class="row">
 			<main>
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<h1 class='mb-5 pb-0'>{{$article->title}}</h1>
-					<span class='text-gray'>{{ $article->published_at->diffForHumans() }} . {{$article->writer->name}}</span>
+					<h1 class='mb-5 pb-0 hidden-xs hidden-sm'>{{$article->title}}</h1>
+					<h1 class='mb-5 pb-0 hidden-lg hidden-md text-center'>{{$article->title}}</h1>
+					
+					<div class='text-gray hidden-xs hidden-sm'>{{ $article->published_at->diffForHumans() }} . {{$article->writer->name}}</div>
+					<div class='text-gray hidden-md hidden-lg text-center'>{{ $article->published_at->diffForHumans() }} . {{$article->writer->name}}</div>
+
+					<div class='text-center mt-sm fullwidth hidden-lg hidden-md'>
+						<!-- Go to www.addthis.com/dashboard to customize your tools -->
+						<div class="addthis_sharing_toolbox"></div>
+					</div>
 				</div>
 
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-black text-md">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-black text-md mt-lg">
 					{!! $article->content !!}
 				</div>
 			</main>
