@@ -117,11 +117,11 @@
 			<div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
 				{!! Form::open(['url' => route('web.tour'), 'method' => 'GET']); !!}
 					<div class='bg-light-grey'>
-						<div class='ml-sm mr-sm pt-5 pb-md'>
+						<div class='ml-sm mr-sm pt-5 pb-md relative'>
 							<div class="clearfix mt-sm"></div>
 							{!! Form::select('tujuan', ['semua-tujuan' => "Semua Tujuan"] + $destination_list->lists('long_name', 'path_slug')->toArray(), $default_filter_tujuan, ['class' => 'form-control select2', 'style' => 'width:100%'])!!}
 							<div class="clearfix mt-sm"></div>
-							{!! Form::select('budget', $budget_list, $default_filter_budget ? $default_filter_budget : '', ['class' => 'select2 form-control', 'style' => 'width:100%']) !!}
+							{!! Form::select('budget', $budget_list, $default_filter_budget ? $default_filter_budget : '', ['class' => 'select2', 'style' => 'width:100%']) !!}
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-md mb-md">
 									<div class="input-daterange input-group" id="datepicker">
