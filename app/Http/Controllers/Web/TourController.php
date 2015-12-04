@@ -228,6 +228,13 @@ class TourController extends Controller {
 				try {
 					$keberangkatan_from = \Carbon\Carbon::createFromFormat('Ymd', $keberangkatan_from);
 					$keberangkatan_to = \Carbon\Carbon::createFromFormat('Ymd', $keberangkatan_to);
+
+					if ($keberangkatan_from->gt($keberangkatan_to))
+					{
+						$tmp = $keberangkatan_from;
+						$keberangkatan_from = $keberangkatan_to;
+						$keberangkatan_to = $tmp;
+					}
 				} catch (Exception $e) {
 					App::abort(404);				
 				}	
