@@ -52,7 +52,7 @@ class FindPublishedTourSchedules extends Job implements SelfHandling
 		//------------------------------------------------------------------------------------------------
 		$rules['destination_id']    = [];
 		$rules['departure_from']    = ['date'];
-		$rules['departure_to']      = ['date', 'after:departure_from'];
+		$rules['departure_to']      = ['date'];
 		$rules['budget_min']        = ['numeric', 'min:0'];
 		$rules['budget_max']        = ['numeric', 'min:0'];
 		$rules['travel_agent_id']   = ['numeric', 'min:0'];
@@ -69,8 +69,17 @@ class FindPublishedTourSchedules extends Job implements SelfHandling
 		// HANDLE FILTERS
 		//------------------------------------------------------------------------------------------------
 		$q = $this->model->newInstance();
-		
+
 		// Filter By Departure
+		$departure_from = \Carbon\Carbon::parse($this->filters['departure_from']);
+		$departure_to 	= \Carbon\Carbon::parse($this->filters['departure_to']);
+		if ($departure_from->lt($departure_to))
+		{
+			$tmp = $this->filters['departure_from'];
+			$this->filters['departure_from'] 	= $this->filters['departure_to'];
+			$this->filters['departure_to'] 		= $tmp;
+		}
+
 		$q = $q->scheduledbetween($this->filters['departure_from'], $this->filters['departure_to']);
 
 		// Filter By Budget
