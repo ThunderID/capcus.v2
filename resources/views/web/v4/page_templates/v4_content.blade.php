@@ -91,7 +91,7 @@
 		<script src="{{ asset('plugins/jquery.snow.min.1.0.js')}}"></script>
 		<script>
 			$(document).ready( function(){
-				$.fn.snow({ minSize: 5, maxSize: 50, newOn: 300, flakeColor: '#f5f5ff' });
+				$.fn.snow({ minSize: 5, maxSize: 50, newOn: 800, flakeColor: '#f5f5ff' });
 			});
 		</script>
 	@endif
