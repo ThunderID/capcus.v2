@@ -87,6 +87,10 @@
 		});
 	</script>
 
+
+@stop
+
+{{-- 
 	@if (\Carbon\Carbon::now()->lte(\Carbon\Carbon::parse('2016-02-01')))
 		<script src="{{ asset('plugins/jquery.snow.min.1.0.js')}}"></script>
 		<script>
@@ -95,5 +99,4 @@
 			});
 		</script>
 	@endif
-
-@stop
+ --}}
