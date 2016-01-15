@@ -95,7 +95,6 @@ class HomeController extends Controller {
 				if (!$latest_tours[$x->travel_agent_id] && count($latest_tours) <= 8)
 				{
 					$latest_tours[$x->travel_agent_id] = $x;
-					echo implode(',',array_keys($latest_tours)) .'<br>';
 				}
 			}
 
