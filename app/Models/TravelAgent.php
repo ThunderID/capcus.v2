@@ -58,7 +58,21 @@ class TravelAgent extends BaseModel
 	// ----------------------------------------------------------------------
 
 	// ----------------------------------------------------------------------
-	// ACCESSORS
+	// FUNCTION
 	// ----------------------------------------------------------------------
+	static function latestTour($skip, $limit = 10)
+	{
+		// return TravelAgent::with('images')
+		// 		->join('tours', 'tours.travel_agent_id', '=', 'travel_agencies.id')
+		// 		->join('tour_schedules', 'tour_schedules.tour_id', '=', 'tours.id')
+		// 		->where('tour_schedules.departure', '>', \Carbon\Carbon::now())
+		// 		->whereNotNull('tours.published_at')
+		// 		->where('tours.published_at', '<=', \Carbon\Carbon::now())
+		// 		->latest('tours.created_at')
+		// 		->skip(max(0, $skip))
+		// 		->take(max(1, min(10, $limit)));
+
+
+	}
 
 }

@@ -81,15 +81,31 @@ class HomeController extends Controller {
 		// QUERY PAKET TOUR TERBARU
 		// ------------------------------------------------------------------------------------------------------------
 		$latest_tours = Cache::remember('8_latest_tours_by_different_travel_agent', 30, function(){ 
-			return \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'places.images','travel_agent', 'travel_agent.images', 'images')
+			$all_latest_tours = \App\Tour::with('destinations', 'schedules', 'destinations.images', 'places', 'places.images','travel_agent', 'travel_agent.images', 'images')
 						->has('schedules')
 						->select('tours.*')
 						->join('travel_agencies', 'travel_agencies.id', '=', 'travel_agent_id')
 						->published()
 						->latest('tours.created_at')
-						->limit(8)
-						->groupBy('travel_agent_id')
+						->limit(30)
 						->get();
+			$latest_tours = [];
+			foreach ($all_latest_tours as $x)
+			{
+				if (!$latest_tours[$x->travel_agent_id] && count($latest_tours) <= 8)
+				{
+					$latest_tours[$x->travel_agent_id] = $x;
+					echo implode(',',array_keys($latest_tours)) .'<br>';
+				}
+			}
+
+			$converted_to_collection = new Collection;
+			foreach ($latest_tours as $x)
+			{
+				$converted_to_collection->push($x);
+			}
+
+			return $converted_to_collection;
 		});
 
 		// ------------------------------------------------------------------------------------------------------------
